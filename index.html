@@ -355,12 +355,19 @@ img{height:auto}
 .hero h1 .u{background:linear-gradient(transparent 72%,rgba(255,193,7,.45) 72%);padding-inline:2px}
 @media (max-width:700px){.orbit{order:-1;margin:0 auto;width:190px}}
 html[lang="ur"] .hero h1 .u{background:none}
+.brand,.tohome{cursor:pointer}.tohome{color:inherit;text-decoration:none;display:inline-block}.orbit .tohome{display:contents}
+.brand:focus-visible,.tohome:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:10px}
 /* gold brand title + eyebrow */
 .eyebrow{background:linear-gradient(90deg,rgba(255,215,90,.22),rgba(212,160,23,.12));color:#ffe08a;border:1px solid rgba(255,208,80,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.04),0 4px 14px rgba(0,0,0,.18)}
 .hero h1 .u{background:linear-gradient(180deg,#fff6cf 0%,#ffd86b 38%,#f0b429 62%,#c98a12 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-inline:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
 html[lang="ur"] .hero h1 .u{background:linear-gradient(180deg,#fff6cf 0%,#ffd86b 38%,#f0b429 62%,#c98a12 100%);-webkit-background-clip:text;background-clip:text}
 .hero h1::after{content:"";display:block;width:90px;height:3px;margin-top:10px;border-radius:3px;background:linear-gradient(90deg,#c98a12,#ffd86b,#c98a12)}
 @media (max-width:700px){.hero h1::after{margin-inline:auto}}
+/* Urdu: Nastaleeq needs room above (lam/alif) and no underline crowding the letters */
+html[lang="ur"] .hero h1{margin-top:22px;line-height:2.3;padding-top:6px}
+html[lang="ur"] .hero h1 .u{display:inline-block;padding:.35em .1em .25em;line-height:2.1}
+html[lang="ur"] .hero h1::after{display:none}
+html[lang="ur"] .hero .alt{margin-top:2px}
 @media (forced-colors:active){.hero h1 .u{color:CanvasText;-webkit-text-fill-color:CanvasText;background:none}}
 .quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
 @media (max-width:700px){.quick{grid-template-columns:repeat(2,minmax(0,1fr))}.qa{flex-direction:column;align-items:flex-start;gap:6px}}
@@ -769,7 +776,7 @@ function vHome() {
   <section class="hero" style="padding:0"><div class="wrap">
     <div>
       <span class="eyebrow">${t('heroEyebrow')}</span>
-      <h1><span class="u">${t('heroTitle')}</span></h1>
+      <h1><a class="tohome" href="#home"><span class="u">${t('heroTitle')}</span></a></h1>
       <p class="alt">${t('heroAlt')}</p>
       <p class="lead">${t('heroSub')}</p>
       <div class="motto"><span>Learn</span><span>Practice</span><span>Excel</span></div>
@@ -782,7 +789,7 @@ function vHome() {
     </div>
     <div class="orbit" aria-hidden="false">
       <svg class="rings" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><ellipse cx="100" cy="100" rx="96" ry="38"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(60 100 100)"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(120 100 100)"/><circle class="e" cx="196" cy="100" r="4"/><circle class="e" cx="52" cy="17" r="3.5"/><circle class="e" cx="52" cy="183" r="3"/></svg>
-      <img class="logo" src="assets/logo.jpg" alt="Al Hassan Science Academy logo" width="240" height="240" fetchpriority="high">
+      <a class="tohome" href="#home" aria-label="Home"><img class="logo" src="assets/logo.jpg" alt="Al Hassan Science Academy logo" width="240" height="240" fetchpriority="high"></a>
     </div>
   </div></section>
   <div class="wrap"><div class="stats">
@@ -1041,6 +1048,13 @@ try { if (localStorage.getItem('ahsa-site-big')) { document.documentElement.clas
 try { const th = localStorage.getItem('ahsa-site-theme'); if (th) document.documentElement.dataset.theme = th; } catch (e) {}
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); window.__bip = e; document.querySelectorAll('#installBtn').forEach(b => b.hidden = false); });
 window.addEventListener('hashchange', route);
+/* logo / academy name -> Home page, always (even if already on #home) */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a.brand, a.tohome'); if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+  e.preventDefault();
+  if (location.hash !== '#home') location.hash = 'home'; else route();
+  window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+});
 route();
 </script>
 
