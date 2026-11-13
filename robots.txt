@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shakeelh23-sys.github.io/ahsa/sitemap.xml
