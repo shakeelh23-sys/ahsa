@@ -409,6 +409,57 @@ html[lang="ur"] .streak span{font-size:13.5px}
 .view{animation:fade .25s ease}
 @keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.view{animation:none}html{scroll-behavior:auto}}
+
+/* ===== Tutors (اساتذہ) ===== */
+@media (min-width:821px) and (max-width:1200px){.nav a{padding:7px 8px;font-size:14px}.nav{gap:0}}
+.tut-on{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:center;background:linear-gradient(135deg,var(--navy-2),var(--navy));color:#fff;border:0;position:relative;overflow:hidden}
+.tut-on::after{content:"";position:absolute;inset-inline-end:-60px;top:-60px;width:180px;height:180px;border-radius:50%;border:2px dashed rgba(255,193,7,.35);pointer-events:none}
+.tut-on h3{color:#fff;margin:4px 0 6px}.tut-on p{color:var(--hero-mut);margin:0}
+.tut-on .kick{color:var(--gold)}
+.tut-on form{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px;display:grid;gap:8px;position:relative;z-index:1}
+.tut-on select{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.tut-on .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tut-on .pts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tut-on .pts span{background:rgba(255,255,255,.12);border-radius:999px;padding:3px 11px;font-size:13.5px;font-weight:700}
+@media (max-width:760px){.tut-on{grid-template-columns:minmax(0,1fr)}}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tut{display:flex;flex-direction:column;gap:10px}
+.tut .hd{display:flex;gap:12px;align-items:center}
+.tut .av{width:56px;height:56px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--soft);color:var(--navy);font:800 20px/1 var(--f-head);border:2px solid var(--gold);object-fit:cover}
+.tut h3{margin:0;font-size:18px}
+.tut dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;font-size:14.5px}
+.tut dt{color:var(--mut);font-weight:700}.tut dd{margin:0;text-align:start;unicode-bidi:plaintext;color:var(--ink);min-width:0;overflow-wrap:anywhere}
+.tut .row{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.mbadge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:2px 10px;font:700 12.5px/1.6 var(--f-body);background:var(--soft);color:var(--navy)}
+.mbadge.on{background:#dcf7e6;color:#0b6b33}
+html[data-theme="dark"] .mbadge.on{background:#123f27;color:#7ee2a6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mbadge.on{background:#123f27;color:#7ee2a6}}
+.mbadge.on::before{content:"";width:7px;height:7px;border-radius:50%;background:#1fa855}
+html[lang="ur"] .mbadge{font:400 12px/1.9 var(--f-ur)}
+.vnote{display:flex;gap:10px;align-items:flex-start;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--line));background:color-mix(in srgb,var(--gold) 10%,var(--card));border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14.5px;margin-top:12px}
+.vnote .i{flex:none;font-size:18px;line-height:1.4}
+.soon.tsoon{padding:26px 18px}
+.soon.tsoon .em{font-size:34px;display:block;margin-bottom:6px}
+form.wa .req{color:#d33}
+form.wa fieldset{border:0;padding:0;margin:0;min-width:0}
+form.wa legend{font-weight:700;margin:10px 0 4px;padding:0}
+.ckg{display:flex;flex-wrap:wrap;gap:6px}
+.ckg label{display:inline-flex !important;align-items:center;gap:6px;margin:0 !important;font-weight:700;border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:14px}
+.ckg input{width:auto !important;margin:0;accent-color:var(--navy)}
+.ckg label:has(input:checked){border-color:var(--navy);background:color-mix(in srgb,var(--navy) 12%,var(--card));color:var(--navy)}
+html[data-theme="dark"] .ckg label:has(input:checked){color:#bcd2ff}
+html[lang="ur"] .ckg label{font:400 14px/1.9 var(--f-ur);padding-block:2px}
+form.wa .two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media (max-width:560px){form.wa .two{grid-template-columns:minmax(0,1fr)}}
+.reg-steps{display:grid;gap:8px;margin:0;padding:0;list-style:none;counter-reset:rs}
+.reg-steps li{counter-increment:rs;display:flex;gap:10px;align-items:flex-start;color:var(--ink)}
+.reg-steps li::before{content:counter(rs);flex:none;width:26px;height:26px;border-radius:50%;background:var(--gold);color:#1d1600;display:grid;place-items:center;font-weight:800;font-size:14px;line-height:1}
+.tstrip{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.tstrip .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--soft);color:var(--navy);flex:none}
+.tstrip .ic svg{width:26px;height:26px}
+.tstrip .tx{display:flex;gap:12px;align-items:center;min-width:0;flex:1 1 260px}
+.tstrip .tx h3{margin:0}.tstrip .tx p{margin:2px 0 0;color:var(--mut)}
+.tstrip .cta{margin:0;display:flex;gap:8px;flex-wrap:wrap}
 </style>
 
 </head>
@@ -451,6 +502,10 @@ html[lang="ur"] .streak span{font-size:13.5px}
         <a class="btn sm fb" href="https://www.facebook.com/share/1Hut4s8zxY/" target="_blank" rel="noopener">Facebook</a>
         <a class="btn sm map" href="https://maps.app.goo.gl/MLtLrsaFgS5ertMY9" target="_blank" rel="noopener">Google Maps</a>
       </div>
+      <div class="links" style="margin-top:8px">
+        <a class="btn sm gold" href="#tutors" data-t="tutorsFoot"></a>
+        <a class="btn sm line" href="#tutors-register" data-t="regFoot"></a>
+      </div>
     </div>
     <div class="sig">
       Shakeel Hassan<br>SST Science<br>GHS MC Boys, Muslim Bazar Mianwali.<br>💬 03146011672
@@ -461,6 +516,7 @@ html[lang="ur"] .streak span{font-size:13.5px}
 <nav class="tabs" id="tabs" aria-label="Sections"></nav>
 <a class="fab" href="https://wa.me/923146011672" target="_blank" rel="noopener" aria-label="WhatsApp 03146011672"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
+<script src="tutors.js"></script>
 <script>
 /* ===== Academy details: edit here. Items marked sample:true are placeholders until Shakeel sends the real details. ===== */
 const ACADEMY = {
@@ -602,6 +658,30 @@ const T = {
  share:['واٹس ایپ پر شیئر کریں','Share on WhatsApp'], fav:['محفوظ کریں','Save'], unfav:['محفوظ سے ہٹائیں','Remove from saved'],
  myFav:['میری محفوظ فائلیں','My saved files'], myRecent:['حال ہی میں ڈاؤن لوڈ کی گئی','Recently downloaded'], clearRecent:['فہرست صاف کریں','Clear list'],
  streakDays:['دن مسلسل','day streak'], solved:['حل کیے','solved'], correct:['درست','correct'],
+ tutors:['اساتذہ','Tutors'],
+ tutTitle:['ہمارے اساتذہ','Our Tutors'], tutP:['اکیڈمی اور آن لائن پڑھانے والے تصدیق شدہ اساتذہ۔','Verified tutors who teach at the academy and online.'],
+ tutSoonT:['جلد آ رہا ہے','Coming soon'], tutSoonP:['اساتذہ کی فہرست جلد یہاں شائع کی جائے گی۔ کیا آپ پڑھاتے ہیں؟ نیچے رجسٹر کریں۔','The tutors list will be published here soon. Do you teach? Register below.'],
+ tutReg:['بطور استاد رجسٹر ہوں','Register as a Tutor'], tutRegP:['اپنی معلومات لکھیں، بٹن دبائیں اور واٹس ایپ پر بھیج دیں۔','Fill in your details, press the button and send it on WhatsApp.'],
+ verNote:['ویب سائٹ پر صرف وہی اساتذہ دکھائے جاتے ہیں جن کی اکیڈمی نے تصدیق کر لی ہو۔ رجسٹریشن کے بعد اکیڈمی آپ سے رابطہ کرے گی۔','Only tutors verified by the academy are listed on this website. After you register, the academy will contact you.'],
+ onKick:['آن لائن ٹیوشن','Online tuition'], onT:['آن لائن ٹیوٹر چاہیے؟','Need an online tutor?'],
+ onP:['گھر بیٹھے موبائل پر پڑھیں۔ جماعت اور مضمون منتخب کریں، اکیڈمی آپ کو مناسب استاد سے ملا دے گی۔','Study from home on your phone. Choose class and subject, and the academy will match you with a suitable tutor.'],
+ onReq:['واٹس ایپ پر درخواست بھیجیں','Send request on WhatsApp'], anySubj:['کوئی بھی مضمون','Any subject'],
+ tmAll:['تمام','All'], tmOnline:['آن لائن','Online'], tmAcademy:['اکیڈمی میں','At academy'], tmBoth:['دونوں (آن لائن + اکیڈمی)','Both (online + academy)'],
+ noTutM:['اس قسم کے اساتذہ ابھی دستیاب نہیں۔','No tutors of this type yet.'],
+ tEdu:['تعلیم','Education'], tSubj:['مضامین','Subjects'], tCls:['جماعتیں','Classes'], tExp:['تجربہ','Experience'], tArea:['علاقہ','Area'], tPlat:['پلیٹ فارم','Platform'],
+ tAsk:['اس استاد کے بارے میں پوچھیں','Ask about this tutor'],
+ rName:['پورا نام','Full name'], rPhone:['فون / واٹس ایپ نمبر','Phone / WhatsApp number'], rEdu:['تعلیم','Education'], rEduPh:['مثلاً: ایم ایس سی فزکس، بی ایس میتھ','e.g. M.Sc Physics, BS Math'],
+ rSubj:['کون سے مضامین پڑھاتے ہیں؟','Subjects you teach'], rOther:['دیگر مضمون','Other subject'], rCls:['کون سی جماعتیں؟','Classes'],
+ rExp:['تدریسی تجربہ','Teaching experience'], rArea:['علاقہ / شہر','Area / city'], rAreaPh:['مثلاً: دلیوالی، میانوالی','e.g. Dillewali, Mianwali'],
+ rMode:['کیسے پڑھائیں گے؟','How will you teach?'], rPlat:['آن لائن پلیٹ فارم','Preferred online platform'], rMsg:['مزید معلومات (اختیاری)','More details (optional)'],
+ rMsgPh:['مثلاً: شام 5 کے بعد فارغ ہوں','e.g. Free after 5 pm'], rSend:['واٹس ایپ پر رجسٹریشن بھیجیں','Send registration on WhatsApp'],
+ rNeedSubj:['کم از کم ایک مضمون منتخب کریں','Select at least one subject'], rNeedCls:['کم از کم ایک جماعت منتخب کریں','Select at least one class'],
+ exp0:['ایک سال سے کم','Less than 1 year'], exp1:['1 سے 2 سال','1 to 2 years'], exp3:['3 سے 5 سال','3 to 5 years'], exp6:['5 سال سے زیادہ','More than 5 years'],
+ howReg:['رجسٹریشن کیسے ہوگی؟','How registration works'], hr1:['فارم بھر کر واٹس ایپ پر بھیجیں۔','Fill the form and send it on WhatsApp.'],
+ hr2:['اکیڈمی آپ سے رابطہ کر کے تعلیم اور تجربہ کی تصدیق کرے گی۔','The academy contacts you and verifies your education and experience.'],
+ hr3:['تصدیق کے بعد آپ کا نام «ہمارے اساتذہ» میں شامل ہو جائے گا۔','After verification your name is added to “Our Tutors”.'],
+ stripT:['اساتذہ اور آن لائن ٹیوشن','Tutors & online tuition'], stripP:['تصدیق شدہ اساتذہ دیکھیں یا بطور استاد رجسٹر ہوں۔','See verified tutors or register as a tutor.'],
+ tutorsFoot:['ہمارے اساتذہ','Our Tutors'], regFoot:['بطور استاد رجسٹر ہوں','Register as a Tutor'],
  footAbout:['جماعت 8 تا 12 کے مفت نوٹس اور MCQs ٹیسٹ۔','Free notes and MCQs tests for Class 8 to 12.'],
 };
 let lang = 'en', view = 'home', cls = '9', subj = null, medium = 'all', q = '', hq = '';
@@ -621,6 +701,7 @@ const I = {
  star:'<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
  papers:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 7h6"/>',
  weekly:'<path d="M9 11l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/>',
+ tutors:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5M22 9v6"/>',
  dl:'<path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/>',
  play:'<path d="M8 5v14l11-7z"/>',
  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
@@ -629,7 +710,7 @@ const I = {
 };
 const svg = (k, fill) => `<svg viewBox="0 0 24 24" fill="${fill ? 'currentColor' : 'none'}" stroke="${fill ? 'none' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`;
 const WA = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>`;
-const VIEWS = ['home','notes','tests','papers','about','contact'];
+const VIEWS = ['home','notes','tests','papers','tutors','about','contact'];
 const TABS = ['home','notes','tests','papers','contact'];
 
 function chrome() {
@@ -828,6 +909,7 @@ function vHome() {
     <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2>${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
     ${classCards()}
   </div></section>
+  ${tutorStrip()}
   <section style="padding-top:0"><div class="wrap">
     <div class="teach"><img src="assets/logo.jpg" alt="AHSA logo" width="132" height="132">
       <div><div class="kick">${t('teachTitle')}</div><h3 class="en-only" style="margin-top:4px">Shakeel Hassan</h3><p class="role en-only">SST Science · GHS MC Boys, Muslim Bazar Mianwali.</p><p style="margin:6px 0 0;color:var(--mut)">${t('teachP')}</p>
@@ -993,10 +1075,113 @@ function vContact() {
   </div></section>`;
 }
 
+/* ===== Tutors view: list comes from tutors.js (window.TUTORS) ===== */
+const TUTORS = Array.isArray(window.TUTORS) ? window.TUTORS : [];
+let tmode = 'all';
+const TSUBJ = [['Math','ریاضی'],['Physics','فزکس'],['Chemistry','کیمسٹری'],['Biology','بیالوجی'],['Computer','کمپیوٹر'],['English','انگلش'],['Urdu','اردو'],['Islamiat','اسلامیات'],['Pak Studies','مطالعہ پاکستان'],['Tarjuma tul Quran','ترجمۃ القرآن'],['General Science','جنرل سائنس']];
+const TCLS = ['8','9','10','11','12'];
+const TMODES = {online:['tmOnline','Online / آن لائن'], academy:['tmAcademy','At academy / اکیڈمی میں'], both:['tmBoth','Both (Online + Academy) / دونوں']};
+const tf = (x, k) => esc(lang === 'ur' && x[k + 'Ur'] ? x[k + 'Ur'] : (x[k] || x[k + 'Ur'] || ''));
+const isOnline = x => x.mode === 'online' || x.mode === 'both';
+function modeBadge(m) { if (!TMODES[m]) return ''; return `<span class="mbadge ${m !== 'academy' ? 'on' : ''}">${t(TMODES[m][0])}</span>`; }
+function tutorCard(x) {
+  const nm = tf(x, 'name'), ini = String(x.name || x.nameUr || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  const rows = [['tEdu','education'],['tSubj','subjects'],['tCls','classes'],['tExp','experience'],['tArea','area']].filter(r => tf(x, r[1])).map(r => `<dt>${t(r[0])}</dt><dd dir="auto">${tf(x, r[1])}</dd>`).join('')
+    + (isOnline(x) && x.platforms ? `<dt>${t('tPlat')}</dt><dd dir="ltr">${esc(x.platforms)}</dd>` : '');
+  const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} کے بارے میں معلومات چاہییں۔\nI want details about tutor ${x.name || x.nameUr || ''}.`;
+  return `<div class="card tut lift"><div class="hd">${x.photo ? `<img class="av" src="${esc(x.photo)}" alt="" loading="lazy">` : `<span class="av">${esc(ini)}</span>`}
+    <div style="min-width:0"><h3>${nm}</h3>${modeBadge(x.mode)}</div></div>
+    <dl>${rows}</dl>
+    <div class="row"><a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${t('tAsk')}</a></div></div>`;
+}
+function tutorList() {
+  if (!TUTORS.length) return `<div class="soon tsoon"><span class="em">👩‍🏫👨‍🏫</span><b>${t('tutSoonT')}</b>${t('tutSoonP')}
+    <div class="cta" style="justify-content:center;margin-top:12px"><a class="btn sm gold" href="#tutors-register">${svg('tutors')}${t('tutReg')}</a></div></div>`;
+  const L2 = TUTORS.filter(x => tmode === 'all' || (tmode === 'online' ? isOnline(x) : (x.mode === 'academy' || x.mode === 'both' || !x.mode)));
+  return `<div class="seg" role="group" aria-label="Mode" style="margin-bottom:12px">${['all','online','academy'].map(m => `<button type="button" data-tm="${m}" aria-pressed="${tmode === m}">${t(m === 'all' ? 'tmAll' : m === 'online' ? 'tmOnline' : 'tmAcademy')}${m === 'online' ? ` (${TUTORS.filter(isOnline).length})` : ''}</button>`).join('')}</div>
+    ${L2.length ? `<div class="tgrid">${L2.map(tutorCard).join('')}</div>` : `<div class="empty">${t('noTutM')}</div>`}`;
+}
+function vTutors() {
+  const sOpt = `<option value="">${t('anySubj')}</option>` + TSUBJ.map(s => `<option value="${s[0]} (${s[1]})">${lang === 'ur' ? s[1] : s[0]}</option>`).join('');
+  const cOpt = TCLS.map(c => `<option value="${c}" ${c === '9' ? 'selected' : ''}>${L('جماعت ', 'Class ')}${c}</option>`).join('');
+  return `<section><div class="wrap view">
+    <div class="sh"><div><div class="kick">${t('tutors')}</div><h2>${t('tutTitle')}</h2><p>${t('tutP')}</p></div></div>
+    <div class="card tut-on">
+      <div><div class="kick">💻 ${t('onKick')}</div><h3>${t('onT')}</h3><p>${t('onP')}</p>
+        <div class="pts"><span>WhatsApp</span><span>Zoom</span><span>Google Meet</span></div></div>
+      <form id="needForm">
+        <div class="two"><select id="nClass" aria-label="${t('fClass')}">${cOpt}</select><select id="nSubj" aria-label="${t('tSubj')}">${sOpt}</select></div>
+        <select id="nMode" aria-label="${t('rMode')}">${['online','academy','both'].map(m => `<option value="${m}">${t(TMODES[m][0])}</option>`).join('')}</select>
+        <button class="btn wa" type="submit">${WA}${t('onReq')}</button>
+      </form>
+    </div>
+    <div style="margin-top:18px">${tutorList()}</div>
+    <div class="vnote"><span class="i">✅</span><span>${t('verNote')}</span></div>
+
+    <div class="sh" id="tutReg" style="margin-top:30px;scroll-margin-top:80px"><div><div class="kick">${t('tutors')}</div><h2>${t('tutReg')}</h2><p>${t('tutRegP')}</p></div></div>
+    <div class="grid g2" style="align-items:start">
+      <form class="card wa" id="tForm" novalidate>
+        <div class="two">
+          <div><label for="rName">${t('rName')} <span class="req">*</span></label><input id="rName" autocomplete="name" required></div>
+          <div><label for="rPhone">${t('rPhone')} <span class="req">*</span></label><input id="rPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="03xx-xxxxxxx" required></div>
+        </div>
+        <label for="rEdu">${t('rEdu')} <span class="req">*</span></label><input id="rEdu" placeholder="${t('rEduPh')}" required>
+        <fieldset><legend>${t('rSubj')} <span class="req">*</span></legend><div class="ckg">${TSUBJ.map(s => `<label><input type="checkbox" name="rSub" value="${s[0]} (${s[1]})">${lang === 'ur' ? s[1] : s[0]}</label>`).join('')}</div></fieldset>
+        <label for="rOther">${t('rOther')}</label><input id="rOther">
+        <fieldset><legend>${t('rCls')} <span class="req">*</span></legend><div class="ckg">${TCLS.map(c => `<label><input type="checkbox" name="rCl" value="${c}">${L('جماعت ', 'Class ')}${c}</label>`).join('')}</div></fieldset>
+        <div class="two">
+          <div><label for="rExp">${t('rExp')}</label><select id="rExp">${['exp0','exp1','exp3','exp6'].map(k => `<option value="${T[k][1]} / ${T[k][0]}">${t(k)}</option>`).join('')}</select></div>
+          <div><label for="rArea">${t('rArea')}</label><input id="rArea" placeholder="${t('rAreaPh')}"></div>
+        </div>
+        <fieldset><legend>${t('rMode')} <span class="req">*</span></legend><div class="ckg">${['online','academy','both'].map(m => `<label><input type="radio" name="rMode" value="${m}" ${m === 'both' ? 'checked' : ''}>${t(TMODES[m][0])}</label>`).join('')}</div></fieldset>
+        <fieldset id="platBox"><legend>${t('rPlat')}</legend><div class="ckg">${['WhatsApp','Zoom','Google Meet'].map(p => `<label><input type="checkbox" name="rPl" value="${p}" ${p === 'WhatsApp' ? 'checked' : ''}>${p}</label>`).join('')}</div></fieldset>
+        <label for="rMsg">${t('rMsg')}</label><textarea id="rMsg" placeholder="${t('rMsgPh')}"></textarea>
+        <div class="cta" style="margin-top:14px"><button class="btn wa" type="submit">${WA}${t('rSend')}</button></div>
+        <p class="hint">${t('fHint')}</p>
+      </form>
+      <div class="card"><h3>${t('howReg')}</h3><ol class="reg-steps"><li>${t('hr1')}</li><li>${t('hr2')}</li><li>${t('hr3')}</li></ol>
+        <div class="vnote"><span class="i">✅</span><span>${t('verNote')}</span></div></div>
+    </div>
+  </div></section>`;
+}
+function tutorStrip() {
+  return `<section style="padding-top:0"><div class="wrap"><div class="card tstrip">
+    <div class="tx"><span class="ic">${svg('tutors')}</span><div style="min-width:0"><h3>${t('stripT')}</h3><p>${t('stripP')}</p></div></div>
+    <div class="cta"><a class="btn sm navy" href="#tutors">${t('tutTitle')}</a><a class="btn sm gold" href="#tutors-register">${t('tutReg')}</a></div>
+  </div></div></section>`;
+}
+function openWA(txt) { const a = document.createElement('a'); a.href = 'https://wa.me/' + ACADEMY.wa + '?text=' + encodeURIComponent(txt); a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); }
+document.addEventListener('click', e => { const a = e.target.closest('a[href="#tutors-register"]'); if (a && location.hash === '#tutors-register') { e.preventDefault(); route(); } });
+document.addEventListener('click', e => { const b = e.target.closest('button[data-tm]'); if (!b) return; tmode = b.dataset.tm; render(); });
+document.addEventListener('change', e => { if (e.target.name === 'rMode') { const pb = document.getElementById('platBox'); if (pb) pb.hidden = e.target.value === 'academy'; } });
+document.addEventListener('submit', e => {
+  const f = e.target;
+  if (f.id === 'needForm') { e.preventDefault();
+    const sb = document.getElementById('nSubj').value, md = document.getElementById('nMode').value;
+    openWA(`السلام علیکم سر! مجھے ٹیوٹر چاہیے۔\nAssalam o Alaikum Sir! I need a tutor.\n\nجماعت / Class: ${document.getElementById('nClass').value}\nمضمون / Subject: ${sb || 'Any / کوئی بھی'}\nطریقہ / Mode: ${TMODES[md][1]}`);
+    return; }
+  if (f.id !== 'tForm') return; e.preventDefault();
+  const v = id => document.getElementById(id).value.trim();
+  for (const id of ['rName','rPhone','rEdu']) { if (!v(id)) { const el = document.getElementById(id); el.focus(); toast('* ' + t(id)); return; } }
+  const subs = [...f.querySelectorAll('input[name=rSub]:checked')].map(x => x.value); if (v('rOther')) subs.push(v('rOther'));
+  if (!subs.length) { toast(t('rNeedSubj')); return; }
+  const cls = [...f.querySelectorAll('input[name=rCl]:checked')].map(x => x.value); if (!cls.length) { toast(t('rNeedCls')); return; }
+  const md = (f.querySelector('input[name=rMode]:checked') || {}).value || 'both';
+  const pl = [...f.querySelectorAll('input[name=rPl]:checked')].map(x => x.value);
+  const lines = [
+    'السلام علیکم سر! میں AHSA میں بطور استاد رجسٹر ہونا چاہتا/چاہتی ہوں۔', 'Assalam o Alaikum Sir! I want to register as a tutor at AHSA.', '',
+    'نام / Name: ' + v('rName'), 'فون / Phone: ' + v('rPhone'), 'تعلیم / Education: ' + v('rEdu'),
+    'مضامین / Subjects: ' + subs.join(', '), 'جماعتیں / Classes: ' + cls.join(', '),
+    'تجربہ / Experience: ' + v('rExp'), v('rArea') ? 'علاقہ / Area: ' + v('rArea') : '',
+    'طریقہ / Teaching mode: ' + TMODES[md][1], md !== 'academy' && pl.length ? 'آن لائن پلیٹ فارم / Platform: ' + pl.join(', ') : '',
+    v('rMsg') ? 'مزید / Note: ' + v('rMsg') : ''];
+  openWA(lines.filter((x, i) => x || i === 2).join('\n'));
+});
+
 function render(scroll) {
   chrome();
   const app = document.getElementById('app');
-  app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, about: vAbout, contact: vContact}[view]();
+  app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact}[view]();
   if (scroll) window.scrollTo(0, 0);
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.__counted = true;
@@ -1009,6 +1194,7 @@ function route() {
   const h = location.hash.slice(1);
   const m = h.match(/^notes-(8|9t|9|10|11|12)(?:-(em|um))?(?:-([a-z]+))?$/);
   if (m) { view = 'notes'; cls = m[1]; subj = m[3] || null; q = ''; medium = m[2] ? m[2].toUpperCase() : 'all'; }
+  else if (h === 'tutors-register') { view = 'tutors'; render(); const r = document.getElementById('tutReg'); if (r) r.scrollIntoView({block: 'start'}); return; }
   else { view = VIEWS.includes(h) || h === 'weekly' ? h : 'home'; if (view === 'weekly') { wAns = {}; wDone = false; } }
   render(true);
 }
