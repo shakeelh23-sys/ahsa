@@ -51,7 +51,7 @@ window.TUTORS = [
     photo: 'assets/tutors/najeeb-ullah.jpg'
   },
   {
-    name: 'Mrs Sajjad',               nameUr: 'مسز سجاد',
+    name: 'Shazia Sajjad',             nameUr: 'شازیہ سجاد',
     education: 'Masters and B.Ed',    educationUr: 'ماسٹرز اور بی ایڈ',
     subjects: 'Physics, Chemistry, Math, Science',
     subjectsUr: 'فزکس، کیمسٹری، ریاضی، سائنس',
@@ -59,7 +59,7 @@ window.TUTORS = [
     experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
     area: 'Dillewali',                areaUr: 'دلیوالی',
     modes: ['online', 'academy'],     platforms: '',
-    photo: 'assets/tutors/mrs-sajjad.svg'
+    photo: 'assets/tutors/shazia-sajjad.svg'
   },
   {
     name: 'Humaira Hayat',            nameUr: 'حمیرا حیات',
