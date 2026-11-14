@@ -1,14 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 60 220 220" width="320" height="320">
-  <rect width="320" height="320" fill="#e8eef8"/>
-  <!-- shoulders / dress -->
-  <path d="M40 320 C48 250 100 222 160 222 C220 222 272 250 280 320 Z" fill="#0b2e6b"/>
-  <!-- dupatta / hijab around head and neck -->
-  <path d="M160 58 C108 58 84 100 86 146 C88 190 104 232 160 248 C216 232 232 190 234 146 C236 100 212 58 160 58 Z" fill="#1d4f9e"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6dc"/><stop offset="1" stop-color="#ffe3a8"/></linearGradient>
+    <linearGradient id="hj" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f8f8a"/><stop offset="1" stop-color="#1f6f6b"/></linearGradient>
+    <linearGradient id="dr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e46a8c"/><stop offset="1" stop-color="#c94f73"/></linearGradient>
+    <radialGradient id="sk" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#f6d2b3"/><stop offset="1" stop-color="#e9b892"/></radialGradient>
+  </defs>
+  <rect width="320" height="320" fill="url(#bg)"/>
+  <circle cx="60" cy="70" r="6" fill="#ffd36b"/><circle cx="268" cy="90" r="4" fill="#ffd36b"/><circle cx="250" cy="48" r="7" fill="#fff" opacity=".7"/>
+  <!-- body / dress -->
+  <path d="M52 330 C58 262 104 236 160 236 C216 236 262 262 268 330 Z" fill="url(#dr)"/>
+  <!-- hijab drape -->
+  <path d="M160 52 C100 52 74 100 76 150 C78 200 96 246 160 262 C224 246 242 200 244 150 C246 100 220 52 160 52 Z" fill="url(#hj)"/>
+  <path d="M104 230 C124 252 196 252 216 230 C210 262 190 280 160 282 C130 280 110 262 104 230 Z" fill="#2a837e"/>
   <!-- face -->
-  <ellipse cx="160" cy="150" rx="46" ry="56" fill="#d9b48f"/>
-  <!-- dupatta front fold over forehead -->
-  <path d="M110 128 C116 92 138 80 160 80 C182 80 204 92 210 128 C196 108 180 102 160 102 C140 102 124 108 110 128 Z" fill="#1d4f9e"/>
-  <!-- book -->
-  <rect x="122" y="262" width="76" height="40" rx="4" fill="#f5b800"/>
-  <rect x="158" y="262" width="4" height="40" fill="#c99700"/>
+  <ellipse cx="160" cy="152" rx="50" ry="58" fill="url(#sk)"/>
+  <!-- hijab rim over forehead -->
+  <path d="M106 140 C108 96 134 82 160 82 C186 82 212 96 214 140 C200 112 182 104 160 104 C138 104 120 112 106 140 Z" fill="url(#hj)"/>
+  <path d="M108 128 C118 104 140 96 160 96 C180 96 202 104 212 128" fill="none" stroke="#7fd1c9" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+  <!-- eyebrows -->
+  <path d="M128 132 Q138 126 148 131" fill="none" stroke="#5a3a2a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M172 131 Q182 126 192 132" fill="none" stroke="#5a3a2a" stroke-width="3" stroke-linecap="round"/>
+  <!-- happy eyes -->
+  <path d="M129 148 Q138 140 147 148" fill="none" stroke="#3b2418" stroke-width="4" stroke-linecap="round"/>
+  <path d="M173 148 Q182 140 191 148" fill="none" stroke="#3b2418" stroke-width="4" stroke-linecap="round"/>
+  <!-- cheeks -->
+  <ellipse cx="128" cy="168" rx="11" ry="7" fill="#f29aa8" opacity=".55"/>
+  <ellipse cx="192" cy="168" rx="11" ry="7" fill="#f29aa8" opacity=".55"/>
+  <!-- nose + smile -->
+  <path d="M160 152 Q156 164 162 166" fill="none" stroke="#c98f6c" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M142 178 Q160 194 178 178" fill="#fff" stroke="#b5485f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- book held -->
+  <g transform="translate(160 292) rotate(-6)">
+    <rect x="-46" y="-26" width="92" height="40" rx="5" fill="#0b3d91"/>
+    <rect x="-42" y="-23" width="40" height="33" rx="2" fill="#fff"/>
+    <rect x="2" y="-23" width="40" height="33" rx="2" fill="#fff"/>
+    <path d="M-36 -14h28M-36 -6h28M-36 2h20M8 -14h28M8 -6h28M8 2h20" stroke="#ffc107" stroke-width="3" stroke-linecap="round"/>
+  </g>
 </svg>

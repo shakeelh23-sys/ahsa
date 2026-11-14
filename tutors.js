@@ -45,6 +45,7 @@ window.TUTORS = [
     subjectsUr: 'فزکس، کیمسٹری، ریاضی، سائنس',
     classes: '8 to 10',               classesUr: '8 تا 10',
     experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
+    area: 'Dillewali',                areaUr: 'دلیوالی',
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/mrs-sajjad.svg'
   },
