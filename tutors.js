@@ -93,6 +93,16 @@ window.TUTORS = [
     modes: [],                        platforms: '',
     photo: 'assets/tutors/shahnaz-habib.svg'
   },
+  {
+    name: 'Amaar Yasir Shah',         nameUr: 'عمار یاسر شاہ',
+    education: 'M.Phil Chemistry',    educationUr: 'ایم فل کیمسٹری',
+    subjects: 'Chemistry',            subjectsUr: 'کیمسٹری',
+    classes: '9 to 12',               classesUr: '9 تا 12',
+    experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
+    area: 'Dillewali, Mianwali',      areaUr: 'دلیوالی، میانوالی',
+    modes: ['online', 'academy'],     platforms: 'WhatsApp',
+    photo: 'assets/tutors/amaar-yasir-shah.webp?v=1'
+  },
   // {
   //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
   //   education: 'M.Sc Physics',        educationUr: 'ایم ایس سی فزکس',
