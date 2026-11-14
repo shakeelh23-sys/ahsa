@@ -75,6 +75,16 @@ window.TUTORS = [
     modes: ['online', 'home'],        platforms: 'Zoom',
     photo: 'assets/tutors/umar-farooq.webp?v=1'
   },
+  {
+    name: 'Shahzad Hassan',           nameUr: 'شہزاد حسن',
+    education: 'M.Sc Mathematics',    educationUr: 'ایم ایس سی ریاضی',
+    subjects: 'Mathematics',
+    subjectsUr: 'ریاضی',
+    classes: '8 to 10',               classesUr: '8 تا 10',
+    experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
+    modes: ['online'],                platforms: 'WhatsApp, Zoom, Google Meet',
+    photo: 'assets/tutors/shahzad-hassan.webp?v=1'
+  },
   // {
   //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
   //   education: 'M.Sc Physics',        educationUr: 'ایم ایس سی فزکس',
