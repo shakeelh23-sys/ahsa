@@ -38,4 +38,14 @@ window.TUTORS = [
     modes: ['online', 'academy'],     platforms: 'WhatsApp',
     photo: 'assets/tutors/najeeb-ullah.jpg'
   },
+  {
+    name: 'Mrs Sajjad',               nameUr: 'مسز سجاد',
+    education: 'Masters',             educationUr: 'ماسٹرز',
+    subjects: 'Physics, Chemistry, Math, Science',
+    subjectsUr: 'فزکس، کیمسٹری، ریاضی، سائنس',
+    classes: '8 to 10',               classesUr: '8 تا 10',
+    experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
+    modes: [],                        platforms: '',
+    photo: ''
+  },
 ];

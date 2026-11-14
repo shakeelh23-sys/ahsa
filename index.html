@@ -1219,13 +1219,13 @@ const NMODES = [['online','mOnline'],['academy','mAcademy'],['home','mHome']];
 const NTIMES = ['tmAft','tmEve','tmMorn','tmAny'];
 const both = k => T[k][0] + ' / ' + T[k][1];
 const TMODES = {online:['tmOnline','Online / آن لائن'], academy:['tmAcademy','At academy / اکیڈمی میں'], home:['tmHome','Home tuition / گھر پر'], both:['tmBoth','Both (Online + Academy) / دونوں']};
-const modesOf = x => Array.isArray(x.modes) && x.modes.length ? x.modes : x.mode === 'both' ? ['online','academy'] : x.mode ? [x.mode] : ['academy'];
+const modesOf = x => Array.isArray(x.modes) ? x.modes : x.mode === 'both' ? ['online','academy'] : x.mode ? [x.mode] : ['academy'];
 const tf = (x, k) => esc(lang === 'ur' && x[k + 'Ur'] ? x[k + 'Ur'] : (x[k] || x[k + 'Ur'] || ''));
 const isOnline = x => modesOf(x).includes('online');
 const hasMode = (x, m) => modesOf(x).includes(m);
 function modeBadge(x) { return `<div class="mbs">${modesOf(x).filter(m => TMODES[m]).map(m => `<span class="mbadge ${m}">${m === 'home' ? '🏠 ' : m === 'online' ? '💻 ' : '🏫 '}${t(TMODES[m][0])}</span>`).join('')}</div>`; }
 function tutorCard(x) {
-  const nm = tf(x, 'name'), ini = String(x.name || x.nameUr || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  const nm = tf(x, 'name'), ini = String(x.name || x.nameUr || '?').trim().split(/\s+/).filter((w, i, a) => a.length < 2 || !/^(mrs?|miss|ms|dr|sir|prof)\.?$/i.test(w)).map(w => w[0]).slice(0, 2).join('').toUpperCase();
   const rows = [['tEdu','education'],['tSubj','subjects'],['tCls','classes'],['tExp','experience'],['tArea','area']].filter(r => tf(x, r[1])).map(r => `<dt>${t(r[0])}</dt><dd dir="auto">${tf(x, r[1])}</dd>`).join('')
     + (isOnline(x) && x.platforms ? `<dt>${t('tPlat')}</dt><dd dir="ltr">${esc(x.platforms)}</dd>` : '');
   const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} کے بارے میں معلومات چاہییں۔\nI want details about tutor ${x.name || x.nameUr || ''}.` + (x.subjects || x.subjectsUr ? `\nمضامین / Subjects: ${[x.subjectsUr, x.subjects].filter(Boolean).join(' / ')}` : '');
