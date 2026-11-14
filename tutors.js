@@ -27,7 +27,7 @@ window.TUTORS = [
     experience: '19 years',           experienceUr: '19 سال',
     area: 'Dillewali',                areaUr: 'دلیوالی',
     modes: ['online', 'academy'],     platforms: '',
-    photo: 'assets/shakeel-hassan.webp'
+    photo: 'assets/shakeel-hassan.webp?v=2'
   },
   {
     name: 'Najeeb Ullah',             nameUr: 'نجیب اللہ',
@@ -38,7 +38,7 @@ window.TUTORS = [
     experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
     area: 'Dillewali',                areaUr: 'دلیوالی',
     modes: ['online', 'academy'],     platforms: '',
-    photo: 'assets/tutors/najeeb-ullah.webp'
+    photo: 'assets/tutors/najeeb-ullah.webp?v=2'
   },
   {
     name: 'Humaira Hayat',            nameUr: 'حمیرا حیات',
