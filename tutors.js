@@ -29,16 +29,18 @@ window.TUTORS = [
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/shakeel-hassan.jpg'
   },
-  // {
-  //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
-  //   education: 'M.Sc Physics',        educationUr: 'ایم ایس سی فزکس',
-  //   subjects: 'Physics, Math',        subjectsUr: 'فزکس، ریاضی',
-  //   classes: '9 to 12',               classesUr: '9 تا 12',
-  //   experience: '5 years',            experienceUr: '5 سال',
-  //   area: 'Dillewali',                areaUr: 'دلیوالی',
-  //   modes: ['online', 'academy', 'home'],   platforms: 'WhatsApp, Zoom',
-  //   photo: ''
-  // },
+  {
+    name: 'Humaira Hayat',            nameUr: 'حمیرا حیات',
+    education: 'M.Phil Chemistry',    educationUr: 'ایم فل کیمسٹری',
+    subjects: 'Math, Chemistry',
+    subjectsUr: 'ریاضی، کیمسٹری',
+    classes: '8 to 12',               classesUr: '8 تا 12',
+    experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
+    area: 'Abbakhel, Mianwali',       areaUr: 'ابا خیل، میانوالی',
+    available: 'After 7 pm',          availableUr: 'شام 7 بجے کے بعد',
+    modes: ['online'],                platforms: '',
+    photo: 'assets/tutors/humaira-hayat.svg'
+  },
   {
     name: 'Najeeb Ullah',             nameUr: 'نجیب اللہ',
     education: 'M.Sc Mathematics and B.Ed',    educationUr: 'ایم ایس سی ریاضی اور بی ایڈ',
@@ -61,16 +63,14 @@ window.TUTORS = [
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/shazia-sajjad.svg'
   },
-  {
-    name: 'Humaira Hayat',            nameUr: 'حمیرا حیات',
-    education: 'M.Phil Chemistry',    educationUr: 'ایم فل کیمسٹری',
-    subjects: 'Math, Chemistry',
-    subjectsUr: 'ریاضی، کیمسٹری',
-    classes: '8 to 12',               classesUr: '8 تا 12',
-    experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
-    area: 'Abbakhel, Mianwali',       areaUr: 'ابا خیل، میانوالی',
-    available: 'After 7 pm',          availableUr: 'شام 7 بجے کے بعد',
-    modes: ['online'],                platforms: '',
-    photo: 'assets/tutors/humaira-hayat.svg'
-  },
+  // {
+  //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
+  //   education: 'M.Sc Physics',        educationUr: 'ایم ایس سی فزکس',
+  //   subjects: 'Physics, Math',        subjectsUr: 'فزکس، ریاضی',
+  //   classes: '9 to 12',               classesUr: '9 تا 12',
+  //   experience: '5 years',            experienceUr: '5 سال',
+  //   area: 'Dillewali',                areaUr: 'دلیوالی',
+  //   modes: ['online', 'academy', 'home'],   platforms: 'WhatsApp, Zoom',
+  //   photo: ''
+  // },
 ];
