@@ -41,7 +41,7 @@ window.TUTORS = [
   // },
   {
     name: 'Najeeb Ullah',             nameUr: 'نجیب اللہ',
-    education: 'M.Sc Mathematics and M.Ed',    educationUr: 'ایم ایس سی ریاضی اور ایم ایڈ',
+    education: 'M.Sc Mathematics and B.Ed',    educationUr: 'ایم ایس سی ریاضی اور بی ایڈ',
     subjects: 'Math, Physics',
     subjectsUr: 'ریاضی، فزکس',
     classes: '8 to 12',               classesUr: '8 تا 12',
