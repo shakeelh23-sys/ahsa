@@ -590,6 +590,9 @@ html[lang="ur"] .tsl b{font:700 17px/1.9 var(--f-ur)}html[lang="ur"] .tsl small,
 .tdots button{width:8px;height:8px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.35);cursor:pointer;transition:width .2s}
 .tdots button[aria-current]{width:22px;background:var(--gold)}
 .tnone{color:var(--hero-mut);margin:6px 0}
+/* logo at top of hero (not vertically centred against the tall left column) */
+@media (min-width:701px){.hero .wrap{align-items:start;padding-top:30px}.hero .orbit{margin-top:6px}}
+@media (max-width:700px){.hero .wrap{padding-top:12px}}
 #bigBtn{direction:ltr;unicode-bidi:isolate}
 #bigBtn[aria-pressed="true"]::after{content:" ✓"}
 @media (max-width:560px){html[lang="ur"] .annbar .annt{font-size:13.5px;line-height:1.9}}
@@ -1380,21 +1383,22 @@ function tutorShow() {
       <div class="ti">${row('tSubj', tf(x, 'subjects'))}${row('tCls', tf(x, 'classes'))}${row('tEdu', tf(x, 'education'))}</div>
       <a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${L('اس استاد سے رابطہ کریں', 'Contact this tutor')}</a></div>`; }).join('');
   return `<div class="tshow" aria-label="${L('ہمارے اساتذہ', 'Our tutors')}"><div class="tsh"><b>👩‍🏫 ${L('ہمارے اساتذہ', 'Our tutors')}</b><a href="#tutors">${L('سب دیکھیں ←', 'See all →')}</a></div>${chips}
-    ${T.length ? `<div class="ttrack" id="tTrack" dir="ltr">${sl}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>` : `<p class="tnone">${L('اس زمرے میں ابھی کوئی استاد نہیں۔', 'No tutor in this group yet.')}</p>`}</div>`;
+    ${T.length ? `<div class="ttrack" id="tTrack" dir="ltr" data-n="${T.length}">${sl}${T.length > 1 ? sl.replace(/<div class="tsl"/g, '<div class="tsl clone" aria-hidden="true" inert') : ''}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>` : `<p class="tnone">${L('اس زمرے میں ابھی کوئی استاد نہیں۔', 'No tutor in this group yet.')}</p>`}</div>`;
 }
 document.addEventListener('click', e => { const b = e.target.closest('button[data-tsf]'); if (!b) return; tsF = b.dataset.tsf; const w = document.getElementById('tshowWrap'); if (w) { w.innerHTML = tutorShow(); tsHold = Date.now() + 8000; tsInit(); } });
 let tsTimer = null, tsHold = 0;
 function tsInit() {
   clearInterval(tsTimer); const tr = document.getElementById('tTrack'); if (!tr) return;
-  const n = tr.children.length, idx = () => Math.round(tr.scrollLeft / Math.max(1, tr.children[0].offsetWidth));
-  const go = i => tr.scrollTo({left: tr.children[(i + n) % n].offsetLeft - tr.children[0].offsetLeft, behavior: 'smooth'});
-  const dots = () => { const k = idx(); document.querySelectorAll('#tDots button').forEach((d, j) => d.toggleAttribute('aria-current', j === k)); };
-  tr.addEventListener('scroll', () => { clearTimeout(tr._d); tr._d = setTimeout(dots, 80); }, {passive: true});
+  const n = +tr.dataset.n || tr.children.length, step = () => Math.max(1, tr.children[1] ? tr.children[1].offsetLeft - tr.children[0].offsetLeft : tr.children[0].offsetWidth);
+  const idx = () => Math.round(tr.scrollLeft / step());
+  const jump = x => { tr.style.scrollSnapType = 'none'; tr.scrollLeft = x; requestAnimationFrame(() => { tr.style.scrollSnapType = ''; }); };
+  const go = i => tr.scrollTo({left: i * step(), behavior: 'smooth'});
+  const settle = () => { const k = idx(); if (n > 1 && k >= n) jump((k - n) * step()); document.querySelectorAll('#tDots button').forEach((d, j) => d.toggleAttribute('aria-current', j === k % n)); };
+  tr.addEventListener('scroll', () => { clearTimeout(tr._d); tr._d = setTimeout(settle, 140); }, {passive: true});
   ['pointerdown', 'touchstart', 'wheel'].forEach(ev => tr.addEventListener(ev, () => { tsHold = Date.now() + 8000; }, {passive: true}));
-  const dz = document.getElementById('tDots'); if (dz) dz.onclick = e => { const b = e.target.closest('button[data-td]'); if (b) { tsHold = Date.now() + 8000; go(+b.dataset.td); } };
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  tsTimer = setInterval(() => { if (!document.getElementById('tTrack')) { clearInterval(tsTimer); return; } if (document.hidden || Date.now() < tsHold) return;
-    const k = idx(), atEnd = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 4; go(atEnd ? 0 : k + 1); }, 3500);
+  const dz = document.getElementById('tDots'); if (dz) dz.onclick = e => { const b = e.target.closest('button[data-td]'); if (!b) return; tsHold = Date.now() + 8000; const k = idx() % n, j = +b.dataset.td; if (j < k) jump(k * step()); go(j < k ? n + j : j); };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || n < 2) return;
+  tsTimer = setInterval(() => { if (!document.getElementById('tTrack')) { clearInterval(tsTimer); return; } if (document.hidden || Date.now() < tsHold) return; go(idx() + 1); }, 3500);
 }
 function reqMark() { return ' <span class="req">*</span>'; }
 function openWA(txt) { const a = document.createElement('a'); a.href = 'https://wa.me/' + ACADEMY.wa + '?text=' + encodeURIComponent(txt); a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); }
