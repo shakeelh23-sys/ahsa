@@ -61,4 +61,16 @@ window.TUTORS = [
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/mrs-sajjad.svg'
   },
+  {
+    name: 'Humaira Hayat',            nameUr: 'حمیرا حیات',
+    education: 'M.Phil Chemistry',    educationUr: 'ایم فل کیمسٹری',
+    subjects: 'Math, Chemistry',
+    subjectsUr: 'ریاضی، کیمسٹری',
+    classes: '8 to 12',               classesUr: '8 تا 12',
+    experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
+    area: 'Abbakhel, Mianwali',       areaUr: 'ابا خیل، میانوالی',
+    available: 'After 7 pm',          availableUr: 'شام 7 بجے کے بعد',
+    modes: ['online', 'academy'],     platforms: '',
+    photo: 'assets/tutors/humaira-hayat.svg'
+  },
 ];
