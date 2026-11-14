@@ -26,7 +26,7 @@ window.TUTORS = [
     classes: '8 to 12',               classesUr: '8 تا 12',
     experience: '19 years',           experienceUr: '19 سال',
     area: 'Dillewali',                areaUr: 'دلیوالی',
-    modes: ['online', 'academy'],     platforms: 'WhatsApp',
+    modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/shakeel-hassan.jpg'
   },
   // {
@@ -47,7 +47,7 @@ window.TUTORS = [
     classes: '8 to 12',               classesUr: '8 تا 12',
     experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
     area: 'Dillewali',                areaUr: 'دلیوالی',
-    modes: ['online', 'academy'],     platforms: 'WhatsApp',
+    modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/najeeb-ullah.jpg'
   },
   {
