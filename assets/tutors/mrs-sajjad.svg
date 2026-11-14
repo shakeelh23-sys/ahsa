@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 10 340 340" width="320" height="320">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6dc"/><stop offset="1" stop-color="#ffe3a8"/></linearGradient>
     <linearGradient id="hj" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f8f8a"/><stop offset="1" stop-color="#1f6f6b"/></linearGradient>
     <linearGradient id="dr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e46a8c"/><stop offset="1" stop-color="#c94f73"/></linearGradient>
     <radialGradient id="sk" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#f6d2b3"/><stop offset="1" stop-color="#e9b892"/></radialGradient>
   </defs>
-  <rect width="320" height="320" fill="url(#bg)"/>
+  <rect x="-20" y="0" width="360" height="360" fill="url(#bg)"/>
   <circle cx="60" cy="70" r="6" fill="#ffd36b"/><circle cx="268" cy="90" r="4" fill="#ffd36b"/><circle cx="250" cy="48" r="7" fill="#fff" opacity=".7"/>
   <!-- body / dress -->
-  <path d="M52 330 C58 262 104 236 160 236 C216 236 262 262 268 330 Z" fill="url(#dr)"/>
+  <path d="M48 360 C54 262 104 236 160 236 C216 236 262 262 268 330 Z" fill="url(#dr)"/>
   <!-- hijab drape -->
   <path d="M160 52 C100 52 74 100 76 150 C78 200 96 246 160 262 C224 246 242 200 244 150 C246 100 220 52 160 52 Z" fill="url(#hj)"/>
   <path d="M104 230 C124 252 196 252 216 230 C210 262 190 280 160 282 C130 280 110 262 104 230 Z" fill="#2a837e"/>
