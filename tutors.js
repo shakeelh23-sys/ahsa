@@ -70,7 +70,7 @@ window.TUTORS = [
     experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
     area: 'Abbakhel, Mianwali',       areaUr: 'ابا خیل، میانوالی',
     available: 'After 7 pm',          availableUr: 'شام 7 بجے کے بعد',
-    modes: ['online', 'academy'],     platforms: '',
+    modes: ['online'],                platforms: '',
     photo: 'assets/tutors/humaira-hayat.svg'
   },
 ];
