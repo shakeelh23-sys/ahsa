@@ -55,8 +55,8 @@ window.TUTORS = [
   {
     name: 'Shazia Sajjad',             nameUr: 'شازیہ سجاد',
     education: 'Masters and B.Ed',    educationUr: 'ماسٹرز اور بی ایڈ',
-    subjects: 'Physics, Chemistry, Math, Science',
-    subjectsUr: 'فزکس، کیمسٹری، ریاضی، سائنس',
+    subjects: 'Math and Science',
+    subjectsUr: 'ریاضی اور سائنس',
     classes: '8 to 10',               classesUr: '8 تا 10',
     experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
     area: 'Dillewali',                areaUr: 'دلیوالی',
