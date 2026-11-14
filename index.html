@@ -561,6 +561,22 @@ html[lang="ur"] .instc b{font:700 16px/2 var(--f-ur)}
 .instc .btn{flex:none}
 @media (max-width:420px){.instc{flex-wrap:wrap}.instc .btn{width:100%;justify-content:center}}
 @media (max-width:560px){.annbar .annk .aw{display:none}.annbar .wrap{gap:8px;padding-block:6px}.annbar .annt{font-size:14px}}
+/* tutors slideshow */
+.tshow{margin-top:4px;flex:1 0 100%;width:100%;min-width:0}
+.ttrack{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.ttrack::-webkit-scrollbar{display:none}
+.tsl{flex:0 0 100%;scroll-snap-align:start;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:var(--soft);color:var(--ink);text-decoration:none;min-width:0}
+@media (min-width:700px){.tsl{flex-basis:calc(50% - 5px)}}
+@media (min-width:1000px){.tsl{flex-basis:calc(33.333% - 7px)}}
+.tsl img,.tsl .ini{width:64px;height:64px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;flex:none;background:var(--card)}
+.tsl .ini{display:grid;place-items:center;font:800 20px/1 var(--f-head);color:var(--navy)}
+.tsl .tt{min-width:0;display:flex;flex-direction:column}
+.tsl b{font:700 16px/1.35 var(--f-head);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tsl small{color:var(--mut);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[lang="ur"] .tsl b{font:700 16px/1.9 var(--f-ur)}html[lang="ur"] .tsl small{font:400 13.5px/1.9 var(--f-ur)}
+.tdots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.tdots button{width:8px;height:8px;padding:0;border:0;border-radius:999px;background:var(--line);cursor:pointer;transition:width .2s}
+.tdots button[aria-current]{width:22px;background:var(--navy)}
 #bigBtn{direction:ltr;unicode-bidi:isolate}
 #bigBtn[aria-pressed="true"]::after{content:" ✓"}
 @media (max-width:560px){html[lang="ur"] .annbar .annt{font-size:13.5px;line-height:1.9}}
@@ -1332,7 +1348,28 @@ function actionBand() {
   <div class="card tstrip">
     <div class="tx"><span class="ic">${svg('tutors')}</span><div style="min-width:0"><h3>${t('stripT')}</h3><p>${t('stripP')}</p></div></div>
     <div class="cta"><a class="btn sm navy" href="#tutors">${t('tutTitle')}</a><a class="btn sm line" href="#need-tutor" data-home="1">🏠 ${t('homeAsk')}</a><a class="btn sm gold" href="#tutors-register">${t('tutReg')}</a></div>
+    ${tutorShow()}
   </div></div>`;
+}
+/* ===== Tutors slideshow on Home (swipe; auto-plays every 3.5 s; pauses on touch; tap opens Our Tutors) ===== */
+function tutorShow() {
+  const T = (window.TUTORS || []).filter(x => x && (x.name || x.nameUr)); if (T.length < 2) return '';
+  const sl = T.map((x, i) => { const ini = String(x.name || x.nameUr).trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+    return `<a class="tsl" href="#tutors" dir="${lang === 'ur' ? 'rtl' : 'ltr'}" aria-label="${tf(x, 'name')}">${x.photo ? `<img src="${esc(x.photo)}" alt="" width="64" height="64" loading="lazy" decoding="async">` : `<span class="ini">${esc(ini)}</span>`}<span class="tt"><b>${tf(x, 'name')}</b><small>${tf(x, 'subjects')}</small></span></a>`; }).join('');
+  return `<div class="tshow" aria-label="${L('ہمارے اساتذہ', 'Our tutors')}"><div class="ttrack" id="tTrack" dir="ltr">${sl}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div></div>`;
+}
+let tsTimer = null, tsHold = 0;
+function tsInit() {
+  clearInterval(tsTimer); const tr = document.getElementById('tTrack'); if (!tr) return;
+  const n = tr.children.length, idx = () => Math.round(tr.scrollLeft / Math.max(1, tr.children[0].offsetWidth));
+  const go = i => tr.scrollTo({left: tr.children[(i + n) % n].offsetLeft - tr.children[0].offsetLeft, behavior: 'smooth'});
+  const dots = () => { const k = idx(); document.querySelectorAll('#tDots button').forEach((d, j) => d.toggleAttribute('aria-current', j === k)); };
+  tr.addEventListener('scroll', () => { clearTimeout(tr._d); tr._d = setTimeout(dots, 80); }, {passive: true});
+  ['pointerdown', 'touchstart', 'wheel'].forEach(ev => tr.addEventListener(ev, () => { tsHold = Date.now() + 8000; }, {passive: true}));
+  document.getElementById('tDots').onclick = e => { const b = e.target.closest('button[data-td]'); if (b) { tsHold = Date.now() + 8000; go(+b.dataset.td); } };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  tsTimer = setInterval(() => { if (!document.getElementById('tTrack')) { clearInterval(tsTimer); return; } if (document.hidden || Date.now() < tsHold) return;
+    const k = idx(), atEnd = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 4; go(atEnd ? 0 : k + 1); }, 3500);
 }
 function reqMark() { return ' <span class="req">*</span>'; }
 function openWA(txt) { const a = document.createElement('a'); a.href = 'https://wa.me/' + ACADEMY.wa + '?text=' + encodeURIComponent(txt); a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); }
@@ -1383,6 +1420,7 @@ function render(scroll) {
   const app = document.getElementById('app');
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact}[view]();
   if (scroll) window.scrollTo(0, 0);
+  if (view === 'home') tsInit(); else clearInterval(tsTimer);
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.__counted = true;
     document.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
