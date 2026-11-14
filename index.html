@@ -84,7 +84,8 @@ a{color:inherit}
   .tabs a svg{width:22px;height:22px}
   .tabs a[aria-current="page"]{color:var(--navy);background:var(--soft)}
   :root[data-theme="dark"] .tabs a[aria-current="page"]{color:var(--gold)}
-  main{padding-bottom:84px}
+  main{padding-bottom:0}
+  footer{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
   .fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tabs a[aria-current="page"]{color:var(--gold)}}
@@ -597,6 +598,9 @@ html[lang="ur"] .tsl b{font:700 17px/1.9 var(--f-ur)}html[lang="ur"] .tsl small,
 @media (min-width:701px){.hero .wrap{align-items:start;padding-top:30px}.hero .orbit{margin-top:6px}}
 @media (max-width:700px){.hero .wrap{padding-top:12px}}
 /* home v2 (decluttered) */
+#instWrap:empty{display:none}
+.atfoot .fab,.atfoot .hfab,.atfoot .hlabel{opacity:0;pointer-events:none;transform:scale(.6)}
+.fab,.hfab{transition:opacity .2s,transform .2s}
 .hv2 section:not(.hero){padding-block:clamp(36px,6vw,64px)}
 .hv2 section .kick{display:none}
 .hv2 .hero .wrap{padding-block:clamp(28px,6vw,56px) 80px}
@@ -1911,5 +1915,8 @@ html[lang="ur"] .shqr span{font:400 13px/2 var(--f-ur)}
 
 <script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{}))}</script>
 <!-- cloud edit test 2026-11-13 -->
+<script>/* hide floating buttons while the footer is on screen (footer has its own buttons) */
+(function(){try{const f=document.querySelector('footer');if(!f||!('IntersectionObserver' in window))return;new IntersectionObserver(es=>{document.body.classList.toggle('atfoot',es[0].isIntersecting)},{rootMargin:'0px 0px -40px 0px'}).observe(f)}catch(e){}})();
+</script>
 </body>
 </html>
