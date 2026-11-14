@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+  <rect width="320" height="320" fill="#e8eef8"/>
+  <!-- shoulders / dress -->
+  <path d="M40 320 C48 250 100 222 160 222 C220 222 272 250 280 320 Z" fill="#0b2e6b"/>
+  <!-- dupatta / hijab around head and neck -->
+  <path d="M160 58 C108 58 84 100 86 146 C88 190 104 232 160 248 C216 232 232 190 234 146 C236 100 212 58 160 58 Z" fill="#1d4f9e"/>
+  <!-- face -->
+  <ellipse cx="160" cy="150" rx="46" ry="56" fill="#d9b48f"/>
+  <!-- dupatta front fold over forehead -->
+  <path d="M110 128 C116 92 138 80 160 80 C182 80 204 92 210 128 C196 108 180 102 160 102 C140 102 124 108 110 128 Z" fill="#1d4f9e"/>
+  <!-- book -->
+  <rect x="122" y="262" width="76" height="40" rx="4" fill="#f5b800"/>
+  <rect x="158" y="262" width="4" height="40" fill="#c99700"/>
+</svg>
