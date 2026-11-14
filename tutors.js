@@ -63,6 +63,18 @@ window.TUTORS = [
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/shazia-sajjad.svg'
   },
+  {
+    name: 'Muhammad Umar Farooq',     nameUr: 'محمد عمر فاروق',
+    education: 'M.Phil Mathematics (University of Wah)',    educationUr: 'ایم فل ریاضی (یونیورسٹی آف واہ)',
+    subjects: 'Mathematics',
+    subjectsUr: 'ریاضی',
+    classes: '8 to 12',               classesUr: '8 تا 12',
+    experience: 'More than 5 years · Mathematics Lecturer, University of Mianwali and ARF College Mianwali',
+    experienceUr: '5 سال سے زیادہ · لیکچرر ریاضی، یونیورسٹی آف میانوالی اور اے آر ایف کالج میانوالی',
+    area: 'Mianwali',                 areaUr: 'میانوالی',
+    modes: ['online', 'home'],        platforms: 'Zoom',
+    photo: 'assets/tutors/umar-farooq.webp?v=1'
+  },
   // {
   //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
   //   education: 'M.Sc Physics',        educationUr: 'ایم ایس سی فزکس',
