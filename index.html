@@ -431,10 +431,20 @@ html[lang="ur"] .streak span{font-size:13.5px}
 .tut dt{color:var(--mut);font-weight:700}.tut dd{margin:0;text-align:start;unicode-bidi:plaintext;color:var(--ink);min-width:0;overflow-wrap:anywhere}
 .tut .row{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
 .mbadge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:2px 10px;font:700 12.5px/1.6 var(--f-body);background:var(--soft);color:var(--navy)}
-.mbadge.on{background:#dcf7e6;color:#0b6b33}
+.mbs{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px}
+.mbadge.online,.mbadge.on{background:#dcf7e6;color:#0b6b33}
+.mbadge.home{background:#fff3cd;color:#7a4b00}
+html[data-theme="dark"] .mbadge.home{background:#3d2f05;color:#ffd666}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mbadge.home{background:#3d2f05;color:#ffd666}}
+.homeav{display:flex;align-items:center;gap:12px;margin:0 0 14px;padding:12px 16px;border-radius:16px;background:linear-gradient(135deg,#fff8e1,#ffecb3);border:1px solid #ffd54f;color:#3b2a00;text-decoration:none}
+.homeav .hi{font-size:28px;flex:none}.homeav b{display:block;font-size:17px}.homeav small{display:block;color:#5c4400;margin-top:2px}.homeav .go{margin-inline-start:auto;font:700 26px/1 var(--f-body);flex:none}
+html[dir="rtl"] .homeav .go{transform:scaleX(-1)}
+html[lang="ur"] .homeav b{font:700 18px/1.9 var(--f-ur)} html[lang="ur"] .homeav small{font:400 14px/2 var(--f-ur)}
+.tseg{display:flex;flex-wrap:wrap;width:auto;max-width:100%;border-radius:18px}.tseg button{white-space:nowrap;flex:0 0 auto}
+.off.owide{grid-column:1/-1;text-decoration:none;color:inherit;border:1px solid #ffd54f;background:linear-gradient(135deg,var(--card),rgba(255,193,7,.12))}
 html[data-theme="dark"] .mbadge.on{background:#123f27;color:#7ee2a6}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mbadge.on{background:#123f27;color:#7ee2a6}}
-.mbadge.on::before{content:"";width:7px;height:7px;border-radius:50%;background:#1fa855}
+.mbadge.zz::before{content:"";width:7px;height:7px;border-radius:50%;background:#1fa855}
 html[lang="ur"] .mbadge{font:400 12px/1.9 var(--f-ur)}
 .vnote{display:flex;gap:10px;align-items:flex-start;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--line));background:color-mix(in srgb,var(--gold) 10%,var(--card));border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14.5px;margin-top:12px}
 .vnote .i{flex:none;font-size:18px;line-height:1.4}
@@ -589,7 +599,7 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 <nav class="tabs" id="tabs" aria-label="Sections"></nav>
 <a class="fab" href="https://wa.me/923146011672" target="_blank" rel="noopener" aria-label="WhatsApp 03146011672"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
-<script src="tutors.js?v=11"></script>
+<script src="tutors.js?v=13"></script>
 <script>
 /* ===== Academy details: edit here. Items marked sample:true are placeholders until Shakeel sends the real details. ===== */
 const ACADEMY = {
@@ -732,31 +742,33 @@ const T = {
  myFav:['میری محفوظ فائلیں','My saved files'], myRecent:['حال ہی میں ڈاؤن لوڈ کی گئی','Recently downloaded'], clearRecent:['فہرست صاف کریں','Clear list'],
  streakDays:['دن مسلسل','day streak'], solved:['حل کیے','solved'], correct:['درست','correct'],
  tutors:['اساتذہ','Tutors'],
- tutTitle:['ہمارے اساتذہ','Our Tutors'], tutP:['اکیڈمی اور آن لائن پڑھانے والے تصدیق شدہ اساتذہ۔','Verified tutors who teach at the academy and online.'],
+ tutTitle:['ہمارے اساتذہ','Our Tutors'], tutP:['تصدیق شدہ اساتذہ: آن لائن، اکیڈمی میں اور گھر پر (ہوم ٹیوشن)۔','Verified tutors: online, at the academy and at home (home tuition).'],
  tutSoonT:['جلد آ رہا ہے','Coming soon'], tutSoonP:['اساتذہ کی فہرست جلد یہاں شائع کی جائے گی۔ کیا آپ پڑھاتے ہیں؟ نیچے رجسٹر کریں۔','The tutors list will be published here soon. Do you teach? Register below.'],
  tutReg:['بطور استاد رجسٹر ہوں','Register as a Tutor'], tutRegP:['اپنی معلومات لکھیں، بٹن دبائیں اور واٹس ایپ پر بھیج دیں۔','Fill in your details, press the button and send it on WhatsApp.'],
  verNote:['ویب سائٹ پر صرف وہی اساتذہ دکھائے جاتے ہیں جن کی اکیڈمی نے تصدیق کر لی ہو۔ رجسٹریشن کے بعد اکیڈمی آپ سے رابطہ کرے گی۔','Only tutors verified by the academy are listed on this website. After you register, the academy will contact you.'],
- onKick:['آن لائن ٹیوشن','Online tuition'], onT:['آن لائن ٹیوٹر چاہیے؟','Need an online tutor?'],
+ onKick:['آن لائن ٹیوشن','Online tuition'], homeKick:['ہوم ٹیوشن','Home tuition'], onT:['آن لائن ٹیوٹر چاہیے؟','Need an online tutor?'],
  onP:['گھر بیٹھے موبائل پر پڑھیں۔ جماعت اور مضمون منتخب کریں، اکیڈمی آپ کو مناسب استاد سے ملا دے گی۔','Study from home on your phone. Choose class and subject, and the academy will match you with a suitable tutor.'],
  onReq:['واٹس ایپ پر درخواست بھیجیں','Send request on WhatsApp'], anySubj:['کوئی بھی مضمون','Any subject'],
- tmAll:['تمام','All'], tmOnline:['آن لائن','Online'], tmAcademy:['اکیڈمی میں','At academy'], tmBoth:['دونوں (آن لائن + اکیڈمی)','Both (online + academy)'],
+ tmAll:['تمام','All'], tmOnline:['آن لائن','Online'], tmAcademy:['اکیڈمی میں','At academy'], tmBoth:['دونوں (آن لائن + اکیڈمی)','Both (online + academy)'], tmHome:['گھر پر (ہوم ٹیوٹر)','Home tutor'], tmHomeF:['ہوم ٹیوٹر','Home tutors'],
+ homeAv:['ہوم ٹیوٹر بھی دستیاب ہیں','Home tutors also available'], homeAvP:['استاد آپ کے گھر آ کر پڑھائے گا۔ نیچے «ٹیوٹر چاہیے» فارم میں «گھر پر» چنیں اور واٹس ایپ پر بھیج دیں۔','A teacher comes to your home. In the “Need a Tutor” form below choose “At home” and send it on WhatsApp.'],
+ homeAsk:['ہوم ٹیوٹر کی درخواست','Request a home tutor'], noHomeM:['ہوم ٹیوٹر کے لیے «ٹیوٹر چاہیے» فارم میں «گھر پر» چن کر درخواست بھیجیں، اکیڈمی آپ کے علاقے کے مطابق استاد ڈھونڈ دے گی۔','For a home tutor, choose “At home” in the “Need a Tutor” form and send it; the academy will find a teacher for your area.'],
  noTutM:['اس قسم کے اساتذہ ابھی دستیاب نہیں۔','No tutors of this type yet.'],
  tEdu:['تعلیم','Education'], tSubj:['مضامین','Subjects'], tCls:['جماعتیں','Classes'], tExp:['تجربہ','Experience'], tArea:['علاقہ','Area'], tPlat:['پلیٹ فارم','Platform'],
  tAsk:['اس استاد کے بارے میں پوچھیں','Ask about this tutor'],
  rName:['پورا نام','Full name'], rPhone:['فون / واٹس ایپ نمبر','Phone / WhatsApp number'], rEdu:['تعلیم','Education'], rEduPh:['مثلاً: ایم ایس سی فزکس، بی ایس میتھ','e.g. M.Sc Physics, BS Math'],
  rSubj:['کون سے مضامین پڑھاتے ہیں؟','Subjects you teach'], rOther:['دیگر مضمون','Other subject'], rCls:['کون سی جماعتیں؟','Classes'],
  rExp:['تدریسی تجربہ','Teaching experience'], rArea:['علاقہ / شہر','Area / city'], rAreaPh:['مثلاً: دلیوالی، میانوالی','e.g. Dillewali, Mianwali'],
- rMode:['کیسے پڑھائیں گے؟','How will you teach?'], rPlat:['آن لائن پلیٹ فارم','Preferred online platform'], rMsg:['مزید معلومات (اختیاری)','More details (optional)'],
+ rMode:['کیسے پڑھائیں گے؟ (ایک سے زیادہ چن سکتے ہیں)','How will you teach? (choose one or more)'], rNeedMode:['کم از کم ایک طریقہ منتخب کریں','Select at least one teaching mode'], rPlat:['آن لائن پلیٹ فارم','Preferred online platform'], rMsg:['مزید معلومات (اختیاری)','More details (optional)'],
  rMsgPh:['مثلاً: شام 5 کے بعد فارغ ہوں','e.g. Free after 5 pm'], rSend:['واٹس ایپ پر رجسٹریشن بھیجیں','Send registration on WhatsApp'],
  rNeedSubj:['کم از کم ایک مضمون منتخب کریں','Select at least one subject'], rNeedCls:['کم از کم ایک جماعت منتخب کریں','Select at least one class'],
  exp0:['ایک سال سے کم','Less than 1 year'], exp1:['1 سے 2 سال','1 to 2 years'], exp3:['3 سے 5 سال','3 to 5 years'], exp6:['5 سال سے زیادہ','More than 5 years'],
  howReg:['رجسٹریشن کیسے ہوگی؟','How registration works'], hr1:['فارم بھر کر واٹس ایپ پر بھیجیں۔','Fill the form and send it on WhatsApp.'],
  hr2:['اکیڈمی آپ سے رابطہ کر کے تعلیم اور تجربہ کی تصدیق کرے گی۔','The academy contacts you and verifies your education and experience.'],
  hr3:['تصدیق کے بعد آپ کا نام «ہمارے اساتذہ» میں شامل ہو جائے گا۔','After verification your name is added to “Our Tutors”.'],
- stripT:['اساتذہ اور آن لائن ٹیوشن','Tutors & online tuition'], stripP:['تصدیق شدہ اساتذہ دیکھیں یا بطور استاد رجسٹر ہوں۔','See verified tutors or register as a tutor.'],
+ stripT:['اساتذہ: آن لائن، اکیڈمی اور ہوم ٹیوشن','Tutors: online, academy & home tuition'], stripP:['ہوم ٹیوٹر بھی دستیاب ہیں۔ تصدیق شدہ اساتذہ دیکھیں یا بطور استاد رجسٹر ہوں۔','Home tutors also available. See verified tutors or register as a tutor.'],
  tutorsFoot:['ہمارے اساتذہ','Our Tutors'], regFoot:['بطور استاد رجسٹر ہوں','Register as a Tutor'],
  footAbout:['جماعت 8 تا 12 کے مفت نوٹس اور MCQs ٹیسٹ۔','Free notes and MCQs tests for Class 8 to 12.'],
- needT:['ٹیوٹر چاہیے','Need a Tutor'], needP:['آن لائن، اکیڈمی میں یا گھر پر پڑھنے کے لیے استاد کی درخواست بھیجیں۔','Request a teacher for online, academy or home tuition.'],
+ needT:['ٹیوٹر چاہیے','Need a Tutor'], needP:['آن لائن، اکیڈمی میں یا گھر پر (ہوم ٹیوٹر) پڑھنے کے لیے استاد کی درخواست بھیجیں۔','Request a teacher for online, academy or home tuition (home tutor).'],
  applyT:['داخلہ کے لیے اپلائی کریں','Apply for Admission'], applyP:['طالب علم کی تفصیل بھریں اور واٹس ایپ پر بھیج دیں۔','Fill in the student details and send them on WhatsApp.'],
  needHead:['ٹیوٹر چاہیے؟','Need a Tutor?'], needLead:['فارم بھریں اور واٹس ایپ پر بھیجیں۔ اکیڈمی آپ کو جماعت، مضمون اور وقت کے مطابق مناسب استاد سے ملا دے گی۔','Fill in the form and send it on WhatsApp. The academy will match you with a suitable teacher for your class, subjects and time.'],
  nName:['طالب علم / والدین کا نام','Student / parent name'], nPhone:['فون نمبر (واٹس ایپ)','Phone (WhatsApp)'], nClass:['جماعت','Class'], nSubj:['مضامین','Subjects'],
@@ -775,6 +787,7 @@ const T = {
  o4:['انگلش اور اردو میڈیم','English and Urdu medium'], o4p:['میٹرک دونوں میڈیم میں، فرسٹ اور سیکنڈ ایئر انگلش میڈیم میں۔','Matric in both mediums; 1st and 2nd Year in English medium.'],
  o5:['اسمارٹ سلیبس 2027','Smart syllabus 2027'], o5p:['جماعت 9 اور 11 کا اسمارٹ سلیبس اور پیپر اسکیم۔','Smart syllabus and paper schemes for Class 9 and 11.'],
  o6:['اوقات: 3 تا 5 بجے','Timings: 3 to 5 pm'], o6p:['پیر تا ہفتہ، دلیوالی، کالاباغ روڈ، میانوالی۔','Monday to Saturday, Dillewali, Kalabagh Road, Mianwali.'],
+ trust4:['ہوم ٹیوٹر دستیاب','Home tutors available'], o7:['ٹیوٹر: آن لائن، اکیڈمی اور گھر پر','Tutors: online, academy and at home'], o7p:['اکیڈمی کے تصدیق شدہ اساتذہ۔ ہوم ٹیوٹر بھی دستیاب ہیں: «ٹیوٹر چاہیے» فارم بھر کر واٹس ایپ پر بھیجیں۔','Academy-verified tutors. Home tutors are also available: fill the “Need a Tutor” form and send it on WhatsApp.'],
  trust1:['مفت نوٹس','Free notes'], trust2:['انگلش اور اردو میڈیم','English & Urdu medium'], trust3:['جماعت 8 تا 12','Class 8 to 12'],
 };
 let lang = 'en', view = 'home', cls = '9', subj = null, medium = 'all', q = '', hq = '';
@@ -971,7 +984,7 @@ function vHome() {
       <p class="alt">${t('heroAlt')}</p>
       <p class="lead">${t('heroSub')}</p>
       <div class="motto"><span>Learn</span><span>Practice</span><span>Excel</span></div>
-      <ul class="trust">${['trust3','trust1','trust2'].map(k => `<li>${svg('check')}${t(k)}</li>`).join('')}</ul>
+      <ul class="trust">${['trust3','trust1','trust2'].map(k => `<li>${svg('check')}${t(k)}</li>`).join('')}<li><a href="#need-tutor" style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px">${svg('home')}${t('trust4')}</a></li></ul>
       <div class="cta">
         <a class="btn gold" href="#notes">${svg('dl')}${t('getNotes')}</a>
         <a class="btn ghost" href="#tests">${svg('play', 1)}${t('takeTest')}</a>
@@ -1011,7 +1024,7 @@ function vHome() {
   </div></section>
   <section style="padding-top:0"><div class="wrap">
     <div class="sh"><div><div class="kick">AHSA · Dillewali</div><h2>${t('offT')}</h2><p>${t('offP')}</p></div></div>
-    <div class="offers">${[['layers','o1'],['notes','o2'],['tests','o3'],['about','o4'],['papers','o5'],['clock','o6']].map(([i, k]) => `<div class="card off lift"><span class="ic">${svg(i)}</span><div><h3>${t(k)}</h3><p>${t(k + 'p')}</p></div></div>`).join('')}</div>
+    <div class="offers">${[['layers','o1'],['notes','o2'],['tests','o3'],['about','o4'],['papers','o5'],['clock','o6']].map(([i, k]) => `<div class="card off lift"><span class="ic">${svg(i)}</span><div><h3>${t(k)}</h3><p>${t(k + 'p')}</p></div></div>`).join('')}<a class="card off lift owide" href="#need-tutor"><span class="ic">${svg('home')}</span><div><h3>${t('o7')}</h3><p>${t('o7p')}</p></div></a></div>
   </div></section>
   <section style="padding-top:0"><div class="wrap">
     <div class="teach"><img src="assets/logo.jpg" alt="AHSA logo" width="132" height="132">
@@ -1205,34 +1218,38 @@ const TCLS = ['8','9','10','11','12'];
 const NMODES = [['online','mOnline'],['academy','mAcademy'],['home','mHome']];
 const NTIMES = ['tmAft','tmEve','tmMorn','tmAny'];
 const both = k => T[k][0] + ' / ' + T[k][1];
-const TMODES = {online:['tmOnline','Online / آن لائن'], academy:['tmAcademy','At academy / اکیڈمی میں'], both:['tmBoth','Both (Online + Academy) / دونوں']};
+const TMODES = {online:['tmOnline','Online / آن لائن'], academy:['tmAcademy','At academy / اکیڈمی میں'], home:['tmHome','Home tuition / گھر پر'], both:['tmBoth','Both (Online + Academy) / دونوں']};
+const modesOf = x => Array.isArray(x.modes) && x.modes.length ? x.modes : x.mode === 'both' ? ['online','academy'] : x.mode ? [x.mode] : ['academy'];
 const tf = (x, k) => esc(lang === 'ur' && x[k + 'Ur'] ? x[k + 'Ur'] : (x[k] || x[k + 'Ur'] || ''));
-const isOnline = x => x.mode === 'online' || x.mode === 'both';
-function modeBadge(m) { if (!TMODES[m]) return ''; return `<span class="mbadge ${m !== 'academy' ? 'on' : ''}">${t(TMODES[m][0])}</span>`; }
+const isOnline = x => modesOf(x).includes('online');
+const hasMode = (x, m) => modesOf(x).includes(m);
+function modeBadge(x) { return `<div class="mbs">${modesOf(x).filter(m => TMODES[m]).map(m => `<span class="mbadge ${m}">${m === 'home' ? '🏠 ' : m === 'online' ? '💻 ' : '🏫 '}${t(TMODES[m][0])}</span>`).join('')}</div>`; }
 function tutorCard(x) {
   const nm = tf(x, 'name'), ini = String(x.name || x.nameUr || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
   const rows = [['tEdu','education'],['tSubj','subjects'],['tCls','classes'],['tExp','experience'],['tArea','area']].filter(r => tf(x, r[1])).map(r => `<dt>${t(r[0])}</dt><dd dir="auto">${tf(x, r[1])}</dd>`).join('')
     + (isOnline(x) && x.platforms ? `<dt>${t('tPlat')}</dt><dd dir="ltr">${esc(x.platforms)}</dd>` : '');
-  const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} کے بارے میں معلومات چاہییں۔\nI want details about tutor ${x.name || x.nameUr || ''}.`;
+  const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} کے بارے میں معلومات چاہییں۔\nI want details about tutor ${x.name || x.nameUr || ''}.` + (x.subjects || x.subjectsUr ? `\nمضامین / Subjects: ${[x.subjectsUr, x.subjects].filter(Boolean).join(' / ')}` : '');
   return `<div class="card tut lift"><div class="hd">${x.photo ? `<img class="av" src="${esc(x.photo)}" alt="" loading="lazy">` : `<span class="av">${esc(ini)}</span>`}
-    <div style="min-width:0"><h3>${nm}</h3>${modeBadge(x.mode)}</div></div>
+    <div style="min-width:0"><h3>${nm}</h3>${modeBadge(x)}</div></div>
     <dl>${rows}</dl>
     <div class="row"><a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${t('tAsk')}</a></div></div>`;
 }
 function tutorList() {
   if (!TUTORS.length) return `<div class="soon tsoon"><span class="em">👩‍🏫👨‍🏫</span><b>${t('tutSoonT')}</b>${t('tutSoonP')}
     <div class="cta" style="justify-content:center;margin-top:12px"><a class="btn sm gold" href="#tutors-register">${svg('tutors')}${t('tutReg')}</a></div></div>`;
-  const L2 = TUTORS.filter(x => tmode === 'all' || (tmode === 'online' ? isOnline(x) : (x.mode === 'academy' || x.mode === 'both' || !x.mode)));
-  return `<div class="seg" role="group" aria-label="Mode" style="margin-bottom:12px">${['all','online','academy'].map(m => `<button type="button" data-tm="${m}" aria-pressed="${tmode === m}">${t(m === 'all' ? 'tmAll' : m === 'online' ? 'tmOnline' : 'tmAcademy')}${m === 'online' ? ` (${TUTORS.filter(isOnline).length})` : ''}</button>`).join('')}</div>
-    ${L2.length ? `<div class="tgrid">${L2.map(tutorCard).join('')}</div>` : `<div class="empty">${t('noTutM')}</div>`}`;
+  const L2 = TUTORS.filter(x => tmode === 'all' || hasMode(x, tmode));
+  const TM = {all:'tmAll', online:'tmOnline', academy:'tmAcademy', home:'tmHomeF'};
+  return `<div class="seg tseg" role="group" aria-label="Mode" style="margin-bottom:12px">${['all','online','academy','home'].map(m => `<button type="button" data-tm="${m}" aria-pressed="${tmode === m}">${m === 'home' ? '🏠 ' : ''}${t(TM[m])} (${m === 'all' ? TUTORS.length : TUTORS.filter(x => hasMode(x, m)).length})</button>`).join('')}</div>
+    ${L2.length ? `<div class="tgrid">${L2.map(tutorCard).join('')}</div>` : `<div class="empty">${t(tmode === 'home' ? 'noHomeM' : 'noTutM')}${tmode === 'home' ? `<div class="cta" style="justify-content:center;margin-top:10px"><a class="btn sm gold" href="#need-tutor">🏠 ${t('homeAsk')}</a></div>` : ''}</div>`}`;
 }
 function vTutors() {
   const sOpt = `<option value="">${t('anySubj')}</option>` + TSUBJ.map(s => `<option value="${s[0]} (${s[1]})">${lang === 'ur' ? s[1] : s[0]}</option>`).join('');
   const cOpt = TCLS.map(c => `<option value="${c}" ${c === '9' ? 'selected' : ''}>${L('جماعت ', 'Class ')}${c}</option>`).join('');
   return `<section><div class="wrap view">
     <div class="sh"><div><div class="kick">${t('tutors')}</div><h2>${t('tutTitle')}</h2><p>${t('tutP')}</p></div></div>
+    <a class="homeav lift" href="#need-tutor" data-home="1"><span class="hi">🏠</span><span><b>${t('homeAv')}</b><small>${t('homeAvP')}</small></span><span class="go" aria-hidden="true">›</span></a>
     <div class="card tut-on" id="needBox">
-      <div class="intro"><div class="kick">💻 ${t('onKick')} · ${t('mAcademy')} · ${t('mHome')}</div><h3>${t('needHead')}</h3><p>${t('needLead')}</p>
+      <div class="intro"><div class="kick">💻 ${t('onKick')} · 🏫 ${t('mAcademy')} · 🏠 ${t('homeKick')}</div><h3>${t('needHead')}</h3><p>${t('needLead')}</p>
         <div class="pts"><span>WhatsApp</span><span>Zoom</span><span>Google Meet</span></div>
         <ol class="mini-steps"><li>${t('st1')}</li><li>${t('st2')}</li><li>${t('st3')}</li></ol></div>
       <form class="card wa nf" id="needForm" novalidate>
@@ -1269,7 +1286,7 @@ function vTutors() {
           <div><label for="rExp">${t('rExp')}</label><select id="rExp">${['exp0','exp1','exp3','exp6'].map(k => `<option value="${T[k][1]} / ${T[k][0]}">${t(k)}</option>`).join('')}</select></div>
           <div><label for="rArea">${t('rArea')}</label><input id="rArea" placeholder="${t('rAreaPh')}"></div>
         </div>
-        <fieldset><legend>${t('rMode')} <span class="req">*</span></legend><div class="ckg">${['online','academy','both'].map(m => `<label><input type="radio" name="rMode" value="${m}" ${m === 'both' ? 'checked' : ''}>${t(TMODES[m][0])}</label>`).join('')}</div></fieldset>
+        <fieldset><legend>${t('rMode')} <span class="req">*</span></legend><div class="ckg">${['online','academy','home'].map(m => `<label><input type="checkbox" name="rMode" value="${m}" ${m !== 'home' ? 'checked' : ''}>${t(TMODES[m][0])}</label>`).join('')}</div></fieldset>
         <fieldset id="platBox"><legend>${t('rPlat')}</legend><div class="ckg">${['WhatsApp','Zoom','Google Meet'].map(p => `<label><input type="checkbox" name="rPl" value="${p}" ${p === 'WhatsApp' ? 'checked' : ''}>${p}</label>`).join('')}</div></fieldset>
         <label for="rMsg">${t('rMsg')}</label><textarea id="rMsg" placeholder="${t('rMsgPh')}"></textarea>
         <div class="cta" style="margin-top:14px"><button class="btn wa" type="submit">${WA}${t('rSend')}</button></div>
@@ -1287,14 +1304,16 @@ function actionBand() {
   </div>
   <div class="card tstrip">
     <div class="tx"><span class="ic">${svg('tutors')}</span><div style="min-width:0"><h3>${t('stripT')}</h3><p>${t('stripP')}</p></div></div>
-    <div class="cta"><a class="btn sm navy" href="#tutors">${t('tutTitle')}</a><a class="btn sm gold" href="#tutors-register">${t('tutReg')}</a></div>
+    <div class="cta"><a class="btn sm navy" href="#tutors">${t('tutTitle')}</a><a class="btn sm line" href="#need-tutor" data-home="1">🏠 ${t('homeAsk')}</a><a class="btn sm gold" href="#tutors-register">${t('tutReg')}</a></div>
   </div></div>`;
 }
 function reqMark() { return ' <span class="req">*</span>'; }
 function openWA(txt) { const a = document.createElement('a'); a.href = 'https://wa.me/' + ACADEMY.wa + '?text=' + encodeURIComponent(txt); a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); }
 document.addEventListener('click', e => { const a = e.target.closest('a[href="#tutors-register"],a[href="#need-tutor"],a[href="#apply"]'); if (a && location.hash === a.getAttribute('href')) { e.preventDefault(); route(); } });
 document.addEventListener('click', e => { const b = e.target.closest('button[data-tm]'); if (!b) return; tmode = b.dataset.tm; render(); });
-document.addEventListener('change', e => { if (e.target.name === 'rMode') { const pb = document.getElementById('platBox'); if (pb) pb.hidden = e.target.value === 'academy'; } });
+document.addEventListener('change', e => { if (e.target.name === 'rMode') { const pb = document.getElementById('platBox'); if (pb) pb.hidden = !document.querySelector('input[name=rMode][value=online]:checked'); } });
+// links marked data-home pre-select "At home" in the Need a Tutor form
+document.addEventListener('click', e => { if (e.target.closest('[data-home]')) setTimeout(() => { const r = document.querySelector('input[name=nMode][value=home]'); if (r) r.checked = true; }, 60); });
 document.addEventListener('submit', e => {
   const f = e.target;
   if (f.id === 'needForm') { e.preventDefault();
@@ -1320,14 +1339,14 @@ document.addEventListener('submit', e => {
   const subs = [...f.querySelectorAll('input[name=rSub]:checked')].map(x => x.value); if (v('rOther')) subs.push(v('rOther'));
   if (!subs.length) { toast(t('rNeedSubj')); return; }
   const cls = [...f.querySelectorAll('input[name=rCl]:checked')].map(x => x.value); if (!cls.length) { toast(t('rNeedCls')); return; }
-  const md = (f.querySelector('input[name=rMode]:checked') || {}).value || 'both';
+  const mds = [...f.querySelectorAll('input[name=rMode]:checked')].map(x => x.value); if (!mds.length) { toast(t('rNeedMode')); return; }
   const pl = [...f.querySelectorAll('input[name=rPl]:checked')].map(x => x.value);
   const lines = [
     'السلام علیکم سر! میں AHSA میں بطور استاد رجسٹر ہونا چاہتا/چاہتی ہوں۔', 'Assalam o Alaikum Sir! I want to register as a tutor at AHSA.', '',
     'نام / Name: ' + v('rName'), 'فون / Phone: ' + v('rPhone'), 'تعلیم / Education: ' + v('rEdu'),
     'مضامین / Subjects: ' + subs.join(', '), 'جماعتیں / Classes: ' + cls.join(', '),
     'تجربہ / Experience: ' + v('rExp'), v('rArea') ? 'علاقہ / Area: ' + v('rArea') : '',
-    'طریقہ / Teaching mode: ' + TMODES[md][1], md !== 'academy' && pl.length ? 'آن لائن پلیٹ فارم / Platform: ' + pl.join(', ') : '',
+    'طریقہ / Teaching mode: ' + mds.map(m => TMODES[m][1]).join(', '), mds.includes('online') && pl.length ? 'آن لائن پلیٹ فارم / Platform: ' + pl.join(', ') : '',
     v('rMsg') ? 'مزید / Note: ' + v('rMsg') : ''];
   openWA(lines.filter((x, i) => x || i === 2).join('\n'));
 });
@@ -1481,6 +1500,8 @@ route();
     weekly: ['hb-go', '#weekly', 'ہفتہ وار ٹیسٹ', 0],
     papers: ['hb-go', '#papers', 'سلیبس اور پیپر اسکیم', 0],
     contact: ['hb-go', '#contact', 'رابطہ صفحہ / داخلہ فارم', 0],
+    need: ['hb-go', '#need-tutor', '🏠 ٹیوٹر / ہوم ٹیوٹر چاہیے', 0],
+    tutors: ['hb-go', '#tutors', 'ہمارے اساتذہ', 0],
   };
   /* [chip text, answer, buttons, keywords (Urdu, Roman Urdu, English)] */
   const HELP_QA = [
@@ -1502,6 +1523,8 @@ route();
       ['سلیبس', 'اسمارٹ', 'اسکیم', 'پیٹرن', 'نصاب', 'syllabus', 'smart', 'scheme', 'pattern', 'alp']],
     ['رابطہ نمبر', 'واٹس ایپ / فون: 0314-6011672\nشکیل حسن (SST Science)', ['wa', 'contact'],
       ['نمبر', 'فون', 'رابطہ', 'کال', 'واٹس', 'موبائل', 'استاد', 'سر', 'شکیل', 'number', 'phone', 'contact', 'call', 'whatsapp', 'mobile', 'teacher', 'sir', 'shakeel', 'rabta']],
+    ['ٹیوٹر / ہوم ٹیوشن', 'اکیڈمی تین طرح سے استاد فراہم کرتی ہے: آن لائن (واٹس ایپ وغیرہ پر)، اکیڈمی میں، اور گھر پر (ہوم ٹیوٹر)۔\n«ٹیوٹر چاہیے» فارم میں جماعت، مضامین اور «گھر پر» یا کوئی اور طریقہ چن کر واٹس ایپ پر بھیجیں، اکیڈمی آپ کو مناسب استاد سے ملا دے گی۔\nویب سائٹ پر صرف اکیڈمی کے تصدیق شدہ اساتذہ دکھائے جاتے ہیں۔ پڑھانا چاہتے ہیں تو «بطور استاد رجسٹر ہوں» فارم بھریں۔', ['need', 'tutors', 'wa'],
+      ['ٹیوٹر', 'ٹیوشن', 'ہوم', 'گھر', 'استاد چاہیے', 'اساتذہ', 'ٹیچر', 'آن لائن', 'پڑھانا', 'رجسٹر', 'tutor', 'tutors', 'tuition', 'home', 'ghar', 'online', 'teacher', 'ustad', 'parhana']],
     ['فیس بک', 'اکیڈمی کی خبریں اور اپ ڈیٹس فیس بک پیج پر دیکھیں۔', ['fb'],
       ['فیس بک', 'فیسبک', 'پیج', 'facebook', 'fb', 'page']],
   ];
@@ -1644,7 +1667,7 @@ html[lang="ur"] .shqr span{font:400 13px/2 var(--f-ur)}
 (() => {
   const BASE = 'https://shakeelh23-sys.github.io/ahsa/';
   const TITLE = 'Al Hassan Science Academy Dillewali (AHSA)';
-  const MSG = '📚 *الحسن سائنس اکیڈمی دلیوالی (AHSA)*\nکلاس 8 سے 12 تک مفت نوٹس، MCQs آن لائن ٹیسٹ اور اسمارٹ سلیبس، سب ایک ہی جگہ پر۔\nخود بھی دیکھیں اور دوستوں کو بھی بھیجیں 👇';
+  const MSG = '📚 *الحسن سائنس اکیڈمی دلیوالی (AHSA)*\nکلاس 8 سے 12 تک مفت نوٹس، MCQs آن لائن ٹیسٹ اور اسمارٹ سلیبس، سب ایک ہی جگہ پر۔\n👨‍🏫 آن لائن، اکیڈمی اور ہوم ٹیوٹر بھی دستیاب ہیں۔\nخود بھی دیکھیں اور دوستوں کو بھی بھیجیں 👇';
   const TX = {
     share: ['Share', 'شیئر کریں'], copy: ['Copy link', 'لنک کاپی کریں'], copied: ['Copied ✓', 'کاپی ہو گیا ✓'],
     email: ['Email', 'ای میل'], sheetT: ['Share this website', 'ویب سائٹ شیئر کریں'],

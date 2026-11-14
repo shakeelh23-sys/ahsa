@@ -5,9 +5,12 @@
    To add a tutor: copy the sample block below, remove the // marks,
    fill the details, and keep a comma after each block.
    Urdu fields (…Ur) are optional: if empty, the English text is shown.
-   mode: 'online'  = online tuition only   (آن لائن)
-         'academy' = at the academy / home tuition only   (اکیڈمی میں)
-         'both'    = online and at the academy   (دونوں)
+   modes: list of how the tutor teaches, any of:
+         'online'  = online tuition   (آن لائن)
+         'academy' = at the academy   (اکیڈمی میں)
+         'home'    = home tuition, tutor goes to the student's home   (گھر پر / ہوم ٹیوٹر)
+         e.g. modes: ['online', 'academy', 'home']
+         (old style mode: 'online' | 'academy' | 'both' still works)
    platforms: for online tutors, e.g. 'WhatsApp, Zoom, Google Meet'.
    photo: optional image path, e.g. 'assets/tutors/ali.jpg' (leave '' for initials).
    Fees are NOT shown on the website; students ask the academy on WhatsApp.
@@ -21,7 +24,7 @@ window.TUTORS = [
   //   classes: '9 to 12',               classesUr: '9 تا 12',
   //   experience: '5 years',            experienceUr: '5 سال',
   //   area: 'Dillewali',                areaUr: 'دلیوالی',
-  //   mode: 'both',                    platforms: 'WhatsApp, Zoom',
+  //   modes: ['online', 'academy', 'home'],   platforms: 'WhatsApp, Zoom',
   //   photo: ''
   // },
   {
@@ -32,7 +35,7 @@ window.TUTORS = [
     classes: '8 to 12',               classesUr: '8 تا 12',
     experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
     area: 'Dillewali',                areaUr: 'دلیوالی',
-    mode: 'both',                     platforms: 'WhatsApp',
+    modes: ['online', 'academy'],     platforms: 'WhatsApp',
     photo: 'assets/tutors/najeeb-ullah.jpg'
   },
 ];
