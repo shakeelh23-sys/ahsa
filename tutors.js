@@ -29,7 +29,7 @@ window.TUTORS = [
   // },
   {
     name: 'Najeeb Ullah',             nameUr: 'نجیب اللہ',
-    education: 'M.Sc Mathematics',    educationUr: 'ایم ایس سی ریاضی',
+    education: 'M.Sc Mathematics and M.Ed',    educationUr: 'ایم ایس سی ریاضی اور ایم ایڈ',
     subjects: 'Math, Physics',
     subjectsUr: 'ریاضی، فزکس',
     classes: '8 to 12',               classesUr: '8 تا 12',
@@ -40,12 +40,12 @@ window.TUTORS = [
   },
   {
     name: 'Mrs Sajjad',               nameUr: 'مسز سجاد',
-    education: 'Masters',             educationUr: 'ماسٹرز',
+    education: 'Masters and B.Ed',    educationUr: 'ماسٹرز اور بی ایڈ',
     subjects: 'Physics, Chemistry, Math, Science',
     subjectsUr: 'فزکس، کیمسٹری، ریاضی، سائنس',
     classes: '8 to 10',               classesUr: '8 تا 10',
     experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
-    modes: [],                        platforms: '',
+    modes: ['online', 'academy'],     platforms: '',
     photo: ''
   },
 ];
