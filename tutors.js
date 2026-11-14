@@ -17,6 +17,15 @@
    While this list is empty the website shows "جلد آ رہا ہے / Coming soon".
    ===================================================================== */
 window.TUTORS = [
+  {
+    name: 'Shakeel Hassan',           nameUr: 'شکیل حسن',
+    education: 'M.Sc Mathematics, M.Sc Statistics, B.Ed',
+    educationUr: 'ایم ایس سی ریاضی، ایم ایس سی شماریات، بی ایڈ',
+    experience: '19 years',           experienceUr: '19 سال',
+    area: 'Dillewali',                areaUr: 'دلیوالی',
+    modes: ['online', 'academy'],     platforms: '',
+    photo: 'assets/shakeel-hassan.jpg'
+  },
   // {
   //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
   //   education: 'M.Sc Physics',        educationUr: 'ایم ایس سی فزکس',
