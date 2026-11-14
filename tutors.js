@@ -85,6 +85,14 @@ window.TUTORS = [
     modes: ['online'],                platforms: 'WhatsApp, Zoom, Google Meet',
     photo: 'assets/tutors/shahzad-hassan.webp?v=1'
   },
+  {
+    name: 'Shahnaz Habib',            nameUr: 'شہناز حبیب',
+    education: 'M.Sc Economics',      educationUr: 'ایم ایس سی معاشیات',
+    subjects: 'Economics',            subjectsUr: 'معاشیات',
+    classes: '1st Year and 2nd Year', classesUr: 'فرسٹ ایئر اور سیکنڈ ایئر',
+    modes: [],                        platforms: '',
+    photo: 'assets/tutors/shahnaz-habib.svg'
+  },
   // {
   //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
   //   education: 'M.Sc Physics',        educationUr: 'ایم ایس سی فزکس',
