@@ -609,13 +609,18 @@ html[lang="ur"] .tband .tsh b{font:700 clamp(20px,3vw,26px)/1.9 var(--f-ur)}
 .tband .tdots button{background:var(--line)}.tband .tdots button[aria-current]{background:var(--navy)}
 .tband .tsl{box-shadow:var(--sh1,0 2px 8px rgba(0,0,0,.08));border:1px solid var(--line)}
 .hs2{max-width:none;margin:0 0 14px}
-/* team band peeks on first screen */
-.hv2 .hero .wrap{padding-block:clamp(14px,3vw,30px) 46px}
-.hv2 section.tband{padding-top:clamp(10px,2vw,22px)}
-@media (min-width:701px){.hv2 .hero .orbit{width:min(230px,40vw)}.hv2 .hero .wrap{padding-top:22px}}
-@media (max-width:700px){.hv2 .hero .orbit{width:118px}html .hv2 .hero h1{font-size:clamp(26px,8vw,34px)!important;line-height:1.9!important;margin:0!important;padding:0!important}.hv2 .hero h1::after{margin-top:2px}.hv2 .hero .alt{margin:2px 0 0;font-size:14px}.hv2 .hero .cta .btn{width:auto!important;flex:0 1 auto}
-.hv2 .hero .lead{margin:4px auto 0;font-size:15px}.hv2 .hero .cta{display:flex!important;flex-direction:row!important;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px}
-.hv2 .hero .cta .btn{padding:9px 14px;font-size:15px}.hv2 .hero .wrap{gap:8px;padding-bottom:40px}}
+/* team band: whole first card visible on first screen */
+.hv2 .hero .wrap{padding-block:14px 34px}
+.hv2 section.tband{padding-top:6px}
+.hv2 .tband .tsh{margin-bottom:6px}
+html[lang="ur"] .hv2 .tband .tsh b{line-height:1.6}
+@media (min-width:701px){.hv2 .hero .orbit{width:min(190px,30vw);margin-top:0}html .hv2 .hero h1{font-size:clamp(30px,3.6vw,42px);line-height:1.75;margin-top:4px;padding-top:0}.hv2 .hero .cta{margin-top:14px}}
+@media (max-width:700px){.hv2 .hero .orbit{width:84px}html .hv2 .hero h1{font-size:clamp(24px,7vw,30px)!important;line-height:1.75!important;margin:0!important;padding:0!important}.hv2 .hero h1::after{display:none}
+.hv2 .hero .alt{margin:0!important;font-size:13px!important}.hv2 .hero .lead{margin:2px auto 0;font-size:14px;line-height:1.6}
+.hv2 .hero .cta{display:flex!important;flex-direction:row!important;flex-wrap:nowrap;justify-content:center;gap:8px;margin-top:8px}
+.hv2 .hero .cta .btn{width:auto!important;flex:1 1 0;min-width:0;padding:8px 10px;font-size:14px;white-space:nowrap}.hv2 .hero .wrap{gap:4px;padding-block:8px 30px}
+@media (max-height:690px){.hv2 .hero .alt{display:none}.hv2 .hero .orbit{width:64px}.hv2 .hero .wrap{padding-bottom:16px}}
+.hv2 .tsl{padding:10px 12px;gap:6px}.hv2 .tsl img,.hv2 .tsl .ini{width:56px;height:56px}.hv2 .tsl .ti{min-height:0;line-height:1.45}}
 #bigBtn{direction:ltr;unicode-bidi:isolate}
 #bigBtn[aria-pressed="true"]::after{content:" ✓"}
 @media (max-width:560px){html[lang="ur"] .annbar .annt{font-size:13.5px;line-height:1.9}}
