@@ -1,6 +1,6 @@
 {
   "_help": "اعلانات بار: on = true دکھائیں، false چھپائیں۔ ہر item میں ur (اردو) اور en (English) متن، link اختیاری (#notes, #tests, #papers, #contact یا https://...)",
-  "on": true,
+  "on": false,
   "items": [
     {
       "ur": "الحسن سائنس اکیڈمی کی ویب سائٹ پر خوش آمدید! جماعت 8 تا 12 کے مفت نوٹس اور MCQs ٹیسٹ یہاں دستیاب ہیں۔",

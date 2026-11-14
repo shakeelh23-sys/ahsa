@@ -596,6 +596,19 @@ html[lang="ur"] .tsl b{font:700 17px/1.9 var(--f-ur)}html[lang="ur"] .tsl small,
 /* logo at top of hero (not vertically centred against the tall left column) */
 @media (min-width:701px){.hero .wrap{align-items:start;padding-top:30px}.hero .orbit{margin-top:6px}}
 @media (max-width:700px){.hero .wrap{padding-top:12px}}
+/* home v2 (decluttered) */
+.hv2 section:not(.hero){padding-block:clamp(36px,6vw,64px)}
+.hv2 section .kick{display:none}
+.hv2 .hero .wrap{padding-block:clamp(28px,6vw,56px) 80px}
+.hv2 .hero .lead{max-width:30em}
+.tband{background:var(--soft)}
+.tband .tshow{margin-top:0}
+.tband .tsh b{color:var(--ink);font-size:clamp(20px,3vw,26px)}
+html[lang="ur"] .tband .tsh b{font:700 clamp(20px,3vw,26px)/1.9 var(--f-ur)}
+.tband .tsh a{color:var(--navy)}
+.tband .tdots button{background:var(--line)}.tband .tdots button[aria-current]{background:var(--navy)}
+.tband .tsl{box-shadow:var(--sh1,0 2px 8px rgba(0,0,0,.08));border:1px solid var(--line)}
+.hs2{max-width:none;margin:0 0 14px}
 #bigBtn{direction:ltr;unicode-bidi:isolate}
 #bigBtn[aria-pressed="true"]::after{content:" ✓"}
 @media (max-width:560px){html[lang="ur"] .annbar .annt{font-size:13.5px;line-height:1.9}}
@@ -1036,29 +1049,24 @@ function dailyStats() {
   return {streak, tot, ok, log};
 }
 function vHome() {
-  return `
+  return `<div class="hv2">
   <div id="annBar">${annBar()}</div>
   <section class="hero" style="padding:0"><div class="wrap">
     <div>
-      <span class="eyebrow">${t('heroEyebrow')}</span>
       <h1><a class="tohome" href="#home"><span class="u">${t('heroTitle')}</span></a></h1>
       <p class="alt">${t('heroAlt')}</p>
-      <p class="lead">${t('heroSub')}</p>
-      <div class="motto"><span>Learn</span><span>Practice</span><span>Excel</span></div>
-      <ul class="trust">${['trust3','trust1','trust2'].map(k => `<li>${svg('check')}${t(k)}</li>`).join('')}<li><a href="#need-tutor" style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px">${svg('home')}${t('trust4')}</a></li></ul>
+      <p class="lead">${L('جماعت 8 تا 12: مفت نوٹس، ٹیسٹ اور تجربہ کار اساتذہ۔', 'Class 8 to 12: free notes, tests and experienced tutors.')}</p>
       <div class="cta">
-        <a class="btn gold" href="#notes">${svg('dl')}${t('getNotes')}</a>
-        <a class="btn ghost" href="#tests">${svg('play', 1)}${t('takeTest')}</a>
         <a class="btn wa" href="https://wa.me/${ACADEMY.wa}" target="_blank" rel="noopener">${WA}${t('waUs')}</a>
+        <a class="btn gold" href="#apply">${svg('apply')}${t('applyT')}</a>
       </div>
-      <label class="hsearch">${svg('search')}<input id="gq" type="search" placeholder="${t('gsearchPh')}" value="${esc(hq)}" aria-label="${t('gsearchPh')}" autocomplete="off"></label>
     </div>
     <div class="orbit" aria-hidden="false">
       <svg class="rings" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><ellipse cx="100" cy="100" rx="96" ry="38"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(60 100 100)"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(120 100 100)"/><circle class="e" cx="196" cy="100" r="4"/><circle class="e" cx="52" cy="17" r="3.5"/><circle class="e" cx="52" cy="183" r="3"/></svg>
       <a class="tohome" href="#home" aria-label="Home"><img class="logo" src="assets/logo.webp" alt="Al Hassan Science Academy logo" width="240" height="240" fetchpriority="high" decoding="async"></a>
     </div>
-    <div id="tshowWrap">${tutorShow()}</div>
   </div></section>
+  <section class="tband"><div class="wrap"><div id="tshowWrap">${tutorShow()}</div></div></section>
   <div class="wrap"><div class="stats">
     <div class="stat"><b class="count" data-to="${COUNTS.total.mcq}">${COUNTS.total.mcq}</b><span>${t('sMcq')}</span></div>
     <div class="stat"><b class="count" data-to="${COUNTS.total.sq}">${COUNTS.total.sq}</b><span>${t('sSq')}</span></div>
@@ -1066,8 +1074,8 @@ function vHome() {
     <div class="stat"><b class="count" data-to="${COUNTS.total.files}">${COUNTS.total.files}</b><span>${t('sFiles')}</span></div>
   </div></div>
   ${actionBand()}
-  <div class="wrap" id="instWrap">${installCard()}</div>
-  <div class="wrap">
+  <div class="wrap" style="margin-top:28px">
+    <label class="hsearch hs2">${svg('search')}<input id="gq" type="search" placeholder="${t('gsearchPh')}" value="${esc(hq)}" aria-label="${t('gsearchPh')}" autocomplete="off"></label>
     <nav class="quick" aria-label="${t('quickTitle')}">
       <a class="qa lift" href="#notes"><span class="ic">${svg('notes')}</span><span style="min-width:0"><b>${t('notes')}</b><small>${COUNTS.total.files} ${t('files')}</small></span></a>
       <a class="qa lift" href="#weekly"><span class="ic">${svg('tests')}</span><span style="min-width:0"><b>${t('weeklyTitle')}</b><small>${t('qaTest')}</small></span></a>
@@ -1130,7 +1138,8 @@ function vHome() {
         <a class="btn fb" href="${ACADEMY.fb}" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
-  </div></section>`;
+  </div></section>
+  <div class="wrap" id="instWrap" style="margin-bottom:28px">${installCard()}</div></div>`;
 }
 
 function fileRow(f, ctx) {
@@ -1378,7 +1387,7 @@ const tsMatch = (x, f) => { const s = [x.subjects, x.subjectsUr].join(' ');
 function tutorShow() {
   const A = (window.TUTORS || []).filter(x => x && (x.name || x.nameUr)); if (!A.length) return '';
   const T = A.filter(x => tsMatch(x, tsF));
-  const chips = `<div class="tsf" role="group" aria-label="${L('اساتذہ چنیں', 'Filter tutors')}">${Object.keys(TSF).map(k => `<button type="button" data-tsf="${k}" aria-pressed="${k === tsF}">${L(...TSF[k])}</button>`).join('')}</div>`;
+  const chips = A.length < 10 ? '' : `<div class="tsf" role="group" aria-label="${L('اساتذہ چنیں', 'Filter tutors')}">${Object.keys(TSF).map(k => `<button type="button" data-tsf="${k}" aria-pressed="${k === tsF}">${L(...TSF[k])}</button>`).join('')}</div>`;
   const sl = T.map(x => { const ini = String(x.name || x.nameUr).trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
     const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} سے پڑھنا ہے، تفصیل بتا دیں۔\nI want to study with tutor ${x.name || x.nameUr || ''}. Please share details.` + (x.subjects || x.subjectsUr ? `\nمضامین / Subjects: ${[x.subjectsUr, x.subjects].filter(Boolean).join(' / ')}` : '');
     const row = (k, v) => v ? `<span class="r"><i>${t(k)}:</i> ${v}</span>` : '';
