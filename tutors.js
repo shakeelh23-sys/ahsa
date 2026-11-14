@@ -41,17 +41,6 @@ window.TUTORS = [
     photo: 'assets/tutors/najeeb-ullah.jpg'
   },
   {
-    name: 'Shazia Sajjad',             nameUr: 'شازیہ سجاد',
-    education: 'Masters and B.Ed',    educationUr: 'ماسٹرز اور بی ایڈ',
-    subjects: 'Physics, Chemistry, Math, Science',
-    subjectsUr: 'فزکس، کیمسٹری، ریاضی، سائنس',
-    classes: '8 to 10',               classesUr: '8 تا 10',
-    experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
-    area: 'Dillewali',                areaUr: 'دلیوالی',
-    modes: ['online', 'academy'],     platforms: '',
-    photo: 'assets/tutors/shazia-sajjad.svg'
-  },
-  {
     name: 'Humaira Hayat',            nameUr: 'حمیرا حیات',
     education: 'M.Phil Chemistry',    educationUr: 'ایم فل کیمسٹری',
     subjects: 'Math, Chemistry',
@@ -62,6 +51,17 @@ window.TUTORS = [
     available: 'After 7 pm',          availableUr: 'شام 7 بجے کے بعد',
     modes: ['online'],                platforms: '',
     photo: 'assets/tutors/humaira-hayat.svg'
+  },
+  {
+    name: 'Shazia Sajjad',             nameUr: 'شازیہ سجاد',
+    education: 'Masters and B.Ed',    educationUr: 'ماسٹرز اور بی ایڈ',
+    subjects: 'Physics, Chemistry, Math, Science',
+    subjectsUr: 'فزکس، کیمسٹری، ریاضی، سائنس',
+    classes: '8 to 10',               classesUr: '8 تا 10',
+    experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
+    area: 'Dillewali',                areaUr: 'دلیوالی',
+    modes: ['online', 'academy'],     platforms: '',
+    photo: 'assets/tutors/shazia-sajjad.svg'
   },
   // {
   //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
