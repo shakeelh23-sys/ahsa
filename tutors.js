@@ -27,8 +27,8 @@ window.TUTORS = [
   {
     name: 'Najeeb Ullah',             nameUr: 'نجیب اللہ',
     education: 'M.Sc Mathematics',    educationUr: 'ایم ایس سی ریاضی',
-    subjects: 'Math, Physics, Biology, Computer, Islamiat, Tarjuma tul Quran',
-    subjectsUr: 'ریاضی، فزکس، بیالوجی، کمپیوٹر، اسلامیات، ترجمۃ القرآن',
+    subjects: 'Math, Physics',
+    subjectsUr: 'ریاضی، فزکس',
     classes: '8 to 12',               classesUr: '8 تا 12',
     experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
     area: 'Dillewali',                areaUr: 'دلیوالی',
