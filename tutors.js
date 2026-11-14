@@ -21,9 +21,12 @@ window.TUTORS = [
     name: 'Shakeel Hassan',           nameUr: 'شکیل حسن',
     education: 'M.Sc Mathematics, M.Sc Statistics, B.Ed',
     educationUr: 'ایم ایس سی ریاضی، ایم ایس سی شماریات، بی ایڈ',
+    subjects: 'Math, Physics',
+    subjectsUr: 'ریاضی، فزکس',
+    classes: '8 to 12',               classesUr: '8 تا 12',
     experience: '19 years',           experienceUr: '19 سال',
     area: 'Dillewali',                areaUr: 'دلیوالی',
-    modes: ['online', 'academy'],     platforms: '',
+    modes: ['online', 'academy'],     platforms: 'WhatsApp',
     photo: 'assets/shakeel-hassan.jpg'
   },
   // {
