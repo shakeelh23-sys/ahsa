@@ -574,7 +574,10 @@ html[lang="ur"] .tsf button{font:400 14px/1.8 var(--f-ur)}
 .ttrack{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .ttrack::-webkit-scrollbar{display:none}
 .tsl{text-align:start;flex:0 0 100%;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px;padding:12px 14px;border-radius:16px;background:var(--card);color:var(--ink);min-width:0;box-shadow:0 8px 24px rgba(0,0,0,.18)}
-@media (min-width:900px){.tsl{flex-basis:calc(50% - 5px)}}
+@media (min-width:640px){.tsl{flex-basis:calc(50% - 5px)}}
+@media (min-width:1000px){.tsl{flex-basis:calc(33.333% - 7px)}}
+#tshowWrap{grid-column:1/-1;min-width:0}
+@media (max-width:700px){.hero .wrap>div:first-child{display:contents}.hero .hsearch{order:2}#tshowWrap{order:1}}
 .tsl .tp{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;min-width:0}
 .tsl img,.tsl .ini{width:64px;height:64px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;flex:none;background:var(--soft)}
 .tsl .ini{display:grid;place-items:center;font:800 20px/1 var(--f-head);color:var(--navy)}
@@ -1048,13 +1051,13 @@ function vHome() {
         <a class="btn ghost" href="#tests">${svg('play', 1)}${t('takeTest')}</a>
         <a class="btn wa" href="https://wa.me/${ACADEMY.wa}" target="_blank" rel="noopener">${WA}${t('waUs')}</a>
       </div>
-      <div id="tshowWrap">${tutorShow()}</div>
       <label class="hsearch">${svg('search')}<input id="gq" type="search" placeholder="${t('gsearchPh')}" value="${esc(hq)}" aria-label="${t('gsearchPh')}" autocomplete="off"></label>
     </div>
     <div class="orbit" aria-hidden="false">
       <svg class="rings" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><ellipse cx="100" cy="100" rx="96" ry="38"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(60 100 100)"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(120 100 100)"/><circle class="e" cx="196" cy="100" r="4"/><circle class="e" cx="52" cy="17" r="3.5"/><circle class="e" cx="52" cy="183" r="3"/></svg>
       <a class="tohome" href="#home" aria-label="Home"><img class="logo" src="assets/logo.webp" alt="Al Hassan Science Academy logo" width="240" height="240" fetchpriority="high" decoding="async"></a>
     </div>
+    <div id="tshowWrap">${tutorShow()}</div>
   </div></section>
   <div class="wrap"><div class="stats">
     <div class="stat"><b class="count" data-to="${COUNTS.total.mcq}">${COUNTS.total.mcq}</b><span>${t('sMcq')}</span></div>
