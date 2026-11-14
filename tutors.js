@@ -23,7 +23,7 @@ window.TUTORS = [
     educationUr: 'ایم ایس سی ریاضی، ایم ایس سی شماریات، بی ایڈ',
     subjects: 'Mathematics',
     subjectsUr: 'ریاضی',
-    classes: '9 and 10',              classesUr: '9 اور 10',
+    classes: '9 to 12',               classesUr: '9 تا 12',
     experience: '19 years',           experienceUr: '19 سال',
     area: 'Dillewali',                areaUr: 'دلیوالی',
     modes: ['online', 'academy'],     platforms: '',

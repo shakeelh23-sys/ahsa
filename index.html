@@ -609,6 +609,13 @@ html[lang="ur"] .tband .tsh b{font:700 clamp(20px,3vw,26px)/1.9 var(--f-ur)}
 .tband .tdots button{background:var(--line)}.tband .tdots button[aria-current]{background:var(--navy)}
 .tband .tsl{box-shadow:var(--sh1,0 2px 8px rgba(0,0,0,.08));border:1px solid var(--line)}
 .hs2{max-width:none;margin:0 0 14px}
+/* team band peeks on first screen */
+.hv2 .hero .wrap{padding-block:clamp(14px,3vw,30px) 46px}
+.hv2 section.tband{padding-top:clamp(10px,2vw,22px)}
+@media (min-width:701px){.hv2 .hero .orbit{width:min(230px,40vw)}.hv2 .hero .wrap{padding-top:22px}}
+@media (max-width:700px){.hv2 .hero .orbit{width:118px}html .hv2 .hero h1{font-size:clamp(26px,8vw,34px)!important;line-height:1.9!important;margin:0!important;padding:0!important}.hv2 .hero h1::after{margin-top:2px}.hv2 .hero .alt{margin:2px 0 0;font-size:14px}.hv2 .hero .cta .btn{width:auto!important;flex:0 1 auto}
+.hv2 .hero .lead{margin:4px auto 0;font-size:15px}.hv2 .hero .cta{display:flex!important;flex-direction:row!important;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px}
+.hv2 .hero .cta .btn{padding:9px 14px;font-size:15px}.hv2 .hero .wrap{gap:8px;padding-bottom:40px}}
 #bigBtn{direction:ltr;unicode-bidi:isolate}
 #bigBtn[aria-pressed="true"]::after{content:" ✓"}
 @media (max-width:560px){html[lang="ur"] .annbar .annt{font-size:13.5px;line-height:1.9}}
@@ -668,7 +675,7 @@ html[lang="ur"] .tband .tsh b{font:700 clamp(20px,3vw,26px)/1.9 var(--f-ur)}
 <nav class="tabs" id="tabs" aria-label="Sections"></nav>
 <a class="fab" href="https://wa.me/923146011672" target="_blank" rel="noopener" aria-label="WhatsApp 03146011672"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
-<script src="tutors.js?v=39"></script>
+<script src="tutors.js?v=40"></script>
 <script>
 /* ===== Academy details: edit here. Items marked sample:true are placeholders until Shakeel sends the real details. ===== */
 const ACADEMY = {
@@ -810,8 +817,8 @@ const T = {
  share:['واٹس ایپ پر شیئر کریں','Share on WhatsApp'], fav:['محفوظ کریں','Save'], unfav:['محفوظ سے ہٹائیں','Remove from saved'],
  myFav:['میری محفوظ فائلیں','My saved files'], myRecent:['حال ہی میں ڈاؤن لوڈ کی گئی','Recently downloaded'], clearRecent:['فہرست صاف کریں','Clear list'],
  streakDays:['دن مسلسل','day streak'], solved:['حل کیے','solved'], correct:['درست','correct'],
- tutors:['اساتذہ','Tutors'],
- tutTitle:['ہمارے اساتذہ','Our Tutors'], tutP:['تصدیق شدہ اساتذہ: آن لائن، اکیڈمی میں اور گھر پر (ہوم ٹیوشن)۔','Verified tutors: online, at the academy and at home (home tuition).'],
+ tutors:['ہماری ٹیم','Our Team'],
+ tutTitle:['ہماری ٹیم','Our Team'], tutP:['تصدیق شدہ اساتذہ: آن لائن، اکیڈمی میں اور گھر پر (ہوم ٹیوشن)۔','Verified tutors: online, at the academy and at home (home tuition).'],
  tutSoonT:['جلد آ رہا ہے','Coming soon'], tutSoonP:['اساتذہ کی فہرست جلد یہاں شائع کی جائے گی۔ کیا آپ پڑھاتے ہیں؟ نیچے رجسٹر کریں۔','The tutors list will be published here soon. Do you teach? Register below.'],
  tutReg:['بطور استاد رجسٹر ہوں','Register as a Tutor'], tutRegP:['اپنی معلومات لکھیں، بٹن دبائیں اور واٹس ایپ پر بھیج دیں۔','Fill in your details, press the button and send it on WhatsApp.'],
  verNote:['ویب سائٹ پر صرف وہی اساتذہ دکھائے جاتے ہیں جن کی اکیڈمی نے تصدیق کر لی ہو۔ رجسٹریشن کے بعد اکیڈمی آپ سے رابطہ کرے گی۔','Only tutors verified by the academy are listed on this website. After you register, the academy will contact you.'],
@@ -833,9 +840,9 @@ const T = {
  exp0:['ایک سال سے کم','Less than 1 year'], exp1:['1 سے 2 سال','1 to 2 years'], exp3:['3 سے 5 سال','3 to 5 years'], exp6:['5 سال سے زیادہ','More than 5 years'],
  howReg:['رجسٹریشن کیسے ہوگی؟','How registration works'], hr1:['فارم بھر کر واٹس ایپ پر بھیجیں۔','Fill the form and send it on WhatsApp.'],
  hr2:['اکیڈمی آپ سے رابطہ کر کے تعلیم اور تجربہ کی تصدیق کرے گی۔','The academy contacts you and verifies your education and experience.'],
- hr3:['تصدیق کے بعد آپ کا نام «ہمارے اساتذہ» میں شامل ہو جائے گا۔','After verification your name is added to “Our Tutors”.'],
+ hr3:['تصدیق کے بعد آپ کا نام «ہماری ٹیم» میں شامل ہو جائے گا۔','After verification your name is added to “Our Team”.'],
  stripT:['اساتذہ: آن لائن، اکیڈمی اور ہوم ٹیوشن','Tutors: online, academy & home tuition'], stripP:['ہوم ٹیوٹر بھی دستیاب ہیں۔ تصدیق شدہ اساتذہ دیکھیں یا بطور استاد رجسٹر ہوں۔','Home tutors also available. See verified tutors or register as a tutor.'],
- tutorsFoot:['ہمارے اساتذہ','Our Tutors'], regFoot:['بطور استاد رجسٹر ہوں','Register as a Tutor'],
+ tutorsFoot:['ہماری ٹیم','Our Team'], regFoot:['بطور استاد رجسٹر ہوں','Register as a Tutor'],
  footAbout:['جماعت 8 تا 12 کے مفت نوٹس اور MCQs ٹیسٹ۔','Free notes and MCQs tests for Class 8 to 12.'],
  needT:['ٹیوٹر چاہیے','Need a Tutor'], needP:['آن لائن، اکیڈمی میں یا گھر پر (ہوم ٹیوٹر) پڑھنے کے لیے استاد کی درخواست بھیجیں۔','Request a teacher for online, academy or home tuition (home tutor).'],
  applyT:['داخلہ کے لیے اپلائی کریں','Apply for Admission'], applyP:['طالب علم کی تفصیل بھریں اور واٹس ایپ پر بھیج دیں۔','Fill in the student details and send them on WhatsApp.'],
@@ -1394,7 +1401,7 @@ function tutorShow() {
     return `<div class="tsl" dir="${lang === 'ur' ? 'rtl' : 'ltr'}"><a class="tp" href="#tutors">${x.photo ? `<img src="${esc(x.photo)}" alt="" width="64" height="64" loading="lazy" decoding="async">` : `<span class="ini">${esc(ini)}</span>`}<span class="tt"><b>${tf(x, 'name')}</b><small>${modesOf(x).filter(m => TMODES[m]).map(m => t(TMODES[m][0])).join(' · ')}</small></span></a>
       <div class="ti">${row('tSubj', tf(x, 'subjects'))}${row('tCls', tf(x, 'classes'))}${row('tEdu', tf(x, 'education'))}</div>
       <a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${L('اس استاد سے رابطہ کریں', 'Contact this tutor')}</a></div>`; }).join('');
-  return `<div class="tshow" aria-label="${L('ہمارے اساتذہ', 'Our tutors')}"><div class="tsh"><b>👩‍🏫 ${L('ہمارے اساتذہ', 'Our tutors')}</b><a href="#tutors">${L('سب دیکھیں ←', 'See all →')}</a></div>${chips}
+  return `<div class="tshow" aria-label="${L('ہماری ٹیم', 'Our Team')}"><div class="tsh"><b>👥 ${L('ہماری ٹیم', 'Our Team')}</b><a href="#tutors">${L('سب دیکھیں ←', 'See all →')}</a></div>${chips}
     ${T.length ? `<div class="ttrack" id="tTrack" dir="ltr" data-n="${T.length}">${sl}${T.length > 1 ? sl.replace(/<div class="tsl"/g, '<div class="tsl clone" aria-hidden="true" inert') : ''}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>` : `<p class="tnone">${L('اس زمرے میں ابھی کوئی استاد نہیں۔', 'No tutor in this group yet.')}</p>`}</div>`;
 }
 document.addEventListener('click', e => { const b = e.target.closest('button[data-tsf]'); if (!b) return; tsF = b.dataset.tsf; const w = document.getElementById('tshowWrap'); if (w) { w.innerHTML = tutorShow(); tsHold = Date.now() + 8000; tsInit(); } });
@@ -1651,7 +1658,7 @@ loadAnn(); loadPool();
     papers: ['hb-go', '#papers', 'سلیبس اور پیپر اسکیم', 0],
     contact: ['hb-go', '#contact', 'رابطہ صفحہ / داخلہ فارم', 0],
     need: ['hb-go', '#need-tutor', '🏠 ٹیوٹر / ہوم ٹیوٹر چاہیے', 0],
-    tutors: ['hb-go', '#tutors', 'ہمارے اساتذہ', 0],
+    tutors: ['hb-go', '#tutors', 'ہماری ٹیم', 0],
   };
   /* [chip text, answer, buttons, keywords (Urdu, Roman Urdu, English)] */
   const HELP_QA = [
