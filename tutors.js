@@ -53,8 +53,8 @@ window.TUTORS = [
     photo: 'assets/tutors/humaira-hayat.svg'
   },
   {
-    name: 'Shazia Sajjad',             nameUr: 'شازیہ سجاد',
-    education: 'Masters and B.Ed',    educationUr: 'ماسٹرز اور بی ایڈ',
+    name: 'Shazia Hassan',             nameUr: 'شازیہ حسن',
+    education: 'Masters and M.Ed',    educationUr: 'ماسٹرز اور ایم ایڈ',
     subjects: 'Math and Science',
     subjectsUr: 'ریاضی اور سائنس',
     classes: '8 to 10',               classesUr: '8 تا 10',
