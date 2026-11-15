@@ -1337,7 +1337,7 @@ function vHome() {
       <p class="lead">${L('', 'Class 8 to 12: free notes, tests and experienced tutors.')}</p>
       ${(() => { const B = [`<a class="btn qn qs2" href="#notes"><span class="qs2t"><b>Notes</b></span></a>`,
         `<a class="btn qt qs2" href="#tests"><span class="qs2t"><b>Tests</b></span></a>`,
-        `<a class="btn gold qa qs2" href="#apply" aria-label="Admissions open"><span class="qs2t qur" lang="ur" dir="rtl"><b>داخلے</b><b>جاری</b></span></a>`,
+        `<a class="btn gold qa qs2" href="#apply" aria-label="Admissions open"><span class="qs2t qao"><b>Admissions</b><b>Open</b></span></a>`,
         `<a class="btn qs qs2" href="#papers"><span class="qs2t"><b>Smart</b><b>Syllabus</b></span></a>`]
         .concat(appIn() ? [`<button type="button" class="btn qsh qs2" data-shareapp aria-label="Share App"><span class="qs2t"><b>Share</b><b>App</b></span></button>`] : [`<button type="button" class="btn qi qs2" aria-label="Install App"><span class="qs2t"><b>Install</b><b>App</b></span></button>`]);
         const cl = B.map(h => h.replace(/^<(a|button)( type="button")? class="btn /, '<$1$2 tabindex="-1" aria-hidden="true" class="btn qcl ')).join('');
@@ -1782,13 +1782,15 @@ function render(scroll) {
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact, advertise: vAdv}[view]();
   if (scroll) window.scrollTo(0, 0);
   footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('adT', 'adD', 4500); if (typeof dqStart === 'function') dqStart(); } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); if (typeof dqTimer !== 'undefined') clearInterval(dqTimer); }
-  if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    window.__counted = true;
-    const runCount = () => document.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
-      const step = now => { const p = Math.min(1, (now - t0) / 1400), v = Math.round(to * (1 - Math.pow(1 - p, 3))); el.textContent = v.toLocaleString('en-US'); if (p < 1) requestAnimationFrame(step); };
-      requestAnimationFrame(step); });
+  if (window.__cntIO) { window.__cntIO.disconnect(); window.__cntIO = null; }
+  if (view === 'home' && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const cnts = () => document.querySelectorAll('.stats .count');
+    const runCount = () => { const tok = window.__cntTok = (window.__cntTok || 0) + 1; cnts().forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
+      const step = now => { if (tok !== window.__cntTok) return; const p = Math.min(1, (now - t0) / 1500), v = Math.round(to * (1 - Math.pow(1 - p, 3))); el.textContent = p < 1 ? v.toLocaleString('en-US') : el.dataset.to; if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step); }); };
     const st = document.querySelector('.stats');
-    if (st && 'IntersectionObserver' in window) { if (st.getBoundingClientRect().top > innerHeight) document.querySelectorAll('.count').forEach(el => el.textContent = '0'); const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); runCount(); } }, {threshold: .3}); io.observe(st); } else runCount();
+    if (st && 'IntersectionObserver' in window) { const r = st.getBoundingClientRect(); if (r.top > innerHeight || r.bottom < 0) cnts().forEach(el => el.textContent = '0');
+      window.__cntIO = new IntersectionObserver(es => { if (es[0].isIntersecting) runCount(); else { window.__cntTok = (window.__cntTok || 0) + 1; cnts().forEach(el => el.textContent = '0'); } }, {threshold: .3}); window.__cntIO.observe(st); }
   }
   revealInit();
 }
@@ -2119,6 +2121,7 @@ html .hero .cta.qb .qs.qs2 .qs2t b,html .hero .cta.qb .qi.qs2 .qs2t b,html .hero
 @media (min-width:701px){html .hero .cta.qb .qs.qs2 .qs2t b,html .hero .cta.qb .qi.qs2 .qs2t b,html .hero .cta.qb .qsh.qs2 .qs2t b{font-size:20px!important}}
 html .hero .cta.qb .qs.qs2 .qs2t b{font-size:min(3.9vw,17px)!important}@media (min-width:701px){html .hero .cta.qb .qs.qs2 .qs2t b{font-size:20px!important}}
 p.dqsub{font:400 17px/1.8 var(--f-ur)!important;white-space:nowrap;margin:10px 0 0!important}
+html .hero .cta.qb .qa.qs2 .qao b{font-size:min(3.65vw,17px)!important;line-height:1.15}html .hero .cta.qb .qa.qs2 .qao b+b{font-size:min(4.4vw,19px)!important}@media (max-width:700px){html .hero .cta.qb.q5{gap:5px!important}html .hero .cta.qb.q5 .btn.qa{flex:1.4 1 0!important}html .hv2 .hero .cta.qb .btn.qa{padding-inline:2px!important}}@media (min-width:701px){html .hero .cta.qb .qa.qs2 .qao b{font-size:20px!important}}
 h2.dqur{font:400 30px/1.9 var(--f-ur)!important;letter-spacing:0}
 @media (max-width:700px){h2.dqur{font-size:26px!important}}
 .dqshow .dqinR{animation:dqR .45s ease}.dqshow .dqinL{animation:dqL .45s ease}

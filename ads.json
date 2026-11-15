@@ -1,35 +1,41 @@
 {
- "_help": "Approved ads only (Shakeel approves each one). Home slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, titleUr/textUr (Urdu; ALL ads are shown in Urdu only (Shakeel 2026-11-15); letters must be in the Noto Nastaliq text= subset in index.html), img (assets/ads/x.webp), phone (advertiser WhatsApp, e.g. 03001234567; click opens WhatsApp to THIS number with a pre-filled message; if missing, goes to the academy WhatsApp), link (optional website instead of WhatsApp), on (false = hide). sample:true shows the label نمونہ. pics: optional list of small product pictures shown under the text.",
- "ads": [
-  {
-   "title": "United 70cc Bike on easy installments - Umar Mumtaz Electronics, Mianwali",
-   "titleUr": "یونائیٹڈ 70 سی سی بائیک: آسان اقساط · عمر ممتاز الیکٹرونکس",
-   "banner": "assets/ads/united-70-umar-mumtaz.webp",
-   "phone": "03065709041"
-  },
-  {
-   "title": "Ghar se tayyar karda desi zaiqay (home-cooked food), Tariq Abad, Mianwali",
-   "titleUr": "گھر سے تیار کردہ دیسی ذائقے · محلہ طارق آباد، میانوالی",
-   "banner": "assets/ads/desi-zaiqay.webp",
-   "phone": "03336827304"
-  },
-  {
-   "title": "City Graphics Mianwali - flex wallpaper, Badar Plaza near Underpass",
-   "titleUr": "سٹی گرافکس میانوالی · فلیکس وال پیپر",
-   "banner": "assets/ads/city-graphics-wallpaper.webp",
-   "phone": "03027711156"
-  },
-  {
-   "title": "Tauqeer Plastic Store",
-   "text": "Shopping bags, disposable items and toys available.",
-   "img": "assets/ads/tauqeer-plastic.webp",
-   "titleUr": "توقیر پلاسٹک سٹور",
-   "textUr": "شاپنگ بیگز، ڈسپوزیبل سامان اور کھلونے دستیاب ہیں۔",
-   "pics": [
-    "assets/ads/tauqeer-bags.webp",
-    "assets/ads/tauqeer-disposable.webp",
-    "assets/ads/tauqeer-toys.webp"
-   ]
-  }
- ]
+  "_help": "Approved ads only (Shakeel approves each one). Home slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, titleUr/textUr (Urdu; ALL ads are shown in Urdu only (Shakeel 2026-11-15); letters must be in the Noto Nastaliq text= subset in index.html), img (assets/ads/x.webp), phone (advertiser WhatsApp, e.g. 03001234567; click opens WhatsApp to THIS number with a pre-filled message; if missing, goes to the academy WhatsApp), link (optional website instead of WhatsApp), on (false = hide). sample:true shows the label نمونہ. pics: optional list of small product pictures shown under the text.",
+  "ads": [
+    {
+      "title": "United 70cc Bike on easy installments - Umar Mumtaz Electronics, Mianwali",
+      "titleUr": "یونائیٹڈ 70 سی سی بائیک: آسان اقساط · عمر ممتاز الیکٹرونکس",
+      "banner": "assets/ads/united-70-umar-mumtaz.webp",
+      "phone": "03065709041"
+    },
+    {
+      "title": "Ghar se tayyar karda desi zaiqay (home-cooked food), Tariq Abad, Mianwali",
+      "titleUr": "گھر سے تیار کردہ دیسی ذائقے · محلہ طارق آباد، میانوالی",
+      "banner": "assets/ads/desi-zaiqay.webp",
+      "phone": "03336827304"
+    },
+    {
+      "title": "City Graphics Mianwali - flex wallpaper, Badar Plaza near Underpass",
+      "titleUr": "سٹی گرافکس میانوالی · فلیکس وال پیپر",
+      "banner": "assets/ads/city-graphics-wallpaper.webp",
+      "phone": "03027711156"
+    },
+    {
+      "title": "Online Quran Academy - Quran recitation, Noorani Qaida, Hifz, Tafseer & Translation, flexible timings",
+      "titleUr": "آن لائن قرآن اکیڈمی · ناظرہ، نورانی قاعدہ، حفظ، ترجمہ و تفسیر",
+      "banner": "assets/ads/online-quran-academy.webp",
+      "phone": "03224527474"
+    },
+    {
+      "title": "Tauqeer Plastic Store",
+      "text": "Shopping bags, disposable items and toys available.",
+      "img": "assets/ads/tauqeer-plastic.webp",
+      "titleUr": "توقیر پلاسٹک سٹور",
+      "textUr": "شاپنگ بیگز، ڈسپوزیبل سامان اور کھلونے دستیاب ہیں۔",
+      "pics": [
+        "assets/ads/tauqeer-bags.webp",
+        "assets/ads/tauqeer-disposable.webp",
+        "assets/ads/tauqeer-toys.webp"
+      ]
+    }
+  ]
 }
