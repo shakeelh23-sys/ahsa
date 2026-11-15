@@ -665,7 +665,12 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 /* hero quick buttons (Notes, Tests, Admission, WhatsApp) + single install button (2026-11-15) */
 .hero .cta.qb{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:560px}
 .hero .cta.qb .btn{justify-content:center;padding:10px 8px;white-space:nowrap;min-width:0}
-.hero .cta.qb .qn,.hero .cta.qb .qt,.hero .cta.qb .qs{background:#fff;color:var(--navy)}
+.hero .cta.qb .btn{color:#fff!important;border:0!important;box-shadow:0 6px 16px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.25)}
+.hero .cta.qb .btn svg{color:#fff;stroke:#fff}
+.hero .cta.qb .btn:nth-child(1){background:linear-gradient(160deg,#22c55e,#15803d)!important}
+.hero .cta.qb .btn:nth-child(2){background:linear-gradient(160deg,#3b82f6,#1d4ed8)!important}
+.hero .cta.qb .btn:nth-child(3){background:linear-gradient(160deg,#fb923c,#c2410c)!important}
+.hero .cta.qb .btn:nth-child(4){background:linear-gradient(160deg,#a855f7,#6d28d9)!important}
 @media (max-width:700px){.hero .cta.qb{flex-direction:unset!important;width:100%;gap:6px;max-width:none}.hv2 .hero .cta.qb .btn{flex-direction:column;gap:2px;padding:7px 4px!important;font-size:13px!important;border-radius:14px}.hero .cta.qb .btn svg{width:20px;height:20px;margin:0}html[lang="ur"] .hero .cta.qb .btn span{font:400 13px/1.35 var(--f-ur)}}
 .instone{display:flex;width:100%;max-width:420px;margin:0 auto;justify-content:center}
 
@@ -1200,7 +1205,7 @@ function fileRow(f, ctx) {
   if (f.nlq) m.push(fmt(f.nlq) + ' ' + L('تفصیلی سوالات', 'long Qs'));
   if (f.pg) m.push(f.pg + ' ' + L('صفحات', 'pages'));
   return `<div class="file"><div style="min-width:0">
-      <h4>${esc(title)}</h4><p class="d">${esc(f.d ? L(f.dUr || f.d, f.d) : L(k[3], k[2]))}</p>${f.by ? `<p class="by">✍️ ${esc(L('نوٹس از ' + (f.byUr || f.by), 'Notes by ' + f.by))}</p>` : ''}
+      <h4>${esc(title)}</h4><p class="d">${esc(f.d ? L(f.dUr || f.d, f.d) : L(k[3], k[2]))}</p>${f.by ? `<p class="by">✍️ ${esc(L('بائے ' + (f.byUr || f.by), 'By ' + f.by))}</p>` : ''}
       <div class="m">${ctx ? `<span class="ctx">${esc(ctx)}</span>` : ''}${f.md ? `<span class="tag ${f.md}">${f.md === 'UM' ? 'Urdu Medium' : 'English Medium'}</span>` : ''}${isNew(f) ? `<span class="tag new">${L('نیا', 'New')}</span>` : ''}${f.app ? '<span class="tag app">App</span>' : ''}${m.map(x => `<span class="tag">${esc(x)}</span>`).join('')}<span class="tag">${f.mb} MB</span></div>
       <div class="fn">${esc(f.t)}</div>
     </div>
@@ -1636,13 +1641,13 @@ function annAuto() {
     s.f.forEach(f => { const by = f.by || 'Shakeel Hassan'; (g[by] = g[by] || {by, byUr: f.byUr || (f.by ? f.by : 'شکیل حسن'), f: []}).f.push(f); });
     Object.values(g).forEach(x => {
       const has = k => x.f.some(f => f.k === k || (k === 'mcq' && f.nm) || (k === 'sq' && (f.k === 'cmb' || f.nsq)) || (k === 'lq' && f.nlq));
-      const ks = [has('mcq') && ['MCQs', 'MCQs'], has('sq') && ['مختصر سوالات', 'short questions'], has('lq') && ['تفصیلی سوالات', 'long questions'], has('sol') && ['حل شدہ مشقیں', 'solved exercises'], has('app') && ['ٹیسٹ ایپ', 'test app']].filter(Boolean);
+      const ks = [has('mcq') && ['MCQs', 'MCQs'], has('sq') && ['SQs', 'SQs'], has('lq') && ['LQs', 'LQs'], has('sol') && ['حل شدہ مشقیں', 'solved exercises'], has('app') && ['ٹیسٹ ایپ', 'test app']].filter(Boolean);
       const nw = x.f.map(f => f.nw || '').sort().pop();
       const nu = x.f.some(isNew);
       const cn = c.k === '9t' ? L('نہم ٹیک', '9 Tech') : c.k;
       out.push({nw, nu, cls: c.k, subj: s.k, by: x.by, link: `#notes-${c.k}-${s.k}`,
-        ur: `${nu ? '🆕 ' : ''}${s.ic} ${s.ur} ${c.k === '9t' ? 'نہم ٹیک' : 'جماعت ' + c.k}: ${ks.map(k => k[0]).join('، ')} — نوٹس از ${x.byUr}`,
-        en: `${nu ? '🆕 ' : ''}${s.ic} ${s.en} ${cn}: ${ks.map(k => k[1]).join(', ')} — Notes by ${x.by}`});
+        ur: `${nu ? '🆕 ' : ''}${s.ic} ${s.ur} ${c.k === '9t' ? 'نہم ٹیک' : 'جماعت ' + c.k}: ${ks.map(k => k[0]).join('، ')} — بائے ${x.byUr}`,
+        en: `${nu ? '🆕 ' : ''}${s.ic} ${s.en} ${cn}: ${ks.map(k => k[1]).join(', ')} — By ${x.by}`});
     });
   }));
   return out.map((x, i) => [x, i]).sort((p, q) => (q[0].nw > p[0].nw) - (q[0].nw < p[0].nw) || p[1] - q[1]).map(p => p[0]);
