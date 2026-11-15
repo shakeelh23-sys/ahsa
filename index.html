@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400&display=swap&text=%D8%A6%D8%A7%D8%AD%D8%AF%D8%B3%D9%84%D9%85%D9%86%D9%88%DA%88%DA%A9%DB%8C">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400&display=swap&text=%28%29%3A%D8%8C%D8%A6%D8%A7%D8%A8%D8%AA%D8%AC%D8%AD%D8%AE%D8%AF%D8%B1%D8%B2%D8%B3%D8%B4%D8%B7%D9%81%D9%82%D9%84%D9%85%D9%86%D9%88%D9%B9%D9%BE%DA%86%DA%88%DA%A9%DA%AF%DA%BA%DA%BE%DB%81%DB%8C%DB%92%DB%94">
 <style>
 [hidden]{display:none!important}img{max-width:100%}
 /* Layout: sticky top bar + navy hero band; content in a 1080px column; on phones the nav moves to an app-style bottom tab bar. */
@@ -669,6 +669,11 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .adc b{display:block;font-size:16px}.adc p{margin:2px 0 0;color:var(--mut);font-size:13.5px;line-height:1.4}
 .adtag{display:inline-block;font:700 10.5px/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:#1a1a1a;border-radius:4px;padding:3px 5px;margin-bottom:4px}
 #adForm textarea{width:100%;resize:vertical}
+/* EN/UR SWAP (.swap): text alternates English / Urdu every 4 s (Advertise card + ads with titleUr) */
+.swap{display:grid}.swap>span,.swap>div{grid-area:1/1;align-self:center;transition:opacity .6s,visibility .6s}
+.swap>.aur{opacity:0;visibility:hidden;text-align:right;font-family:var(--f-ur)}
+.swap.u>.aen{opacity:0;visibility:hidden}.swap.u>.aur{opacity:1;visibility:visible}
+.swap .aur b{font:400 17px/1.9 var(--f-ur)!important}.swap .aur small,.swap .aur p{font:400 12.5px/1.95 var(--f-ur)!important}
 /* TUTOR-REG-OFF (Shakeel, 2026-11-15): "Register as Tutor" hidden for now. Delete this one line to bring it back everywhere. */
 a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
@@ -1665,13 +1670,14 @@ function tsInit() {
 let ADS = [];
 const ADS_HOME_MAX = 10;
 function adCard(x) { const href = x.link || (x.wa ? 'https://wa.me/' + x.wa : '');
-  const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}<div><span class="adtag">Ad</span><b>${esc(x.title)}</b><p>${esc(x.text || '')}</p></div>`;
+  const en = `<div class="aen"><span class="adtag">Ad</span><b>${esc(x.title)}</b><p>${esc(x.text || '')}</p></div>`;
+  const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}${x.titleUr ? `<div class="swap" style="flex:1;min-width:0">${en}<div class="aur" lang="ur" dir="rtl"><span class="adtag">اشتہار</span><b>${esc(x.titleUr)}</b><p>${esc(x.textUr || '')}</p></div></div>` : en}`;
   return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }
 const adsHomeInner = () => ADS.length ? slideBlock('ad', ADS.slice(0, ADS_HOME_MAX).map(adCard), 'adsT') : '';
 const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">Current ads</h2></div><div class="adsg">${ADS.map(adCard).join('')}</div>` : '';
 function adsHome() {
   return `<div id="adsHome">${adsHomeInner()}</div>
-  <a class="adstrip lift" href="#advertise"><span class="ic">📢</span><span class="tx"><b>Advertise with us</b><small>Put your shop, school or business in front of students and parents of Mianwali.</small></span><span class="go" aria-hidden="true">›</span></a>`;
+  <a class="adstrip lift" href="#advertise"><span class="ic">📢</span><span class="tx swap"><span class="aen"><b>Advertise with us</b><small>Put your shop, school or business in front of students and parents of Mianwali.</small></span><span class="aur" lang="ur" dir="rtl"><b>ہمارے ساتھ اشتہار لگائیں</b><small>اپنی دکان، اسکول یا کاروبار میانوالی کے طلبہ اور والدین تک پہنچائیں۔</small></span></span><span class="go" aria-hidden="true">›</span></a>`;
 }
 fetch('ads.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(j => {
   ADS = (j && Array.isArray(j.ads) ? j.ads : []).filter(x => x && x.title && x.on !== false); if (!ADS.length) return;
@@ -1893,6 +1899,8 @@ function loadPool() {
   document.head.appendChild(s);
 }
 window.addEventListener('hashchange', route);
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => document.querySelectorAll('.swap').forEach(e => e.classList.toggle('u')), 4000);
+
 window.addEventListener('hashchange', () => { try { if (window.goatcounter && goatcounter.count) goatcounter.count({path: location.pathname + location.hash.split('?')[0]}); } catch (e) {} });
 /* header search */
 const HPAGES = [['🏠 Home','#home','home main'],['📚 Notes','#notes','notes pdf download files'],['📝 MCQs Tests','#tests','mcq mcqs test tests app quiz'],['🗓️ Weekly test','#weekly','weekly test quiz'],['📄 Smart Syllabus','#papers','syllabus smart paper scheme papers'],['👥 Our Team','#tutors','team tutors teachers tutor'],['🎓 Need a Tutor','#need-tutor','tutor home tuition need teacher'],['✍️ Admission','#apply','admission apply form join'],['ℹ️ About','#about','about academy'],['📞 Contact','#contact','contact whatsapp phone address map location'],['📢 Advertise','#advertise','advertise advertisement ad ads ishtihar business shop promote']];

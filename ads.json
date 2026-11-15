@@ -1,11 +1,13 @@
 {
- "_help": "Approved ads only (Shakeel approves each one). Home page slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, img (e.g. assets/ads/name.webp), link (website/Facebook) or wa (WhatsApp number like 923001234567), on (false = hide).",
+ "_help": "Approved ads only (Shakeel approves each one). Home page slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, img (e.g. assets/ads/name.webp), link (website/Facebook) or wa (WhatsApp number like 923001234567), on (false = hide). Optional Urdu: titleUr, textUr (text then alternates English/Urdu; Urdu letters must be in the Noto Nastaliq text= subset link in index.html).",
  "ads": [
   {
    "title": "Tauqeer Plastic Store",
    "text": "Shoppers (plastic bags), toys of every size and disposable items. We also buy raddi (scrap). Proprietor: Malik Farooq Hassan Pawar.",
    "img": "assets/ads/tauqeer-plastic.webp",
-   "wa": "923146011672"
+   "wa": "923146011672",
+   "titleUr": "توقیر پلاسٹک سٹور",
+   "textUr": "شاپرز (پلاسٹک بیگ)، ہر سائز کے کھلونے اور ڈسپوزیبل سامان دستیاب ہے۔ ردی بھی خریدی جاتی ہے۔ پروپرائٹر: ملک فاروق حسن پوار"
   },
   {
    "title": "SAMPLE 1: Al Noor Book Depot",
