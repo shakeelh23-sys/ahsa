@@ -36,7 +36,7 @@ window.TUTORS = [
     subjects: 'Math, Physics',
     subjectsUr: 'ریاضی، فزکس',
     classes: '8 to 12',               classesUr: '8 تا 12',
-    experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
+    experience: 'More than 10 years',  experienceUr: '10 سال سے زیادہ',
     area: 'Dillewali',                areaUr: 'دلیوالی',
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/najeeb-ullah.webp?v=2'
@@ -47,7 +47,7 @@ window.TUTORS = [
     subjects: 'Math, Chemistry',
     subjectsUr: 'ریاضی، کیمسٹری',
     classes: '8 to 12',               classesUr: '8 تا 12',
-    experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
+    experience: 'More than 10 years',  experienceUr: '10 سال سے زیادہ',
     area: 'Abbakhel, Mianwali',       areaUr: 'ابا خیل، میانوالی',
     available: 'After 7 pm',          availableUr: 'شام 7 بجے کے بعد',
     modes: ['online'],                platforms: '',
@@ -70,8 +70,8 @@ window.TUTORS = [
     subjects: 'Mathematics',
     subjectsUr: 'ریاضی',
     classes: '8 to 12',               classesUr: '8 تا 12',
-    experience: 'More than 5 years · Mathematics Lecturer, University of Mianwali and ARF College Mianwali',
-    experienceUr: '5 سال سے زیادہ · لیکچرر ریاضی، یونیورسٹی آف میانوالی اور اے آر ایف کالج میانوالی',
+    experience: 'More than 10 years · Mathematics Lecturer, University of Mianwali and ARF College Mianwali',
+    experienceUr: '10 سال سے زیادہ · لیکچرر ریاضی، یونیورسٹی آف میانوالی اور اے آر ایف کالج میانوالی',
     area: 'Mianwali',                 areaUr: 'میانوالی',
     modes: ['online', 'home'],        platforms: 'Zoom',
     photo: 'assets/tutors/umar-farooq.webp?v=1'
@@ -82,7 +82,7 @@ window.TUTORS = [
     subjects: 'Mathematics',
     subjectsUr: 'ریاضی',
     classes: '8 to 10',               classesUr: '8 تا 10',
-    experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
+    experience: 'More than 10 years',  experienceUr: '10 سال سے زیادہ',
     modes: ['online'],                platforms: 'WhatsApp, Zoom, Google Meet',
     photo: 'assets/tutors/shahzad-hassan.webp?v=1'
   },
@@ -91,7 +91,8 @@ window.TUTORS = [
     education: 'M.Sc Economics',      educationUr: 'ایم ایس سی معاشیات',
     subjects: 'Economics',            subjectsUr: 'معاشیات',
     classes: '1st Year and 2nd Year', classesUr: 'فرسٹ ایئر اور سیکنڈ ایئر',
-    modes: [],                        platforms: '',
+    experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
+    modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/shahnaz-habib.svg'
   },
   {
@@ -99,7 +100,7 @@ window.TUTORS = [
     education: 'M.Phil Chemistry',    educationUr: 'ایم فل کیمسٹری',
     subjects: 'Chemistry',            subjectsUr: 'کیمسٹری',
     classes: '9 to 12',               classesUr: '9 تا 12',
-    experience: 'More than 5 years',  experienceUr: '5 سال سے زیادہ',
+    experience: 'More than 10 years',  experienceUr: '10 سال سے زیادہ',
     area: 'Dillewali, Mianwali',      areaUr: 'دلیوالی، میانوالی',
     modes: ['online', 'academy'],     platforms: 'WhatsApp',
     photo: 'assets/tutors/amaar-yasir-shah.webp?v=1'
@@ -108,7 +109,8 @@ window.TUTORS = [
     name: 'Tariq Hassan',             nameUr: 'طارق حسن',
     education: 'M.A English, B.Ed',   educationUr: 'ایم اے انگلش، بی ایڈ',
     subjects: 'English',              subjectsUr: 'انگلش',
-    modes: ['online'],                platforms: '',
+    experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
+    modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/tariq-hassan.webp?v=1'
   },
   // {
