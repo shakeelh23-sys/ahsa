@@ -703,6 +703,16 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .ab-sm .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.18);flex:none}.ab-sm .ic svg{width:18px;height:18px}
 .ab-sm b{font:400 17px/1.9 var(--f-ur);white-space:nowrap}
 @media (max-width:359px){.ab-sm b{font-size:15px}.ab-sm{gap:6px;padding:6px 8px}}
+/* ADS-v4: text + separate pictures row; Advertise slide is last slide of the strip */
+.adc{flex-direction:column;align-items:stretch!important;justify-content:center}
+.adc .adtop{display:flex;gap:14px;align-items:center;direction:rtl;width:100%}
+.adc .adtop>img{width:84px;height:84px;object-fit:cover;border-radius:12px;flex:none}
+.adc .adt{display:block;font:400 13.5px/2 var(--f-ur);color:var(--mut)}
+.adc .adpics{display:flex;gap:8px;justify-content:center;margin-top:10px;direction:rtl;width:100%}
+.adc .adpics img{width:30%!important;max-width:110px;height:auto!important;aspect-ratio:1;border-radius:12px}
+.advs{background:linear-gradient(135deg,#fff7e0,#ffe9b0)!important;border:1.5px dashed #f5b400!important}
+.advs .advic{font-size:34px;width:64px;height:64px;border-radius:16px;display:grid;place-items:center;background:#fff;flex:none}
+:root[data-theme="dark"] .advs{background:linear-gradient(135deg,#3a2f10,#4a3a12)!important}
 /* TUTOR-REG-OFF (Shakeel, 2026-11-15): "Register as Tutor" hidden for now. Delete this one line to bring it back everywhere. */
 a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
@@ -1700,14 +1710,14 @@ const ADS_HOME_MAX = 10;
 const adWa = x => { let n = String(x.phone || x.wa || '').replace(/\D/g, ''); if (/^0\d{10}$/.test(n)) n = '92' + n.slice(1); if (!/^92\d{10}$/.test(n)) n = ACADEMY.wa;
   const msg = n === ACADEMY.wa ? `السلام علیکم! میں «${x.titleUr || x.title}» کے اشتہار کے بارے میں معلومات چاہتا ہوں۔ (AHSA ویب سائٹ)` : `السلام علیکم! میں نے آپ کا اشتہار «${x.titleUr || x.title}» الحسن سائنس اکیڈمی کی ویب سائٹ پر دیکھا ہے۔`;
   return 'https://wa.me/' + n + '?text=' + encodeURIComponent(msg); };
-function adCard(x) { const href = x.link || adWa(x);
-  const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}<div class="aur" lang="ur" dir="rtl">${x.sample ? '<span class="adtag">نمونہ</span>' : ''}<b>${esc(x.titleUr || x.title)}</b>${(x.pics || []).length ? '' : `<p>${esc(x.textUr || x.text || '')}</p>`}${(x.pics || []).length ? `<span class="adpics">${x.pics.map(u => `<img src="${esc(u)}" alt="" loading="lazy" decoding="async" width="64" height="64">`).join('')}</span>` : ''}</div>`;
+function adCard(x) { const href = x.link || adWa(x), pics = x.pics || [];
+  const inner = `<span class="adtop">${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}<span class="aur" lang="ur" dir="rtl">${x.sample ? '<span class="adtag">نمونہ</span>' : ''}<b>${esc(x.titleUr || x.title)}</b>${(x.textUr || x.text) ? `<span class="adt">${esc(x.textUr || x.text)}</span>` : ''}</span></span>${pics.length ? `<span class="adpics">${pics.map(u => `<img src="${esc(u)}" alt="" loading="lazy" decoding="async" width="64" height="64">`).join('')}</span>` : ''}`;
   return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }
-const adsHomeInner = () => ADS.length ? slideBlock('ad', ADS.slice(0, ADS_HOME_MAX).map(adCard), 'adsT') : '';
+const ADV_SLIDE = `<a class="adc advs" href="#advertise"><span class="adtop"><span class="advic">📢</span><span class="aur" lang="ur" dir="rtl"><b>ہمارے ساتھ اشتہار لگائیں</b><span class="adt">اپنی دکان، اسکول یا کاروبار میانوالی کے طلبہ اور والدین تک پہنچائیں۔</span></span></span></a>`;
+const adsHomeInner = () => slideBlock('ad', [...ADS.slice(0, ADS_HOME_MAX).map(adCard), ADV_SLIDE], 'adsT');
 const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">موجودہ اشتہارات</h2></div><div class="adsg" dir="ltr" lang="en">${ADS.map(adCard).join('')}</div>` : '';
 function adsHome() {
-  return `<div id="adsHome">${adsHomeInner()}</div>
-  <a class="adstrip lift" href="#advertise"><span class="ic">📢</span><span class="tx aur" lang="ur" dir="rtl"><b>ہمارے ساتھ اشتہار لگائیں</b><small>اپنی دکان، اسکول یا کاروبار میانوالی کے طلبہ اور والدین تک پہنچائیں۔</small></span><span class="go" aria-hidden="true">›</span></a>`;
+  return `<div id="adsHome">${adsHomeInner()}</div>`;
 }
 fetch('ads.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(j => {
   ADS = (j && Array.isArray(j.ads) ? j.ads : []).filter(x => x && x.title && x.on !== false); if (!ADS.length) return;
@@ -1930,7 +1940,7 @@ function loadPool() {
 }
 window.addEventListener('hashchange', route);
 document.addEventListener('click', e => { if (!e.target.closest('#aFab')) return; e.preventDefault();
-  const go = () => { const t = document.querySelector('.adstrip'); if (!t) return; const box = (document.getElementById('adsHome') || t).closest('section') || t;
+  const go = () => { const t = document.getElementById('adsHome'); if (!t) return; const box = (document.getElementById('adsHome') || t).closest('section') || t;
     box.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center'}); };
   if (view !== 'home') { location.hash = '#home'; setTimeout(go, 350); } else go(); });
 
