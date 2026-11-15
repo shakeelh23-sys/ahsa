@@ -1342,7 +1342,7 @@ function vHome() {
       ${(() => { const B = [`<a class="btn qn" href="#notes">${svg('notes')}<span>${L('', 'Notes')}</span></a>`,
         `<a class="btn qt" href="#tests">${svg('tests')}<span>${L('', 'Tests')}</span></a>`,
         `<a class="btn gold qa" href="#apply">${svg('apply')}<span>${L('', 'Admission')}</span></a>`,
-        `<a class="btn qs" href="#papers">${svg('papers')}<span>${L('', '<i class="lf">Smart </i>Syllabus')}</span></a>`]
+        `<a class="btn qs qs2" href="#papers"><span class="qs2t"><b>Smart</b><b>Syllabus</b></span></a>`]
         .concat(appIn() ? [`<button type="button" class="btn qsh" data-shareapp><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>${L('', 'Share<i class="lf"> App</i>')}</span></button>`] : [`<button type="button" class="btn qi">${svg('dl')}<span>${L('', 'Install<i class="lf"> App</i>')}</span></button>`]);
         const cl = B.map(h => h.replace(/^<(a|button)( type="button")? class="btn /, '<$1$2 tabindex="-1" aria-hidden="true" class="btn qcl ')).join('');
         return `<div class="cta qb${B.length > 4 ? ' q5' : ''}" id="qTrack" data-n="${B.length}">${B.join('')}${cl}</div>`; })()}
@@ -2067,6 +2067,11 @@ html footer .wrap.fbar .btn svg{width:17px!important;height:17px!important}
 </style>
 <style>/* BRAND-2LINE: "Al Hassan" / "Science Academy" */
 .brand b .bl{display:block;white-space:nowrap}
+</style>
+<style>/* QS-SMART: Smart Syllabus button, text in place of icon */
+.hero .cta.qb .qs2 .qs2t{display:flex;flex-direction:column;align-items:center;line-height:1.15}
+.hero .cta.qb .qs2 .qs2t b{font-weight:800}
+.hero .cta.qb .qs2 .qs2t b:first-child{font-size:1.12em}
 </style>
 <button class="hfab" id="helpFab" type="button" aria-expanded="false" aria-controls="helpPanel" aria-label="سوال جواب · Q&amp;A">
   <span class="hq hqt" aria-hidden="true">Q&amp;A</span>
