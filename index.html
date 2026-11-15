@@ -1463,8 +1463,8 @@ function vAbout() {
     <div class="grid g2">
       <div class="card"><p style="color:var(--ink);margin:0">${t('aboutP')}</p>
         <div class="motto" style="color:var(--navy);margin-top:16px"><span>Learn</span><span>Practice</span><span>Excel</span></div></div>
-      <div class="card"><div class="kick">${t('teacher')}</div>
-        <div style="margin-top:10px"><div><p style="margin:0 0 8px;color:var(--mut)">${t('teachP')}</p><div class="sig">Shakeel Hassan<br>SST Science<br>GHS MC Boys, Muslim Bazar Mianwali.<br>💬 03146011672</div></div></div></div>
+      <div class="card abt-t"><img class="abt-ph" src="assets/shakeel-hassan.webp?v=2" alt="Shakeel Hassan" width="96" height="96" loading="lazy" decoding="async">
+        <div><div><p style="margin:0 0 8px;color:var(--mut)">${t('teachP')}</p><div class="sig">Shakeel Hassan<br>SST Science<br>GHS MC Boys, Muslim Bazar Mianwali.<br>💬 03146011672</div></div></div></div>
     </div>
     <div class="card" style="margin-top:12px"><h3 style="margin-bottom:6px">${t('details')}</h3>${infoTable()}</div>
   </div></section>`;
@@ -2043,6 +2043,11 @@ body:has(#helpFab[aria-expanded="true"]) .afab{opacity:0;pointer-events:none}
 .sth+.stats{margin-top:0!important}
 @media (max-width:700px){.sth{font-size:19px;margin-top:-6px}}
 .sth{margin-top:-4px}
+</style>
+<style>/* ABOUT-PHOTO: Shakeel photo in place of TEACHER label */
+.abt-t{display:flex;gap:16px;align-items:flex-start}.abt-t>div{min-width:0}
+.abt-ph{width:96px;height:96px;flex:none;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 6px 16px rgba(8,44,108,.22)}
+@media (max-width:420px){.abt-t{gap:12px}.abt-ph{width:72px;height:72px}}
 </style>
 <button class="hfab" id="helpFab" type="button" aria-expanded="false" aria-controls="helpPanel" aria-label="سوال جواب · Q&amp;A">
   <span class="hq hqt" aria-hidden="true">Q&amp;A</span>
