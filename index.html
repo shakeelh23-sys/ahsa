@@ -653,6 +653,18 @@ footer .fbar .lbs{display:none}
 footer .fadm b{display:block;color:#fff;font:800 18px/1.3 var(--f-head)}html[lang="ur"] footer .fadm b{font:700 18px/1.9 var(--f-ur)}
 footer .fadm .num{display:block;color:var(--gold);font:800 22px/1.3 var(--f-head);margin:4px 0 8px;direction:ltr;text-align:start}
 footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){footer .wrap.fgrid{grid-template-columns:1fr 1fr}}@media (max-width:700px){footer .wrap.fgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* hero quick buttons (Notes, Tests, Admission, WhatsApp) + single install button (2026-11-15) */
+.hero .cta.qb{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:560px}
+.hero .cta.qb .btn{justify-content:center;padding:10px 8px;white-space:nowrap;min-width:0}
+.hero .cta.qb .qn,.hero .cta.qb .qt{background:#fff;color:var(--navy)}
+@media (max-width:700px){.hero .cta.qb{flex-direction:unset!important;width:100%;gap:6px;max-width:none}.hv2 .hero .cta.qb .btn{flex-direction:column;gap:2px;padding:7px 4px!important;font-size:13px!important;border-radius:14px}.hero .cta.qb .btn svg{width:20px;height:20px;margin:0}html[lang="ur"] .hero .cta.qb .btn span{font:400 13px/1.35 var(--f-ur)}}
+.instone{display:flex;width:100%;max-width:420px;margin:0 auto;justify-content:center}
+
+/* golden shine wave across the academy name (2026-11-15) */
+@keyframes ahsaShine{0%{background-position:160% 0,0 0}55%,100%{background-position:-60% 0,0 0}}
+.hero h1 .u,html[lang="ur"] .hero h1 .u{background-image:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.95) 48%,rgba(255,248,214,.9) 52%,transparent 65%),linear-gradient(180deg,#fff6cf 0%,#ffd86b 38%,#f0b429 62%,#c98a12 100%)!important;background-size:250% 100%,100% 100%!important;background-repeat:no-repeat!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent;-webkit-text-fill-color:transparent;animation:ahsaShine 4.5s ease-in-out 1s infinite}
+@media (prefers-reduced-motion:reduce){.hero h1 .u{animation:none}}
 </style>
 
 </head>
@@ -1087,9 +1099,11 @@ function vHome() {
       <h1 class="stk"><a class="tohome" href="#home"><span class="u">${(L('الحسن|سائنس|اکیڈمی|دلیوالی','Al Hassan|Science|Academy')).split('|').map((w, i) => `<span class="w w${i}">${w}</span>`).join(' ')}</span></a></h1>
       <p class="alt">${t('heroAlt')}</p>
       <p class="lead">${L('جماعت 8 تا 12: مفت نوٹس، ٹیسٹ اور تجربہ کار اساتذہ۔', 'Class 8 to 12: free notes, tests and experienced tutors.')}</p>
-      <div class="cta">
-        <a class="btn wa" href="https://wa.me/${ACADEMY.wa}" target="_blank" rel="noopener">${WA}${t('waUs')}</a>
-        <a class="btn gold" href="#apply">${svg('apply')}${t('applyT')}</a>
+      <div class="cta qb">
+        <a class="btn qn" href="#notes">${svg('notes')}<span>${L('نوٹس', 'Notes')}</span></a>
+        <a class="btn qt" href="#tests">${svg('tests')}<span>${L('ٹیسٹ', 'Tests')}</span></a>
+        <a class="btn gold" href="#apply">${svg('apply')}<span>${L('داخلہ', 'Admission')}</span></a>
+        <a class="btn wa" href="https://wa.me/${ACADEMY.wa}" target="_blank" rel="noopener">${WA}<span>WhatsApp</span></a>
       </div>
     </div>
     <div class="orbit" aria-hidden="false">
@@ -1554,9 +1568,7 @@ function installCard() {
   const how = isIOS() ? L('آئی فون: نیچے Share بٹن ⬆️ دبائیں، پھر «Add to Home Screen» چنیں۔', 'iPhone: tap the Share button ⬆️ at the bottom, then choose “Add to Home Screen”.')
     : window.__bip ? L('ایک بٹن دبائیں، ویب سائٹ آپ کے موبائل پر ایپ کی طرح انسٹال ہو جائے گی۔', 'One tap: the website installs on your phone like an app.')
     : L('براؤزر کے مینو ⋮ میں «Install app» یا «Add to Home screen» دبائیں۔', 'In the browser menu ⋮ tap “Install app” or “Add to Home screen”.');
-  return `<div class="instc lift"><img src="assets/logo-96.webp" alt="" width="48" height="48" loading="lazy">
-    <div style="min-width:0;flex:1"><b>${L('ایپ کی طرح انسٹال کریں', 'Install as an app')}</b><p>${how}</p></div>
-    ${isIOS() ? '' : `<button type="button" class="btn gold sm" id="installBtn2">⬇ ${L('انسٹال کریں', 'Install')}</button>`}</div>`;
+  return `<button type="button" class="btn gold instone" id="installBtn2" title="${how.replace(/"/g, '&quot;')}">⬇ ${L('ایپ انسٹال کریں', 'Install app')}</button>`;
 }
 function refreshInstall() { document.querySelectorAll('#instWrap').forEach(w => w.innerHTML = installCard()); document.querySelectorAll('#installBtn').forEach(b => b.hidden = isStandalone()); }
 function doInstall() {
