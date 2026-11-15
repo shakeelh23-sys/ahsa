@@ -683,7 +683,7 @@ a.btn[href="#tutors-register"]{background:linear-gradient(160deg,#14b8a6,#0f766e
 @media (max-width:700px){footer .wrap.fbar{gap:4px;justify-content:center;padding-inline:8px}footer .fbar .btn{padding:6px 9px;font-size:12.5px}footer .fbar .ico{width:34px;height:34px;padding:0;justify-content:center;border-radius:50%}footer .fbar .ico svg{width:17px;height:17px;margin:0}footer .fbar .ico .lbl,footer .fbar .ico [data-sl]{display:none}footer .fbar .lbl{display:none}footer .fbar .lbs{display:inline}footer .fbar a:not(.ico) .lbl{display:none}}
 footer .fadm b{display:block;color:#fff;font:800 18px/1.3 var(--f-head)}html[lang="ur"] footer .fadm b{font:700 18px/1.9 var(--f-ur)}
 footer .fadm .num{display:block;color:var(--gold);font:800 22px/1.3 var(--f-head);margin:4px 0 8px;direction:ltr;text-align:start}
-footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){footer .wrap.fgrid{grid-template-columns:1fr 1fr}}@media (max-width:700px){footer .wrap.fgrid{grid-template-columns:minmax(0,1fr)}}
+footer .wrap.fgrid{grid-template-columns:1.4fr 1fr}footer .fbar .fadmb{background:linear-gradient(160deg,#fb923c,#c2410c);color:#fff;border:0}@media (max-width:900px){footer .wrap.fgrid{grid-template-columns:1fr 1fr}}@media (max-width:700px){footer .wrap.fgrid{grid-template-columns:minmax(0,1fr)}}
 
 /* hero quick buttons (Notes, Tests, Admission, WhatsApp) + single install button (2026-11-15) */
 .hero .cta.qb{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:560px}
@@ -762,7 +762,6 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
       <p class="ur" lang="ur" style="text-align:start">الحسن سائنس اکیڈمی دلیوالی</p>
       <p data-t="footAbout"></p>
     </div>
-    <div class="fadm"><b data-t="joinTitle"></b><p class="num">0314-6011672</p><a class="btn gold sm" href="#apply"><span data-t="applyT"></span></a></div>
     <div class="shtxt"><button type="button" class="shic" data-share aria-label="Share website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button><div><b data-sl="bandT"></b><p data-sl="bandS"></p></div></div>
   </div>
   <div class="wrap fbar">
@@ -772,7 +771,8 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
         <a class="btn sm fb ico" href="https://www.facebook.com/share/1Hut4s8zxY/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v2H7v4h2v7h4v-7h3l1-4h-4V9a1 1 0 0 1 1-1Z"/></svg><span class="lbl">Facebook</span></a>
         <a class="btn sm map ico" href="https://maps.app.goo.gl/MLtLrsaFgS5ertMY9" target="_blank" rel="noopener" aria-label="Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="lbl">Google Maps</span></a>
         <button class="btn sm finst" type="button" id="fInst" aria-label="Install App"></button>
-        <a class="btn sm gold" href="#tutors" data-t="tutorsFoot"></a>
+        <a class="btn sm fadmb" href="#apply" data-t="admShort"></a>
+        <a class="btn sm gold" href="#tutors"><span class="lbl" data-t="tutorsFoot"></span><span class="lbs" data-t="teamShort"></span></a>
         <a class="btn sm line" href="#tutors-register"><span class="lbl" data-t="regFoot"></span><span class="lbs" data-t="regShort"></span></a>
   </div>
 </footer>
@@ -947,7 +947,7 @@ const T = {
  hr2:['اکیڈمی آپ سے رابطہ کر کے تعلیم اور تجربہ کی تصدیق کرے گی۔','The academy contacts you and verifies your education and experience.'],
  hr3:['تصدیق کے بعد آپ کا نام «ہماری ٹیم» میں شامل ہو جائے گا۔','After verification your name is added to “Our Team”.'],
  stripT:['اساتذہ: آن لائن، اکیڈمی اور ہوم ٹیوشن','Tutors: online, academy & home tuition'], stripP:['ہوم ٹیوٹر بھی دستیاب ہیں۔ تصدیق شدہ اساتذہ دیکھیں یا بطور استاد رجسٹر ہوں۔','Home tutors also available. See verified tutors or register as a tutor.'],
- tutorsFoot:['ہماری ٹیم','Our Team'], regFoot:['بطور استاد رجسٹر ہوں','Register as a Tutor'], regShort:['رجسٹر ہوں','Register'],
+ tutorsFoot:['ہماری ٹیم','Our Team'], regFoot:['بطور استاد رجسٹر ہوں','Register as a Tutor'], admShort:['داخلہ','Admissions'], teamShort:['ٹیم','Team'], regShort:['رجسٹر ہوں','Register'],
  footAbout:['جماعت 8 تا 12 کے مفت نوٹس اور MCQs ٹیسٹ۔','Free notes and MCQs tests for Class 8 to 12.'],
  needT:['ٹیوٹر چاہیے','Need a Tutor'], needP:['آن لائن، اکیڈمی میں یا گھر پر (ہوم ٹیوٹر) پڑھنے کے لیے استاد کی درخواست بھیجیں۔','Request a teacher for online, academy or home tuition (home tutor).'],
  applyT:['داخلہ کے لیے اپلائی کریں','Apply for Admission'], applyP:['طالب علم کی تفصیل بھریں اور واٹس ایپ پر بھیج دیں۔','Fill in the student details and send them on WhatsApp.'],
@@ -1660,7 +1660,7 @@ window.addEventListener('appinstalled', () => { window.__bip = null; window.__in
 /* ===== Install as app (Android: native prompt; iPhone: Share > Add to Home Screen; others: browser menu) ===== */
 const appIn = () => isStandalone() || !!window.__instd;
 function cfabTxt() { const c = document.getElementById('cFab'); if (c) c.firstChild.textContent = L('رابطہ کریں', 'Contact Us'); }
-function footInst() { cfabTxt(); const b = document.getElementById('fInst'); if (!b) return; const sh = appIn(), lb = sh ? L('ایپ شیئر کریں', 'Share App') : L('ایپ انسٹال کریں', 'Install App'), lh = sh ? L('ایپ شیئر<i class="fk"> کریں</i>', 'Share App') : L('ایپ انسٹال<i class="fk"> کریں</i>', 'Install App');
+function footInst() { cfabTxt(); const b = document.getElementById('fInst'); if (!b) return; const sh = appIn(), lb = sh ? L('ایپ شیئر کریں', 'Share App') : L('ایپ انسٹال کریں', 'Install App'), lh = sh ? L('<i class="fk">ایپ </i>شیئر<i class="fk"> کریں</i>', 'Share<i class="fk"> App</i>') : L('<i class="fk">ایپ </i>انسٹال<i class="fk"> کریں</i>', 'Install<i class="fk"> App</i>');
   b.classList.toggle('qi', !sh); b.toggleAttribute('data-shareapp', sh); b.setAttribute('aria-label', lb);
   b.innerHTML = (sh ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>' : svg('dl')) + `<span class="flb">${lh}</span>`; }
 function isStandalone() { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }
@@ -1781,7 +1781,7 @@ loadAnn(); loadPool();
 .hpanel{bottom:calc(188px + env(safe-area-inset-bottom,0px))!important}
 @media (max-width:820px){.cfab{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}.fab{bottom:calc(140px + env(safe-area-inset-bottom,0px))!important}.hfab{bottom:calc(196px + env(safe-area-inset-bottom,0px))!important}.hlabel{bottom:calc(206px + env(safe-area-inset-bottom,0px))!important}.hpanel{bottom:calc(254px + env(safe-area-inset-bottom,0px))!important}}
 @media (max-height:640px) and (max-width:820px){.hpanel{bottom:calc(76px + env(safe-area-inset-bottom,0px))!important}}
-footer .fbar .fk{font-style:normal}@media (max-width:370px){footer .fbar .fk{display:none}}
+footer .fbar .fk{font-style:normal}@media (max-width:700px){footer .fbar .fk{display:none}footer .fbar [data-shcopy]{display:none!important}footer .wrap.fbar{gap:4px!important;padding-inline:6px!important}footer .wrap.fbar .btn{padding-inline:6px!important}}@media (max-width:359px){footer .wrap.fbar .btn{padding-inline:4px!important;font-size:11.5px!important}footer .wrap.fbar{gap:3px!important;padding-inline:4px!important}footer .wrap.fbar .ico{min-width:30px!important}}
 .hlabel{display:none!important}
 /* footer buttons fill the whole line */
 footer .wrap.fbar>*{flex:1 1 auto!important;justify-content:center}
