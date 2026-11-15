@@ -922,6 +922,7 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
   </div>
   <div class="srchp" id="srchP" hidden><div class="wrap">
     <div class="srow"><input id="hq2" type="search" placeholder="Search notes, subjects, classes, tests…" aria-label="Search the website" autocomplete="off" enterkeyhint="search"><button type="button" id="srchX" aria-label="Close search">✕</button></div>
+    <div class="sopts"><button type="button" onclick="document.getElementById('bigBtn').click()">A+ Bigger text</button><button type="button" onclick="document.getElementById('themeBtn').click()">🌓 Light / Dark</button></div>
     <div id="hres" class="hres"></div>
   </div></div>
 </header>
@@ -2174,6 +2175,13 @@ body:has(#helpFab[aria-expanded="true"]) .afab{opacity:0;pointer-events:none}
 .pill.shp svg{width:17px;height:17px;flex:none}
 html[lang="ur"] .pill.shp .shl{font:400 13px/1 var(--f-ur);padding-top:3px}
 @media (max-width:400px){.brand b{font-size:12.5px}.brand small{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top .wrap{gap:8px}.brand{gap:7px}}
+/* BRAND-1LINE (Shakeel 2026-11-15): "Al Hassan Science Academy" on one line, "AHSA · Dillewali" below */
+.brand b{white-space:nowrap!important;max-width:none!important;min-width:0!important}
+@media (max-width:700px){.brand b{font-size:clamp(10.5px,3.5vw,17px)!important;letter-spacing:-.01em}.brand small{font-size:clamp(9.5px,2.8vw,12px)!important}.top #bigBtn,.top #themeBtn{display:none}.brand img{width:36px!important;height:36px!important}}
+@media (min-width:701px){.brand b{font-size:clamp(14px,1.4vw,18px)!important}.pill.shp .shl{display:none}.pill.shp{padding:6px 9px}}
+@media (min-width:1201px){.nav a{padding:8px 10px}}
+.srchp .sopts{display:flex;gap:8px;margin-top:10px}.srchp .sopts button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:9px;font:700 14px/1.2 var(--f-body);cursor:pointer}
+@media (min-width:701px){.srchp .sopts{display:none}}
 @media (max-width:560px){.pill.shp{padding:6px 8px}.pill.shp .shl{display:none}.tools{gap:4px}.tools .pill{padding:6px 8px}}
 footer .wrap.shband{display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;padding-block:20px;border-bottom:1px solid rgba(255,255,255,.12)}
 .shtxt{display:flex;align-items:center;gap:14px;min-width:0;flex:1 1 300px}
