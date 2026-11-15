@@ -637,6 +637,19 @@ html[lang="ur"] .hv2 .hero h1.stk{line-height:1.5!important;font-size:min(calc(1
 #bigBtn{direction:ltr;unicode-bidi:isolate}
 #bigBtn[aria-pressed="true"]::after{content:" ✓"}
 @media (max-width:560px){html[lang="ur"] .annbar .annt{font-size:13.5px;line-height:1.9}}
+
+/* footer: all buttons in one line at the very bottom (2026-11-15) */
+footer .wrap.fgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;padding-block:24px 10px;align-items:start}
+@media (max-width:700px){footer .wrap.fgrid{grid-template-columns:minmax(0,1fr)}}
+footer .fgrid .shtxt{flex:none}
+footer .wrap.fbar{display:flex;flex-wrap:nowrap;gap:6px;overflow-x:auto;padding-block:12px 18px;border-top:1px solid rgba(255,255,255,.12);scrollbar-width:none;justify-content:flex-start}
+footer .fbar::-webkit-scrollbar{display:none}
+footer .fbar .btn{flex:none;padding:7px 11px;font-size:13px;white-space:nowrap;min-height:0}
+footer .fbar .btn svg{width:15px;height:15px}
+html[lang="ur"] footer .fbar .btn,html[lang="ur"] footer .fbar .btn [data-sl]{font:400 12.5px/1.6 var(--f-ur)}
+@media (min-width:1000px){footer .wrap.fbar{justify-content:center}}
+footer .fbar .lbs{display:none}
+@media (max-width:700px){footer .wrap.fbar{gap:4px;justify-content:center;padding-inline:8px}footer .fbar .btn{padding:6px 9px;font-size:12.5px}footer .fbar .ico{width:34px;height:34px;padding:0;justify-content:center;border-radius:50%}footer .fbar .ico svg{width:17px;height:17px;margin:0}footer .fbar .ico .lbl,footer .fbar .ico [data-sl]{display:none}footer .fbar .lbl{display:none}footer .fbar .lbs{display:inline}footer .fbar a:not(.ico) .lbl{display:none}}
 </style>
 
 </head>
@@ -660,29 +673,22 @@ html[lang="ur"] .hv2 .hero h1.stk{line-height:1.5!important;font-size:min(calc(1
 <main id="app"></main>
 
 <footer>
-  <div class="wrap shband">
-    <div class="shtxt"><span class="shic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></span><div><b data-sl="bandT"></b><p data-sl="bandS"></p></div></div>
-    <div class="shacts">
-      <button class="btn gold sm" type="button" data-share><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span data-sl="share"></span></button>
-      <button class="btn sm ghost" type="button" data-shcopy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><span data-sl="copy"></span></button>
-    </div>
-  </div>
-  <div class="wrap">
+  <div class="wrap fgrid">
     <div>
       <b class="t">Al Hassan Science Academy (AHSA), Dillewali</b>
       <p class="ur" lang="ur" style="text-align:start">الحسن سائنس اکیڈمی دلیوالی</p>
       <p data-t="footAbout"></p>
-      <div class="links">
-        <a class="btn sm wa" href="https://wa.me/923146011672" target="_blank" rel="noopener">WhatsApp</a>
-        <a class="btn sm fb" href="https://www.facebook.com/share/1Hut4s8zxY/" target="_blank" rel="noopener">Facebook</a>
-        <a class="btn sm map" href="https://maps.app.goo.gl/MLtLrsaFgS5ertMY9" target="_blank" rel="noopener">Google Maps</a>
+    </div>
+    <div class="shtxt"><span class="shic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></span><div><b data-sl="bandT"></b><p data-sl="bandS"></p></div></div>
+  </div>
+  <div class="wrap fbar">
+      <button class="btn gold sm ico" type="button" data-share aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span data-sl="share"></span></button>
+      <button class="btn sm ghost ico" type="button" data-shcopy aria-label="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><span data-sl="copy"></span></button>
+      <a class="btn sm wa ico" href="https://wa.me/923146011672" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg><span class="lbl">WhatsApp</span></a>
+        <a class="btn sm fb ico" href="https://www.facebook.com/share/1Hut4s8zxY/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v2H7v4h2v7h4v-7h3l1-4h-4V9a1 1 0 0 1 1-1Z"/></svg><span class="lbl">Facebook</span></a>
+        <a class="btn sm map ico" href="https://maps.app.goo.gl/MLtLrsaFgS5ertMY9" target="_blank" rel="noopener" aria-label="Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="lbl">Google Maps</span></a>
         <a class="btn sm gold" href="#tutors" data-t="tutorsFoot"></a>
-        <a class="btn sm line" href="#tutors-register" data-t="regFoot"></a>
-      </div>
-    </div>
-    <div class="sig">
-      Shakeel Hassan<br>SST Science<br>GHS MC Boys, Muslim Bazar Mianwali.<br>💬 03146011672
-    </div>
+        <a class="btn sm line" href="#tutors-register"><span class="lbl" data-t="regFoot"></span><span class="lbs" data-t="regShort"></span></a>
   </div>
 </footer>
 
@@ -856,7 +862,7 @@ const T = {
  hr2:['اکیڈمی آپ سے رابطہ کر کے تعلیم اور تجربہ کی تصدیق کرے گی۔','The academy contacts you and verifies your education and experience.'],
  hr3:['تصدیق کے بعد آپ کا نام «ہماری ٹیم» میں شامل ہو جائے گا۔','After verification your name is added to “Our Team”.'],
  stripT:['اساتذہ: آن لائن، اکیڈمی اور ہوم ٹیوشن','Tutors: online, academy & home tuition'], stripP:['ہوم ٹیوٹر بھی دستیاب ہیں۔ تصدیق شدہ اساتذہ دیکھیں یا بطور استاد رجسٹر ہوں۔','Home tutors also available. See verified tutors or register as a tutor.'],
- tutorsFoot:['ہماری ٹیم','Our Team'], regFoot:['بطور استاد رجسٹر ہوں','Register as a Tutor'],
+ tutorsFoot:['ہماری ٹیم','Our Team'], regFoot:['بطور استاد رجسٹر ہوں','Register as a Tutor'], regShort:['رجسٹر ہوں','Register'],
  footAbout:['جماعت 8 تا 12 کے مفت نوٹس اور MCQs ٹیسٹ۔','Free notes and MCQs tests for Class 8 to 12.'],
  needT:['ٹیوٹر چاہیے','Need a Tutor'], needP:['آن لائن، اکیڈمی میں یا گھر پر (ہوم ٹیوٹر) پڑھنے کے لیے استاد کی درخواست بھیجیں۔','Request a teacher for online, academy or home tuition (home tutor).'],
  applyT:['داخلہ کے لیے اپلائی کریں','Apply for Admission'], applyP:['طالب علم کی تفصیل بھریں اور واٹس ایپ پر بھیج دیں۔','Fill in the student details and send them on WhatsApp.'],
@@ -1121,7 +1127,7 @@ function vHome() {
   <section style="padding-top:0"><div class="wrap">
     <div class="teach"><img src="assets/shakeel-hassan.webp?v=2" alt="Shakeel Hassan" width="132" height="132" loading="lazy" decoding="async">
       <div><div class="kick">${t('teachTitle')}</div><h3 class="en-only" style="margin-top:4px">Shakeel Hassan</h3><p class="role">${L('ایم ایس سی ریاضی · ایم ایس سی شماریات', 'M.Sc Mathematics · M.Sc Statistics')}</p><p style="margin:6px 0 0;color:var(--mut)">${t('teachP')}</p>
-      <div class="cta"><a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}" target="_blank" rel="noopener">${WA}03146011672</a><a class="btn sm line" href="#about">${t('about')}</a></div></div></div>
+      <div class="cta"><a class="btn sm line" href="#about">${t('about')}</a></div></div></div>
   </div></section>
   <section style="padding-top:0"><div class="wrap ${RESULTS.length || REVIEWS.length ? 'grid g2' : ''}" style="align-items:start">
     <div><div class="sh"><h2>${t('annTitle')}</h2></div>${annList()}</div>
