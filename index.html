@@ -662,7 +662,7 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .adstrip .ic{font-size:24px;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--gold) 22%,var(--card));flex:none}
 .adstrip .tx{flex:1;min-width:0}.adstrip b{display:block;font:800 16px/1.3 var(--f-head)}.adstrip small{display:block;color:var(--mut);font-size:13px;line-height:1.4}
 .adstrip .go{font:700 24px/1 var(--f-body);color:var(--mut)}
-.ttrack.adsT{display:flex;margin:0 0 10px;padding:2px}#adsHome .fshow{margin-bottom:10px}
+.ttrack.adsT,.ttrack.tchT{display:flex;margin:0 0 10px;padding:2px}#adsHome .fshow,#tchHome .fshow{margin-bottom:10px}
 .adsg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:10px}
 .adc{display:flex;gap:12px;align-items:center;padding:12px;border-radius:14px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--ink)}
 .adc img{width:72px;height:72px;object-fit:cover;border-radius:10px;flex:none}
@@ -689,7 +689,7 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .adpics{display:flex;gap:6px;margin-top:6px}.adpics img{width:64px;height:64px;border-radius:10px;flex:none;object-fit:cover}
 @media (max-width:359px){.adpics img{width:54px;height:54px}}
 /* ADS-ONE: one full-width ad per slide on every screen */
-.ttrack.adsT .csl{flex:0 0 100%!important;max-width:100%}
+.ttrack.adsT .csl,.ttrack.tchT .csl{flex:0 0 100%!important;max-width:100%}
 #adsHome .adc{padding:14px 16px;gap:16px}
 @media (min-width:700px){#adsHome .adc>img{width:120px;height:120px}#adsHome .adpics img{width:96px;height:96px}#adsHome .adc .aur b{font-size:24px}}
 /* ACTION-BAND v3 (Shakeel 2026-11-15): one big Admission button + two small (Need a Tutor, Our Team), Urdu labels */
@@ -1684,7 +1684,7 @@ function autoSlide(tid, did, ms, startAt) {
   SLT[tid] = setInterval(() => { if (!document.getElementById(tid)) { clearInterval(SLT[tid]); return; } if (document.hidden || Date.now() < hold) return; go(idx() + 1); }, ms);
 }
 const slideDots = (id, n) => `<div class="tdots fdots" id="${id}">${Array.from({length: n}, (_, i) => `<button type="button" data-si="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>`;
-const slideBlock = (id, items, cls = '') => `<div class="fshow"><div class="ttrack ftrack ctrack ${cls}" id="${id}T" data-n="${items.length}">${items.map(h => h.replace(/^<(\w+) class="/, '<$1 class="csl ')).join('')}${items.length > 1 ? items.map(h => h.replace(/^<(\w+) class="/, '<$1 inert aria-hidden="true" class="csl clone ')).join('') : ''}</div>${items.length > 1 ? slideDots(id + 'D', items.length) : ''}${/stuT|adsT/.test(cls) && items.length > 1 ? `<button type="button" class="sarr sprev" data-arr="-1" data-tr="${id}T" aria-label="Previous">‹</button><button type="button" class="sarr snext" data-arr="1" data-tr="${id}T" aria-label="Next">›</button>` : ''}</div>`;
+const slideBlock = (id, items, cls = '') => `<div class="fshow"><div class="ttrack ftrack ctrack ${cls}" id="${id}T" data-n="${items.length}">${items.map(h => h.replace(/^<(\w+) class="/, '<$1 class="csl ')).join('')}${items.length > 1 ? items.map(h => h.replace(/^<(\w+) class="/, '<$1 inert aria-hidden="true" class="csl clone ')).join('') : ''}</div>${items.length > 1 ? slideDots(id + 'D', items.length) : ''}${/stuT|adsT|tchT/.test(cls) && items.length > 1 ? `<button type="button" class="sarr sprev" data-arr="-1" data-tr="${id}T" aria-label="Previous">‹</button><button type="button" class="sarr snext" data-arr="1" data-tr="${id}T" aria-label="Next">›</button>` : ''}</div>`;
 /* scroll reveal: sections below the first screen fade/slide in once (Shakeel 2026-11-15) */
 function revealInit() {
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1737,10 +1737,10 @@ const MALE_TEACHERS = ['Shakeel Hassan', 'Najeeb Ullah', 'Muhammad Umar Farooq',
 const FEMALE_TEACHERS = ['Humaira Hayat', 'Shazia Hassan', 'Shahnaz Habib'];
 const teacherSlides = () => { const T = (window.TUTORS || []); return [...MALE_TEACHERS, ...FEMALE_TEACHERS].map(n => T.find(x => x.name === n)).filter(x => x && x.photo).map(x =>
   `<a class="tch" href="#tutors"><img src="${esc(x.photo)}" alt="${esc(x.name)}" width="200" height="200" loading="lazy" decoding="async"><b>${esc(x.name)}</b><span>${esc(x.eduShort || x.education || '')}</span>${x.subjects ? `<small>${esc(x.subjects)}</small>` : ''}</a>`); };
-const adsHomeInner = () => SHOW_ADS ? slideBlock('ad', [...ADS.slice(0, ADS_HOME_MAX).map(adCard), ADV_SLIDE], 'adsT') : `<h2 class="mph mpe tchh">Our Teachers</h2>${slideBlock('ad', teacherSlides(), 'adsT tchT')}`;
+const adsHomeInner = () => SHOW_ADS ? slideBlock('ad', [...ADS.slice(0, ADS_HOME_MAX).map(adCard), ADV_SLIDE], 'adsT') : `<h2 class="mph mpe tchh">Our Teachers</h2>${slideBlock('th', teacherSlides(), 'tchT')}`;
 const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">موجودہ اشتہارات</h2></div><div class="adsg" dir="ltr" lang="en">${ADS.map(adCard).join('')}</div>` : '';
 function adsHome() {
-  return `<div id="adsHome">${adsHomeInner()}</div>`;
+  return `<div id="${SHOW_ADS ? 'adsHome' : 'tchHome'}">${adsHomeInner()}</div>`;
 }
 fetch('ads.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(j => {
   ADS = (j && Array.isArray(j.ads) ? j.ads : []).filter(x => x && x.title && x.on !== false); if (!ADS.length) return;
@@ -1823,7 +1823,7 @@ function render(scroll) {
   const app = document.getElementById('app');
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, model: vModel, past: vPast, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact, advertise: vAdv}[view]();
   if (scroll) window.scrollTo(0, 0);
-  footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('stuT', 'stuD', 2600); autoSlide('adT', 'adD', 4500); if (typeof dqStart === 'function') dqStart(); } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); if (typeof dqTimer !== 'undefined') clearInterval(dqTimer); }
+  footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('stuT', 'stuD', 2600); autoSlide('adT', 'adD', 4500); autoSlide('thT', 'thD', 4500); if (typeof dqStart === 'function') dqStart(); } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); if (typeof dqTimer !== 'undefined') clearInterval(dqTimer); }
   if (window.__cntIO) { window.__cntIO.disconnect(); window.__cntIO = null; }
   if (view === 'home' && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const zero = g => g.querySelectorAll('.count').forEach(el => el.textContent = '0');
@@ -1964,7 +1964,7 @@ function loadPool() {
 }
 window.addEventListener('hashchange', route);
 document.addEventListener('click', e => { if (!e.target.closest('#aFab')) return; e.preventDefault();
-  const go = () => { const t = document.getElementById('adsHome'); if (!t) return; const box = (document.getElementById('adsHome') || t).closest('section') || t;
+  const go = () => { const t = document.getElementById('adsHome') || document.getElementById('tchHome'); if (!t) return; const box = t.closest('section') || t;
     box.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center'}); };
   if (view !== 'home') { location.hash = '#home'; setTimeout(go, 350); } else go(); });
 
@@ -2202,7 +2202,7 @@ html .adc.adban .adbg{position:absolute;inset:-20px;background-size:cover;backgr
 .sarr:hover{background:rgba(15,30,70,.8)}.sarr:active{transform:translateY(-60%) scale(.92)}
 .sprev{left:-4px}.snext{right:-4px}
 .tut .txd{margin:.3em 0 0;padding-inline-start:1.1em;font-size:.92em;line-height:1.45}.tut .txd li{margin:.15em 0}
-html .ttrack.adsT.tchT .csl{flex:0 0 100%!important}@media (min-width:640px){html .ttrack.adsT.tchT .csl{flex-basis:calc(50% - 5px)!important}}@media (min-width:1000px){html .ttrack.adsT.tchT .csl{flex-basis:calc(33.333% - 7px)!important}}
+html .ttrack.tchT .csl{flex:0 0 100%!important}@media (min-width:640px){html .ttrack.tchT .csl{flex-basis:calc(50% - 5px)!important}}@media (min-width:1000px){html .ttrack.tchT .csl{flex-basis:calc(33.333% - 7px)!important}}
 .tch{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:18px 12px 16px;background:var(--card);border:1px solid var(--line);border-radius:18px;text-decoration:none;color:var(--ink);box-shadow:var(--sh1)}
 .tch img{width:180px;height:180px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);margin-bottom:8px;background:#fff}
 .tch b{font:800 20px/1.25 var(--f-head)}.tch span{color:var(--mut);font-size:15px;line-height:1.4}.tch small{font-weight:700;color:var(--navy);font-size:14px}
