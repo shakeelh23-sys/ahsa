@@ -1228,7 +1228,7 @@ function classCards() {
         <div class="row"><a class="btn sm gold" href="#notes-${c.k}">${svg('notes')}${t('openNotes')}</a>${app ? `<a class="btn sm navy" href="${app.local}" target="_blank" rel="noopener">${svg('play', 1)}${t('openTest')}</a>` : ''}</div>
       </div></div>`.replace('<div class="ccard lift">', `<div class="ccard csl${cl ? ' clone' : ''}"${cl ? ' inert aria-hidden="true"' : ''}>`);
   };
-  return `<div class="fshow"><div class="ttrack ftrack ctrack" id="cTrack" data-n="${DATA.length}">${DATA.map(c => one(c)).join('')}${DATA.map(c => one(c, 1)).join('')}</div>${slideDots('cDots', DATA.length)}</div>`;
+  return `<div class="fshow"><div class="ttrack ftrack ctrack" id="cTrack" data-n="${DATA.length}">${DATA.map(c => one(c)).join('')}${DATA.map(c => one(c, 1)).join('')}</div>${slideDots('cDots', DATA.length)}<button type="button" class="sarr sprev" data-arr="-1" data-tr="cTrack" aria-label="Previous">‹</button><button type="button" class="sarr snext" data-arr="1" data-tr="cTrack" aria-label="Next">›</button></div>`;
 }
 let pcls = '9';
 try { pcls = localStorage.getItem('ahsa-site-pcls') || '9'; } catch (e) {}
@@ -1381,7 +1381,7 @@ function vHome() {
       <a class="btn navy mpb" href="#papers">Pairing <br>Scheme</a><a class="btn gold mpb" href="#model">Model <br>Papers</a><a class="btn mpb mpp" href="#past">Past <br>Papers</a>
     </div></div>
     <div class="sh dqsh"><div class="dqrow" dir="rtl"><h2 class="dqur" lang="ur" dir="rtl">آج کا سوال</h2><p class="dqsub" lang="ur" dir="rtl">ہر جماعت کا روزانہ ایک نیا سوال</p></div></div>
-    <div id="dailyWrap" class="dqshow">${dailyBox()}</div>
+    <div class="sarrw dqarr"><div id="dailyWrap" class="dqshow">${dailyBox()}</div><button type="button" class="sarr sprev" data-dqa="-1" aria-label="Previous class">‹</button><button type="button" class="sarr snext" data-dqa="1" aria-label="Next class">›</button></div>
   </div></section>
   <!-- HOME-TRIM 2026-11-15: 'What the academy offers', Announcements list and Common questions removed from home (data kept: ANNOUNCE, T.o1-o7, T.q1-q7) -->
   <section class="stusec" style="padding-top:0"><div class="wrap">${studentsShow()}</div></section>
@@ -1645,7 +1645,7 @@ function tutorShow() {
       <div class="ti">${row('tSubj', tf(x, 'subjects'))}${row('tCls', tf(x, 'classes'))}${row('tEdu', x.eduShort ? tf(x, 'eduShort') : tf(x, 'education'))}</div>
       <a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${L('', 'Contact this tutor')}</a></div>`; }).join('');
   return `<div class="tshow" aria-label="${L('', 'Our Team')}"><div class="tsh"><b>👥 ${L('', 'Our Team')}</b><a href="#tutors">${L('', 'See all →')}</a></div>${chips}
-    ${T.length ? `<div class="ttrack" id="tTrack" dir="ltr" data-n="${T.length}">${sl}${T.length > 1 ? sl.replace(/<div class="tsl"/g, '<div class="tsl clone" aria-hidden="true" inert') : ''}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>` : `<p class="tnone">${L('', 'No tutor in this group yet.')}</p>`}</div>`;
+    ${T.length ? `<div class="sarrw"><div class="ttrack" id="tTrack" dir="ltr" data-n="${T.length}">${sl}${T.length > 1 ? sl.replace(/<div class="tsl"/g, '<div class="tsl clone" aria-hidden="true" inert') : ''}</div>${T.length > 1 ? `<button type="button" class="sarr sprev" data-arr="-1" data-tr="tTrack" aria-label="Previous">‹</button><button type="button" class="sarr snext" data-arr="1" data-tr="tTrack" aria-label="Next">›</button>` : ''}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>` : `<p class="tnone">${L('', 'No tutor in this group yet.')}</p>`}</div>`;
 }
 document.addEventListener('click', e => { const b = e.target.closest('button[data-tsf]'); if (!b) return; tsF = b.dataset.tsf; const w = document.getElementById('tshowWrap'); if (w) { w.innerHTML = tutorShow(); tsHold = Date.now() + 8000; tsInit(); } });
 let tsTimer = null, tsHold = 0;
@@ -1721,16 +1721,21 @@ function adCard(x) { const href = x.link || adWa(x), pics = x.pics || [];
   return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }
 const ADV_SLIDE = `<a class="adc advs" href="#advertise"><span class="adtop"><span class="advic">📢</span><span class="aur" lang="ur" dir="rtl"><b>ہمارے ساتھ اشتہار لگائیں</b><span class="adt">اپنی دکان، اسکول یا کاروبار میانوالی کے طلبہ اور والدین تک پہنچائیں۔</span></span></span></a>`;
 /* OUR STUDENTS (Shakeel 2026-11-15): Class 10 boys, photos assets/students/c10-NN.webp; to add more, append [roll, 'Name'] */
-/* Class 9 shown now (Shakeel 2026-11-15); Class 10 kept below, not shown. Set STU_SHOW to STUDENTS10 / STU_PRE 'c10' to switch back */
+/* Shown: Class 9 boys first, then the selected Class 10 boys (Shakeel 2026-11-15) */
 const STUDENTS9 = [[1,"Muhammad Hassan Attari"],[2,"Muhammad Mushtaq Ul Hassanain"],[3,"Muhammad Hanzala Kashan"],[4,"Mehtab Ahmed"],[5,"Muhammad Shabbir"],[6,"Muhammad Zeeshan"],[7,"Rizwan Khan"],[8,"Muhammad Daniyal Awan"],[9,"Abdul Majid"],[10,"Abdullah Imran"],[11,"Muhammad Abdullah"],[12,"Ghufran Bilal"],[13,"Ghulam Bahoo"],[14,"Malik Ansar Ali"],[15,"Ismail Akbar"],[16,"Muhammad Uzair"],[17,"Muhammad Siam Imran"],[18,"Muhammad Abdullah"],[19,"Ayan Abdullah"],[20,"Muhammad Sufyan"],[22,"Muhammad Faizan"],[23,"Abdullah Saleem"],[24,"Muhammad Ramadan"],[25,"Fahad Ahmad Khan"],[26,"Muhammad Samir"],[27,"Muhammad Mehr Ehtisham Khan"],[28,"Muhammad Bilal Khan"],[30,"Muhammad Usman Shah"],[31,"Muhammad Rehan"],[32,"Subhan Nasir"],[33,"Muhammad Fahad Riaz"],[34,"Ghulam Mustafa Bahoo"],[35,"Muhammad Ahmed Hassan"],[36,"Muhammad Saim Hassan"],[37,"Muhammad Mursaleen"],[38,"Muhammad Itezaz Ul Hassan"],[39,"Ali Hassan"],[40,"Muhammad Mudassir"],[41,"Jawad Ahmed"],[42,"Abdul Rafi"],[43,"Shakeel Hassan Shah"],[44,"Muhammad Ghous Bilal"],[45,"Ali Asghar Khan"],[46,"Siam Adil"],[47,"Muhammad Fahad Hassan"],[48,"Muhammad Umar"],[49,"Shoaib Hassan Khan"],[50,"Muhammad Imran"],[51,"Muhammad Faraz"],[52,"Fahad Abdullah"],[53,"Muhammad Rehan"],[55,"Hassan Azim"],[56,"Muhammad Abu Bakar"],[57,"Muhammad Hashir"],[58,"Roshan Ahmed"]];
 const STUDENTS10 = [[2,"Mughees Mahmood"],[3,"Amir Hamza"],[4,"Abdul Moiz Shah"],[5,"Muhammad Saad Hanif"],[6,"Saim Ahmed"],[7,"Muhammad Usman Ghani"],[8,"Hamza Rauf"],[9,"Moiz Hassan"],[10,"Malik Muhammad Arslan"],[11,"Muhammad Ahmed Raza"],[13,"Muhammad Nasrullah"],[14,"Turab Ali"],[15,"Hamza Nousher"],[17,"Muhammad Faizan Khan"],[18,"Muhammad Saqib"],[20,"Ali Raza"],[21,"Faizan Ali"],[22,"Muhammad Mohsin"],[23,"Saim Ali"],[24,"Muhammad Saadein Ali"],[25,"Irfan Haider"],[26,"Danyal Alhadi"],[27,"Mian Ali Hassan Shah"],[28,"Heryson"],[29,"Hamza Bilal"],[30,"Muhammad Younas Khan"],[31,"Muhammad Taha"],[32,"Mazhar Ali Khan"],[33,"Aziz ur Rehman"]];
 function studentsShow() {
-  const STU_SHOW = STUDENTS9, STU_PRE = 'c9';
+  const STU_SHOW = [...STUDENTS9.map(x => [...x, 'c9']), ...STUDENTS10.map(x => [...x, 'c10'])];
   if (!STU_SHOW.length) return '';
-  const card = ([r, n]) => `<div class="stu"><img src="assets/students/${STU_PRE}-${String(r).padStart(2, '0')}.webp" alt="${esc(n)}" width="90" height="90" loading="lazy" decoding="async"><b>${esc(n)}</b></div>`;
+  const card = ([r, n, pre]) => `<div class="stu"><img src="assets/students/${pre}-${String(r).padStart(2, '0')}.webp" alt="${esc(n)}" width="90" height="90" loading="lazy" decoding="async"><b>${esc(n)}</b></div>`;
   return `<h2 class="mph mpe stuh">Our Students</h2>${slideBlock('stu', STU_SHOW.map(card), 'stuT')}`;
 }
-const adsHomeInner = () => slideBlock('ad', [...ADS.slice(0, ADS_HOME_MAX).map(adCard), ADV_SLIDE], 'adsT');
+/* Shakeel 2026-11-15: ads slot now shows the male teachers' photos. Ads (ads.json, assets/ads) are kept; set SHOW_ADS = true to bring them back. */
+const SHOW_ADS = false;
+const MALE_TEACHERS = ['Shakeel Hassan', 'Najeeb Ullah', 'Muhammad Umar Farooq', 'Shahzad Hassan', 'Amaar Yasir Shah', 'Tariq Hassan'];
+const teacherSlides = () => { const T = (window.TUTORS || []); return MALE_TEACHERS.map(n => T.find(x => x.name === n)).filter(x => x && x.photo && !/\.svg/.test(x.photo)).map(x =>
+  `<a class="tch" href="#tutors"><img src="${esc(x.photo)}" alt="${esc(x.name)}" width="200" height="200" loading="lazy" decoding="async"><b>${esc(x.name)}</b><span>${esc(x.eduShort || x.education || '')}</span>${x.subjects ? `<small>${esc(x.subjects)}</small>` : ''}</a>`); };
+const adsHomeInner = () => SHOW_ADS ? slideBlock('ad', [...ADS.slice(0, ADS_HOME_MAX).map(adCard), ADV_SLIDE], 'adsT') : `<h2 class="mph mpe tchh">Our Teachers</h2>${slideBlock('ad', teacherSlides(), 'adsT tchT')}`;
 const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">موجودہ اشتہارات</h2></div><div class="adsg" dir="ltr" lang="en">${ADS.map(adCard).join('')}</div>` : '';
 function adsHome() {
   return `<div id="adsHome">${adsHomeInner()}</div>`;
@@ -2194,11 +2199,21 @@ html .adc.adban .adbg{position:absolute;inset:-20px;background-size:cover;backgr
 .sarr{position:absolute;top:50%;transform:translateY(-60%);z-index:5;width:38px;height:38px;border-radius:50%;border:0;background:rgba(15,30,70,.55);color:#fff;font:700 28px/34px system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:0 0 3px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);-webkit-tap-highlight-color:transparent}
 .sarr:hover{background:rgba(15,30,70,.8)}.sarr:active{transform:translateY(-60%) scale(.92)}
 .sprev{left:-4px}.snext{right:-4px}
+html .ttrack.adsT.tchT .csl{flex:0 0 100%!important}@media (min-width:640px){html .ttrack.adsT.tchT .csl{flex-basis:calc(50% - 5px)!important}}@media (min-width:1000px){html .ttrack.adsT.tchT .csl{flex-basis:calc(33.333% - 7px)!important}}
+.tch{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:18px 12px 16px;background:var(--card);border:1px solid var(--line);border-radius:18px;text-decoration:none;color:var(--ink);box-shadow:var(--sh1)}
+.tch img{width:180px;height:180px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);margin-bottom:8px;background:#fff}
+.tch b{font:800 20px/1.25 var(--f-head)}.tch span{color:var(--mut);font-size:15px;line-height:1.4}.tch small{font-weight:700;color:var(--navy);font-size:14px}
+:root[data-theme="dark"] .tch small{color:var(--gold)}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tch small{color:var(--gold)}}
+h2.tchh{margin:0 0 12px}.sarrw{position:relative}
+.fshow:has(#cTrack) .sarr{top:46%}
+.dqarr .sarr{width:32px;height:32px;font-size:24px;line-height:28px;top:50%}.dqarr .sprev{left:-14px}.dqarr .snext{right:-14px}
+#tshowWrap .sarrw .sarr{top:50%}
 @media (min-width:900px){.sprev{left:6px}.snext{right:6px}.sarr{width:42px;height:42px}}
 .fshow:has(#stuT) .sarr{top:62px;transform:translateY(-50%);width:32px;height:32px;font-size:24px;line-height:28px}.fshow:has(#stuT) .sarr:active{transform:translateY(-50%) scale(.92)}
 @media (min-width:700px){.fshow:has(#stuT) .sarr{top:74px;width:38px;height:38px;font-size:28px}.fshow:has(#stuT) .sprev{left:-6px}.fshow:has(#stuT) .snext{right:-6px}}
 </style>
 <script>/* SLIDE-ARROWS */
+document.addEventListener('click', e => { const q = e.target.closest && e.target.closest('button.sarr[data-dqa]'); if (q) { if (typeof dqGo === 'function') { dqHold = Date.now() + 12000; dqGo(+q.dataset.dqa, false); } return; } });
 document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('button.sarr'); if (!b) return;
   const tr = document.getElementById(b.dataset.tr); if (!tr || tr.children.length < 2) return;
   tr.dispatchEvent(new Event('slidehold'));
