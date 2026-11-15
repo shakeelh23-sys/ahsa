@@ -104,6 +104,13 @@ window.TUTORS = [
     modes: ['online', 'academy'],     platforms: 'WhatsApp',
     photo: 'assets/tutors/amaar-yasir-shah.webp?v=1'
   },
+  {
+    name: 'Tariq Hassan',             nameUr: 'طارق حسن',
+    education: 'M.A English, B.Ed',   educationUr: 'ایم اے انگلش، بی ایڈ',
+    subjects: 'English',              subjectsUr: 'انگلش',
+    modes: ['online'],                platforms: '',
+    photo: 'assets/tutors/tariq-hassan.webp?v=1'
+  },
   // {
   //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
   //   education: 'M.Sc Physics',        educationUr: 'ایم ایس سی فزکس',
