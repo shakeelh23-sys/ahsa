@@ -19,8 +19,8 @@
 window.TUTORS = [
   {
     name: 'Shakeel Hassan',           nameUr: 'شکیل حسن',
-    education: 'M.Sc Mathematics, M.Sc Statistics, B.Ed',
-    educationUr: 'ایم ایس سی ریاضی، ایم ایس سی شماریات، بی ایڈ',
+    education: 'M.Sc Math, M.Sc Stat, B.Ed',
+    educationUr: 'ایم ایس سی میتھ، ایم ایس سی اسٹیٹ، بی ایڈ',
     subjects: 'Mathematics',
     subjectsUr: 'ریاضی',
     classes: '9 to 12',               classesUr: '9 تا 12',
