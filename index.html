@@ -1691,6 +1691,7 @@ const adWa = x => { let n = String(x.phone || x.wa || '').replace(/\D/g, ''); if
   const msg = n === ACADEMY.wa ? `السلام علیکم! میں «${x.titleUr || x.title}» کے اشتہار کے بارے میں معلومات چاہتا ہوں۔ (AHSA ویب سائٹ)` : `السلام علیکم! میں نے آپ کا اشتہار «${x.titleUr || x.title}» الحسن سائنس اکیڈمی کی ویب سائٹ پر دیکھا ہے۔`;
   return 'https://wa.me/' + n + '?text=' + encodeURIComponent(msg); };
 function adCard(x) { const href = x.link || adWa(x), pics = x.pics || [];
+  if (x.banner) { const im = `<span class="adbg" style="background-image:url(${esc(x.banner)})"></span><img class="adbimg" src="${esc(x.banner)}" alt="${esc(x.titleUr || x.title)}" loading="lazy" decoding="async">`; return href ? `<a class="adc adban" href="${esc(href)}" target="_blank" rel="noopener sponsored">${im}</a>` : `<div class="adc adban">${im}</div>`; }
   const inner = `<span class="adtop">${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}<span class="aur" lang="ur" dir="rtl">${x.sample ? '<span class="adtag">نمونہ</span>' : ''}<b>${esc(x.titleUr || x.title)}</b>${(x.textUr || x.text) ? `<span class="adt">${esc(x.textUr || x.text)}</span>` : ''}</span></span>${pics.length ? `<span class="adpics">${pics.map(u => `<img src="${esc(u)}" alt="" loading="lazy" decoding="async" width="64" height="64">`).join('')}</span>` : ''}`;
   return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }
 const ADV_SLIDE = `<a class="adc advs" href="#advertise"><span class="adtop"><span class="advic">📢</span><span class="aur" lang="ur" dir="rtl"><b>ہمارے ساتھ اشتہار لگائیں</b><span class="adt">اپنی دکان، اسکول یا کاروبار میانوالی کے طلبہ اور والدین تک پہنچائیں۔</span></span></span></a>`;
@@ -2123,6 +2124,13 @@ h2.dqur{font:400 30px/1.9 var(--f-ur)!important;letter-spacing:0}
 @keyframes dqR{from{opacity:.2;transform:translateX(40px)}to{opacity:1;transform:none}}
 @keyframes dqL{from{opacity:.2;transform:translateX(-40px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.dqshow .dqinR,.dqshow .dqinL{animation:none}}
+</style>
+<style>/* AD-BANNER: full-picture ads (flyer) */
+.adc.adban{padding:0!important;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fff}
+html .adc.adban{position:relative;background:#0b2a6b!important}
+html .adc.adban img.adbimg{display:block!important;position:relative;z-index:1;width:100%!important;height:auto!important;max-width:100%!important;max-height:none!important;border-radius:0!important;object-fit:contain!important;margin:0!important;box-shadow:none!important;border:0!important}
+html .adc.adban .adbg{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(18px) brightness(.8);z-index:0}
+@media (min-width:701px){html .adc.adban img.adbimg{width:auto!important;height:360px!important}html .adc.adban{min-height:360px}}
 </style>
 <button class="hfab" id="helpFab" type="button" aria-expanded="false" aria-controls="helpPanel" aria-label="سوال جواب · Q&amp;A">
   <span class="hq hqt" aria-hidden="true">Q&amp;A</span>
