@@ -78,12 +78,16 @@ window.TUTORS = [
   },
   {
     name: 'Shahzad Hassan',           nameUr: 'شہزاد حسن',
-    education: 'M.Sc Mathematics',    educationUr: 'ایم ایس سی ریاضی',
-    subjects: 'Mathematics',
-    subjectsUr: 'ریاضی',
-    classes: '8 to 10',               classesUr: '8 تا 10',
-    experience: 'More than 10 years',  experienceUr: '10 سال سے زیادہ',
-    modes: ['online'],                platforms: 'WhatsApp, Zoom, Google Meet',
+    education: 'M.Sc Mathematics (IUB), M.A Educational Planning and Management (EPM), M.Ed',
+    educationUr: 'ایم ایس سی ریاضی (آئی یو بی)، ایم اے ایجوکیشنل پلاننگ اینڈ مینجمنٹ، ایم ایڈ',
+    eduShort: 'M.Sc Math (IUB), M.A EPM, M.Ed',   eduShortUr: 'ایم ایس سی ریاضی، ایم اے ای پی ایم، ایم ایڈ',
+    subjects: 'Mathematics, Applied Mathematics',
+    subjectsUr: 'ریاضی، اپلائیڈ ریاضی',
+    classes: '8 to 12',               classesUr: '8 تا 12',
+    experience: '22 years · Senior Mathematics Teacher (14 years Govt High Schools, 8 years Pakistan Overseas Higher Secondary School, Kharian) · Exam Coordinator',
+    experienceUr: '22 سال · سینئر ریاضی ٹیچر (14 سال سرکاری ہائی اسکول، 8 سال پاکستان اوورسیز ہائیر سیکنڈری اسکول کھاریاں) · امتحانی کوآرڈینیٹر',
+    area: 'Dillewali, Mianwali',      areaUr: 'دلیوالی، میانوالی',
+    modes: ['online'],                platforms: 'Zoom, Google Meet, Microsoft Teams',
     photo: 'assets/tutors/shahzad-hassan.webp?v=1'
   },
   {
