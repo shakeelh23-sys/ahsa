@@ -1273,16 +1273,8 @@ function vHome() {
       ${REVIEWS.length ? `<div class="sh" style="margin-top:22px"><h2>${t('reviewsTitle')}</h2></div>${reviewsBox()}` : ''}</div>` : ''}
   </div></section>
   <section style="padding-top:0"><div class="wrap">
-    <div class="sh"><div><h2>${t('howTitle')}</h2><p>${t('howP')}</p></div></div>
-    ${slideBlock('how', [1, 2, 3].map(i => `<div class="st"><span class="n">${i}</span><h3>${t('s' + i)}</h3><p>${t('s' + i + 'p')}</p></div>`))}
-  </div></section>
-  <section style="padding-top:0"><div class="wrap">
     <div class="sh"><h2>${t('faqTitle')}</h2></div>
     ${slideBlock('faq', [1, 2, 3, 4, 5, 6, 7].map(i => `<details class="fqs"><summary>${t('q' + i)}</summary><p>${t('a' + i)}</p></details>`), 'faq onec')}
-  </div></section>
-  <section style="padding-top:0"><div class="wrap">
-    <div class="sh"><h2>${t('whyTitle')}</h2></div>
-    ${featShow()}
   </div></section>
   </div>`;
 }
@@ -1647,7 +1639,7 @@ function render(scroll) {
   const app = document.getElementById('app');
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact}[view]();
   if (scroll) window.scrollTo(0, 0);
-  footInst(); if (view === 'home') { tsInit(); fsInit(); ccInit(); autoSlide('oTrack', 'oDots', 4200); autoSlide('annT', 'annD', 5000); autoSlide('howT', 'howD', 5000); autoSlide('faqT', 'faqD', 5500);  } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
+  footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('oTrack', 'oDots', 4200); autoSlide('annT', 'annD', 5000); autoSlide('faqT', 'faqD', 5500);  } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.__counted = true;
     const runCount = () => document.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
