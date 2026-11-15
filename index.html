@@ -676,6 +676,10 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 .fdots button{background:var(--line)}.fdots button[aria-current]{background:var(--navy)}
 
 button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,background .15s}button.shic:hover,button.shic:focus-visible{background:rgba(255,193,7,.28);transform:scale(1.06)}
+
+.ctrack .csl{flex:0 0 100%;scroll-snap-align:start;margin:0}
+@media (min-width:640px){.ctrack .csl{flex-basis:calc(50% - 5px)}}
+@media (min-width:1000px){.ctrack .csl{flex-basis:calc(33.333% - 7px)}}
 </style>
 
 </head>
@@ -992,7 +996,7 @@ const NEW_DAYS = 14; // a file shows the 'نیا / New' badge for this many days
 const isNew = f => typeof f.nw === 'string' && (Date.now() - Date.parse(f.nw + 'T00:00:00+05:00')) < NEW_DAYS * 864e5;
 const mOk = f => medium === 'all' || (medium === 'new' ? isNew(f) : (f.md === medium || !f.md));
 function classCards() {
-  return `<div class="ccards">${DATA.map(c => {
+  const one = (c, cl) => {
     const n = COUNTS[c.k], md = cardMd[c.k];
     const nf = c.s.reduce((a, s) => a + s.f.filter(f => f.md === md || !f.md).length, 0);
     const app = CLASS_APPS.find(a => a.k === c.k);
@@ -1003,8 +1007,9 @@ function classCards() {
         <div class="nums"><div><b>${fmt(n[0])}</b><span>MCQs</span></div><div><b>${fmt(n[1])}</b><span>${t('sSq')}</span></div><div><b>${fmt(n[2])}</b><span>${t('sLq')}</span></div><div><b>${nf}</b><span>${t('filesIn')} (${md})</span></div></div>
         <div class="seg" role="group" aria-label="Medium">${['EM', 'UM'].map(m => `<button type="button" data-cmd="${c.k}|${m}" aria-pressed="${md === m}">${m === 'EM' ? L('انگلش میڈیم', 'English Medium') : L('اردو میڈیم', 'Urdu Medium')}</button>`).join('')}</div>
         <div class="row"><a class="btn sm gold" href="#notes-${c.k}-${md.toLowerCase()}">${svg('notes')}${t('openNotes')}</a>${app ? `<a class="btn sm navy" href="${app.local}" target="_blank" rel="noopener">${svg('play', 1)}${t('openTest')}</a>` : ''}</div>
-      </div></div>`;
-  }).join('')}</div>`;
+      </div></div>`.replace('<div class="ccard lift">', `<div class="ccard csl${cl ? ' clone' : ''}"${cl ? ' inert aria-hidden="true"' : ''}>`);
+  };
+  return `<div class="fshow"><div class="ttrack ftrack ctrack" id="cTrack" data-n="${DATA.length}">${DATA.map(c => one(c)).join('')}${DATA.map(c => one(c, 1)).join('')}</div>${slideDots('cDots', DATA.length)}</div>`;
 }
 let pcls = '9';
 try { pcls = localStorage.getItem('ahsa-site-pcls') || '9'; } catch (e) {}
@@ -1439,27 +1444,34 @@ function tutorShow() {
 document.addEventListener('click', e => { const b = e.target.closest('button[data-tsf]'); if (!b) return; tsF = b.dataset.tsf; const w = document.getElementById('tshowWrap'); if (w) { w.innerHTML = tutorShow(); tsHold = Date.now() + 8000; tsInit(); } });
 let tsTimer = null, tsHold = 0;
 /* ===== "What students get" slideshow (same behaviour as the team slideshow) ===== */
-let fsTimer = 0, fsHold = 0;
 function featShow() {
   const F = [['notes', 'f1'], ['tests', 'f2'], ['about', 'f3']];
   const card = (x, c) => `<div class="card feat fsl${c ? ' clone' : ''}"${c ? ' inert aria-hidden="true"' : ''}><div class="ic">${svg(x[0])}</div><h3>${t(x[1])}</h3><p>${t(x[1] + 'p')}</p></div>`;
   return `<div class="fshow"><div class="ttrack ftrack" id="fTrack" data-n="${F.length}">${F.map(x => card(x)).join('')}${F.map(x => card(x, 1)).join('')}</div>
-    <div class="tdots fdots" id="fDots">${F.map((x, i) => `<button type="button" data-fd="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div></div>`;
+    ${slideDots('fDots', F.length)}</div>`;
 }
-function fsInit() {
-  clearInterval(fsTimer); const tr = document.getElementById('fTrack'); if (!tr) return;
-  const n = +tr.dataset.n, step = () => Math.max(1, Math.abs(tr.children[1].offsetLeft - tr.children[0].offsetLeft));
+const SLT = {};
+function autoSlide(tid, did, ms, startAt) {
+  clearInterval(SLT[tid]); const tr = document.getElementById(tid); if (!tr) return;
+  const n = +tr.dataset.n; if (!n) return; let hold = 0;
+  const step = () => Math.max(1, Math.abs(tr.children[1].offsetLeft - tr.children[0].offsetLeft));
   const idx = () => Math.round(Math.abs(tr.scrollLeft) / step());
   const sgn = () => getComputedStyle(tr).direction === 'rtl' ? -1 : 1;
   const jump = x => { tr.style.scrollSnapType = 'none'; tr.scrollLeft = sgn() * x; requestAnimationFrame(() => { tr.style.scrollSnapType = ''; }); };
   const go = i => tr.scrollTo({left: sgn() * i * step(), behavior: 'smooth'});
-  const settle = () => { const k = idx(); if (k >= n) jump((k - n) * step()); document.querySelectorAll('#fDots button').forEach((d, j) => d.toggleAttribute('aria-current', j === k % n)); };
+  const dots = () => document.querySelectorAll('#' + did + ' button');
+  const settle = () => { const k = idx(); if (k >= n) jump((k - n) * step()); dots().forEach((d, j) => d.toggleAttribute('aria-current', j === k % n)); };
   tr.addEventListener('scroll', () => { clearTimeout(tr._d); tr._d = setTimeout(settle, 140); }, {passive: true});
-  ['pointerdown', 'touchstart', 'wheel'].forEach(ev => tr.addEventListener(ev, () => { fsHold = Date.now() + 8000; }, {passive: true}));
-  const dz = document.getElementById('fDots'); if (dz) dz.onclick = e => { const b = e.target.closest('button[data-fd]'); if (!b) return; fsHold = Date.now() + 8000; const k = idx() % n, j = +b.dataset.fd; if (j < k) jump(k * step()); go(j < k ? n + j : j); };
+  ['pointerdown', 'touchstart', 'wheel', 'focusin'].forEach(ev => tr.addEventListener(ev, () => { hold = Date.now() + 9000; }, {passive: true}));
+  const dz = document.getElementById(did); if (dz) dz.onclick = e => { const b = e.target.closest('button[data-si]'); if (!b) return; hold = Date.now() + 9000; const k = idx() % n, j = +b.dataset.si; if (j < k) jump(k * step()); go(j < k ? n + j : j); };
+  if (startAt > 0) { jump(startAt * step()); hold = Date.now() + 9000; settle(); }
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  fsTimer = setInterval(() => { if (!document.getElementById('fTrack')) { clearInterval(fsTimer); return; } if (document.hidden || Date.now() < fsHold) return; go(idx() + 1); }, 4000);
+  SLT[tid] = setInterval(() => { if (!document.getElementById(tid)) { clearInterval(SLT[tid]); return; } if (document.hidden || Date.now() < hold) return; go(idx() + 1); }, ms);
 }
+const slideDots = (id, n) => `<div class="tdots fdots" id="${id}">${Array.from({length: n}, (_, i) => `<button type="button" data-si="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>`;
+function fsInit() { autoSlide('fTrack', 'fDots', 4000); }
+let ccKeep = '';
+function ccInit() { const k = DATA.findIndex(c => c.k === ccKeep); ccKeep = ''; autoSlide('cTrack', 'cDots', 4500, k); }
 function tsInit() {
   clearInterval(tsTimer); const tr = document.getElementById('tTrack'); if (!tr) return;
   const n = +tr.dataset.n || tr.children.length, step = () => Math.max(1, tr.children[1] ? tr.children[1].offsetLeft - tr.children[0].offsetLeft : tr.children[0].offsetWidth);
@@ -1522,7 +1534,7 @@ function render(scroll) {
   const app = document.getElementById('app');
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact}[view]();
   if (scroll) window.scrollTo(0, 0);
-  if (view === 'home') { tsInit(); fsInit(); } else { clearInterval(tsTimer); clearInterval(fsTimer); }
+  if (view === 'home') { tsInit(); fsInit(); ccInit(); } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.__counted = true;
     document.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
@@ -1557,7 +1569,7 @@ document.addEventListener('click', e => {
   else if (b.id === 'wRetry') { wAns = {}; wDone = false; render(true); }
   else if (b.id === 'installBtn' || b.id === 'installBtn2') { doInstall(); }
   else if (b.id === 'annX') { try { sessionStorage.setItem('ahsa-ann-x', annKey()); } catch (e) {} document.querySelectorAll('#annBar').forEach(w => w.innerHTML = ''); }
-  else if (b.dataset.cmd) { const [k, m] = b.dataset.cmd.split('|'); cardMd[k] = m; render(); }
+  else if (b.dataset.cmd) { const [k, m] = b.dataset.cmd.split('|'); cardMd[k] = m; ccKeep = k; render(); }
   else if (b.id === 'bigBtn') { const on = document.documentElement.classList.toggle('big'); b.setAttribute('aria-pressed', on); try { localStorage.setItem('ahsa-site-big', on ? '1' : ''); } catch (e) {} }
   else if (b.dataset.cls) { cls = b.dataset.cls; subj = null; render(); }
   else if (b.dataset.sub) { subj = b.dataset.sub === subj ? null : b.dataset.sub; q = ''; render(); const l = document.getElementById('list'); l && l.scrollIntoView({block: 'start', behavior: 'smooth'}); }
