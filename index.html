@@ -365,7 +365,7 @@ html[lang="ur"] .hero h1 .u{background:none}
 .eyebrow{background:linear-gradient(90deg,rgba(255,215,90,.22),rgba(212,160,23,.12));color:#ffe08a;border:1px solid rgba(255,208,80,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.04),0 4px 14px rgba(0,0,0,.18)}
 .hero h1 .u{background:linear-gradient(180deg,#fff6cf 0%,#ffd86b 38%,#f0b429 62%,#c98a12 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-inline:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
 html[lang="ur"] .hero h1 .u{background:linear-gradient(180deg,#fff6cf 0%,#ffd86b 38%,#f0b429 62%,#c98a12 100%);-webkit-background-clip:text;background-clip:text}
-.hero h1::after{content:"";display:block;width:90px;height:3px;margin-top:10px;border-radius:3px;background:linear-gradient(90deg,#c98a12,#ffd86b,#c98a12)}
+.hero h1::after{display:none!important}
 @media (max-width:700px){.hero h1::after{margin-inline:auto}}
 /* Urdu: Nastaleeq needs room above (lam/alif) and no underline crowding the letters */
 html[lang="ur"] .hero h1{margin-top:22px;line-height:2.3;padding-top:6px}
@@ -674,6 +674,9 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 .hero .cta.qb .btn.qi,.hero .cta.qb .btn.qsh{background:linear-gradient(160deg,#ec4899,#be185d)!important;cursor:pointer}
 .hero .cta.qb.q5{grid-template-columns:repeat(5,minmax(0,1fr));max-width:790px}
 @media (min-width:701px){.hero .cta.qb .qcl{display:none!important}}
+@media (min-width:701px){.hero .cta.qb .btn{padding:10px 10px}.hero .cta.qb .btn span{white-space:normal;text-align:center;line-height:1.2;min-width:0}html[lang="ur"] .hero .cta.qb .btn span{line-height:1.6}}
+html:not([lang="ur"]) .hv2 .hero .alt{font-size:26px!important;line-height:1.9}
+@media (max-width:700px){html:not([lang="ur"]) .hv2 .hero .alt{font-size:19px!important;line-height:1.9}}
 @media (max-width:700px){.hero .cta.qb{display:flex!important;justify-content:flex-start!important;gap:8px!important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:4px 2px 12px;margin-bottom:-8px}.hero .cta.qb::-webkit-scrollbar{display:none}.hero .cta.qb .btn{flex:0 0 calc((100% - 16px)/3);scroll-snap-align:start}}
 @media (max-width:700px){.hero .cta.qb{flex-direction:unset!important;width:100%;gap:6px;max-width:none}.hv2 .hero .cta.qb .btn{flex-direction:column;gap:2px;padding:7px 4px!important;font-size:13px!important;border-radius:14px}.hero .cta.qb .btn svg{width:20px;height:20px;margin:0}html[lang="ur"] .hero .cta.qb .btn span{font:400 13px/1.35 var(--f-ur)}}
 @media (max-width:700px){.hero .cta.qb .btn span{white-space:normal;text-align:center;line-height:1.15;overflow-wrap:anywhere}html[lang="ur"] .hero .cta.qb .btn span{line-height:1.45}.hero .cta.qb .btn{align-content:center}.hero .cta.qb .qs span{width:min-content;overflow-wrap:normal}}
