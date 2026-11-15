@@ -70,8 +70,8 @@ window.TUTORS = [
     subjects: 'Mathematics',
     subjectsUr: 'ریاضی',
     classes: '8 to 12',               classesUr: '8 تا 12',
-    experience: 'More than 10 years · Mathematics Lecturer, University of Mianwali and ARF College Mianwali',
-    experienceUr: '10 سال سے زیادہ · لیکچرر ریاضی، یونیورسٹی آف میانوالی اور اے آر ایف کالج میانوالی',
+    experience: 'More than 5 years · Mathematics Lecturer, University of Mianwali and ARF College Mianwali',
+    experienceUr: '5 سال سے زیادہ · لیکچرر ریاضی، یونیورسٹی آف میانوالی اور اے آر ایف کالج میانوالی',
     area: 'Mianwali',                 areaUr: 'میانوالی',
     modes: ['online', 'home'],        platforms: 'Zoom',
     photo: 'assets/tutors/umar-farooq.webp?v=1'
