@@ -676,6 +676,9 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 @media (min-width:701px){.hero .cta.qb .qcl{display:none!important}}
 @media (min-width:701px){.hero .cta.qb .btn{padding:10px 10px}.hero .cta.qb .btn span{white-space:normal;text-align:center;line-height:1.2;min-width:0}html[lang="ur"] .hero .cta.qb .btn span{line-height:1.6}}
 html:not([lang="ur"]) .hv2 .hero .alt{font-size:26px!important;line-height:1.9}
+html:not([lang="ur"]) .hero .alt{animation:ahsaBlink 1.8s ease-in-out infinite}
+@keyframes ahsaBlink{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){html:not([lang="ur"]) .hero .alt{animation:none}}
 @media (max-width:700px){html:not([lang="ur"]) .hv2 .hero .alt{font-size:19px!important;line-height:1.9}}
 @media (max-width:700px){.hero .cta.qb{display:flex!important;justify-content:flex-start!important;gap:8px!important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:4px 2px 12px;margin-bottom:-8px}.hero .cta.qb::-webkit-scrollbar{display:none}.hero .cta.qb .btn{flex:0 0 calc((100% - 16px)/3);scroll-snap-align:start}}
 @media (max-width:700px){.hero .cta.qb{flex-direction:unset!important;width:100%;gap:6px;max-width:none}.hv2 .hero .cta.qb .btn{flex-direction:column;gap:2px;padding:7px 4px!important;font-size:13px!important;border-radius:14px}.hero .cta.qb .btn svg{width:20px;height:20px;margin:0}html[lang="ur"] .hero .cta.qb .btn span{font:400 13px/1.35 var(--f-ur)}}
