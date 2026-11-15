@@ -692,6 +692,17 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .ttrack.adsT .csl{flex:0 0 100%!important;max-width:100%}
 #adsHome .adc{padding:14px 16px;gap:16px}
 @media (min-width:700px){#adsHome .adc>img{width:120px;height:120px}#adsHome .adpics img{width:96px;height:96px}#adsHome .adc .aur b{font-size:24px}}
+/* ACTION-BAND v3 (Shakeel 2026-11-15): one big Admission button + two small (Need a Tutor, Our Team), Urdu labels */
+.ab2{display:grid;gap:8px;margin-top:14px}
+.ab-adm{display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:16px;text-decoration:none;color:#fff;background:linear-gradient(135deg,#fb923c,#ea580c);box-shadow:0 8px 20px -10px rgba(234,88,12,.7)}
+.ab-adm .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.2);flex:none}.ab-adm .ic svg{width:24px;height:24px}
+.ab-adm b{flex:1;font:400 26px/1.8 var(--f-ur)}.ab-adm .go{font:700 28px/1 var(--f-body);opacity:.9}
+.ab-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ab-sm{display:flex;align-items:center;justify-content:center;gap:8px;padding:6px 10px;border-radius:14px;text-decoration:none;color:#fff;min-width:0}
+.ab-sm.need{background:linear-gradient(135deg,#16a34a,#0f6b32)}.ab-sm.team{background:linear-gradient(135deg,#1d4ed8,#0b2a6b)}
+.ab-sm .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.18);flex:none}.ab-sm .ic svg{width:18px;height:18px}
+.ab-sm b{font:400 17px/1.9 var(--f-ur);white-space:nowrap}
+@media (max-width:359px){.ab-sm b{font-size:15px}.ab-sm{gap:6px;padding:6px 8px}}
 /* TUTOR-REG-OFF (Shakeel, 2026-11-15): "Register as Tutor" hidden for now. Delete this one line to bring it back everywhere. */
 a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
@@ -1604,13 +1615,12 @@ function vTutors() {
   </div></section>`;
 }
 function actionBand() {
-  return `<div class="wrap"><div class="acts">
-    <a class="act need lift" href="#need-tutor"><span class="ic">${svg('user')}</span><span class="tx"><b>${t('needT')}</b><small>${t('needP')}</small></span><span class="go" aria-hidden="true">›</span></a>
-    <a class="act apply lift" href="#apply"><span class="ic">${svg('apply')}</span><span class="tx"><b>${t('applyT')}</b><small>${t('applyP')}</small></span><span class="go" aria-hidden="true">›</span></a>
-  </div>
-  <div class="card tstrip">
-    <div class="tx"><span class="ic">${svg('tutors')}</span><div style="min-width:0"><h3>${t('stripT')}</h3><p>${t('stripP')}</p></div></div>
-    <div class="cta"><a class="btn sm navy" href="#tutors">${t('tutTitle')}</a><a class="btn sm line" href="#need-tutor" data-home="1">🏠 ${t('homeAsk')}</a><a class="btn sm gold" href="#tutors-register">${t('tutReg')}</a></div>
+  return `<div class="wrap"><div class="ab2" lang="ur" dir="rtl">
+    <a class="ab-adm lift" href="#apply" aria-label="Apply for Admission · داخلہ"><span class="ic">${svg('apply')}</span><b>داخلہ</b><span class="go" aria-hidden="true">‹</span></a>
+    <div class="ab-row">
+      <a class="ab-sm need" href="#need-tutor" aria-label="Need a Tutor · ٹیوٹر چاہیے"><span class="ic">${svg('user')}</span><b>ٹیوٹر چاہیے</b></a>
+      <a class="ab-sm team" href="#tutors" aria-label="Our Team · ہماری ٹیم"><span class="ic">${svg('tutors')}</span><b>ہماری ٹیم</b></a>
+    </div>
   </div></div>`;
 }
 /* ===== Tutors slideshow on Home (swipe; auto-plays every 3.5 s; pauses on touch; tap opens Our Tutors) ===== */
