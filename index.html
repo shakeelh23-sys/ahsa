@@ -1379,22 +1379,7 @@ function vHome() {
     <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2>${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
     ${classCards()}
   </div></section>
-  <section style="padding-top:0"><div class="wrap">
-    <div class="sh"><div><div class="kick">AHSA · Dillewali</div><h2>${t('offT')}</h2><p>${t('offP')}</p></div></div>
-    ${(() => { const O = [['layers','o1'],['notes','o2'],['tests','o3'],['about','o4'],['papers','o5'],['clock','o6']].map(([i, k]) => `<div class="card off csl"><span class="ic">${svg(i)}</span><div><h3>${t(k)}</h3><p>${t(k + 'p')}</p></div></div>`)
-      .concat([`<a class="card off csl" href="#need-tutor"><span class="ic">${svg('home')}</span><div><h3>${t('o7')}</h3><p>${t('o7p')}</p></div></a>`]);
-      const cl = O.map(h => h.replace(/^<(div|a) class="card off csl"/, '<$1 class="card off csl clone" inert aria-hidden="true"')).join('');
-      return `<div class="fshow"><div class="ttrack ftrack ctrack otrack" id="oTrack" data-n="${O.length}">${O.join('')}${cl}</div>${slideDots('oDots', O.length)}</div>`; })()}
-  </div></section>
-  <section style="padding-top:0"><div class="wrap ${RESULTS.length || REVIEWS.length ? 'grid g2' : ''}" style="align-items:start">
-    <div><div class="sh"><h2>${t('annTitle')}</h2></div>${annList()}</div>
-    ${RESULTS.length || REVIEWS.length ? `<div>${RESULTS.length ? `<div class="sh"><div><h2>${t('topTitle')}</h2><p>${t('topP')}</p></div></div>${topList()}` : ''}
-      ${REVIEWS.length ? `<div class="sh" style="margin-top:22px"><h2>${t('reviewsTitle')}</h2></div>${reviewsBox()}` : ''}</div>` : ''}
-  </div></section>
-  <section style="padding-top:0"><div class="wrap">
-    <div class="sh"><h2>${t('faqTitle')}</h2></div>
-    ${slideBlock('faq', [1, 2, 3, 4, 5, 6, 7].map(i => `<details class="fqs"><summary>${t('q' + i)}</summary><p>${t('a' + i)}</p></details>`), 'faq onec')}
-  </div></section>
+  <!-- HOME-TRIM 2026-11-15: 'What the academy offers', Announcements list and Common questions removed from home (data kept: ANNOUNCE, T.o1-o7, T.q1-q7) -->
   <section style="padding-top:0"><div class="wrap">${adsHome()}</div></section>
   </div>`;
 }
@@ -1806,7 +1791,7 @@ function render(scroll) {
   const app = document.getElementById('app');
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact, advertise: vAdv}[view]();
   if (scroll) window.scrollTo(0, 0);
-  footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('oTrack', 'oDots', 4200); autoSlide('annT', 'annD', 5000); autoSlide('faqT', 'faqD', 5500); autoSlide('adT', 'adD', 4500);  } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
+  footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('adT', 'adD', 4500);  } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.__counted = true;
     const runCount = () => document.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
