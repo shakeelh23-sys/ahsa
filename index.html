@@ -22,7 +22,8 @@
 <link rel="preload" as="image" href="assets/logo.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Sora:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400&display=swap&text=%D8%A6%D8%A7%D8%AD%D8%AF%D8%B3%D9%84%D9%85%D9%86%D9%88%DA%88%DA%A9%DB%8C">
 <style>
 [hidden]{display:none!important}img{max-width:100%}
 /* Layout: sticky top bar + navy hero band; content in a 1080px column; on phones the nav moves to an app-style bottom tab bar. */
@@ -830,7 +831,6 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
     <nav class="nav" id="nav"></nav>
     <div class="tools">
       <button class="pill shp" id="shareTop" type="button" data-share aria-label="Share website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span class="shl" data-sl="share"></span></button>
-      <button class="pill" id="langBtn" type="button"></button>
       <button class="pill" id="bigBtn" type="button" aria-pressed="false" aria-label="Bigger text">A+</button>
       <button class="pill" id="themeBtn" type="button" aria-label="Light or dark theme">🌓</button>
     </div>
@@ -925,139 +925,139 @@ const KIND = { // kind: [en, ur, en description, ur description]
 };
 
 const T = {
- home:['ہوم','Home'], notes:['نوٹس','Notes'], tests:['MCQs ٹیسٹ','MCQs Tests'], about:['تعارف','About'], contact:['رابطہ','Contact'],
- heroEyebrow:['کلاس 8 تا 12 · مفت نوٹس اور ٹیسٹ','Class 8 to 12 · Free notes & tests'],
- heroTitle:['الحسن سائنس اکیڈمی دلیوالی','Al Hassan Science Academy'],
+ home:['','Home'], notes:['','Notes'], tests:['','MCQs Tests'], about:['','About'], contact:['','Contact'],
+ heroEyebrow:['','Class 8 to 12 · Free notes & tests'],
+ heroTitle:['','Al Hassan Science Academy'],
  heroAlt:['Al Hassan Science Academy · Dillewali','الحسن سائنس اکیڈمی دلیوالی'],
- heroSub:['جماعت 8 سے 12 تک کے طلبہ کے لیے مکمل نوٹس، MCQs ٹیسٹ ایپس اور رہنمائی۔ انگلش اور اردو میڈیم دونوں۔','Complete notes, MCQs Test Apps and guidance for students of Class 8 to 12, in English and Urdu medium.'],
- getNotes:['نوٹس ڈاؤن لوڈ کریں','Download notes'], takeTest:['ٹیسٹ دیں','Take a test'], waUs:['واٹس ایپ کریں','WhatsApp us'],
- sMcq:['MCQs','MCQs'], sSq:['مختصر سوالات','Short questions'], sLq:['تفصیلی سوالات','Long questions'], sFiles:['فائلیں (PDF + ایپس)','Files (PDF + apps)'],
- pickClass:['اپنی جماعت منتخب کریں','Pick your class'], pickClassP:['جماعت پر کلک کریں اور اس کے تمام مضامین کے نوٹس دیکھیں۔','Tap a class to see notes of all its subjects.'],
- whyTitle:['اکیڈمی میں کیا ملتا ہے','What students get'],
- f1:['تمام مضامین کے نوٹس','Notes for every subject'], f1p:['MCQs، مختصر اور تفصیلی سوالات، پیپر پیٹرن نوٹس اور ریاضی کی مشقوں کے حل۔','MCQs, short and long questions, paper pattern notes and Math exercise solutions.'],
- f2:['آن لائن اور آف لائن ٹیسٹ','Online and offline tests'], f2p:['باب منتخب کریں، MCQs حل کریں اور فوراً نمبر اور ریکارڈ دیکھیں۔','Pick a chapter, solve MCQs and see your marks and record at once.'],
- f3:['انگلش اور اردو میڈیم','English and Urdu medium'], f3p:['میٹرک کے مضامین دونوں میڈیم میں، فرسٹ اور سیکنڈ ایئر انگلش میڈیم میں۔','Matric subjects in both mediums; 1st and 2nd Year in English medium.'],
- joinTitle:['داخلے کے لیے رابطہ کریں','Contact for admission'], joinP:['داخلے، اوقات اور فیس کی معلومات کے لیے واٹس ایپ کریں یا اکیڈمی تشریف لائیں۔','WhatsApp us or visit the academy for admission, timings and fee details.'],
- location:['لوکیشن','Location'],
- notesTitle:['نوٹس ڈاؤن لوڈ','Notes download'], notesP:['جماعت اور مضمون منتخب کریں، پھر فائل کے سامنے ڈاؤن لوڈ کا بٹن دبائیں۔ سب نوٹس مفت ہیں۔','Choose a class and a subject, then press Download on any file. All notes are free.'],
- all:['سب','All'], search:['فائل تلاش کریں…','Search files…'], download:['ڈاؤن لوڈ','Download'], files:['فائلیں','files'],
- noFiles:['اس انتخاب میں کوئی فائل نہیں۔','No files match this choice.'], pickSubject:['اوپر سے مضمون منتخب کریں۔','Choose a subject above.'],
- searchRes:['تلاش کے نتائج','Search results'],
- testsTitle:['MCQs ٹیسٹ ایپس','MCQs test apps'], testsP:['ویب سائٹ پر ہی ٹیسٹ دیں، یا ایپ ڈاؤن لوڈ کر کے بغیر انٹرنیٹ کے استعمال کریں۔','Take a test right here on the website, or download the app and use it without internet.'],
- startOnline:['آن لائن ٹیسٹ دیں','Start online'], dlApp:['ایپ ڈاؤن لوڈ','Download app'], subjects:['مضامین','subjects'],
- homeApp:['تمام جماعتوں کی ٹیسٹ ہوم ایپ','All-classes MCQs Tests Home app'], homeAppP:['ایک چھوٹی ایپ جس سے ہر جماعت کی ٹیسٹ ایپ ڈاؤن لوڈ ہوتی ہے۔','One small app that downloads the test app of every class.'],
- notesApp:['نوٹس ڈاؤن لوڈ ایپ','Notes Download App'], notesAppP:['تمام جماعتوں کے تمام نوٹس ایک ایپ میں۔','All notes of all classes in one app.'],
- subjAll:['مضمون وار ایپس (تمام جماعتیں)','Subject apps (all classes)'],
- howOpen:['ڈاؤن لوڈ کی گئی ایپ کیسے کھولیں','How to open a downloaded app'],
- h1:['«ایپ ڈاؤن لوڈ» دبائیں، فائل موبائل میں محفوظ ہو جائے گی۔','Press "Download app"; the file saves to your phone.'],
- h2:['فائل مینیجر یا ڈاؤن لوڈز میں فائل پر کلک کریں۔','Open Downloads or your file manager and tap the file.'],
- h3:['«گوگل کروم» منتخب کریں۔ اب ایپ بغیر انٹرنیٹ کے چلے گی۔','Choose Google Chrome. The app now works without internet.'],
- aboutTitle:['اکیڈمی کا تعارف','About the academy'],
- aboutP:['الحسن سائنس اکیڈمی (AHSA) دلیوالی میں جماعت 8 سے 12 تک کے طلبہ کو سائنس (فزکس، کیمسٹری، بیالوجی)، ریاضی، کمپیوٹر اور انگلش پڑھائی جاتی ہے۔ ہمارا مقصد ہے کہ ہر طالب علم کو معیاری نوٹس اور باقاعدہ ٹیسٹ کی سہولت مفت ملے، تاکہ وہ بورڈ کے امتحان میں اچھے نمبر لے سکے۔','Al Hassan Science Academy (AHSA), Dillewali, teaches Science (Physics, Chemistry, Biology), Math, Computer and English to students of Class 8 to 12. Our aim is that every student gets quality notes and regular tests for free, so they can score well in the board exam.'],
- teacher:['استاد','Teacher'], details:['اکیڈمی کی معلومات','Academy details'],
- sampleTag:['نمونہ','sample'],
- contactTitle:['ہم سے رابطہ کریں','Contact us'], contactP:['سوال، داخلہ یا نوٹس کے بارے میں ہمیں واٹس ایپ پر پیغام بھیجیں۔','Message us on WhatsApp about admission, notes or any question.'],
- copy:['نمبر کاپی کریں','Copy number'], copied:['نمبر کاپی ہو گیا','Number copied'],
- formTitle:['واٹس ایپ پیغام لکھیں','Write a WhatsApp message'], fName:['طالب علم کا نام','Student name'], fClass:['جماعت','Class'], fMsg:['پیغام','Message'],
- fMsgPh:['مثلاً: داخلے کی معلومات چاہیے','e.g. I want admission details'], fSend:['واٹس ایپ پر بھیجیں','Send on WhatsApp'],
- fHint:['بٹن دبانے سے واٹس ایپ میں پیغام تیار ہو جائے گا، آپ وہاں سے بھیجیں گے۔','The button opens WhatsApp with your message ready; you send it from there.'],
- openMap:['گوگل میپ پر دیکھیں','Open in Google Maps'], fbPage:['فیس بک پیج','Facebook page'],
- gsearchPh:['جماعت، مضمون یا فائل تلاش کریں… (مثلاً فزکس 9)','Search class, subject or file… (e.g. Physics 9)'],
- resClasses:['جماعتیں','Classes'], resSubjects:['مضامین','Subjects'], resFiles:['فائلیں','Files'], noRes:['کچھ نہیں ملا۔ دوسرا لفظ لکھ کر دیکھیں۔','Nothing found. Try another word.'],
- moreRes:['مزید نتائج کے لیے لفظ بڑھائیں','Type more words to narrow the results'],
- classCards:['جماعت وار نوٹس اور ٹیسٹ','Notes and tests by class'], classCardsP:['اپنی جماعت چنیں اور نوٹس یا ٹیسٹ کھولیں۔','Pick your class, then open notes or a test.'],
- openNotes:['نوٹس','Notes'], openTest:['ٹیسٹ دیں','Take test'], filesIn:['فائلیں','files'],
- annTitle:['اعلانات','Announcements'], newTag:['نیا','new'],
- topTitle:['نمایاں طلبہ','Top students'], topP:['اکیڈمی کے پوزیشن ہولڈر طلبہ۔','Position holders of the academy.'],
- mapTitle:['اکیڈمی کی لوکیشن','Academy location'], mapP:['گوگل میپ پر راستہ دیکھنے کے لیے بٹن دبائیں۔','Press the button for directions on Google Maps.'],
- admission:['داخلہ فارم','Admission form'], fPhone:['فون نمبر','Phone number'], fPurpose:['مقصد','Purpose'],
- pAdm:['داخلہ','Admission'], pNotes:['نوٹس','Notes'], pTest:['ٹیسٹ','Tests'], pOther:['دیگر','Other'],
- teachTitle:['ڈائریکٹر','Director'], teachP:['ریاضی اور شماریات کے تجربہ کار استاد، 19 سال کا تدریسی تجربہ۔ اس ویب سائٹ کے تمام نوٹس اور ٹیسٹ ایپس انہی کے تیار کردہ ہیں۔','Mathematics and Statistics teacher with 19 years of teaching experience, and the author of all the notes and test apps on this website.'],
- papers:['سلیبس','Syllabus'], weekly:['ہفتہ وار ٹیسٹ','Weekly test'],
- papersTitle:['سلیبس، پیپر اسکیم اور پیپر پیٹرن','Syllabus, paper schemes and paper patterns'], papersP:['پنجاب کریکولم اینڈ ٹیکسٹ بک اتھارٹی کا اسمارٹ سلیبس 2027، پیپر اسکیمیں اور ہمارے پیپر پیٹرن نوٹس۔','Smart syllabus 2027 from PECTAA, paper schemes, and our paper pattern notes.'],
- open:['کھولیں','Open'], kSmart:['اسمارٹ سلیبس 2027','Smart syllabus 2027'], kOld:['پرانی اسکیم 2026','Old scheme 2026'], kPattern:['غیر سرکاری','Unofficial'],
- notReleased:['جماعت 8، 10 اور 12 کا 2027 کا سرکاری اسمارٹ سلیبس ابھی جاری نہیں ہوا۔ جاری ہوتے ہی یہاں شامل ہوگا۔','The official 2027 smart syllabus for Class 8, 10 and 12 is not out yet. It will be added here when released.'],
- ppNotes:['پیپر پیٹرن نوٹس اور منتخب یونٹس','Paper pattern notes and selected units'],
- pastTitle:['گزشتہ پرچے (Past Papers)','Past papers'], pastP:['بورڈ کے گزشتہ پرچے جلد یہاں شامل کیے جائیں گے۔','Board past papers will be added here soon.'],
- dailyTitle:['آج کا MCQ','Today\'s MCQ'], dailyP:['ہر روز ہر جماعت کے لیے ایک نیا سوال۔ جواب پر کلک کریں۔','A new question every day for each class. Tap an answer.'],
- right:['شاباش! درست جواب۔','Well done! Correct answer.'], wrong:['غلط۔ درست جواب سبز رنگ میں ہے۔','Wrong. The correct answer is in green.'],
- tomorrow:['کل نیا سوال آئے گا۔','A new question comes tomorrow.'],
- weeklyTitle:['ہفتہ وار ٹیسٹ','Weekly test'], weeklyP:['ہر ہفتے 10 نئے سوالات۔ سب حل کر کے «نتیجہ دیکھیں» دبائیں۔','10 new questions every week. Answer all, then press "See result".'],
- startWeekly:['ہفتہ وار ٹیسٹ دیں','Take the weekly test'], seeResult:['نتیجہ دیکھیں','See result'], answerAll:['پہلے تمام سوالات حل کریں','Answer all questions first'],
- yourScore:['آپ کا اسکور','Your score'], retry:['دوبارہ کوشش','Try again'], shareScore:['واٹس ایپ پر شیئر کریں','Share on WhatsApp'],
- bestWeek:['اس ہفتے کا بہترین اسکور','Best score this week'], week:['ہفتہ','Week'],
- newFiles:['نئے','new'], onlyNew:['نئے نوٹس','New notes'],
- reviewsTitle:['طلبہ اور والدین کی رائے','Students and parents say'], reviewsEmpty:['ابھی کوئی رائے شامل نہیں کی گئی۔','No reviews added yet.'], reviewsP:['اپنی رائے واٹس ایپ پر بھیجیں، ہم اسے یہاں شامل کریں گے۔','Send your review on WhatsApp and we will add it here.'], sendReview:['رائے بھیجیں','Send a review'],
- resultsEmpty:['نتائج جلد شامل کیے جائیں گے۔','Results will be added soon.'],
- install:['ایپ کی طرح انسٹال کریں','Install as an app'], installed:['انسٹال ہو گئی','Installed'],
- quickTitle:['فوری رسائی','Quick access'], qaTest:['10 سوالات، فوری نتیجہ','10 questions, instant result'], qaSyl:['اسمارٹ سلیبس 2027','Smart syllabus 2027'],
- howTitle:['ویب سائٹ کیسے استعمال کریں','How to use this website'], howP:['تین آسان مرحلے۔','Three easy steps.'],
- s1:['اپنی جماعت اور میڈیم چنیں','Pick your class and medium'], s1p:['ہوم پر اپنی جماعت کا کارڈ کھولیں اور انگلش یا اردو میڈیم منتخب کریں۔','Open your class card on Home and choose English or Urdu medium.'],
- s2:['نوٹس ڈاؤن لوڈ کریں','Download the notes'], s2p:['مضمون پر کلک کریں، پھر فائل کے سامنے سبز «ڈاؤن لوڈ» بٹن دبائیں۔ ⭐ سے فائل محفوظ کریں۔','Tap a subject, then the green Download button. Use ⭐ to save a file.'],
- s3:['ٹیسٹ دے کر تیاری چیک کریں','Check yourself with tests'], s3p:['روزانہ کا MCQ حل کریں، ہفتہ وار ٹیسٹ دیں یا جماعت کی پوری ٹیسٹ ایپ استعمال کریں۔','Solve the daily MCQ, take the weekly test, or use the full class test app.'],
- faqTitle:['عام سوالات','Common questions'],
- q1:['داخلہ کیسے لیں؟','How do I get admission?'], a1:['واٹس ایپ 0314-6011672 پر پیغام بھیجیں یا «داخلہ کے لیے اپلائی کریں» فارم بھریں۔ فیس اور داخلے کی تفصیل واٹس ایپ پر بتائی جائے گی۔','Message 0314-6011672 on WhatsApp or fill the admission form on the Contact page. Fee and admission details are shared on WhatsApp.'],
- q2:['اکیڈمی کے اوقات کیا ہیں؟','What are the academy timings?'], a2:['سہ پہر 3:00 بجے سے شام 5:00 بجے تک۔','3:00 pm to 5:00 pm.'],
- q3:['اکیڈمی کہاں ہے؟','Where is the academy?'], a3:['دلیوالی، نزد سیفل پل، کالاباغ روڈ، میانوالی۔ رابطہ صفحے پر گوگل میپ کا بٹن ہے۔','Dillewali, near Saifal Pul, Kalabagh Road, Mianwali. The Contact page has a Google Maps button.'],
- q4:['نوٹس کس میڈیم میں ہیں؟','Which medium are the notes in?'], a4:['جماعت 8، 9 اور 10 کے زیادہ تر مضامین انگلش اور اردو دونوں میڈیم میں ہیں۔ فرسٹ اور سیکنڈ ایئر کے نوٹس انگلش میڈیم میں ہیں۔','Most Class 8, 9 and 10 subjects are in both English and Urdu medium. 1st and 2nd Year notes are in English medium.'],
- q5:['نوٹس کیسے ڈاؤن لوڈ کریں؟','How do I download notes?'], a5:['«ڈاؤن لوڈ» دبائیں، فائل گوگل ڈرائیو سے آپ کے موبائل میں آ جائے گی۔ PDF کسی بھی PDF ریڈر یا کروم میں کھلتی ہے۔','Press Download and the file comes to your phone from Google Drive. Open the PDF in any PDF reader or Chrome.'],
- q6:['ٹیسٹ ایپ بغیر انٹرنیٹ کیسے چلائیں؟','How do Test Apps work offline?'], a6:['«ایپ ڈاؤن لوڈ» دبائیں، پھر فائل کو گوگل کروم میں کھولیں۔ اس کے بعد انٹرنیٹ کی ضرورت نہیں۔','Press Download app, then open the file in Google Chrome. No internet is needed after that.'],
- q7:['کیا نوٹس مفت ہیں؟','Are the notes free?'], a7:['جی ہاں، ویب سائٹ کے تمام نوٹس اور ٹیسٹ ایپس مفت ہیں۔','Yes, all notes and Test Apps on this website are free.'],
- share:['واٹس ایپ پر شیئر کریں','Share on WhatsApp'], fav:['محفوظ کریں','Save'], unfav:['محفوظ سے ہٹائیں','Remove from saved'],
- myFav:['میری محفوظ فائلیں','My saved files'], myRecent:['حال ہی میں ڈاؤن لوڈ کی گئی','Recently downloaded'], clearRecent:['فہرست صاف کریں','Clear list'],
- streakDays:['دن مسلسل','day streak'], solved:['حل کیے','solved'], correct:['درست','correct'],
- tutors:['ہماری ٹیم','Our Team'],
- tutTitle:['ہماری ٹیم','Our Team'], tutP:['تصدیق شدہ اساتذہ: آن لائن، اکیڈمی میں اور گھر پر (ہوم ٹیوشن)۔','Verified tutors: online, at the academy and at home (home tuition).'],
- tutSoonT:['جلد آ رہا ہے','Coming soon'], tutSoonP:['اساتذہ کی فہرست جلد یہاں شائع کی جائے گی۔ کیا آپ پڑھاتے ہیں؟ نیچے رجسٹر کریں۔','The tutors list will be published here soon. Do you teach? Register below.'],
- tutReg:['بطور استاد رجسٹر ہوں','Register as a Tutor'], tutRegP:['اپنی معلومات لکھیں، بٹن دبائیں اور واٹس ایپ پر بھیج دیں۔','Fill in your details, press the button and send it on WhatsApp.'],
- verNote:['ویب سائٹ پر صرف وہی اساتذہ دکھائے جاتے ہیں جن کی اکیڈمی نے تصدیق کر لی ہو۔ رجسٹریشن کے بعد اکیڈمی آپ سے رابطہ کرے گی۔','Only tutors verified by the academy are listed on this website. After you register, the academy will contact you.'],
- onKick:['آن لائن ٹیوشن','Online tuition'], homeKick:['ہوم ٹیوشن','Home tuition'], onT:['آن لائن ٹیوٹر چاہیے؟','Need an online tutor?'],
- onP:['گھر بیٹھے موبائل پر پڑھیں۔ جماعت اور مضمون منتخب کریں، اکیڈمی آپ کو مناسب استاد سے ملا دے گی۔','Study from home on your phone. Choose class and subject, and the academy will match you with a suitable tutor.'],
- onReq:['واٹس ایپ پر درخواست بھیجیں','Send request on WhatsApp'], anySubj:['کوئی بھی مضمون','Any subject'],
- tmAll:['تمام','All'], tmOnline:['آن لائن','Online'], tmAcademy:['اکیڈمی میں','At academy'], tmBoth:['دونوں (آن لائن + اکیڈمی)','Both (online + academy)'], tmHome:['گھر پر (ہوم ٹیوٹر)','Home tutor'], tmHomeF:['ہوم ٹیوٹر','Home tutors'],
- homeAv:['ہوم ٹیوٹر بھی دستیاب ہیں','Home tutors also available'], homeAvP:['استاد آپ کے گھر آ کر پڑھائے گا۔ نیچے «ٹیوٹر چاہیے» فارم میں «گھر پر» چنیں اور واٹس ایپ پر بھیج دیں۔','A teacher comes to your home. In the “Need a Tutor” form below choose “At home” and send it on WhatsApp.'],
- homeAsk:['ہوم ٹیوٹر کی درخواست','Request a home tutor'], noHomeM:['ہوم ٹیوٹر کے لیے «ٹیوٹر چاہیے» فارم میں «گھر پر» چن کر درخواست بھیجیں، اکیڈمی آپ کے علاقے کے مطابق استاد ڈھونڈ دے گی۔','For a home tutor, choose “At home” in the “Need a Tutor” form and send it; the academy will find a teacher for your area.'],
- noTutM:['اس قسم کے اساتذہ ابھی دستیاب نہیں۔','No tutors of this type yet.'],
- tEdu:['تعلیم','Education'], tSubj:['مضامین','Subjects'], tCls:['جماعتیں','Classes'], tExp:['تجربہ','Experience'], tArea:['علاقہ','Area'], tAvail:['دستیابی','Available'], tPlat:['پلیٹ فارم','Platform'],
- tAsk:['اس استاد کے بارے میں پوچھیں','Ask about this tutor'],
- rName:['پورا نام','Full name'], rPhone:['فون / واٹس ایپ نمبر','Phone / WhatsApp number'], rEdu:['تعلیم','Education'], rEduPh:['مثلاً: ایم ایس سی فزکس، بی ایس میتھ','e.g. M.Sc Physics, BS Math'],
- rSubj:['کون سے مضامین پڑھاتے ہیں؟','Subjects you teach'], rOther:['دیگر مضمون','Other subject'], rCls:['کون سی جماعتیں؟','Classes'],
- rExp:['تدریسی تجربہ','Teaching experience'], rArea:['علاقہ / شہر','Area / city'], rAreaPh:['مثلاً: دلیوالی، میانوالی','e.g. Dillewali, Mianwali'],
- rMode:['کیسے پڑھائیں گے؟ (ایک سے زیادہ چن سکتے ہیں)','How will you teach? (choose one or more)'], rNeedMode:['کم از کم ایک طریقہ منتخب کریں','Select at least one teaching mode'], rPlat:['آن لائن پلیٹ فارم','Preferred online platform'], rMsg:['مزید معلومات (اختیاری)','More details (optional)'],
- rMsgPh:['مثلاً: شام 5 کے بعد فارغ ہوں','e.g. Free after 5 pm'], rSend:['واٹس ایپ پر رجسٹریشن بھیجیں','Send registration on WhatsApp'],
- rNeedSubj:['کم از کم ایک مضمون منتخب کریں','Select at least one subject'], rNeedCls:['کم از کم ایک جماعت منتخب کریں','Select at least one class'],
- exp0:['ایک سال سے کم','Less than 1 year'], exp1:['1 سے 2 سال','1 to 2 years'], exp3:['3 سے 5 سال','3 to 5 years'], exp6:['5 سال سے زیادہ','More than 5 years'],
- howReg:['رجسٹریشن کیسے ہوگی؟','How registration works'], hr1:['فارم بھر کر واٹس ایپ پر بھیجیں۔','Fill the form and send it on WhatsApp.'],
- hr2:['اکیڈمی آپ سے رابطہ کر کے تعلیم اور تجربہ کی تصدیق کرے گی۔','The academy contacts you and verifies your education and experience.'],
- hr3:['تصدیق کے بعد آپ کا نام «ہماری ٹیم» میں شامل ہو جائے گا۔','After verification your name is added to “Our Team”.'],
- stripT:['اساتذہ: آن لائن، اکیڈمی اور ہوم ٹیوشن','Tutors: online, academy & home tuition'], stripP:['ہوم ٹیوٹر بھی دستیاب ہیں۔ تصدیق شدہ اساتذہ دیکھیں یا بطور استاد رجسٹر ہوں۔','Home tutors also available. See verified tutors or register as a tutor.'],
- tutorsFoot:['ہماری ٹیم','Our Team'], regFoot:['بطور استاد رجسٹر ہوں','Register as a Tutor'], admShort:['داخلہ','Admissions'], teamShort:['ٹیم','Team'], regShort:['رجسٹر ہوں','Register'],
- footAbout:['جماعت 8 تا 12 کے مفت نوٹس اور MCQs ٹیسٹ۔','Free notes and MCQs tests for Class 8 to 12.'],
- needT:['ٹیوٹر چاہیے','Need a Tutor'], needP:['آن لائن، اکیڈمی میں یا گھر پر (ہوم ٹیوٹر) پڑھنے کے لیے استاد کی درخواست بھیجیں۔','Request a teacher for online, academy or home tuition (home tutor).'],
- applyT:['داخلہ کے لیے اپلائی کریں','Apply for Admission'], applyP:['طالب علم کی تفصیل بھریں اور واٹس ایپ پر بھیج دیں۔','Fill in the student details and send them on WhatsApp.'],
- needHead:['ٹیوٹر چاہیے؟','Need a Tutor?'], needLead:['فارم بھریں اور واٹس ایپ پر بھیجیں۔ اکیڈمی آپ کو جماعت، مضمون اور وقت کے مطابق مناسب استاد سے ملا دے گی۔','Fill in the form and send it on WhatsApp. The academy will match you with a suitable teacher for your class, subjects and time.'],
- nName:['طالب علم / والدین کا نام','Student / parent name'], nPhone:['فون نمبر (واٹس ایپ)','Phone (WhatsApp)'], nClass:['جماعت','Class'], nSubj:['مضامین','Subjects'],
- nMode:['کہاں پڑھنا ہے؟','How do you want to study?'], mOnline:['آن لائن','Online'], mAcademy:['اکیڈمی میں','At the academy'], mHome:['گھر پر','At home'],
- nArea:['علاقہ / شہر','Area / town'], nAreaPh:['مثلاً: دلیوالی، میانوالی','e.g. Dillewali, Mianwali'], nTime:['مناسب وقت','Preferred time'],
- tmMorn:['صبح','Morning'], tmAft:['دوپہر / سہ پہر','Afternoon'], tmEve:['شام','Evening'], tmAny:['کوئی بھی وقت','Any time'],
- nSend:['واٹس ایپ پر درخواست بھیجیں','Send request on WhatsApp'], needSubj:['کم از کم ایک مضمون چنیں','Choose at least one subject'],
- aName:['طالب علم کا نام','Student name'], aFather:['والد کا نام','Father name'], aClass:['جماعت','Class'], aSchool:['اسکول / کالج','School / college'], aPhone:['فون نمبر (واٹس ایپ)','Phone (WhatsApp)'],
- aSend:['داخلہ فارم واٹس ایپ پر بھیجیں','Send admission form on WhatsApp'], aNote:['فیس اور داخلے کی تفصیل واٹس ایپ پر بتائی جائے گی۔','Fee and admission details will be shared on WhatsApp.'],
- reqFill:['ضروری خانہ پُر کریں','Please fill in'],
- st1:['1. فارم بھریں','1. Fill the form'], st2:['2. واٹس ایپ پر بھیجیں','2. Send on WhatsApp'], st3:['3. اکیڈمی رابطہ کرے گی','3. The academy replies'],
- offT:['اکیڈمی کیا پیش کرتی ہے','What the academy offers'], offP:['جماعت 8 سے 12 تک کے طلبہ کے لیے سب کچھ ایک جگہ۔','Everything for Class 8 to 12 students in one place.'],
- o1:['جماعت 8 تا 12','Class 8 to 12'], o1p:['میٹرک، فرسٹ ایئر اور سیکنڈ ایئر کے لیے سائنس، ریاضی، کمپیوٹر اور انگلش۔','Science, Math, Computer and English for Matric, 1st Year and 2nd Year.'],
- o2:['مفت نوٹس','Free notes'], o2p:['428 فائلیں: MCQs، مختصر اور تفصیلی سوالات، پیپر پیٹرن نوٹس۔','428 files: MCQs, short and long questions, paper pattern notes.'],
- o3:['MCQs ٹیسٹ ایپس','MCQs test apps'], o3p:['15,258 MCQs کے ٹیسٹ، فوری نتیجہ، آف لائن بھی۔','Tests from 15,258 MCQs with instant results, offline too.'],
- o4:['انگلش اور اردو میڈیم','English and Urdu medium'], o4p:['میٹرک دونوں میڈیم میں، فرسٹ اور سیکنڈ ایئر انگلش میڈیم میں۔','Matric in both mediums; 1st and 2nd Year in English medium.'],
- o5:['اسمارٹ سلیبس 2027','Smart syllabus 2027'], o5p:['جماعت 9 اور 11 کا اسمارٹ سلیبس اور پیپر اسکیم۔','Smart syllabus and paper schemes for Class 9 and 11.'],
- o6:['اوقات: 3 تا 5 بجے','Timings: 3 to 5 pm'], o6p:['پیر تا ہفتہ، دلیوالی، کالاباغ روڈ، میانوالی۔','Monday to Saturday, Dillewali, Kalabagh Road, Mianwali.'],
- trust4:['ہوم ٹیوٹر دستیاب','Home tutors available'], o7:['ٹیوٹر: آن لائن، اکیڈمی اور گھر پر','Tutors: online, academy and at home'], o7p:['اکیڈمی کے تصدیق شدہ اساتذہ۔ ہوم ٹیوٹر بھی دستیاب ہیں: «ٹیوٹر چاہیے» فارم بھر کر واٹس ایپ پر بھیجیں۔','Academy-verified tutors. Home tutors are also available: fill the “Need a Tutor” form and send it on WhatsApp.'],
- trust1:['مفت نوٹس','Free notes'], trust2:['انگلش اور اردو میڈیم','English & Urdu medium'], trust3:['جماعت 8 تا 12','Class 8 to 12'],
+ heroSub:['','Complete notes, MCQs Test Apps and guidance for students of Class 8 to 12, in English and Urdu medium.'],
+ getNotes:['','Download notes'], takeTest:['','Take a test'], waUs:['','WhatsApp us'],
+ sMcq:['MCQs','MCQs'], sSq:['','Short questions'], sLq:['','Long questions'], sFiles:['','Files (PDF + apps)'],
+ pickClass:['','Pick your class'], pickClassP:['','Tap a class to see notes of all its subjects.'],
+ whyTitle:['','What students get'],
+ f1:['','Notes for every subject'], f1p:['','MCQs, short and long questions, paper pattern notes and Math exercise solutions.'],
+ f2:['','Online and offline tests'], f2p:['','Pick a chapter, solve MCQs and see your marks and record at once.'],
+ f3:['','English and Urdu medium'], f3p:['','Matric subjects in both mediums; 1st and 2nd Year in English medium.'],
+ joinTitle:['','Contact for admission'], joinP:['','WhatsApp us or visit the academy for admission, timings and fee details.'],
+ location:['','Location'],
+ notesTitle:['','Notes download'], notesP:['','Choose a class and a subject, then press Download on any file. All notes are free.'],
+ all:['','All'], search:['','Search files…'], download:['','Download'], files:['','files'],
+ noFiles:['','No files match this choice.'], pickSubject:['','Choose a subject above.'],
+ searchRes:['','Search results'],
+ testsTitle:['','MCQs test apps'], testsP:['','Take a test right here on the website, or download the app and use it without internet.'],
+ startOnline:['','Start online'], dlApp:['','Download app'], subjects:['','subjects'],
+ homeApp:['','All-classes MCQs Tests Home app'], homeAppP:['','One small app that downloads the test app of every class.'],
+ notesApp:['','Notes Download App'], notesAppP:['','All notes of all classes in one app.'],
+ subjAll:['','Subject apps (all classes)'],
+ howOpen:['','How to open a downloaded app'],
+ h1:['','Press "Download app"; the file saves to your phone.'],
+ h2:['','Open Downloads or your file manager and tap the file.'],
+ h3:['','Choose Google Chrome. The app now works without internet.'],
+ aboutTitle:['','About the academy'],
+ aboutP:['','Al Hassan Science Academy (AHSA), Dillewali, teaches Science (Physics, Chemistry, Biology), Math, Computer and English to students of Class 8 to 12. Our aim is that every student gets quality notes and regular tests for free, so they can score well in the board exam.'],
+ teacher:['','Teacher'], details:['','Academy details'],
+ sampleTag:['','sample'],
+ contactTitle:['','Contact us'], contactP:['','Message us on WhatsApp about admission, notes or any question.'],
+ copy:['','Copy number'], copied:['','Number copied'],
+ formTitle:['','Write a WhatsApp message'], fName:['','Student name'], fClass:['','Class'], fMsg:['','Message'],
+ fMsgPh:['','e.g. I want admission details'], fSend:['','Send on WhatsApp'],
+ fHint:['','The button opens WhatsApp with your message ready; you send it from there.'],
+ openMap:['','Open in Google Maps'], fbPage:['','Facebook page'],
+ gsearchPh:['','Search class, subject or file… (e.g. Physics 9)'],
+ resClasses:['','Classes'], resSubjects:['','Subjects'], resFiles:['','Files'], noRes:['','Nothing found. Try another word.'],
+ moreRes:['','Type more words to narrow the results'],
+ classCards:['','Notes and tests by class'], classCardsP:['','Pick your class, then open notes or a test.'],
+ openNotes:['','Notes'], openTest:['','Take test'], filesIn:['','files'],
+ annTitle:['','Announcements'], newTag:['','new'],
+ topTitle:['','Top students'], topP:['','Position holders of the academy.'],
+ mapTitle:['','Academy location'], mapP:['','Press the button for directions on Google Maps.'],
+ admission:['','Admission form'], fPhone:['','Phone number'], fPurpose:['','Purpose'],
+ pAdm:['','Admission'], pNotes:['','Notes'], pTest:['','Tests'], pOther:['','Other'],
+ teachTitle:['','Director'], teachP:['','Mathematics and Statistics teacher with 19 years of teaching experience, and the author of all the notes and test apps on this website.'],
+ papers:['','Syllabus'], weekly:['','Weekly test'],
+ papersTitle:['','Syllabus, paper schemes and paper patterns'], papersP:['','Smart syllabus 2027 from PECTAA, paper schemes, and our paper pattern notes.'],
+ open:['','Open'], kSmart:['','Smart syllabus 2027'], kOld:['','Old scheme 2026'], kPattern:['','Unofficial'],
+ notReleased:['','The official 2027 smart syllabus for Class 8, 10 and 12 is not out yet. It will be added here when released.'],
+ ppNotes:['','Paper pattern notes and selected units'],
+ pastTitle:['','Past papers'], pastP:['','Board past papers will be added here soon.'],
+ dailyTitle:['','Today\'s MCQ'], dailyP:['','A new question every day for each class. Tap an answer.'],
+ right:['','Well done! Correct answer.'], wrong:['','Wrong. The correct answer is in green.'],
+ tomorrow:['','A new question comes tomorrow.'],
+ weeklyTitle:['','Weekly test'], weeklyP:['','10 new questions every week. Answer all, then press "See result".'],
+ startWeekly:['','Take the weekly test'], seeResult:['','See result'], answerAll:['','Answer all questions first'],
+ yourScore:['','Your score'], retry:['','Try again'], shareScore:['','Share on WhatsApp'],
+ bestWeek:['','Best score this week'], week:['','Week'],
+ newFiles:['','new'], onlyNew:['','New notes'],
+ reviewsTitle:['','Students and parents say'], reviewsEmpty:['','No reviews added yet.'], reviewsP:['','Send your review on WhatsApp and we will add it here.'], sendReview:['','Send a review'],
+ resultsEmpty:['','Results will be added soon.'],
+ install:['','Install as an app'], installed:['','Installed'],
+ quickTitle:['','Quick access'], qaTest:['','10 questions, instant result'], qaSyl:['','Smart syllabus 2027'],
+ howTitle:['','How to use this website'], howP:['','Three easy steps.'],
+ s1:['','Pick your class and medium'], s1p:['','Open your class card on Home and choose English or Urdu medium.'],
+ s2:['','Download the notes'], s2p:['','Tap a subject, then the green Download button. Use ⭐ to save a file.'],
+ s3:['','Check yourself with tests'], s3p:['','Solve the daily MCQ, take the weekly test, or use the full class test app.'],
+ faqTitle:['','Common questions'],
+ q1:['','How do I get admission?'], a1:['','Message 0314-6011672 on WhatsApp or fill the admission form on the Contact page. Fee and admission details are shared on WhatsApp.'],
+ q2:['','What are the academy timings?'], a2:['','3:00 pm to 5:00 pm.'],
+ q3:['','Where is the academy?'], a3:['','Dillewali, near Saifal Pul, Kalabagh Road, Mianwali. The Contact page has a Google Maps button.'],
+ q4:['','Which medium are the notes in?'], a4:['','Most Class 8, 9 and 10 subjects are in both English and Urdu medium. 1st and 2nd Year notes are in English medium.'],
+ q5:['','How do I download notes?'], a5:['','Press Download and the file comes to your phone from Google Drive. Open the PDF in any PDF reader or Chrome.'],
+ q6:['','How do Test Apps work offline?'], a6:['','Press Download app, then open the file in Google Chrome. No internet is needed after that.'],
+ q7:['','Are the notes free?'], a7:['','Yes, all notes and Test Apps on this website are free.'],
+ share:['','Share on WhatsApp'], fav:['','Save'], unfav:['','Remove from saved'],
+ myFav:['','My saved files'], myRecent:['','Recently downloaded'], clearRecent:['','Clear list'],
+ streakDays:['','day streak'], solved:['','solved'], correct:['','correct'],
+ tutors:['','Our Team'],
+ tutTitle:['','Our Team'], tutP:['','Verified tutors: online, at the academy and at home (home tuition).'],
+ tutSoonT:['','Coming soon'], tutSoonP:['','The tutors list will be published here soon. Do you teach? Register below.'],
+ tutReg:['','Register as a Tutor'], tutRegP:['','Fill in your details, press the button and send it on WhatsApp.'],
+ verNote:['','Only tutors verified by the academy are listed on this website. After you register, the academy will contact you.'],
+ onKick:['','Online tuition'], homeKick:['','Home tuition'], onT:['','Need an online tutor?'],
+ onP:['','Study from home on your phone. Choose class and subject, and the academy will match you with a suitable tutor.'],
+ onReq:['','Send request on WhatsApp'], anySubj:['','Any subject'],
+ tmAll:['','All'], tmOnline:['','Online'], tmAcademy:['','At academy'], tmBoth:['','Both (online + academy)'], tmHome:['','Home tutor'], tmHomeF:['','Home tutors'],
+ homeAv:['','Home tutors also available'], homeAvP:['','A teacher comes to your home. In the “Need a Tutor” form below choose “At home” and send it on WhatsApp.'],
+ homeAsk:['','Request a home tutor'], noHomeM:['','For a home tutor, choose “At home” in the “Need a Tutor” form and send it; the academy will find a teacher for your area.'],
+ noTutM:['','No tutors of this type yet.'],
+ tEdu:['','Education'], tSubj:['','Subjects'], tCls:['','Classes'], tExp:['','Experience'], tArea:['','Area'], tAvail:['','Available'], tPlat:['','Platform'],
+ tAsk:['','Ask about this tutor'],
+ rName:['','Full name'], rPhone:['','Phone / WhatsApp number'], rEdu:['','Education'], rEduPh:['','e.g. M.Sc Physics, BS Math'],
+ rSubj:['','Subjects you teach'], rOther:['','Other subject'], rCls:['','Classes'],
+ rExp:['','Teaching experience'], rArea:['','Area / city'], rAreaPh:['','e.g. Dillewali, Mianwali'],
+ rMode:['','How will you teach? (choose one or more)'], rNeedMode:['','Select at least one teaching mode'], rPlat:['','Preferred online platform'], rMsg:['','More details (optional)'],
+ rMsgPh:['','e.g. Free after 5 pm'], rSend:['','Send registration on WhatsApp'],
+ rNeedSubj:['','Select at least one subject'], rNeedCls:['','Select at least one class'],
+ exp0:['','Less than 1 year'], exp1:['','1 to 2 years'], exp3:['','3 to 5 years'], exp6:['','More than 5 years'],
+ howReg:['','How registration works'], hr1:['','Fill the form and send it on WhatsApp.'],
+ hr2:['','The academy contacts you and verifies your education and experience.'],
+ hr3:['','After verification your name is added to “Our Team”.'],
+ stripT:['','Tutors: online, academy & home tuition'], stripP:['','Home tutors also available. See verified tutors or register as a tutor.'],
+ tutorsFoot:['','Our Team'], regFoot:['','Register as a Tutor'], admShort:['','Admissions'], teamShort:['','Team'], regShort:['','Register'],
+ footAbout:['','Free notes and MCQs tests for Class 8 to 12.'],
+ needT:['','Need a Tutor'], needP:['','Request a teacher for online, academy or home tuition (home tutor).'],
+ applyT:['','Apply for Admission'], applyP:['','Fill in the student details and send them on WhatsApp.'],
+ needHead:['','Need a Tutor?'], needLead:['','Fill in the form and send it on WhatsApp. The academy will match you with a suitable teacher for your class, subjects and time.'],
+ nName:['','Student / parent name'], nPhone:['','Phone (WhatsApp)'], nClass:['','Class'], nSubj:['','Subjects'],
+ nMode:['','How do you want to study?'], mOnline:['','Online'], mAcademy:['','At the academy'], mHome:['','At home'],
+ nArea:['','Area / town'], nAreaPh:['','e.g. Dillewali, Mianwali'], nTime:['','Preferred time'],
+ tmMorn:['','Morning'], tmAft:['','Afternoon'], tmEve:['','Evening'], tmAny:['','Any time'],
+ nSend:['','Send request on WhatsApp'], needSubj:['','Choose at least one subject'],
+ aName:['','Student name'], aFather:['','Father name'], aClass:['','Class'], aSchool:['','School / college'], aPhone:['','Phone (WhatsApp)'],
+ aSend:['','Send admission form on WhatsApp'], aNote:['','Fee and admission details will be shared on WhatsApp.'],
+ reqFill:['','Please fill in'],
+ st1:['','1. Fill the form'], st2:['','2. Send on WhatsApp'], st3:['','3. The academy replies'],
+ offT:['','What the academy offers'], offP:['','Everything for Class 8 to 12 students in one place.'],
+ o1:['','Class 8 to 12'], o1p:['','Science, Math, Computer and English for Matric, 1st Year and 2nd Year.'],
+ o2:['','Free notes'], o2p:['','428 files: MCQs, short and long questions, paper pattern notes.'],
+ o3:['','MCQs test apps'], o3p:['','Tests from 15,258 MCQs with instant results, offline too.'],
+ o4:['','English and Urdu medium'], o4p:['','Matric in both mediums; 1st and 2nd Year in English medium.'],
+ o5:['','Smart syllabus 2027'], o5p:['','Smart syllabus and paper schemes for Class 9 and 11.'],
+ o6:['','Timings: 3 to 5 pm'], o6p:['','Monday to Saturday, Dillewali, Kalabagh Road, Mianwali.'],
+ trust4:['','Home tutors available'], o7:['','Tutors: online, academy and at home'], o7p:['','Academy-verified tutors. Home tutors are also available: fill the “Need a Tutor” form and send it on WhatsApp.'],
+ trust1:['','Free notes'], trust2:['','English & Urdu medium'], trust3:['','Class 8 to 12'],
 };
 let lang = 'en', view = 'home', cls = '9', subj = null, medium = 'all', q = '', hq = '';
 const cardMd = {'8':'UM','9':'EM','9t':'UM','10':'EM','11':'EM','12':'EM'};
-try { lang = localStorage.getItem('ahsa-lang') || 'en'; } catch (e) {}
+try { localStorage.removeItem('ahsa-lang'); } catch (e) {}
 const t = k => T[k] ? T[k][lang === 'ur' ? 0 : 1] : k;
 const L = (ur, en) => lang === 'ur' ? ur : en;
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1094,7 +1094,6 @@ function chrome() {
   const links = TABS.map(v => `<a href="#${v}" ${v === view ? 'aria-current="page"' : ''}>${svg(v)}<span>${t(v)}</span></a>`).join('');
   document.getElementById('tabs').innerHTML = links;
   document.getElementById('nav').innerHTML = VIEWS.map(v => `<a href="#${v}" ${v === view ? 'aria-current="page"' : ''}>${t(v)}</a>`).join('');
-  document.getElementById('langBtn').innerHTML = lang === 'ur' ? 'English' : '<span class="ur">اردو</span>';
   document.querySelectorAll('[data-t]').forEach(e => e.textContent = t(e.dataset.t));
 }
 const clsName = c => L(c.ur, c.en);
@@ -1127,7 +1126,7 @@ function searchAll(qq) {
   let h = '<div class="sres">';
   if (cH.length) h += `<div><div class="kick">${t('resClasses')}</div><div class="chips" style="margin-top:6px">${cH.map(c => `<a class="chip" href="#notes-${c.k}">${esc(clsName(c))}</a>`).join('')}</div></div>`;
   if (sH.length) h += `<div><div class="kick">${t('resSubjects')}</div><div class="chips" style="margin-top:6px">${sH.slice(0, 24).map(([c, s]) => `<a class="chip" href="#notes-${c.k}-${s.k}">${s.ic} ${esc(L(s.ur, s.en))} · ${esc(c.k === '9t' ? '9 Tech' : c.k)}</a>`).join('')}</div></div>`;
-  if (fH.length) h += `<div><div class="kick">${t('resFiles')} · ${fH.length}</div><div class="files" style="margin-top:6px">${fH.slice(0, 30).map(([c, s, f]) => fileRow(f, `${c.k === '9t' ? '9 Tech' : L('جماعت ', 'Class ') + c.k} · ${L(s.ur, s.en)}`)).join('')}</div>${fH.length > 30 ? `<p class="hint">${t('moreRes')} (30 / ${fH.length})</p>` : ''}</div>`;
+  if (fH.length) h += `<div><div class="kick">${t('resFiles')} · ${fH.length}</div><div class="files" style="margin-top:6px">${fH.slice(0, 30).map(([c, s, f]) => fileRow(f, `${c.k === '9t' ? '9 Tech' : L('', 'Class ') + c.k} · ${L(s.ur, s.en)}`)).join('')}</div>${fH.length > 30 ? `<p class="hint">${t('moreRes')} (30 / ${fH.length})</p>` : ''}</div>`;
   return h + '</div>';
 }
 const NEW_DAYS = 14; // a file shows the 'نیا / New' badge for this many days after its date in nw ('YYYY-MM-DD')
@@ -1158,10 +1157,10 @@ const qText = s => s; // already cleaned at build time (only sub/sup/b/i tags)
 const LSg = (k, d) => { try { const v = localStorage.getItem(k); return v == null ? d : v; } catch (e) { return d; } };
 const LSs = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
 function classPick(attr) {
-  return `<div class="chips">${DATA.map(c => `<button type="button" class="chip" ${attr}="${c.k}" aria-pressed="${c.k === pcls}" style="${c.k === pcls ? 'background:var(--navy);color:#fff;border-color:var(--navy)' : ''}">${c.k === '9t' ? '9 Tech' : L('جماعت ', 'Class ') + c.k}</button>`).join('')}</div>`;
+  return `<div class="chips">${DATA.map(c => `<button type="button" class="chip" ${attr}="${c.k}" aria-pressed="${c.k === pcls}" style="${c.k === pcls ? 'background:var(--navy);color:#fff;border-color:var(--navy)' : ''}">${c.k === '9t' ? '9 Tech' : L('', 'Class ') + c.k}</button>`).join('')}</div>`;
 }
 function dailyBox() {
-  if (!(POOL[pcls] || []).length) return `<div class="quiz dq2" id="daily"><p class="qt" style="color:var(--mut)">${L('سوال لوڈ ہو رہا ہے…', 'Loading question…')}</p></div>`;
+  if (!(POOL[pcls] || []).length) return `<div class="quiz dq2" id="daily"><p class="qt" style="color:var(--mut)">${L('', 'Loading question…')}</p></div>`;
   const P = POOL[pcls], d = dayNo(), q = P[d % P.length], ord = order(q, d), key = `ahsa-daily-${pcls}-${d}`, pick = DQ[key] ?? LSg(key, null);
   const done = pick !== null, pi = done ? +pick : -1, good = pi === q.a;
   const long = q.o.some(o => String(o).replace(/<[^>]+>/g, '').length > 34);
@@ -1178,7 +1177,7 @@ function dailyBox() {
 let wAns = {}, wDone = false; const DQ = {};
 function weeklyQs() { const P = POOL[pcls], w = weekNo(), st = (w * 10) % P.length; return Array.from({length: 10}, (_, i) => P[(st + i) % P.length]); }
 function vWeekly() {
-  if (!(POOL[pcls] || []).length) return `<section><div class="wrap view"><div class="sh"><div><h2>${t('weeklyTitle')}</h2><p>${L('سوالات لوڈ ہو رہے ہیں…', 'Loading questions…')}</p></div></div></div></section>`;
+  if (!(POOL[pcls] || []).length) return `<section><div class="wrap view"><div class="sh"><div><h2>${t('weeklyTitle')}</h2><p>${L('', 'Loading questions…')}</p></div></div></div></section>`;
   const Q = weeklyQs(), w = weekNo(), bestK = `ahsa-weekly-${pcls}-${w}`, best = LSg(bestK, '');
   let score = 0; if (wDone) Q.forEach((q, i) => { if (wAns[i] === q.a) score++; });
   const items = Q.map((q, i) => { const ord = order(q, w * 31 + i);
@@ -1199,7 +1198,7 @@ function vPapers() {
   const groups = ['8', '9', '10', '11', '12'].map(k => { const c = DATA.find(x => x.k === k), items = SYL.filter(x => x.k === k);
     if (!items.length) return '';
     return `<div><h3 style="margin:18px 0 8px">${esc(clsName(c))}</h3><div class="sylg">${items.map(x => `<div class="syl"><div style="min-width:0"><h4>${esc(L(x.ur, x.en))}</h4><div class="m" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${kindTag(x.kind)}<span class="tag">${x.ext} · ${x.mb} MB</span></div></div><a class="btn sm navy" href="${x.f}" target="_blank" rel="noopener">${svg('papers')}${t('open')}</a></div>`).join('')}</div></div>`; }).join('');
-  const pp = []; DATA.forEach(c => c.s.forEach(s => s.f.forEach(f => { if (['pp', 'sel', 'scheme', 'selmcq', 'selsq', 'sellq'].includes(f.k)) pp.push(fileRow(f, `${c.k === '9t' ? '9 Tech' : L('جماعت ', 'Class ') + c.k} · ${L(s.ur, s.en)}`)); })));
+  const pp = []; DATA.forEach(c => c.s.forEach(s => s.f.forEach(f => { if (['pp', 'sel', 'scheme', 'selmcq', 'selsq', 'sellq'].includes(f.k)) pp.push(fileRow(f, `${c.k === '9t' ? '9 Tech' : L('', 'Class ') + c.k} · ${L(s.ur, s.en)}`)); })));
   return `<section><div class="wrap view">
     <div class="sh"><div><div class="kick">${t('papers')}</div><h2>${t('papersTitle')}</h2><p>${t('papersP')}</p></div></div>
     <div class="soon" style="text-align:start">${t('notReleased')}</div>
@@ -1229,7 +1228,7 @@ function mapBox() {
 const FILES = {}; DATA.forEach(c => c.s.forEach(s => s.f.forEach(f => { FILES[f.id] = {f, c, s}; })));
 const getL = k => { try { return JSON.parse(LSg(k, '[]')) || []; } catch (e) { return []; } };
 let FAV = getL('ahsa-fav'), RECENT = getL('ahsa-recent');
-const ctxOf = id => { const x = FILES[id]; return x ? `${x.c.k === '9t' ? '9 Tech' : L('جماعت ', 'Class ') + x.c.k} · ${L(x.s.ur, x.s.en)}` : ''; };
+const ctxOf = id => { const x = FILES[id]; return x ? `${x.c.k === '9t' ? '9 Tech' : L('', 'Class ') + x.c.k} · ${L(x.s.ur, x.s.en)}` : ''; };
 function myFiles() {
   const fav = FAV.filter(id => FILES[id]), rec = RECENT.filter(id => FILES[id] && !fav.includes(id)).slice(0, 5);
   if (!fav.length && !rec.length) return '';
@@ -1250,14 +1249,14 @@ function vHome() {
   <div id="annBar">${annBar()}</div>
   <section class="hero" style="padding:0"><div class="wrap">
     <div>
-      <h1 class="stk"><a class="tohome" href="#home"><span class="u">${(L('الحسن|سائنس|اکیڈمی|دلیوالی','Al Hassan|Science|Academy')).split('|').map((w, i) => `<span class="w w${i}">${w}</span>`).join(' ')}</span></a></h1>
+      <h1 class="stk"><a class="tohome" href="#home"><span class="u">${(L('','Al Hassan|Science|Academy')).split('|').map((w, i) => `<span class="w w${i}">${w}</span>`).join(' ')}</span></a></h1>
       <p class="alt">${t('heroAlt')}</p>
-      <p class="lead">${L('جماعت 8 تا 12: مفت نوٹس، ٹیسٹ اور تجربہ کار اساتذہ۔', 'Class 8 to 12: free notes, tests and experienced tutors.')}</p>
-      ${(() => { const B = [`<a class="btn qn" href="#notes">${svg('notes')}<span>${L('نوٹس', 'Notes')}</span></a>`,
-        `<a class="btn qt" href="#tests">${svg('tests')}<span>${L('ٹیسٹ', 'Tests')}</span></a>`,
-        `<a class="btn gold qa" href="#apply">${svg('apply')}<span>${L('داخلہ', 'Admission')}</span></a>`,
-        `<a class="btn qs" href="#papers">${svg('papers')}<span>${L('<i class="lf">اسمارٹ </i>سلیبس', '<i class="lf">Smart </i>Syllabus')}</span></a>`]
-        .concat(appIn() ? [`<button type="button" class="btn qsh" data-shareapp><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>${L('<i class="lf">ایپ </i>شیئر<i class="lf"> کریں</i>', 'Share<i class="lf"> App</i>')}</span></button>`] : [`<button type="button" class="btn qi">${svg('dl')}<span>${L('<i class="lf">ایپ </i>انسٹال<i class="lf"> کریں</i>', 'Install<i class="lf"> App</i>')}</span></button>`]);
+      <p class="lead">${L('', 'Class 8 to 12: free notes, tests and experienced tutors.')}</p>
+      ${(() => { const B = [`<a class="btn qn" href="#notes">${svg('notes')}<span>${L('', 'Notes')}</span></a>`,
+        `<a class="btn qt" href="#tests">${svg('tests')}<span>${L('', 'Tests')}</span></a>`,
+        `<a class="btn gold qa" href="#apply">${svg('apply')}<span>${L('', 'Admission')}</span></a>`,
+        `<a class="btn qs" href="#papers">${svg('papers')}<span>${L('', '<i class="lf">Smart </i>Syllabus')}</span></a>`]
+        .concat(appIn() ? [`<button type="button" class="btn qsh" data-shareapp><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>${L('', 'Share<i class="lf"> App</i>')}</span></button>`] : [`<button type="button" class="btn qi">${svg('dl')}<span>${L('', 'Install<i class="lf"> App</i>')}</span></button>`]);
         const cl = B.map(h => h.replace(/^<(a|button)( type="button")? class="btn /, '<$1$2 tabindex="-1" aria-hidden="true" class="btn qcl ')).join('');
         return `<div class="cta qb${B.length > 4 ? ' q5' : ''}" id="qTrack" data-n="${B.length}">${B.join('')}${cl}</div>`; })()}
     </div>
@@ -1315,16 +1314,16 @@ function vHome() {
 function fileRow(f, ctx) {
   const k = KIND[f.k] || [f.k, f.k, '', ''];
   let title = f.ti ? L(f.tiUr || f.ti, f.ti) : L(k[1], k[0]);
-  if (f.u && (f.k === 'sol' || f.k === 'test')) title += ' · ' + (f.k === 'sol' ? L('یونٹ ', 'Unit ') : L('ٹیسٹ ', 'Test ')) + f.u;
-  const part = (f.t.match(/Part (\d)/) || [])[1]; if (part) title += ' · ' + L('حصہ ', 'Part ') + part;
+  if (f.u && (f.k === 'sol' || f.k === 'test')) title += ' · ' + (f.k === 'sol' ? L('', 'Unit ') : L('', 'Test ')) + f.u;
+  const part = (f.t.match(/Part (\d)/) || [])[1]; if (part) title += ' · ' + L('', 'Part ') + part;
   const m = [];
   if (f.nm) m.push(fmt(f.nm) + ' MCQs');
-  if (f.nsq) m.push(fmt(f.nsq) + ' ' + L('مختصر سوالات', 'short Qs'));
-  if (f.nlq) m.push(fmt(f.nlq) + ' ' + L('تفصیلی سوالات', 'long Qs'));
-  if (f.pg) m.push(f.pg + ' ' + L('صفحات', 'pages'));
+  if (f.nsq) m.push(fmt(f.nsq) + ' ' + L('', 'short Qs'));
+  if (f.nlq) m.push(fmt(f.nlq) + ' ' + L('', 'long Qs'));
+  if (f.pg) m.push(f.pg + ' ' + L('', 'pages'));
   return `<div class="file"><div style="min-width:0">
       <h4>${esc(title)}</h4><p class="d">${esc(f.d ? L(f.dUr || f.d, f.d) : L(k[3], k[2]))}</p>${f.by ? `<p class="by">✍️ ${esc(L('بائے ' + (f.byUr || f.by), 'By ' + f.by))}</p>` : ''}
-      <div class="m">${ctx ? `<span class="ctx">${esc(ctx)}</span>` : ''}${f.md ? `<span class="tag ${f.md}">${f.md === 'UM' ? 'Urdu Medium' : 'English Medium'}</span>` : ''}${isNew(f) ? `<span class="tag new">${L('نیا', 'New')}</span>` : ''}${f.app ? '<span class="tag app">App</span>' : ''}${m.map(x => `<span class="tag">${esc(x)}</span>`).join('')}<span class="tag">${f.mb} MB</span></div>
+      <div class="m">${ctx ? `<span class="ctx">${esc(ctx)}</span>` : ''}${f.md ? `<span class="tag ${f.md}">${f.md === 'UM' ? 'Urdu Medium' : 'English Medium'}</span>` : ''}${isNew(f) ? `<span class="tag new">${L('', 'New')}</span>` : ''}${f.app ? '<span class="tag app">App</span>' : ''}${m.map(x => `<span class="tag">${esc(x)}</span>`).join('')}<span class="tag">${f.mb} MB</span></div>
       <div class="fn">${esc(f.t)}</div>
     </div>
     <div class="facts"><button type="button" class="icb ${FAV.includes(f.id) ? 'on' : ''}" data-fav="${f.id}" aria-pressed="${FAV.includes(f.id)}" aria-label="${FAV.includes(f.id) ? t('unfav') : t('fav')}" title="${FAV.includes(f.id) ? t('unfav') : t('fav')}">${svg('star', FAV.includes(f.id))}</button>
@@ -1338,7 +1337,7 @@ function vNotes() {
     <div class="sh"><div><div class="kick">${t('notes')}</div><h2>${t('notesTitle')}</h2><p>${t('notesP')}</p></div></div>
     ${classTiles('btn')}
     <div class="toolbar">
-      <div class="seg" role="group" aria-label="Medium">${['all','EM','UM','new'].filter(m => m !== 'new' || c.s.some(s => s.f.some(isNew))).map(m => `<button type="button" data-md="${m}" aria-pressed="${medium === m}">${m === 'all' ? t('all') : m === 'EM' ? L('انگلش میڈیم', 'English Medium') : m === 'UM' ? L('اردو میڈیم', 'Urdu Medium') : '🆕 ' + t('onlyNew')}</button>`).join('')}</div>
+      <div class="seg" role="group" aria-label="Medium">${['all','EM','UM','new'].filter(m => m !== 'new' || c.s.some(s => s.f.some(isNew))).map(m => `<button type="button" data-md="${m}" aria-pressed="${medium === m}">${m === 'all' ? t('all') : m === 'EM' ? L('', 'English Medium') : m === 'UM' ? L('', 'Urdu Medium') : '🆕 ' + t('onlyNew')}</button>`).join('')}</div>
       <label class="search">${svg('search')}<input id="q" type="search" placeholder="${t('gsearchPh')}" value="${esc(q)}" aria-label="${t('gsearchPh')}" autocomplete="off"></label>
     </div>
     <div class="subs">${c.s.map(s => { const n = s.f.filter(mOk).length, nn = s.f.filter(isNew).length; return `<button type="button" class="sub" data-sub="${s.k}" aria-pressed="${s.k === subj}"><span class="e">${s.ic}</span><span style="min-width:0"><b>${esc(L(s.ur, s.en))}</b><small>${n} ${t('files')}${nn ? `<span class="newdot">${nn} ${t('newFiles')}</span>` : ''}</small></span></button>`; }).join('')}</div>
@@ -1365,7 +1364,7 @@ function vTests() {
       <div class="row"><a class="btn sm navy" href="${a.local}" target="_blank" rel="noopener">${svg('play', 1)}${t('startOnline')}</a>
       <a class="btn sm line" href="${dl(a.id)}" target="_blank" rel="noopener">${svg('dl')}${t('dlApp')}</a></div></div>`;
   }).join('');
-  const sa = SUBJ_APPS.map(a => `<div class="card tcard lift"><h3>${a.ic} ${esc(L(a.ur, a.en))}</h3><p>${L('تمام جماعتوں کے MCQs', 'MCQs of all classes')} · ${a.mb} MB</p>
+  const sa = SUBJ_APPS.map(a => `<div class="card tcard lift"><h3>${a.ic} ${esc(L(a.ur, a.en))}</h3><p>${L('', 'MCQs of all classes')} · ${a.mb} MB</p>
       <div class="row"><a class="btn sm navy" href="${a.local}" target="_blank" rel="noopener">${svg('play', 1)}${t('startOnline')}</a>
       <a class="btn sm line" href="${dl(a.id)}" target="_blank" rel="noopener">${svg('dl')}${t('dlApp')}</a></div></div>`).join('');
   return `<section><div class="wrap view">
@@ -1446,7 +1445,7 @@ function vContact() {
       </form>
     </div>
     <div class="teach" style="margin-top:26px"><img src="assets/shakeel-hassan.webp?v=2" alt="Shakeel Hassan" width="132" height="132" loading="lazy" decoding="async">
-      <div><div class="kick">${t('teachTitle')}</div><h3 class="en-only" style="margin-top:4px">Shakeel Hassan</h3><p class="role">${L('ایم ایس سی ریاضی · ایم ایس سی شماریات', 'M.Sc Mathematics · M.Sc Statistics')}</p><p style="margin:6px 0 0;color:var(--mut)">${t('teachP')}</p>
+      <div><div class="kick">${t('teachTitle')}</div><h3 class="en-only" style="margin-top:4px">Shakeel Hassan</h3><p class="role">${L('', 'M.Sc Mathematics · M.Sc Statistics')}</p><p style="margin:6px 0 0;color:var(--mut)">${t('teachP')}</p>
       <div class="sig" style="margin-top:8px">Shakeel Hassan<br>SST Science<br>GHS MC Boys, Muslim Bazar Mianwali.<br>💬 03146011672</div>
       <div class="cta"><a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}" target="_blank" rel="noopener">${WA}03146011672</a><a class="btn sm line" href="#about">${t('about')}</a></div></div></div>
     <div class="sh" style="margin-top:26px"><div><h2 style="font-size:22px">${t('mapTitle')}</h2></div></div>
@@ -1463,7 +1462,7 @@ const TSUBJ = [['Math','ریاضی'],['Physics','فزکس'],['Chemistry','کیم
 const TCLS = ['8','9','10','11','12'];
 const NMODES = [['online','mOnline'],['academy','mAcademy'],['home','mHome']];
 const NTIMES = ['tmAft','tmEve','tmMorn','tmAny'];
-const both = k => T[k][0] + ' / ' + T[k][1];
+const both = k => T[k][0] ? T[k][0] + ' / ' + T[k][1] : T[k][1];
 const TMODES = {online:['tmOnline','Online / آن لائن'], academy:['tmAcademy','At academy / اکیڈمی میں'], home:['tmHome','Home tuition / گھر پر'], both:['tmBoth','Both (Online + Academy) / دونوں']};
 const modesOf = x => Array.isArray(x.modes) ? x.modes : x.mode === 'both' ? ['online','academy'] : x.mode ? [x.mode] : ['academy'];
 const tf = (x, k) => esc(lang === 'ur' && x[k + 'Ur'] ? x[k + 'Ur'] : (x[k] || x[k + 'Ur'] || ''));
@@ -1490,7 +1489,7 @@ function tutorList() {
 }
 function vTutors() {
   const sOpt = `<option value="">${t('anySubj')}</option>` + TSUBJ.map(s => `<option value="${s[0]} (${s[1]})">${lang === 'ur' ? s[1] : s[0]}</option>`).join('');
-  const cOpt = TCLS.map(c => `<option value="${c}" ${c === '9' ? 'selected' : ''}>${L('جماعت ', 'Class ')}${c}</option>`).join('');
+  const cOpt = TCLS.map(c => `<option value="${c}" ${c === '9' ? 'selected' : ''}>${L('', 'Class ')}${c}</option>`).join('');
   return `<section><div class="wrap view">
     <div class="sh"><div><div class="kick">${t('tutors')}</div><h2>${t('tutTitle')}</h2><p>${t('tutP')}</p></div></div>
     <a class="homeav lift" href="#need-tutor" data-home="1"><span class="hi">🏠</span><span><b>${t('homeAv')}</b><small>${t('homeAvP')}</small></span><span class="go" aria-hidden="true">›</span></a>
@@ -1527,9 +1526,9 @@ function vTutors() {
         <label for="rEdu">${t('rEdu')} <span class="req">*</span></label><input id="rEdu" placeholder="${t('rEduPh')}" required>
         <fieldset><legend>${t('rSubj')} <span class="req">*</span></legend><div class="ckg">${TSUBJ.map(s => `<label><input type="checkbox" name="rSub" value="${s[0]} (${s[1]})">${lang === 'ur' ? s[1] : s[0]}</label>`).join('')}</div></fieldset>
         <label for="rOther">${t('rOther')}</label><input id="rOther">
-        <fieldset><legend>${t('rCls')} <span class="req">*</span></legend><div class="ckg">${TCLS.map(c => `<label><input type="checkbox" name="rCl" value="${c}">${L('جماعت ', 'Class ')}${c}</label>`).join('')}</div></fieldset>
+        <fieldset><legend>${t('rCls')} <span class="req">*</span></legend><div class="ckg">${TCLS.map(c => `<label><input type="checkbox" name="rCl" value="${c}">${L('', 'Class ')}${c}</label>`).join('')}</div></fieldset>
         <div class="two">
-          <div><label for="rExp">${t('rExp')}</label><select id="rExp">${['exp0','exp1','exp3','exp6'].map(k => `<option value="${T[k][1]} / ${T[k][0]}">${t(k)}</option>`).join('')}</select></div>
+          <div><label for="rExp">${t('rExp')}</label><select id="rExp">${['exp0','exp1','exp3','exp6'].map(k => `<option value="${T[k][1]}">${t(k)}</option>`).join('')}</select></div>
           <div><label for="rArea">${t('rArea')}</label><input id="rArea" placeholder="${t('rAreaPh')}"></div>
         </div>
         <fieldset><legend>${t('rMode')} <span class="req">*</span></legend><div class="ckg">${['online','academy','home'].map(m => `<label><input type="checkbox" name="rMode" value="${m}" ${m !== 'home' ? 'checked' : ''}>${t(TMODES[m][0])}</label>`).join('')}</div></fieldset>
@@ -1561,15 +1560,15 @@ const tsMatch = (x, f) => { const s = [x.subjects, x.subjectsUr].join(' ');
 function tutorShow() {
   const A = (window.TUTORS || []).filter(x => x && (x.name || x.nameUr)); if (!A.length) return '';
   const T = A.filter(x => tsMatch(x, tsF));
-  const chips = A.length < 10 ? '' : `<div class="tsf" role="group" aria-label="${L('اساتذہ چنیں', 'Filter tutors')}">${Object.keys(TSF).map(k => `<button type="button" data-tsf="${k}" aria-pressed="${k === tsF}">${L(...TSF[k])}</button>`).join('')}</div>`;
+  const chips = A.length < 10 ? '' : `<div class="tsf" role="group" aria-label="${L('', 'Filter tutors')}">${Object.keys(TSF).map(k => `<button type="button" data-tsf="${k}" aria-pressed="${k === tsF}">${L(...TSF[k])}</button>`).join('')}</div>`;
   const sl = T.map(x => { const ini = String(x.name || x.nameUr).trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
     const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} سے پڑھنا ہے، تفصیل بتا دیں۔\nI want to study with tutor ${x.name || x.nameUr || ''}. Please share details.` + (x.subjects || x.subjectsUr ? `\nمضامین / Subjects: ${[x.subjectsUr, x.subjects].filter(Boolean).join(' / ')}` : '');
     const row = (k, v) => v ? `<span class="r"><i>${t(k)}:</i> ${v}</span>` : '';
     return `<div class="tsl" dir="${lang === 'ur' ? 'rtl' : 'ltr'}"><a class="tp" href="#tutors">${x.photo ? `<img src="${esc(x.photo)}" alt="" width="64" height="64" loading="lazy" decoding="async">` : `<span class="ini">${esc(ini)}</span>`}<span class="tt"><b>${tf(x, 'name')}</b><small>${modesOf(x).filter(m => TMODES[m]).map(m => t(TMODES[m][0])).join(' · ')}</small></span></a>
       <div class="ti">${row('tSubj', tf(x, 'subjects'))}${row('tCls', tf(x, 'classes'))}${row('tEdu', x.eduShort ? tf(x, 'eduShort') : tf(x, 'education'))}</div>
-      <a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${L('اس استاد سے رابطہ کریں', 'Contact this tutor')}</a></div>`; }).join('');
-  return `<div class="tshow" aria-label="${L('ہماری ٹیم', 'Our Team')}"><div class="tsh"><b>👥 ${L('ہماری ٹیم', 'Our Team')}</b><a href="#tutors">${L('سب دیکھیں ←', 'See all →')}</a></div>${chips}
-    ${T.length ? `<div class="ttrack" id="tTrack" dir="ltr" data-n="${T.length}">${sl}${T.length > 1 ? sl.replace(/<div class="tsl"/g, '<div class="tsl clone" aria-hidden="true" inert') : ''}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>` : `<p class="tnone">${L('اس زمرے میں ابھی کوئی استاد نہیں۔', 'No tutor in this group yet.')}</p>`}</div>`;
+      <a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${L('', 'Contact this tutor')}</a></div>`; }).join('');
+  return `<div class="tshow" aria-label="${L('', 'Our Team')}"><div class="tsh"><b>👥 ${L('', 'Our Team')}</b><a href="#tutors">${L('', 'See all →')}</a></div>${chips}
+    ${T.length ? `<div class="ttrack" id="tTrack" dir="ltr" data-n="${T.length}">${sl}${T.length > 1 ? sl.replace(/<div class="tsl"/g, '<div class="tsl clone" aria-hidden="true" inert') : ''}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>` : `<p class="tnone">${L('', 'No tutor in this group yet.')}</p>`}</div>`;
 }
 document.addEventListener('click', e => { const b = e.target.closest('button[data-tsf]'); if (!b) return; tsF = b.dataset.tsf; const w = document.getElementById('tshowWrap'); if (w) { w.innerHTML = tutorShow(); tsHold = Date.now() + 8000; tsInit(); } });
 let tsTimer = null, tsHold = 0;
@@ -1745,24 +1744,24 @@ window.addEventListener('appinstalled', () => { window.__bip = null; window.__in
 
 /* ===== Install as app (Android: native prompt; iPhone: Share > Add to Home Screen; others: browser menu) ===== */
 const appIn = () => isStandalone() || !!window.__instd;
-function cfabTxt() { const c = document.getElementById('cFab'); if (c) c.firstChild.textContent = L('رابطہ کریں', 'Contact Us'); }
-function footInst() { cfabTxt(); const b = document.getElementById('fInst'); if (!b) return; const sh = appIn(), lb = sh ? L('ایپ شیئر کریں', 'Share App') : L('ایپ انسٹال کریں', 'Install App'), lh = sh ? L('<i class="fk">ایپ </i>شیئر<i class="fk"> کریں</i>', 'Share<i class="fk"> App</i>') : L('<i class="fk">ایپ </i>انسٹال<i class="fk"> کریں</i>', 'Install<i class="fk"> App</i>');
+function cfabTxt() { const c = document.getElementById('cFab'); if (c) c.firstChild.textContent = L('', 'Contact Us'); }
+function footInst() { cfabTxt(); const b = document.getElementById('fInst'); if (!b) return; const sh = appIn(), lb = sh ? L('', 'Share App') : L('', 'Install App'), lh = sh ? L('', 'Share<i class="fk"> App</i>') : L('', 'Install<i class="fk"> App</i>');
   b.classList.toggle('qi', !sh); b.toggleAttribute('data-shareapp', sh); b.setAttribute('aria-label', lb);
   b.innerHTML = (sh ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>' : svg('dl')) + `<span class="flb">${lh}</span>`; }
 function isStandalone() { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }
 const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 function installCard() {
   if (isStandalone()) return '';
-  const how = isIOS() ? L('آئی فون: نیچے Share بٹن ⬆️ دبائیں، پھر «Add to Home Screen» چنیں۔', 'iPhone: tap the Share button ⬆️ at the bottom, then choose “Add to Home Screen”.')
-    : window.__bip ? L('ایک بٹن دبائیں، ویب سائٹ آپ کے موبائل پر ایپ کی طرح انسٹال ہو جائے گی۔', 'One tap: the website installs on your phone like an app.')
-    : L('براؤزر کے مینو ⋮ میں «Install app» یا «Add to Home screen» دبائیں۔', 'In the browser menu ⋮ tap “Install app” or “Add to Home screen”.');
-  return `<button type="button" class="btn gold instone" id="installBtn2" title="${how.replace(/"/g, '&quot;')}">⬇ ${L('ایپ انسٹال کریں', 'Install app')}</button>`;
+  const how = isIOS() ? L('', 'iPhone: tap the Share button ⬆️ at the bottom, then choose “Add to Home Screen”.')
+    : window.__bip ? L('', 'One tap: the website installs on your phone like an app.')
+    : L('', 'In the browser menu ⋮ tap “Install app” or “Add to Home screen”.');
+  return `<button type="button" class="btn gold instone" id="installBtn2" title="${how.replace(/"/g, '&quot;')}">⬇ ${L('', 'Install app')}</button>`;
 }
 function refreshInstall() { if (appIn() && document.querySelector('.qb .qi')) render(); footInst(); document.querySelectorAll('#installBtn').forEach(b => b.hidden = isStandalone()); }
 function doInstall() {
   const e = window.__bip;
   if (e) { e.prompt(); e.userChoice.finally(() => { window.__bip = null; refreshInstall(); }); return; }
-  toast(isIOS() ? L('Share ⬆️ پھر Add to Home Screen', 'Share ⬆️ then Add to Home Screen') : L('براؤزر مینو ⋮ ← Install app / Add to Home screen', 'Browser menu ⋮ → Install app / Add to Home screen'));
+  toast(isIOS() ? L('', 'Share ⬆️ then Add to Home Screen') : L('', 'Browser menu ⋮ → Install app / Add to Home screen'));
 }
 
 /* ===== Announcements bar (اعلانات). Text lives in announcements.json: {"on": true/false, "items": [{"ur": "...", "en": "...", "link": "#notes"}]} ===== */
@@ -1779,7 +1778,7 @@ function annAuto() {
       const ks = [has('mcq') && ['MCQs', 'MCQs'], has('sq') && ['SQs', 'SQs'], has('lq') && ['LQs', 'LQs'], has('sol') && ['حل شدہ مشقیں', 'solved exercises'], has('app') && ['ٹیسٹ ایپ', 'Test App']].filter(Boolean);
       const nw = x.f.map(f => f.nw || '').sort().pop();
       const nu = x.f.some(isNew);
-      const cn = c.k === '9t' ? L('نہم ٹیک', '9 Tech') : c.k;
+      const cn = c.k === '9t' ? L('', '9 Tech') : c.k;
       out.push({nw, nu, cls: c.k, subj: s.k, by: x.by, link: `#notes-${c.k}-${s.k}`,
         ur: `${nu ? '🆕 ' : ''}${s.ic} ${s.ur} ${c.k === '9t' ? 'نہم ٹیک' : 'جماعت ' + c.k}: ${ks.map(k => k[0]).join('، ')} — بائے ${x.byUr}`,
         en: `${nu ? '🆕 ' : ''}${s.ic} ${s.en} ${cn}: ${ks.map(k => k[1]).join(', ')} — By ${x.by}`});
@@ -1798,7 +1797,7 @@ function annBar() {
   if (!all.length) return '';
   const run = cl => `<span class="annr"${cl ? ' aria-hidden="true"' : ''}>${all.map(x => one(x, cl)).join('<i aria-hidden="true">•</i>')}<i aria-hidden="true">•</i></span>`;
   const chars = all.reduce((n, x) => n + (L(x.ur || x.en, x.en || x.ur)).length + 4, 0);
-  return `<div class="annbar" role="region" aria-label="${L('اعلانات', 'Announcements')}"><div class="wrap"><b class="annk">📢<span class="aw"> ${L('اعلانات', 'Announcements')}</span></b><div class="annt"><div class="annm" style="--d:${Math.max(20, Math.round(chars * 6.5 / 55))}s">${run(0)}${run(1)}</div></div><button type="button" class="annx" id="annX" aria-label="${L('بند کریں', 'Close')}">×</button></div></div>`;
+  return `<div class="annbar" role="region" aria-label="${L('', 'Announcements')}"><div class="wrap"><b class="annk">📢<span class="aw"> ${L('', 'Announcements')}</span></b><div class="annt"><div class="annm" style="--d:${Math.max(20, Math.round(chars * 6.5 / 55))}s">${run(0)}${run(1)}</div></div><button type="button" class="annx" id="annX" aria-label="${L('', 'Close')}">×</button></div></div>`;
 }
 function loadAnn() {
   fetch('announcements.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(j => { if (!j) return; ANNB = j; document.querySelectorAll('#annBar').forEach(w => w.innerHTML = annBar()); }).catch(() => {});
