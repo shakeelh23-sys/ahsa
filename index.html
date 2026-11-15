@@ -671,6 +671,9 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 .hero .cta.qb .btn:nth-child(2){background:linear-gradient(160deg,#3b82f6,#1d4ed8)!important}
 .hero .cta.qb .btn:nth-child(3){background:linear-gradient(160deg,#fb923c,#c2410c)!important}
 .hero .cta.qb .btn:nth-child(4){background:linear-gradient(160deg,#a855f7,#6d28d9)!important}
+.hero .cta.qb .btn:nth-child(5){background:linear-gradient(160deg,#ec4899,#be185d)!important;cursor:pointer}
+.hero .cta.qb.q5{grid-template-columns:repeat(5,minmax(0,1fr));max-width:790px}
+@media (max-width:700px){.hero .cta.qb.q5{grid-template-columns:repeat(6,minmax(0,1fr))}.hero .cta.qb.q5 .btn{grid-column:span 2}.hero .cta.qb.q5 .btn:nth-child(n+4){grid-column:span 3}.hero .cta.qb.q5 .qs span{width:auto}}
 @media (max-width:700px){.hero .cta.qb{flex-direction:unset!important;width:100%;gap:6px;max-width:none}.hv2 .hero .cta.qb .btn{flex-direction:column;gap:2px;padding:7px 4px!important;font-size:13px!important;border-radius:14px}.hero .cta.qb .btn svg{width:20px;height:20px;margin:0}html[lang="ur"] .hero .cta.qb .btn span{font:400 13px/1.35 var(--f-ur)}}
 @media (max-width:700px){.hero .cta.qb .btn span{white-space:normal;text-align:center;line-height:1.15;overflow-wrap:anywhere}html[lang="ur"] .hero .cta.qb .btn span{line-height:1.45}.hero .cta.qb .btn{align-content:center}.hero .cta.qb .qs span{width:min-content;overflow-wrap:normal}}
 .instone{display:flex;width:100%;max-width:420px;margin:0 auto;justify-content:center}
@@ -804,7 +807,7 @@ const T = {
  heroEyebrow:['کلاس 8 تا 12 · مفت نوٹس اور ٹیسٹ','Class 8 to 12 · Free notes & tests'],
  heroTitle:['الحسن سائنس اکیڈمی دلیوالی','Al Hassan Science Academy'],
  heroAlt:['Al Hassan Science Academy · Dillewali','الحسن سائنس اکیڈمی دلیوالی'],
- heroSub:['جماعت 8 سے 12 تک کے طلبہ کے لیے مکمل نوٹس، MCQs ٹیسٹ ایپس اور رہنمائی۔ انگلش اور اردو میڈیم دونوں۔','Complete notes, MCQs test apps and guidance for students of Class 8 to 12, in English and Urdu medium.'],
+ heroSub:['جماعت 8 سے 12 تک کے طلبہ کے لیے مکمل نوٹس، MCQs ٹیسٹ ایپس اور رہنمائی۔ انگلش اور اردو میڈیم دونوں۔','Complete notes, MCQs Test Apps and guidance for students of Class 8 to 12, in English and Urdu medium.'],
  getNotes:['نوٹس ڈاؤن لوڈ کریں','Download notes'], takeTest:['ٹیسٹ دیں','Take a test'], waUs:['واٹس ایپ کریں','WhatsApp us'],
  sMcq:['MCQs','MCQs'], sSq:['مختصر سوالات','Short questions'], sLq:['تفصیلی سوالات','Long questions'], sFiles:['فائلیں (PDF + ایپس)','Files (PDF + apps)'],
  pickClass:['اپنی جماعت منتخب کریں','Pick your class'], pickClassP:['جماعت پر کلک کریں اور اس کے تمام مضامین کے نوٹس دیکھیں۔','Tap a class to see notes of all its subjects.'],
@@ -876,8 +879,8 @@ const T = {
  q3:['اکیڈمی کہاں ہے؟','Where is the academy?'], a3:['دلیوالی، نزد سیفل پل، کالاباغ روڈ، میانوالی۔ رابطہ صفحے پر گوگل میپ کا بٹن ہے۔','Dillewali, near Saifal Pul, Kalabagh Road, Mianwali. The Contact page has a Google Maps button.'],
  q4:['نوٹس کس میڈیم میں ہیں؟','Which medium are the notes in?'], a4:['جماعت 8، 9 اور 10 کے زیادہ تر مضامین انگلش اور اردو دونوں میڈیم میں ہیں۔ فرسٹ اور سیکنڈ ایئر کے نوٹس انگلش میڈیم میں ہیں۔','Most Class 8, 9 and 10 subjects are in both English and Urdu medium. 1st and 2nd Year notes are in English medium.'],
  q5:['نوٹس کیسے ڈاؤن لوڈ کریں؟','How do I download notes?'], a5:['«ڈاؤن لوڈ» دبائیں، فائل گوگل ڈرائیو سے آپ کے موبائل میں آ جائے گی۔ PDF کسی بھی PDF ریڈر یا کروم میں کھلتی ہے۔','Press Download and the file comes to your phone from Google Drive. Open the PDF in any PDF reader or Chrome.'],
- q6:['ٹیسٹ ایپ بغیر انٹرنیٹ کیسے چلائیں؟','How do test apps work offline?'], a6:['«ایپ ڈاؤن لوڈ» دبائیں، پھر فائل کو گوگل کروم میں کھولیں۔ اس کے بعد انٹرنیٹ کی ضرورت نہیں۔','Press Download app, then open the file in Google Chrome. No internet is needed after that.'],
- q7:['کیا نوٹس مفت ہیں؟','Are the notes free?'], a7:['جی ہاں، ویب سائٹ کے تمام نوٹس اور ٹیسٹ ایپس مفت ہیں۔','Yes, all notes and test apps on this website are free.'],
+ q6:['ٹیسٹ ایپ بغیر انٹرنیٹ کیسے چلائیں؟','How do Test Apps work offline?'], a6:['«ایپ ڈاؤن لوڈ» دبائیں، پھر فائل کو گوگل کروم میں کھولیں۔ اس کے بعد انٹرنیٹ کی ضرورت نہیں۔','Press Download app, then open the file in Google Chrome. No internet is needed after that.'],
+ q7:['کیا نوٹس مفت ہیں؟','Are the notes free?'], a7:['جی ہاں، ویب سائٹ کے تمام نوٹس اور ٹیسٹ ایپس مفت ہیں۔','Yes, all notes and Test Apps on this website are free.'],
  share:['واٹس ایپ پر شیئر کریں','Share on WhatsApp'], fav:['محفوظ کریں','Save'], unfav:['محفوظ سے ہٹائیں','Remove from saved'],
  myFav:['میری محفوظ فائلیں','My saved files'], myRecent:['حال ہی میں ڈاؤن لوڈ کی گئی','Recently downloaded'], clearRecent:['فہرست صاف کریں','Clear list'],
  streakDays:['دن مسلسل','day streak'], solved:['حل کیے','solved'], correct:['درست','correct'],
@@ -1128,11 +1131,12 @@ function vHome() {
       <h1 class="stk"><a class="tohome" href="#home"><span class="u">${(L('الحسن|سائنس|اکیڈمی|دلیوالی','Al Hassan|Science|Academy')).split('|').map((w, i) => `<span class="w w${i}">${w}</span>`).join(' ')}</span></a></h1>
       <p class="alt">${t('heroAlt')}</p>
       <p class="lead">${L('جماعت 8 تا 12: مفت نوٹس، ٹیسٹ اور تجربہ کار اساتذہ۔', 'Class 8 to 12: free notes, tests and experienced tutors.')}</p>
-      <div class="cta qb">
+      <div class="cta qb${isStandalone() ? '' : ' q5'}">
         <a class="btn qn" href="#notes">${svg('notes')}<span>${L('نوٹس', 'Notes')}</span></a>
         <a class="btn qt" href="#tests">${svg('tests')}<span>${L('ٹیسٹ', 'Tests')}</span></a>
         <a class="btn gold" href="#apply">${svg('apply')}<span>${L('داخلہ', 'Admission')}</span></a>
         <a class="btn qs" href="#papers">${svg('papers')}<span>${L('اسمارٹ سلیبس', 'Smart Syllabus')}</span></a>
+        ${isStandalone() ? '' : `<button type="button" class="btn qi" id="installQ">${svg('dl')}<span>${L('ایپ انسٹال کریں', 'Install App')}</span></button>`}
       </div>
     </div>
     <div class="orbit" aria-hidden="false">
@@ -1192,7 +1196,7 @@ function vHome() {
     <div class="sh"><h2>${t('whyTitle')}</h2></div>
     ${featShow()}
   </div></section>
-  <div class="wrap" id="instWrap" style="margin-bottom:28px">${installCard()}</div></div>`;
+  </div>`;
 }
 
 function fileRow(f, ctx) {
@@ -1580,7 +1584,7 @@ document.addEventListener('click', e => {
   else if (b.dataset.wq) { const [i, o] = b.dataset.wq.split('|').map(Number); wAns[i] = o; render(); }
   else if (b.id === 'wSubmit') { if (Object.keys(wAns).length < 10) { toast(t('answerAll')); return; } wDone = true; const Q = weeklyQs(); let sc = 0; Q.forEach((q, i) => { if (wAns[i] === q.a) sc++; }); const k = `ahsa-weekly-${pcls}-${weekNo()}`; if (+LSg(k, -1) < sc) LSs(k, sc); render(true); }
   else if (b.id === 'wRetry') { wAns = {}; wDone = false; render(true); }
-  else if (b.id === 'installBtn' || b.id === 'installBtn2') { doInstall(); }
+  else if (b.id === 'installBtn' || b.id === 'installBtn2' || b.id === 'installQ') { doInstall(); }
   else if (b.id === 'annX') { try { sessionStorage.setItem('ahsa-ann-x', annKey()); } catch (e) {} document.querySelectorAll('#annBar').forEach(w => w.innerHTML = ''); }
   else if (b.dataset.cmd) { const [k, m] = b.dataset.cmd.split('|'); cardMd[k] = m; ccKeep = k; render(); }
   else if (b.id === 'bigBtn') { const on = document.documentElement.classList.toggle('big'); b.setAttribute('aria-pressed', on); try { localStorage.setItem('ahsa-site-big', on ? '1' : ''); } catch (e) {} }
@@ -1624,7 +1628,7 @@ function installCard() {
     : L('براؤزر کے مینو ⋮ میں «Install app» یا «Add to Home screen» دبائیں۔', 'In the browser menu ⋮ tap “Install app” or “Add to Home screen”.');
   return `<button type="button" class="btn gold instone" id="installBtn2" title="${how.replace(/"/g, '&quot;')}">⬇ ${L('ایپ انسٹال کریں', 'Install app')}</button>`;
 }
-function refreshInstall() { document.querySelectorAll('#instWrap').forEach(w => w.innerHTML = installCard()); document.querySelectorAll('#installBtn').forEach(b => b.hidden = isStandalone()); }
+function refreshInstall() { if (isStandalone()) document.querySelectorAll('#installQ').forEach(b => { b.closest('.qb').classList.remove('q5'); b.remove(); }); document.querySelectorAll('#installBtn').forEach(b => b.hidden = isStandalone()); }
 function doInstall() {
   const e = window.__bip;
   if (e) { e.prompt(); e.userChoice.finally(() => { window.__bip = null; refreshInstall(); }); return; }
@@ -1642,7 +1646,7 @@ function annAuto() {
     s.f.forEach(f => { const by = f.by || 'Shakeel Hassan'; (g[by] = g[by] || {by, byUr: f.byUr || (f.by ? f.by : 'شکیل حسن'), f: []}).f.push(f); });
     Object.values(g).forEach(x => {
       const has = k => x.f.some(f => f.k === k || (k === 'mcq' && f.nm) || (k === 'sq' && (f.k === 'cmb' || f.nsq)) || (k === 'lq' && f.nlq));
-      const ks = [has('mcq') && ['MCQs', 'MCQs'], has('sq') && ['SQs', 'SQs'], has('lq') && ['LQs', 'LQs'], has('sol') && ['حل شدہ مشقیں', 'solved exercises'], has('app') && ['ٹیسٹ ایپ', 'test app']].filter(Boolean);
+      const ks = [has('mcq') && ['MCQs', 'MCQs'], has('sq') && ['SQs', 'SQs'], has('lq') && ['LQs', 'LQs'], has('sol') && ['حل شدہ مشقیں', 'solved exercises'], has('app') && ['ٹیسٹ ایپ', 'Test App']].filter(Boolean);
       const nw = x.f.map(f => f.nw || '').sort().pop();
       const nu = x.f.some(isNew);
       const cn = c.k === '9t' ? L('نہم ٹیک', '9 Tech') : c.k;
