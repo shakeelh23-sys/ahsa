@@ -1354,6 +1354,10 @@ function vHome() {
     </div>
   </div></section>
   <section class="tband"><div class="wrap"><div id="tshowWrap">${tutorShow()}</div></div></section>
+  <section><div class="wrap">
+    <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2>${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
+    ${classCards()}
+  </div></section>
   <div class="wrap"><div class="stats">
     <div class="stat"><b class="count" data-to="${COUNTS.total.mcq}">${COUNTS.total.mcq}</b><span>${t('sMcq')}</span></div>
     <div class="stat"><b class="count" data-to="${COUNTS.total.sq}">${COUNTS.total.sq}</b><span>${t('sSq')}</span></div>
@@ -1371,10 +1375,6 @@ function vHome() {
     <div id="gres" style="margin-top:16px">${searchAll(hq)}</div>
     ${myFiles()}
   </div>
-  <section><div class="wrap">
-    <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2>${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
-    ${classCards()}
-  </div></section>
   <section><div class="wrap">
     <div class="sh"><div><h2>${t('dailyTitle')}</h2><p>${t('dailyP')}</p></div></div>
     <div id="dailyWrap">${dailyBox()}</div>
