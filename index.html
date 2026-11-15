@@ -657,6 +657,17 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 @media (min-width:701px){.brand b{min-width:0!important;max-width:9.5em!important;font-size:18px!important}}
 @media (min-width:701px) and (max-width:1240px){.pill.shp .shl{display:none}.pill.shp{padding:6px 8px}.top .wrap{gap:8px}}
 @media (min-width:821px) and (max-width:960px){.nav a{padding:6px 6px;font-size:13px}.brand img{width:46px!important;height:46px!important}}
+/* ADS */
+.adstrip{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;text-decoration:none;color:var(--ink);background:var(--card);border:1.5px dashed color-mix(in srgb,var(--gold) 70%,var(--line))}
+.adstrip .ic{font-size:24px;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--gold) 22%,var(--card));flex:none}
+.adstrip .tx{flex:1;min-width:0}.adstrip b{display:block;font:800 16px/1.3 var(--f-head)}.adstrip small{display:block;color:var(--mut);font-size:13px;line-height:1.4}
+.adstrip .go{font:700 24px/1 var(--f-body);color:var(--mut)}
+.adsg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:10px}
+.adc{display:flex;gap:12px;align-items:center;padding:12px;border-radius:14px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.adc img{width:72px;height:72px;object-fit:cover;border-radius:10px;flex:none}
+.adc b{display:block;font-size:16px}.adc p{margin:2px 0 0;color:var(--mut);font-size:13.5px;line-height:1.4}
+.adtag{display:inline-block;font:700 10.5px/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:#1a1a1a;border-radius:4px;padding:3px 5px;margin-bottom:4px}
+#adForm textarea{width:100%;resize:vertical}
 /* TUTOR-REG-OFF (Shakeel, 2026-11-15): "Register as Tutor" hidden for now. Delete this one line to bring it back everywhere. */
 a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
@@ -1330,6 +1341,7 @@ function vHome() {
     <div class="sh"><h2>${t('faqTitle')}</h2></div>
     ${slideBlock('faq', [1, 2, 3, 4, 5, 6, 7].map(i => `<details class="fqs"><summary>${t('q' + i)}</summary><p>${t('a' + i)}</p></details>`), 'faq onec')}
   </div></section>
+  <section style="padding-top:0"><div class="wrap">${adsHome()}</div></section>
   </div>`;
 }
 
@@ -1644,6 +1656,43 @@ function tsInit() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || n < 2) return;
   tsTimer = setInterval(() => { if (!document.getElementById('tTrack')) { clearInterval(tsTimer); return; } if (document.hidden || Date.now() < tsHold) return; go(idx() + 1); }, 3500);
 }
+/* ===== ADVERTISEMENT (Shakeel 2026-11-15). Add an ad ONLY after Shakeel approves it:
+   {title:'Business name', text:'One or two lines', img:'assets/ads/x.webp' (optional), link:'https://...' (optional), wa:'923xxxxxxxxx' (optional)} */
+const ADS = [];
+function adCard(x) { const href = x.link || (x.wa ? 'https://wa.me/' + x.wa : '');
+  const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}<div><span class="adtag">Ad</span><b>${esc(x.title)}</b><p>${esc(x.text || '')}</p></div>`;
+  return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }
+function adsHome() {
+  return `${ADS.length ? `<div class="adsg">${ADS.slice(0, 2).map(adCard).join('')}</div>` : ''}
+  <a class="adstrip lift" href="#advertise"><span class="ic">📢</span><span class="tx"><b>Advertise with us</b><small>Put your shop, school or business in front of students and parents of Mianwali.</small></span><span class="go" aria-hidden="true">›</span></a>`;
+}
+function vAdv() {
+  return `<section><div class="wrap view">
+    <div class="sh"><div><div class="kick">📢 Advertisement</div><h2>Advertise on our website</h2><p>Students and parents from Dillewali and Mianwali visit this website every day for notes and tests. Show your shop, school, book store or business here.</p></div></div>
+    <div class="grid g2" style="align-items:start">
+      <form class="card wa nf" id="adForm" novalidate>
+        <div class="two">
+          <div><label for="adName">Your name${reqMark()}</label><input id="adName" autocomplete="name" required></div>
+          <div><label for="adBiz">Business / shop name${reqMark()}</label><input id="adBiz" required></div>
+        </div>
+        <label for="adPhone">Phone / WhatsApp${reqMark()}</label><input id="adPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="03xx-xxxxxxx" required>
+        <label for="adText">What should the ad say?${reqMark()}</label><textarea id="adText" rows="4" placeholder="e.g. New books and stationery at 10% off, Main Bazar Dillewali" required></textarea>
+        <div class="cta" style="margin-top:14px"><button class="btn wa" type="submit">${WA}Send on WhatsApp</button></div>
+        <p class="hint">The form opens WhatsApp with your details. You can send a picture or logo for the ad in the same chat.</p>
+      </form>
+      <div class="card"><h3>How it works</h3><ol class="reg-steps"><li>Fill in the form and send it on WhatsApp.</li><li>The academy contacts you to discuss the ad.</li><li>Your ad goes live on the website after approval.</li></ol>
+        <div class="vnote"><span class="i">✅</span><span>Only suitable, family-friendly ads are accepted.</span></div></div>
+    </div>
+    ${ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">Current ads</h2></div><div class="adsg">${ADS.map(adCard).join('')}</div>` : ''}
+  </div></section>`;
+}
+document.addEventListener('submit', e => {
+  const f = e.target; if (f.id !== 'adForm') return; e.preventDefault();
+  const v = id => document.getElementById(id).value.trim();
+  const lab = {adName: 'Your name', adBiz: 'Business name', adPhone: 'Phone', adText: 'Ad details'};
+  for (const id of ['adName', 'adBiz', 'adPhone', 'adText']) { if (!v(id)) { document.getElementById(id).focus(); toast('Please fill: ' + lab[id]); return; } }
+  openWA(['Assalam o Alaikum Sir! I want to advertise on the AHSA website.', '', 'Name: ' + v('adName'), 'Business: ' + v('adBiz'), 'Phone: ' + v('adPhone'), 'Ad details: ' + v('adText')].join('\n'));
+});
 function reqMark() { return ' <span class="req">*</span>'; }
 function openWA(txt) { const a = document.createElement('a'); a.href = 'https://wa.me/' + ACADEMY.wa + '?text=' + encodeURIComponent(txt); a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); }
 document.addEventListener('click', e => { const a = e.target.closest('a[href="#tutors-register"],a[href="#need-tutor"],a[href="#apply"]'); if (a && location.hash === a.getAttribute('href')) { e.preventDefault(); route(); } });
@@ -1691,7 +1740,7 @@ document.addEventListener('submit', e => {
 function render(scroll) {
   chrome();
   const app = document.getElementById('app');
-  app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact}[view]();
+  app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact, advertise: vAdv}[view]();
   if (scroll) window.scrollTo(0, 0);
   footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('oTrack', 'oDots', 4200); autoSlide('annT', 'annD', 5000); autoSlide('faqT', 'faqD', 5500);  } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1710,7 +1759,7 @@ function route() {
   if (m) { view = 'notes'; cls = m[1]; subj = m[3] || null; q = ''; medium = m[2] ? m[2].toUpperCase() : 'all'; }
   else if (h === 'tutors-register') { view = 'tutors'; render(); const r = document.getElementById('tutReg'); if (r) r.scrollIntoView({block: 'start'}); return; }
   else if (h === 'need-tutor' || h === 'apply') { view = h === 'apply' ? 'contact' : 'tutors'; render(); const r = document.getElementById(h === 'apply' ? 'applyBox' : 'needBox'); if (r) r.scrollIntoView({block: 'start'}); return; }
-  else { view = VIEWS.includes(h) || h === 'weekly' ? h : 'home'; if (view === 'weekly') { wAns = {}; wDone = false; } }
+  else { view = VIEWS.includes(h) || h === 'weekly' || h === 'advertise' ? h : 'home'; if (view === 'weekly') { wAns = {}; wDone = false; } }
   render(true);
 }
 function toast(msg) { const d = document.createElement('div'); d.className = 'toast'; d.textContent = msg; document.body.appendChild(d); setTimeout(() => d.remove(), 1800); }
@@ -1834,7 +1883,7 @@ function loadPool() {
 window.addEventListener('hashchange', route);
 window.addEventListener('hashchange', () => { try { if (window.goatcounter && goatcounter.count) goatcounter.count({path: location.pathname + location.hash.split('?')[0]}); } catch (e) {} });
 /* header search */
-const HPAGES = [['🏠 Home','#home','home main'],['📚 Notes','#notes','notes pdf download files'],['📝 MCQs Tests','#tests','mcq mcqs test tests app quiz'],['🗓️ Weekly test','#weekly','weekly test quiz'],['📄 Smart Syllabus','#papers','syllabus smart paper scheme papers'],['👥 Our Team','#tutors','team tutors teachers tutor'],['🎓 Need a Tutor','#need-tutor','tutor home tuition need teacher'],['✍️ Admission','#apply','admission apply form join'],['ℹ️ About','#about','about academy'],['📞 Contact','#contact','contact whatsapp phone address map location']];
+const HPAGES = [['🏠 Home','#home','home main'],['📚 Notes','#notes','notes pdf download files'],['📝 MCQs Tests','#tests','mcq mcqs test tests app quiz'],['🗓️ Weekly test','#weekly','weekly test quiz'],['📄 Smart Syllabus','#papers','syllabus smart paper scheme papers'],['👥 Our Team','#tutors','team tutors teachers tutor'],['🎓 Need a Tutor','#need-tutor','tutor home tuition need teacher'],['✍️ Admission','#apply','admission apply form join'],['ℹ️ About','#about','about academy'],['📞 Contact','#contact','contact whatsapp phone address map location'],['📢 Advertise','#advertise','advertise advertisement ad ads ishtihar business shop promote']];
 function hSearch(v) {
   const w = norm(v).split(/\s+/).filter(Boolean);
   const pg = w.length ? HPAGES.filter(p => w.every(x => norm(p[0] + ' ' + p[2]).includes(x))) : HPAGES;
