@@ -551,7 +551,14 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .annbar .wrap{display:flex;align-items:center;gap:10px;padding-block:8px;min-height:40px}
 .annbar .annk{flex:none;font:700 14px/1.6 var(--f-body);white-space:nowrap}
 html[lang="ur"] .annbar .annk,html[lang="ur"] .annbar .annt{font:400 14.5px/2 var(--f-ur)}
-.annbar .annt{flex:1;min-width:0;font:600 14.5px/1.5 var(--f-body);display:flex;flex-wrap:wrap;gap:4px 10px}
+.annbar .annt{flex:1;min-width:0;font:600 14.5px/1.5 var(--f-body);overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)}
+.annbar .annm{display:flex;width:max-content;white-space:nowrap;animation:annRun var(--d,60s) linear infinite;will-change:transform}
+.annbar .annr{display:flex;align-items:center;gap:12px;padding-inline-end:12px}
+.annbar .annt:hover .annm,.annbar .annt:focus-within .annm,.annbar .annt:active .annm{animation-play-state:paused}
+@keyframes annRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes annRunR{from{transform:translateX(0)}to{transform:translateX(50%)}}
+html[dir="rtl"] .annbar .annm{animation-name:annRunR}
+@media (prefers-reduced-motion:reduce){.annbar .annm{animation:none}.annbar .annt{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.annbar .annr[aria-hidden]{display:none}}
 .annbar .annt a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .annbar .annt i{font-style:normal;opacity:.5}
 .annbar .annx{flex:none;border:0;background:rgba(0,0,0,.08);color:inherit;width:30px;height:30px;border-radius:50%;font:700 18px/1 var(--f-body);cursor:pointer}
@@ -658,7 +665,7 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 /* hero quick buttons (Notes, Tests, Admission, WhatsApp) + single install button (2026-11-15) */
 .hero .cta.qb{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:560px}
 .hero .cta.qb .btn{justify-content:center;padding:10px 8px;white-space:nowrap;min-width:0}
-.hero .cta.qb .qn,.hero .cta.qb .qt{background:#fff;color:var(--navy)}
+.hero .cta.qb .qn,.hero .cta.qb .qt,.hero .cta.qb .qs{background:#fff;color:var(--navy)}
 @media (max-width:700px){.hero .cta.qb{flex-direction:unset!important;width:100%;gap:6px;max-width:none}.hv2 .hero .cta.qb .btn{flex-direction:column;gap:2px;padding:7px 4px!important;font-size:13px!important;border-radius:14px}.hero .cta.qb .btn svg{width:20px;height:20px;margin:0}html[lang="ur"] .hero .cta.qb .btn span{font:400 13px/1.35 var(--f-ur)}}
 .instone{display:flex;width:100%;max-width:420px;margin:0 auto;justify-content:center}
 
@@ -1119,7 +1126,7 @@ function vHome() {
         <a class="btn qn" href="#notes">${svg('notes')}<span>${L('نوٹس', 'Notes')}</span></a>
         <a class="btn qt" href="#tests">${svg('tests')}<span>${L('ٹیسٹ', 'Tests')}</span></a>
         <a class="btn gold" href="#apply">${svg('apply')}<span>${L('داخلہ', 'Admission')}</span></a>
-        <a class="btn wa" href="https://wa.me/${ACADEMY.wa}" target="_blank" rel="noopener">${WA}<span>WhatsApp</span></a>
+        <a class="btn qs" href="#papers">${svg('papers')}<span>${L('اسمارٹ سلیبس', 'Smart Syllabus')}</span></a>
       </div>
     </div>
     <div class="orbit" aria-hidden="false">
@@ -1621,13 +1628,37 @@ function doInstall() {
 /* ===== Announcements bar (اعلانات). Text lives in announcements.json: {"on": true/false, "items": [{"ur": "...", "en": "...", "link": "#notes"}]} ===== */
 let ANNB = null;
 const annKey = () => ANNB ? JSON.stringify(ANNB.items || []).length + ':' + (ANNB.items || []).map(x => x.ur || x.en || '').join('|').slice(0, 80) : '';
+/* auto announcements: one item per class + subject + author, built from DATA (credit from f.by / f.byUr, default Shakeel Hassan) */
+function annAuto() {
+  const out = [];
+  DATA.forEach(c => c.s.forEach(s => {
+    const g = {};
+    s.f.forEach(f => { const by = f.by || 'Shakeel Hassan'; (g[by] = g[by] || {by, byUr: f.byUr || (f.by ? f.by : 'شکیل حسن'), f: []}).f.push(f); });
+    Object.values(g).forEach(x => {
+      const has = k => x.f.some(f => f.k === k || (k === 'mcq' && f.nm) || (k === 'sq' && (f.k === 'cmb' || f.nsq)) || (k === 'lq' && f.nlq));
+      const ks = [has('mcq') && ['MCQs', 'MCQs'], has('sq') && ['مختصر سوالات', 'short questions'], has('lq') && ['تفصیلی سوالات', 'long questions'], has('sol') && ['حل شدہ مشقیں', 'solved exercises'], has('app') && ['ٹیسٹ ایپ', 'test app']].filter(Boolean);
+      const nw = x.f.map(f => f.nw || '').sort().pop();
+      const nu = x.f.some(isNew);
+      const cn = c.k === '9t' ? L('نہم ٹیک', '9 Tech') : c.k;
+      out.push({nw, nu, cls: c.k, subj: s.k, by: x.by, link: `#notes-${c.k}-${s.k}`,
+        ur: `${nu ? '🆕 ' : ''}${s.ic} ${s.ur} ${c.k === '9t' ? 'نہم ٹیک' : 'جماعت ' + c.k}: ${ks.map(k => k[0]).join('، ')} — نوٹس از ${x.byUr}`,
+        en: `${nu ? '🆕 ' : ''}${s.ic} ${s.en} ${cn}: ${ks.map(k => k[1]).join(', ')} — Notes by ${x.by}`});
+    });
+  }));
+  return out.map((x, i) => [x, i]).sort((p, q) => (q[0].nw > p[0].nw) - (q[0].nw < p[0].nw) || p[1] - q[1]).map(p => p[0]);
+}
 function annBar() {
-  if (!ANNB || !ANNB.on || !(ANNB.items || []).length) return '';
+  if (!ANNB || !ANNB.on) return '';
   try { if (sessionStorage.getItem('ahsa-ann-x') === annKey()) return ''; } catch (e) {}
-  const items = ANNB.items.filter(x => x && (x.ur || x.en)).map(x => { const txt = esc(L(x.ur || x.en, x.en || x.ur));
-    return /^(#|https:\/\/)/.test(x.link || '') ? `<a href="${esc(x.link)}"${x.link[0] === '#' ? '' : ' target="_blank" rel="noopener"'}>${txt}</a>` : `<span>${txt}</span>`; });
-  if (!items.length) return '';
-  return `<div class="annbar" role="region" aria-label="${L('اعلانات', 'Announcements')}"><div class="wrap"><b class="annk">📢<span class="aw"> ${L('اعلانات', 'Announcements')}</span></b><div class="annt">${items.join('<i aria-hidden="true">•</i>')}</div><button type="button" class="annx" id="annX" aria-label="${L('بند کریں', 'Close')}">×</button></div></div>`;
+  const man = (ANNB.items || []).filter(x => x && (x.ur || x.en));
+  const dup = x => man.some(m => { const mm = (m.link || '').match(/^#notes-(8|9t|9|10|11|12)(?:-(?:em|um))?-([a-z]+)$/); return mm && mm[1] === x.cls && mm[2] === x.subj && ((m.en || '') + (m.ur || '')).includes(x.by === 'Shakeel Hassan' ? 'شکیل' : x.by); });
+  const all = man.concat(ANNB.auto === false ? [] : annAuto().filter(x => !dup(x)));
+  const one = (x, cl) => { const txt = esc(L(x.ur || x.en, x.en || x.ur)), ti = cl ? ' tabindex="-1"' : '';
+    return /^(#|https:\/\/)/.test(x.link || '') ? `<a href="${esc(x.link)}"${ti}${x.link[0] === '#' ? '' : ' target="_blank" rel="noopener"'}>${txt}</a>` : `<span>${txt}</span>`; };
+  if (!all.length) return '';
+  const run = cl => `<span class="annr"${cl ? ' aria-hidden="true"' : ''}>${all.map(x => one(x, cl)).join('<i aria-hidden="true">•</i>')}<i aria-hidden="true">•</i></span>`;
+  const chars = all.reduce((n, x) => n + (L(x.ur || x.en, x.en || x.ur)).length + 4, 0);
+  return `<div class="annbar" role="region" aria-label="${L('اعلانات', 'Announcements')}"><div class="wrap"><b class="annk">📢<span class="aw"> ${L('اعلانات', 'Announcements')}</span></b><div class="annt"><div class="annm" style="--d:${Math.max(20, Math.round(chars * 6.5 / 55))}s">${run(0)}${run(1)}</div></div><button type="button" class="annx" id="annX" aria-label="${L('بند کریں', 'Close')}">×</button></div></div>`;
 }
 function loadAnn() {
   fetch('announcements.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(j => { if (!j) return; ANNB = j; document.querySelectorAll('#annBar').forEach(w => w.innerHTML = annBar()); }).catch(() => {});
