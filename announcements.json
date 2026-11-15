@@ -1,11 +1,11 @@
 {
   "_help": "اعلانات بار: on = true دکھائیں، false چھپائیں۔ ہر item میں ur (اردو) اور en (English) متن، link اختیاری (#notes, #tests, #papers, #contact یا https://...)",
-  "on": false,
+  "on": true,
   "items": [
     {
-      "ur": "الحسن سائنس اکیڈمی کی ویب سائٹ پر خوش آمدید! جماعت 8 تا 12 کے مفت نوٹس اور MCQs ٹیسٹ یہاں دستیاب ہیں۔",
-      "en": "Welcome to Al Hassan Science Academy! Free notes and MCQs tests for Class 8 to 12 are available here.",
-      "link": "#notes"
+      "ur": "🆕 نئے نوٹس: ترجمۃ القرآن دہم (MCQs، مختصر اور تفصیلی سوالات) — نوٹس از شہزاد حسن",
+      "en": "🆕 New notes: Tarjuma tul Quran 10 (MCQs, short and long questions) — Notes by Shahzad Hassan",
+      "link": "#notes-10-um-tq"
     }
   ]
 }
