@@ -1675,7 +1675,10 @@ function tsInit() {
    Home shows the first 10 ads as a slideshow; the Advertise page (#advertise) shows ALL ads. */
 let ADS = [];
 const ADS_HOME_MAX = 10;
-function adCard(x) { const href = x.link || (x.wa ? 'https://wa.me/' + x.wa : '');
+const adWa = x => { let n = String(x.phone || x.wa || '').replace(/\D/g, ''); if (/^0\d{10}$/.test(n)) n = '92' + n.slice(1); if (!/^92\d{10}$/.test(n)) n = ACADEMY.wa;
+  const msg = n === ACADEMY.wa ? `السلام علیکم! میں «${x.titleUr || x.title}» کے اشتہار کے بارے میں معلومات چاہتا ہوں۔ (AHSA ویب سائٹ)` : `السلام علیکم! میں نے آپ کا اشتہار «${x.titleUr || x.title}» الحسن سائنس اکیڈمی کی ویب سائٹ پر دیکھا ہے۔`;
+  return 'https://wa.me/' + n + '?text=' + encodeURIComponent(msg); };
+function adCard(x) { const href = x.link || adWa(x);
   const en = `<div class="aen"><span class="adtag">Ad</span><b>${esc(x.title)}</b><p>${esc(x.text || '')}</p></div>`;
   const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}${x.titleUr ? `<div class="swap" style="flex:1;min-width:0">${en}<div class="aur" lang="ur" dir="rtl"><span class="adtag">اشتہار</span><b>${esc(x.titleUr)}</b><p>${esc(x.textUr || '')}</p></div></div>` : en}`;
   return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }

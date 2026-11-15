@@ -1,85 +1,72 @@
 {
- "_help": "Approved ads only (Shakeel approves each one). Home page slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, img (e.g. assets/ads/name.webp), link (website/Facebook) or wa (WhatsApp number like 923001234567), on (false = hide). Optional Urdu: titleUr, textUr (text then alternates English/Urdu; Urdu letters must be in the Noto Nastaliq text= subset link in index.html).",
+ "_help": "Approved ads only (Shakeel approves each one). Home slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, titleUr/textUr (optional Urdu; letters must be in the Noto Nastaliq text= subset in index.html), img (assets/ads/x.webp), phone (advertiser WhatsApp, e.g. 03001234567; click opens WhatsApp to THIS number with a pre-filled message; if missing, goes to the academy WhatsApp), link (optional website instead of WhatsApp), on (false = hide).",
  "ads": [
   {
    "title": "Tauqeer Plastic Store",
    "text": "Shoppers (plastic bags), toys of every size and disposable items. We also buy raddi (scrap). Proprietor: Malik Farooq Hassan Pawar.",
    "img": "assets/ads/tauqeer-plastic.webp",
-   "wa": "923146011672",
    "titleUr": "توقیر پلاسٹک سٹور",
    "textUr": "شاپرز (پلاسٹک بیگ)، ہر سائز کے کھلونے اور ڈسپوزیبل سامان دستیاب ہے۔ ردی بھی خریدی جاتی ہے۔ پروپرائٹر: ملک فاروق حسن پوار"
   },
   {
    "title": "SAMPLE 1: Al Noor Book Depot",
    "text": "New books & stationery, 10% off for students",
-   "img": "assets/ads/s1.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s1.webp"
   },
   {
    "title": "SAMPLE 2: City Mobile Zone",
    "text": "Mobiles, chargers and repairs, Main Bazar",
-   "img": "assets/ads/s2.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s2.webp"
   },
   {
    "title": "SAMPLE 3: Fresh Bakers",
    "text": "Cakes and fresh bakery items daily",
-   "img": "assets/ads/s3.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s3.webp"
   },
   {
    "title": "SAMPLE 4: Bright Future School",
    "text": "Admissions open, Play group to Class 8",
-   "img": "assets/ads/s4.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s4.webp"
   },
   {
    "title": "SAMPLE 5: Star Computer Centre",
    "text": "MS Office and typing courses",
-   "img": "assets/ads/s5.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s5.webp"
   },
   {
    "title": "SAMPLE 6: Hassan Uniform House",
    "text": "School uniforms of all sizes",
-   "img": "assets/ads/s6.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s6.webp"
   },
   {
    "title": "SAMPLE 7: Quick Photostat",
    "text": "Photocopy, printing and lamination",
-   "img": "assets/ads/s7.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s7.webp"
   },
   {
    "title": "SAMPLE 8: Green Pharmacy",
    "text": "Medicines, open 9 am to 11 pm",
-   "img": "assets/ads/s8.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s8.webp"
   },
   {
    "title": "SAMPLE 9: Royal Tailors",
    "text": "Gents and school stitching",
-   "img": "assets/ads/s9.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s9.webp"
   },
   {
    "title": "SAMPLE 10: Shine Bicycle Shop",
    "text": "Bicycles and repairs",
-   "img": "assets/ads/s10.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s10.webp"
   },
   {
    "title": "SAMPLE 11: Al Madina Kiryana",
    "text": "Daily grocery at fair rates",
-   "img": "assets/ads/s11.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s11.webp"
   },
   {
    "title": "SAMPLE 12: Smart Tuition Bags",
    "text": "School bags and lunch boxes",
-   "img": "assets/ads/s12.webp",
-   "wa": "923146011672"
+   "img": "assets/ads/s12.webp"
   }
  ]
 }
