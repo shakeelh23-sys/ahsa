@@ -1733,7 +1733,8 @@ function studentsShow() {
 /* Shakeel 2026-11-15: ads slot now shows the male teachers' photos. Ads (ads.json, assets/ads) are kept; set SHOW_ADS = true to bring them back. */
 const SHOW_ADS = false;
 const MALE_TEACHERS = ['Shakeel Hassan', 'Najeeb Ullah', 'Muhammad Umar Farooq', 'Shahzad Hassan', 'Amaar Yasir Shah', 'Tariq Hassan'];
-const teacherSlides = () => { const T = (window.TUTORS || []); return MALE_TEACHERS.map(n => T.find(x => x.name === n)).filter(x => x && x.photo && !/\.svg/.test(x.photo)).map(x =>
+const FEMALE_TEACHERS = ['Humaira Hayat', 'Shazia Hassan', 'Shahnaz Habib'];
+const teacherSlides = () => { const T = (window.TUTORS || []); return [...MALE_TEACHERS, ...FEMALE_TEACHERS].map(n => T.find(x => x.name === n)).filter(x => x && x.photo).map(x =>
   `<a class="tch" href="#tutors"><img src="${esc(x.photo)}" alt="${esc(x.name)}" width="200" height="200" loading="lazy" decoding="async"><b>${esc(x.name)}</b><span>${esc(x.eduShort || x.education || '')}</span>${x.subjects ? `<small>${esc(x.subjects)}</small>` : ''}</a>`); };
 const adsHomeInner = () => SHOW_ADS ? slideBlock('ad', [...ADS.slice(0, ADS_HOME_MAX).map(adCard), ADV_SLIDE], 'adsT') : `<h2 class="mph mpe tchh">Our Teachers</h2>${slideBlock('ad', teacherSlides(), 'adsT tchT')}`;
 const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">موجودہ اشتہارات</h2></div><div class="adsg" dir="ltr" lang="en">${ADS.map(adCard).join('')}</div>` : '';
