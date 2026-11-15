@@ -667,13 +667,14 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 .hero .cta.qb .btn{justify-content:center;padding:10px 8px;white-space:nowrap;min-width:0}
 .hero .cta.qb .btn{color:#fff!important;border:0!important;box-shadow:0 6px 16px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.25)}
 .hero .cta.qb .btn svg{color:#fff;stroke:#fff}
-.hero .cta.qb .btn:nth-child(1){background:linear-gradient(160deg,#22c55e,#15803d)!important}
-.hero .cta.qb .btn:nth-child(2){background:linear-gradient(160deg,#3b82f6,#1d4ed8)!important}
-.hero .cta.qb .btn:nth-child(3){background:linear-gradient(160deg,#fb923c,#c2410c)!important}
-.hero .cta.qb .btn:nth-child(4){background:linear-gradient(160deg,#a855f7,#6d28d9)!important}
-.hero .cta.qb .btn:nth-child(5){background:linear-gradient(160deg,#ec4899,#be185d)!important;cursor:pointer}
+.hero .cta.qb .btn.qn{background:linear-gradient(160deg,#22c55e,#15803d)!important}
+.hero .cta.qb .btn.qt{background:linear-gradient(160deg,#3b82f6,#1d4ed8)!important}
+.hero .cta.qb .btn.qa{background:linear-gradient(160deg,#fb923c,#c2410c)!important}
+.hero .cta.qb .btn.qs{background:linear-gradient(160deg,#a855f7,#6d28d9)!important}
+.hero .cta.qb .btn.qi{background:linear-gradient(160deg,#ec4899,#be185d)!important;cursor:pointer}
 .hero .cta.qb.q5{grid-template-columns:repeat(5,minmax(0,1fr));max-width:790px}
-@media (max-width:700px){.hero .cta.qb.q5{grid-template-columns:repeat(6,minmax(0,1fr))}.hero .cta.qb.q5 .btn{grid-column:span 2}.hero .cta.qb.q5 .btn:nth-child(n+4){grid-column:span 3}.hero .cta.qb.q5 .qs span{width:auto}}
+@media (min-width:701px){.hero .cta.qb .qcl{display:none!important}}
+@media (max-width:700px){.hero .cta.qb{display:flex!important;justify-content:flex-start!important;gap:8px!important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:4px 2px 12px;margin-bottom:-8px}.hero .cta.qb::-webkit-scrollbar{display:none}.hero .cta.qb .btn{flex:0 0 calc((100% - 16px)/3);scroll-snap-align:start}}
 @media (max-width:700px){.hero .cta.qb{flex-direction:unset!important;width:100%;gap:6px;max-width:none}.hv2 .hero .cta.qb .btn{flex-direction:column;gap:2px;padding:7px 4px!important;font-size:13px!important;border-radius:14px}.hero .cta.qb .btn svg{width:20px;height:20px;margin:0}html[lang="ur"] .hero .cta.qb .btn span{font:400 13px/1.35 var(--f-ur)}}
 @media (max-width:700px){.hero .cta.qb .btn span{white-space:normal;text-align:center;line-height:1.15;overflow-wrap:anywhere}html[lang="ur"] .hero .cta.qb .btn span{line-height:1.45}.hero .cta.qb .btn{align-content:center}.hero .cta.qb .qs span{width:min-content;overflow-wrap:normal}}
 .instone{display:flex;width:100%;max-width:420px;margin:0 auto;justify-content:center}
@@ -1131,13 +1132,13 @@ function vHome() {
       <h1 class="stk"><a class="tohome" href="#home"><span class="u">${(L('الحسن|سائنس|اکیڈمی|دلیوالی','Al Hassan|Science|Academy')).split('|').map((w, i) => `<span class="w w${i}">${w}</span>`).join(' ')}</span></a></h1>
       <p class="alt">${t('heroAlt')}</p>
       <p class="lead">${L('جماعت 8 تا 12: مفت نوٹس، ٹیسٹ اور تجربہ کار اساتذہ۔', 'Class 8 to 12: free notes, tests and experienced tutors.')}</p>
-      <div class="cta qb${isStandalone() ? '' : ' q5'}">
-        <a class="btn qn" href="#notes">${svg('notes')}<span>${L('نوٹس', 'Notes')}</span></a>
-        <a class="btn qt" href="#tests">${svg('tests')}<span>${L('ٹیسٹ', 'Tests')}</span></a>
-        <a class="btn gold" href="#apply">${svg('apply')}<span>${L('داخلہ', 'Admission')}</span></a>
-        <a class="btn qs" href="#papers">${svg('papers')}<span>${L('اسمارٹ سلیبس', 'Smart Syllabus')}</span></a>
-        ${isStandalone() ? '' : `<button type="button" class="btn qi" id="installQ">${svg('dl')}<span>${L('ایپ انسٹال کریں', 'Install App')}</span></button>`}
-      </div>
+      ${(() => { const B = [`<a class="btn qn" href="#notes">${svg('notes')}<span>${L('نوٹس', 'Notes')}</span></a>`,
+        `<a class="btn qt" href="#tests">${svg('tests')}<span>${L('ٹیسٹ', 'Tests')}</span></a>`,
+        `<a class="btn gold qa" href="#apply">${svg('apply')}<span>${L('داخلہ', 'Admission')}</span></a>`,
+        `<a class="btn qs" href="#papers">${svg('papers')}<span>${L('اسمارٹ سلیبس', 'Smart Syllabus')}</span></a>`]
+        .concat(isStandalone() ? [] : [`<button type="button" class="btn qi">${svg('dl')}<span>${L('ایپ انسٹال کریں', 'Install App')}</span></button>`]);
+        const cl = B.map(h => h.replace(/^<(a|button) class="btn /, '<$1 tabindex="-1" aria-hidden="true" class="btn qcl ')).join('');
+        return `<div class="cta qb${B.length > 4 ? ' q5' : ''}" id="qTrack" data-n="${B.length}">${B.join('')}${cl}</div>`; })()}
     </div>
     <div class="orbit" aria-hidden="false">
       <svg class="rings" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><ellipse cx="100" cy="100" rx="96" ry="38"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(60 100 100)"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(120 100 100)"/><circle class="e" cx="196" cy="100" r="4"/><circle class="e" cx="52" cy="17" r="3.5"/><circle class="e" cx="52" cy="183" r="3"/></svg>
@@ -1551,7 +1552,7 @@ function render(scroll) {
   const app = document.getElementById('app');
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact}[view]();
   if (scroll) window.scrollTo(0, 0);
-  if (view === 'home') { tsInit(); fsInit(); ccInit(); } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
+  if (view === 'home') { tsInit(); fsInit(); ccInit(); if (matchMedia('(max-width:700px)').matches) autoSlide('qTrack', 'qDots', 3000); } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.__counted = true;
     document.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
@@ -1584,7 +1585,7 @@ document.addEventListener('click', e => {
   else if (b.dataset.wq) { const [i, o] = b.dataset.wq.split('|').map(Number); wAns[i] = o; render(); }
   else if (b.id === 'wSubmit') { if (Object.keys(wAns).length < 10) { toast(t('answerAll')); return; } wDone = true; const Q = weeklyQs(); let sc = 0; Q.forEach((q, i) => { if (wAns[i] === q.a) sc++; }); const k = `ahsa-weekly-${pcls}-${weekNo()}`; if (+LSg(k, -1) < sc) LSs(k, sc); render(true); }
   else if (b.id === 'wRetry') { wAns = {}; wDone = false; render(true); }
-  else if (b.id === 'installBtn' || b.id === 'installBtn2' || b.id === 'installQ') { doInstall(); }
+  else if (b.id === 'installBtn' || b.id === 'installBtn2' || b.classList.contains('qi')) { doInstall(); }
   else if (b.id === 'annX') { try { sessionStorage.setItem('ahsa-ann-x', annKey()); } catch (e) {} document.querySelectorAll('#annBar').forEach(w => w.innerHTML = ''); }
   else if (b.dataset.cmd) { const [k, m] = b.dataset.cmd.split('|'); cardMd[k] = m; ccKeep = k; render(); }
   else if (b.id === 'bigBtn') { const on = document.documentElement.classList.toggle('big'); b.setAttribute('aria-pressed', on); try { localStorage.setItem('ahsa-site-big', on ? '1' : ''); } catch (e) {} }
@@ -1628,7 +1629,7 @@ function installCard() {
     : L('براؤزر کے مینو ⋮ میں «Install app» یا «Add to Home screen» دبائیں۔', 'In the browser menu ⋮ tap “Install app” or “Add to Home screen”.');
   return `<button type="button" class="btn gold instone" id="installBtn2" title="${how.replace(/"/g, '&quot;')}">⬇ ${L('ایپ انسٹال کریں', 'Install app')}</button>`;
 }
-function refreshInstall() { if (isStandalone()) document.querySelectorAll('#installQ').forEach(b => { b.closest('.qb').classList.remove('q5'); b.remove(); }); document.querySelectorAll('#installBtn').forEach(b => b.hidden = isStandalone()); }
+function refreshInstall() { if (isStandalone() && document.querySelector('.qb .qi')) render(); document.querySelectorAll('#installBtn').forEach(b => b.hidden = isStandalone()); }
 function doInstall() {
   const e = window.__bip;
   if (e) { e.prompt(); e.userChoice.finally(() => { window.__bip = null; refreshInstall(); }); return; }
