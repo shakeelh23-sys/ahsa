@@ -965,7 +965,7 @@ const T = {
  gsearchPh:['جماعت، مضمون یا فائل تلاش کریں… (مثلاً فزکس 9)','Search class, subject or file… (e.g. Physics 9)'],
  resClasses:['جماعتیں','Classes'], resSubjects:['مضامین','Subjects'], resFiles:['فائلیں','Files'], noRes:['کچھ نہیں ملا۔ دوسرا لفظ لکھ کر دیکھیں۔','Nothing found. Try another word.'],
  moreRes:['مزید نتائج کے لیے لفظ بڑھائیں','Type more words to narrow the results'],
- classCards:['جماعت وار نوٹس اور ٹیسٹ','Notes and tests by class'], classCardsP:['اپنا میڈیم منتخب کریں اور نوٹس یا ٹیسٹ کھولیں۔','Pick your medium, then open notes or a test.'],
+ classCards:['جماعت وار نوٹس اور ٹیسٹ','Notes and tests by class'], classCardsP:['اپنی جماعت چنیں اور نوٹس یا ٹیسٹ کھولیں۔','Pick your class, then open notes or a test.'],
  openNotes:['نوٹس','Notes'], openTest:['ٹیسٹ دیں','Take test'], filesIn:['فائلیں','files'],
  annTitle:['اعلانات','Announcements'], newTag:['نیا','new'],
  topTitle:['نمایاں طلبہ','Top students'], topP:['اکیڈمی کے پوزیشن ہولڈر طلبہ۔','Position holders of the academy.'],
@@ -1135,16 +1135,15 @@ const isNew = f => typeof f.nw === 'string' && (Date.now() - Date.parse(f.nw + '
 const mOk = f => medium === 'all' || (medium === 'new' ? isNew(f) : (f.md === medium || !f.md));
 function classCards() {
   const one = (c, cl) => {
-    const n = COUNTS[c.k], md = cardMd[c.k];
-    const nf = c.s.reduce((a, s) => a + s.f.filter(f => f.md === md || !f.md).length, 0);
+    const n = COUNTS[c.k];
+    const nf = c.s.reduce((a, s) => a + s.f.length, 0);
     const app = CLASS_APPS.find(a => a.k === c.k);
     const no = c.k === '9t' ? '9<small>Tech</small>' : c.k;
     const nn = c.s.reduce((a, s) => a + s.f.filter(isNew).length, 0);
     return `<div class="ccard lift"><div class="hd"><span class="no">${no}</span><div style="min-width:0"><b>${esc(clsName(c))}</b>${nn ? `<span class="newdot">${nn} ${t('newFiles')}</span>` : ''}</div></div>
       <div class="bd">
-        <div class="nums"><div><b>${fmt(n[0])}</b><span>MCQs</span></div><div><b>${fmt(n[1])}</b><span>${t('sSq')}</span></div><div><b>${fmt(n[2])}</b><span>${t('sLq')}</span></div><div><b>${nf}</b><span>${t('filesIn')} (${md})</span></div></div>
-        <div class="seg" role="group" aria-label="Medium">${['EM', 'UM'].map(m => `<button type="button" data-cmd="${c.k}|${m}" aria-pressed="${md === m}">${m === 'EM' ? L('انگلش میڈیم', 'English Medium') : L('اردو میڈیم', 'Urdu Medium')}</button>`).join('')}</div>
-        <div class="row"><a class="btn sm gold" href="#notes-${c.k}-${md.toLowerCase()}">${svg('notes')}${t('openNotes')}</a>${app ? `<a class="btn sm navy" href="${app.local}" target="_blank" rel="noopener">${svg('play', 1)}${t('openTest')}</a>` : ''}</div>
+        <div class="nums"><div><b>${fmt(n[0])}</b><span>MCQs</span></div><div><b>${fmt(n[1])}</b><span>${t('sSq')}</span></div><div><b>${fmt(n[2])}</b><span>${t('sLq')}</span></div><div><b>${nf}</b><span>${t('filesIn')}</span></div></div>
+        <div class="row"><a class="btn sm gold" href="#notes-${c.k}">${svg('notes')}${t('openNotes')}</a>${app ? `<a class="btn sm navy" href="${app.local}" target="_blank" rel="noopener">${svg('play', 1)}${t('openTest')}</a>` : ''}</div>
       </div></div>`.replace('<div class="ccard lift">', `<div class="ccard csl${cl ? ' clone' : ''}"${cl ? ' inert aria-hidden="true"' : ''}>`);
   };
   return `<div class="fshow"><div class="ttrack ftrack ctrack" id="cTrack" data-n="${DATA.length}">${DATA.map(c => one(c)).join('')}${DATA.map(c => one(c, 1)).join('')}</div>${slideDots('cDots', DATA.length)}</div>`;
