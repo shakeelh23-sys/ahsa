@@ -1365,7 +1365,7 @@ function vHome() {
     ${myFiles()}
   </div>
   <section><div class="wrap">
-    <div class="sh"><div><h2 class="dqur" lang="ur" dir="rtl">آج کا سوال</h2><p>${L('', 'A new question every day for each class. Classes change by themselves; swipe or tap a class.')}</p></div></div>
+    <div class="sh"><div><h2 class="dqur" lang="ur" dir="rtl">آج کا سوال</h2><p class="dqsub" lang="ur" dir="rtl">ہر جماعت کا روزانہ ایک نیا سوال</p></div></div>
     <div id="dailyWrap" class="dqshow">${dailyBox()}</div>
   </div></section>
   <!-- HOME-TRIM 2026-11-15: 'What the academy offers', Announcements list and Common questions removed from home (data kept: ANNOUNCE, T.o1-o7, T.q1-q7) -->
@@ -2118,6 +2118,7 @@ if (typeof view !== 'undefined' && view === 'home') dqStart();
 html .hero .cta.qb .qs.qs2 .qs2t b,html .hero .cta.qb .qi.qs2 .qs2t b,html .hero .cta.qb .qsh.qs2 .qs2t b{font-size:min(4.4vw,18px)!important;line-height:1.12}
 @media (min-width:701px){html .hero .cta.qb .qs.qs2 .qs2t b,html .hero .cta.qb .qi.qs2 .qs2t b,html .hero .cta.qb .qsh.qs2 .qs2t b{font-size:20px!important}}
 html .hero .cta.qb .qs.qs2 .qs2t b{font-size:min(3.9vw,17px)!important}@media (min-width:701px){html .hero .cta.qb .qs.qs2 .qs2t b{font-size:20px!important}}
+p.dqsub{font:400 17px/1.8 var(--f-ur)!important;white-space:nowrap;margin:10px 0 0!important}
 h2.dqur{font:400 30px/1.9 var(--f-ur)!important;letter-spacing:0}
 @media (max-width:700px){h2.dqur{font-size:26px!important}}
 .dqshow .dqinR{animation:dqR .45s ease}.dqshow .dqinL{animation:dqL .45s ease}
