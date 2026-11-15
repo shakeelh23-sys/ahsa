@@ -665,6 +665,14 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 @keyframes ahsaShine{0%{background-position:160% 0,0 0}55%,100%{background-position:-60% 0,0 0}}
 .hero h1 .u,html[lang="ur"] .hero h1 .u{background-image:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.95) 48%,rgba(255,248,214,.9) 52%,transparent 65%),linear-gradient(180deg,#fff6cf 0%,#ffd86b 38%,#f0b429 62%,#c98a12 100%)!important;background-size:250% 100%,100% 100%!important;background-repeat:no-repeat!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent;-webkit-text-fill-color:transparent;animation:ahsaShine 4.5s ease-in-out 1s infinite}
 @media (prefers-reduced-motion:reduce){.hero h1 .u{animation:none}}
+
+/* What students get slideshow */
+.fshow{min-width:0;max-width:100%}
+.ftrack .fsl{flex:0 0 100%;scroll-snap-align:start;min-width:0;margin:0}
+@media (min-width:640px){.ftrack .fsl{flex-basis:calc(50% - 5px)}}
+@media (min-width:1000px){.ftrack .fsl{flex-basis:calc(33.333% - 7px)}}
+.ftrack{padding:4px 2px 8px}
+.fdots button{background:var(--line)}.fdots button[aria-current]{background:var(--navy)}
 </style>
 
 </head>
@@ -1161,11 +1169,7 @@ function vHome() {
   </div></section>
   <section style="padding-top:0"><div class="wrap">
     <div class="sh"><h2>${t('whyTitle')}</h2></div>
-    <div class="grid g3">
-      <div class="card feat lift"><div class="ic">${svg('notes')}</div><h3>${t('f1')}</h3><p>${t('f1p')}</p></div>
-      <div class="card feat lift"><div class="ic">${svg('tests')}</div><h3>${t('f2')}</h3><p>${t('f2p')}</p></div>
-      <div class="card feat lift"><div class="ic">${svg('about')}</div><h3>${t('f3')}</h3><p>${t('f3p')}</p></div>
-    </div>
+    ${featShow()}
   </div></section>
   <div class="wrap" id="instWrap" style="margin-bottom:28px">${installCard()}</div></div>`;
 }
@@ -1431,6 +1435,28 @@ function tutorShow() {
 }
 document.addEventListener('click', e => { const b = e.target.closest('button[data-tsf]'); if (!b) return; tsF = b.dataset.tsf; const w = document.getElementById('tshowWrap'); if (w) { w.innerHTML = tutorShow(); tsHold = Date.now() + 8000; tsInit(); } });
 let tsTimer = null, tsHold = 0;
+/* ===== "What students get" slideshow (same behaviour as the team slideshow) ===== */
+let fsTimer = 0, fsHold = 0;
+function featShow() {
+  const F = [['notes', 'f1'], ['tests', 'f2'], ['about', 'f3']];
+  const card = (x, c) => `<div class="card feat fsl${c ? ' clone' : ''}"${c ? ' inert aria-hidden="true"' : ''}><div class="ic">${svg(x[0])}</div><h3>${t(x[1])}</h3><p>${t(x[1] + 'p')}</p></div>`;
+  return `<div class="fshow"><div class="ttrack ftrack" id="fTrack" data-n="${F.length}">${F.map(x => card(x)).join('')}${F.map(x => card(x, 1)).join('')}</div>
+    <div class="tdots fdots" id="fDots">${F.map((x, i) => `<button type="button" data-fd="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div></div>`;
+}
+function fsInit() {
+  clearInterval(fsTimer); const tr = document.getElementById('fTrack'); if (!tr) return;
+  const n = +tr.dataset.n, step = () => Math.max(1, Math.abs(tr.children[1].offsetLeft - tr.children[0].offsetLeft));
+  const idx = () => Math.round(Math.abs(tr.scrollLeft) / step());
+  const sgn = () => getComputedStyle(tr).direction === 'rtl' ? -1 : 1;
+  const jump = x => { tr.style.scrollSnapType = 'none'; tr.scrollLeft = sgn() * x; requestAnimationFrame(() => { tr.style.scrollSnapType = ''; }); };
+  const go = i => tr.scrollTo({left: sgn() * i * step(), behavior: 'smooth'});
+  const settle = () => { const k = idx(); if (k >= n) jump((k - n) * step()); document.querySelectorAll('#fDots button').forEach((d, j) => d.toggleAttribute('aria-current', j === k % n)); };
+  tr.addEventListener('scroll', () => { clearTimeout(tr._d); tr._d = setTimeout(settle, 140); }, {passive: true});
+  ['pointerdown', 'touchstart', 'wheel'].forEach(ev => tr.addEventListener(ev, () => { fsHold = Date.now() + 8000; }, {passive: true}));
+  const dz = document.getElementById('fDots'); if (dz) dz.onclick = e => { const b = e.target.closest('button[data-fd]'); if (!b) return; fsHold = Date.now() + 8000; const k = idx() % n, j = +b.dataset.fd; if (j < k) jump(k * step()); go(j < k ? n + j : j); };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  fsTimer = setInterval(() => { if (!document.getElementById('fTrack')) { clearInterval(fsTimer); return; } if (document.hidden || Date.now() < fsHold) return; go(idx() + 1); }, 4000);
+}
 function tsInit() {
   clearInterval(tsTimer); const tr = document.getElementById('tTrack'); if (!tr) return;
   const n = +tr.dataset.n || tr.children.length, step = () => Math.max(1, tr.children[1] ? tr.children[1].offsetLeft - tr.children[0].offsetLeft : tr.children[0].offsetWidth);
@@ -1493,7 +1519,7 @@ function render(scroll) {
   const app = document.getElementById('app');
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact}[view]();
   if (scroll) window.scrollTo(0, 0);
-  if (view === 'home') tsInit(); else clearInterval(tsTimer);
+  if (view === 'home') { tsInit(); fsInit(); } else { clearInterval(tsTimer); clearInterval(fsTimer); }
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.__counted = true;
     document.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
