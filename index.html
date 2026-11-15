@@ -904,6 +904,9 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
 
 <!-- VISITOR-COUNTER (GoatCounter, no cookies). Dashboard: https://ahsadillewali.goatcounter.com -->
 <script data-goatcounter="https://ahsadillewali.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WM2GGRT4NT"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WM2GGRT4NT');</script>
 </head>
 <body>
 <header class="top">
@@ -1970,6 +1973,7 @@ document.addEventListener('click', e => { if (!e.target.closest('#aFab')) return
 
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => document.querySelectorAll('.swap').forEach(e => e.classList.toggle('u')), 4000);
 
+window.addEventListener('hashchange', () => { try { if (window.gtag) gtag('event', 'page_view', {page_location: location.href, page_path: location.pathname + location.hash.split('?')[0], page_title: document.title}); } catch (e) {} });
 window.addEventListener('hashchange', () => { try { if (window.goatcounter && goatcounter.count) goatcounter.count({path: location.pathname + location.hash.split('?')[0]}); } catch (e) {} });
 /* header search */
 const HPAGES = [['🏠 Home','#home','home main'],['📚 Notes','#notes','notes pdf download files'],['📝 MCQs Tests','#tests','mcq mcqs test tests app quiz'],['🗓️ Weekly test','#weekly','weekly test quiz'],['📄 Smart Syllabus','#papers','syllabus smart paper scheme papers'],['👥 Our Team','#tutors','team tutors teachers tutor'],['🎓 Need a Tutor','#need-tutor','tutor home tuition need teacher'],['✍️ Admission','#apply','admission apply form join'],['ℹ️ About','#about','about academy'],['📞 Contact','#contact','contact whatsapp phone address map location'],['📢 Advertise','#advertise','advertise advertisement ad ads ishtihar business shop promote']];
