@@ -1359,7 +1359,7 @@ function vHome() {
     <div class="stat"><b class="count" data-to="${COUNTS.total.lq}">${COUNTS.total.lq}</b><span>${t('sLq')}</span></div>
     <div class="stat"><b class="count" data-to="${COUNTS.total.files}">${COUNTS.total.files}</b><span>${t('sFiles')}</span></div>
   </div></div>
-  ${actionBand()}
+  <!-- ACTION-BAND-OFF 2026-11-15: داخلہ / ٹیوٹر چاہیے / ہماری ٹیم block removed from home -->
   <div class="wrap">
     <!-- QUICK-OFF 2026-11-15: home search box + Notes/Weekly test/Syllabus cards removed (header search remains) -->
     ${myFiles()}
@@ -1606,7 +1606,7 @@ function vTutors() {
 }
 function actionBand() {
   return `<div class="wrap"><div class="ab2" lang="ur" dir="rtl">
-    <a class="ab-adm lift" href="#apply" aria-label="Apply for Admission · داخلہ"><span class="ic">${svg('apply')}</span><b>داخلہ</b><span class="go" aria-hidden="true">‹</span></a>
+    <a class="ab-adm lift" href="#apply" aria-label="Admissions open · داخلے جاری"><span class="ic">${svg('apply')}</span><b>داخلے جاری</b><span class="go" aria-hidden="true">‹</span></a>
     <div class="ab-row">
       <a class="ab-sm need" href="#need-tutor" aria-label="Need a Tutor · ٹیوٹر چاہیے"><span class="ic">${svg('user')}</span><b>ٹیوٹر چاہیے</b></a>
       <a class="ab-sm team" href="#tutors" aria-label="Our Team · ہماری ٹیم"><span class="ic">${svg('tutors')}</span><b>ہماری ٹیم</b></a>
