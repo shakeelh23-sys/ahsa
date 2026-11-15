@@ -2,6 +2,12 @@
  "_help": "Approved ads only (Shakeel approves each one). Home page slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, img (e.g. assets/ads/name.webp), link (website/Facebook) or wa (WhatsApp number like 923001234567), on (false = hide).",
  "ads": [
   {
+   "title": "Tauqeer Plastic Store",
+   "text": "Shoppers (plastic bags), toys of every size and disposable items. We also buy raddi (scrap). Proprietor: Malik Farooq Hassan Pawar.",
+   "img": "assets/ads/tauqeer-plastic.webp",
+   "wa": "923146011672"
+  },
+  {
    "title": "SAMPLE 1: Al Noor Book Depot",
    "text": "New books & stationery, 10% off for students",
    "img": "assets/ads/s1.webp",
