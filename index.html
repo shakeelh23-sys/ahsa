@@ -1224,7 +1224,7 @@ function classCards() {
     const nn = c.s.reduce((a, s) => a + s.f.filter(isNew).length, 0);
     return `<div class="ccard lift"><div class="hd"><span class="no">${no}</span><div style="min-width:0"><b>${esc(clsName(c))}</b>${nn ? `<span class="newdot">${nn} ${t('newFiles')}</span>` : ''}</div></div>
       <div class="bd">
-        <div class="nums"><div><b>${fmt(n[0])}</b><span>MCQs</span></div><div><b>${fmt(n[1])}</b><span>${t('sSq')}</span></div><div><b>${fmt(n[2])}</b><span>${t('sLq')}</span></div><div><b>${nf}</b><span>${t('filesIn')}</span></div></div>
+        <div class="nums"><div><b class="count" data-to="${fmt(n[0])}">${fmt(n[0])}</b><span>MCQs</span></div><div><b class="count" data-to="${fmt(n[1])}">${fmt(n[1])}</b><span>${t('sSq')}</span></div><div><b class="count" data-to="${fmt(n[2])}">${fmt(n[2])}</b><span>${t('sLq')}</span></div><div><b class="count" data-to="${nf}">${nf}</b><span>${t('filesIn')}</span></div></div>
         <div class="row"><a class="btn sm gold" href="#notes-${c.k}">${svg('notes')}${t('openNotes')}</a>${app ? `<a class="btn sm navy" href="${app.local}" target="_blank" rel="noopener">${svg('play', 1)}${t('openTest')}</a>` : ''}</div>
       </div></div>`.replace('<div class="ccard lift">', `<div class="ccard csl${cl ? ' clone' : ''}"${cl ? ' inert aria-hidden="true"' : ''}>`);
   };
@@ -1783,14 +1783,13 @@ function render(scroll) {
   if (scroll) window.scrollTo(0, 0);
   footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('adT', 'adD', 4500); if (typeof dqStart === 'function') dqStart(); } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); if (typeof dqTimer !== 'undefined') clearInterval(dqTimer); }
   if (window.__cntIO) { window.__cntIO.disconnect(); window.__cntIO = null; }
-  if (view === 'home' && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const cnts = () => document.querySelectorAll('.stats .count');
-    const runCount = () => { const tok = window.__cntTok = (window.__cntTok || 0) + 1; cnts().forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
-      const step = now => { if (tok !== window.__cntTok) return; const p = Math.min(1, (now - t0) / 1500), v = Math.round(to * (1 - Math.pow(1 - p, 3))); el.textContent = p < 1 ? v.toLocaleString('en-US') : el.dataset.to; if (p < 1) requestAnimationFrame(step); };
+  if (view === 'home' && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const zero = g => g.querySelectorAll('.count').forEach(el => el.textContent = '0');
+    const runCount = g => { const tok = g.__tok = (g.__tok || 0) + 1; g.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
+      const step = now => { if (tok !== g.__tok) return; const p = Math.min(1, (now - t0) / 1500), v = Math.round(to * (1 - Math.pow(1 - p, 3))); el.textContent = p < 1 ? v.toLocaleString('en-US') : el.dataset.to; if (p < 1) requestAnimationFrame(step); };
       requestAnimationFrame(step); }); };
-    const st = document.querySelector('.stats');
-    if (st && 'IntersectionObserver' in window) { const r = st.getBoundingClientRect(); if (r.top > innerHeight || r.bottom < 0) cnts().forEach(el => el.textContent = '0');
-      window.__cntIO = new IntersectionObserver(es => { if (es[0].isIntersecting) runCount(); else { window.__cntTok = (window.__cntTok || 0) + 1; cnts().forEach(el => el.textContent = '0'); } }, {threshold: .3}); window.__cntIO.observe(st); }
+    window.__cntIO = new IntersectionObserver(es => es.forEach(e => { const g = e.target; if (e.isIntersecting) runCount(g); else { g.__tok = (g.__tok || 0) + 1; zero(g); } }), {threshold: .5});
+    document.querySelectorAll('.stats, #cTrack .ccard').forEach(g => { const r = g.getBoundingClientRect(); if (r.top > innerHeight || r.bottom < 0 || r.left > innerWidth || r.right < 0) zero(g); window.__cntIO.observe(g); });
   }
   revealInit();
 }
