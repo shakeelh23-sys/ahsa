@@ -26,7 +26,7 @@ window.TUTORS = [
     subjectsUr: 'ریاضی',
     classes: '9 to 12',               classesUr: '9 تا 12',
     experience: '19 years',           experienceUr: '19 سال',
-    area: 'Dillewali',                areaUr: 'دلیوالی',
+    area: 'Dillewali, Mianwali',      areaUr: 'دلیوالی، میانوالی',
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/shakeel-hassan.webp?v=2'
   },
@@ -37,7 +37,7 @@ window.TUTORS = [
     subjectsUr: 'ریاضی، فزکس',
     classes: '8 to 12',               classesUr: '8 تا 12',
     experience: 'More than 10 years',  experienceUr: '10 سال سے زیادہ',
-    area: 'Dillewali',                areaUr: 'دلیوالی',
+    area: 'Dillewali, Mianwali',      areaUr: 'دلیوالی، میانوالی',
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/najeeb-ullah.webp?v=2'
   },
@@ -60,7 +60,7 @@ window.TUTORS = [
     subjectsUr: 'ریاضی اور سائنس',
     classes: '8 to 10',               classesUr: '8 تا 10',
     experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
-    area: 'Dillewali',                areaUr: 'دلیوالی',
+    area: 'Dillewali, Mianwali',      areaUr: 'دلیوالی، میانوالی',
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/shazia-sajjad.svg'
   },
@@ -72,7 +72,7 @@ window.TUTORS = [
     classes: '8 to 12',               classesUr: '8 تا 12',
     experience: 'More than 5 years · Mathematics Lecturer, University of Mianwali and ARF College Mianwali',
     experienceUr: '5 سال سے زیادہ · لیکچرر ریاضی، یونیورسٹی آف میانوالی اور اے آر ایف کالج میانوالی',
-    area: 'Mianwali',                 areaUr: 'میانوالی',
+    area: 'Mianwali City',            areaUr: 'میانوالی سٹی',
     modes: ['online', 'home'],        platforms: 'Zoom',
     photo: 'assets/tutors/umar-farooq.webp?v=1'
   },
@@ -119,7 +119,7 @@ window.TUTORS = [
   //   subjects: 'Physics, Math',        subjectsUr: 'فزکس، ریاضی',
   //   classes: '9 to 12',               classesUr: '9 تا 12',
   //   experience: '5 years',            experienceUr: '5 سال',
-  //   area: 'Dillewali',                areaUr: 'دلیوالی',
+  //   area: 'Dillewali, Mianwali',      areaUr: 'دلیوالی، میانوالی',
   //   modes: ['online', 'academy', 'home'],   platforms: 'WhatsApp, Zoom',
   //   photo: ''
   // },
