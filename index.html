@@ -835,6 +835,8 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
 @media (min-width:1000px){.ctrack .csl{flex-basis:calc(33.333% - 7px)}}
 </style>
 
+<!-- VISITOR-COUNTER (GoatCounter, no cookies). Dashboard: https://ahsadillewali.goatcounter.com -->
+<script data-goatcounter="https://ahsadillewali.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
 <header class="top">
@@ -1830,6 +1832,7 @@ function loadPool() {
   document.head.appendChild(s);
 }
 window.addEventListener('hashchange', route);
+window.addEventListener('hashchange', () => { try { if (window.goatcounter && goatcounter.count) goatcounter.count({path: location.pathname + location.hash.split('?')[0]}); } catch (e) {} });
 /* header search */
 const HPAGES = [['🏠 Home','#home','home main'],['📚 Notes','#notes','notes pdf download files'],['📝 MCQs Tests','#tests','mcq mcqs test tests app quiz'],['🗓️ Weekly test','#weekly','weekly test quiz'],['📄 Smart Syllabus','#papers','syllabus smart paper scheme papers'],['👥 Our Team','#tutors','team tutors teachers tutor'],['🎓 Need a Tutor','#need-tutor','tutor home tuition need teacher'],['✍️ Admission','#apply','admission apply form join'],['ℹ️ About','#about','about academy'],['📞 Contact','#contact','contact whatsapp phone address map location']];
 function hSearch(v) {
