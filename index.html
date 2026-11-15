@@ -429,6 +429,43 @@ html[lang="ur"] .qa small{font-size:12.5px;line-height:1.9}
 .icb.on{color:#d39e00;border-color:var(--gold);background:color-mix(in srgb,var(--gold) 16%,var(--card))}
 .icb.wa2{color:var(--wa)}
 @media (max-width:560px){.facts{justify-content:stretch}.facts .btn{flex:1}}
+/* DAILY-MCQ v2 compact */
+.quiz.dq2{grid-template-columns:minmax(0,1fr);padding:0;gap:9px;overflow:hidden;border-radius:16px;box-shadow:0 6px 22px -14px rgba(16,32,80,.45)}
+.dq2 .dqh{display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(110deg,var(--navy),color-mix(in srgb,var(--navy) 62%,#7a3cff));color:#fff;font:700 13px/1.4 var(--f-body);direction:ltr}
+.dq2 .dqb{background:rgba(255,255,255,.16);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.dq2 .dqs{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.95}
+.dq2 .dqst{background:var(--gold);color:#1a1a1a;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.dq2>*{min-width:0}
+.dq2 .dqc{padding:0 12px;min-width:0}
+.dq2 .dqc .chips{flex-wrap:nowrap;overflow-x:auto;gap:6px;scrollbar-width:none;padding-bottom:2px;-webkit-mask:linear-gradient(90deg,#000 88%,transparent);mask:linear-gradient(90deg,#000 88%,transparent)}
+html[dir="rtl"] .dq2 .dqc .chips{-webkit-mask:linear-gradient(270deg,#000 88%,transparent);mask:linear-gradient(270deg,#000 88%,transparent)}
+.dq2 .dqc .chips::-webkit-scrollbar{display:none}
+.dq2 .dqc .chip{flex:none;padding:3px 11px;font-size:13px}
+html[lang="ur"] .dq2 .dqc .chip{font-size:13px;padding-block:0}
+.dq2 .qt{font-size:16.5px;line-height:1.45;padding:0 12px}
+.dq2 .opts{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:0 12px}
+@media (min-width:900px){.dq2 .opts{grid-template-columns:repeat(4,minmax(0,1fr))}.dq2 .opts.one{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.dq2 .opts.one{grid-template-columns:minmax(0,1fr)}}
+.dq2 .opt{padding:7px 9px;gap:8px;font-size:14.5px;line-height:1.35;border-radius:11px;transition:transform .15s,border-color .15s,background .15s}
+.dq2 .opt .l{flex:none;width:24px;height:24px;font-size:12.5px}
+.dq2 .opt .ot{min-width:0;overflow-wrap:anywhere}
+.dq2 .opt:not(:disabled):hover{border-color:var(--navy);transform:translateY(-1px)}
+.dq2 .opt:not(:disabled):active{transform:scale(.97)}
+.dq2.dqd .opt:not(.ok):not(.no){opacity:.55}
+.dq2 .opt.ok{animation:dqPop .45s ease-out}
+.dq2 .opt.no{animation:dqShake .4s ease-out}
+@keyframes dqPop{0%{transform:scale(.94)}60%{transform:scale(1.04)}100%{transform:none}}
+@keyframes dqShake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.dq2 .opt{animation:none!important;transition:none}}
+.dq2 .fbk{margin:0 12px;padding:6px 10px;border-radius:10px;font-size:14px;background:color-mix(in srgb,currentColor 9%,transparent)}
+.dq2 .fbk span{font-weight:600;color:var(--mut)}
+.dq2 .dqf{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 12px;border-top:1px solid var(--line);background:var(--soft);font:700 12.5px/1.5 var(--f-body)}
+html[lang="ur"] .dq2 .dqf{font:400 13px/1.8 var(--f-ur)}
+.dq2 .dqf>span{background:var(--card);border-radius:999px;padding:1px 9px}
+.dq2 .dqw{margin-inline-start:auto;display:inline-flex;align-items:center;gap:5px;color:var(--navy);text-decoration:none;font-weight:700}
+.dq2 .dqw svg{width:15px;height:15px}
+:root[data-theme="dark"] .dq2 .dqw{color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dq2 .dqw{color:var(--gold)}}
 .streak{display:flex;gap:8px;flex-wrap:wrap}
 .streak span{background:var(--soft);border-radius:999px;padding:4px 12px;font-weight:700;font-size:14px}
 html[lang="ur"] .streak span{font-size:13.5px}
@@ -1091,17 +1128,18 @@ function classPick(attr) {
   return `<div class="chips">${DATA.map(c => `<button type="button" class="chip" ${attr}="${c.k}" aria-pressed="${c.k === pcls}" style="${c.k === pcls ? 'background:var(--navy);color:#fff;border-color:var(--navy)' : ''}">${c.k === '9t' ? '9 Tech' : L('جماعت ', 'Class ') + c.k}</button>`).join('')}</div>`;
 }
 function dailyBox() {
-  if (!(POOL[pcls] || []).length) return `<div class="quiz" id="daily"><p class="qt" style="color:var(--mut)">${L('سوال لوڈ ہو رہا ہے…', 'Loading question…')}</p></div>`;
+  if (!(POOL[pcls] || []).length) return `<div class="quiz dq2" id="daily"><p class="qt" style="color:var(--mut)">${L('سوال لوڈ ہو رہا ہے…', 'Loading question…')}</p></div>`;
   const P = POOL[pcls], d = dayNo(), q = P[d % P.length], ord = order(q, d), key = `ahsa-daily-${pcls}-${d}`, pick = DQ[key] ?? LSg(key, null);
-  const done = pick !== null, pi = done ? +pick : -1;
-  const opts = ord.map((oi, j) => { let cls = ''; if (done) { if (oi === q.a) cls = 'ok'; else if (oi === pi) cls = 'no'; } return `<button type="button" class="opt ${cls}" data-dq="${oi}" ${done ? 'disabled' : ''}><span class="l">${LET[j]}</span><span>${qText(q.o[oi])}</span></button>`; }).join('');
-  return `<div class="quiz" id="daily">
-    <div class="qh"><div><div class="kick">${t('dailyTitle')} · ${new Date((d) * 864e5).toLocaleDateString('en-GB', {day: 'numeric', month: 'short'})}</div></div><span class="tag">${esc(q.s)} · Unit ${q.u}</span></div>
-    ${classPick('data-pc')}
-    <p class="qt">${qText(q.q)}</p><div class="opts">${opts}</div>
-    <div aria-live="polite">${done ? `<p class="fbk ${pi === q.a ? 'good' : 'bad'}">${pi === q.a ? t('right') : t('wrong')} ${t('tomorrow')}</p>` : ''}</div>
-    ${(() => { const st = dailyStats(); return st.tot ? `<div class="streak"><span>🔥 ${st.streak} ${t('streakDays')}</span><span>✅ ${st.ok}/${st.tot} ${t('correct')}</span></div>` : ''; })()}
-    <div class="cta" style="margin:0"><a class="btn sm navy" href="#weekly">${svg('weekly')}${t('startWeekly')}</a></div>
+  const done = pick !== null, pi = done ? +pick : -1, good = pi === q.a;
+  const long = q.o.some(o => String(o).replace(/<[^>]+>/g, '').length > 34);
+  const opts = ord.map((oi, j) => { let cls = ''; if (done) { if (oi === q.a) cls = 'ok'; else if (oi === pi) cls = 'no'; } return `<button type="button" class="opt ${cls}" data-dq="${oi}" ${done ? 'disabled' : ''}><span class="l">${done && oi === q.a ? '✓' : done && oi === pi ? '✗' : LET[j]}</span><span class="ot">${qText(q.o[oi])}</span></button>`; }).join('');
+  const st = dailyStats();
+  return `<div class="quiz dq2${done ? ' dqd' : ''}" id="daily">
+    <div class="dqh"><span class="dqb">📅 ${new Date((d) * 864e5).toLocaleDateString('en-GB', {day: 'numeric', month: 'short'})}</span><span class="dqs">${esc(q.s)} · Unit ${q.u}</span></div>
+    <div class="dqc">${classPick('data-pc')}</div>
+    <p class="qt">${qText(q.q)}</p><div class="opts${long ? ' one' : ''}">${opts}</div>
+    <div aria-live="polite">${done ? `<p class="fbk ${good ? 'good' : 'bad'}">${good ? '🎉 ' + t('right') : '❌ ' + t('wrong')} <span>${t('tomorrow')}</span></p>` : ''}</div>
+    <div class="dqf">${st.tot ? `<span>🔥 ${st.streak} ${t('streakDays')}</span><span>✅ ${st.ok}/${st.tot} ${t('correct')}</span>` : ''}<a class="dqw" href="#weekly">${svg('weekly')}${t('startWeekly')} ${L('←','→')}</a></div>
   </div>`;
 }
 let wAns = {}, wDone = false; const DQ = {};
