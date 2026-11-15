@@ -671,7 +671,7 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 .hero .cta.qb .btn.qt{background:linear-gradient(160deg,#3b82f6,#1d4ed8)!important}
 .hero .cta.qb .btn.qa{background:linear-gradient(160deg,#fb923c,#c2410c)!important}
 .hero .cta.qb .btn.qs{background:linear-gradient(160deg,#a855f7,#6d28d9)!important}
-.hero .cta.qb .btn.qi{background:linear-gradient(160deg,#ec4899,#be185d)!important;cursor:pointer}
+.hero .cta.qb .btn.qi,.hero .cta.qb .btn.qsh{background:linear-gradient(160deg,#ec4899,#be185d)!important;cursor:pointer}
 .hero .cta.qb.q5{grid-template-columns:repeat(5,minmax(0,1fr));max-width:790px}
 @media (min-width:701px){.hero .cta.qb .qcl{display:none!important}}
 @media (max-width:700px){.hero .cta.qb{display:flex!important;justify-content:flex-start!important;gap:8px!important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:4px 2px 12px;margin-bottom:-8px}.hero .cta.qb::-webkit-scrollbar{display:none}.hero .cta.qb .btn{flex:0 0 calc((100% - 16px)/3);scroll-snap-align:start}}
@@ -1136,8 +1136,8 @@ function vHome() {
         `<a class="btn qt" href="#tests">${svg('tests')}<span>${L('ٹیسٹ', 'Tests')}</span></a>`,
         `<a class="btn gold qa" href="#apply">${svg('apply')}<span>${L('داخلہ', 'Admission')}</span></a>`,
         `<a class="btn qs" href="#papers">${svg('papers')}<span>${L('اسمارٹ سلیبس', 'Smart Syllabus')}</span></a>`]
-        .concat(isStandalone() ? [] : [`<button type="button" class="btn qi">${svg('dl')}<span>${L('ایپ انسٹال کریں', 'Install App')}</span></button>`]);
-        const cl = B.map(h => h.replace(/^<(a|button) class="btn /, '<$1 tabindex="-1" aria-hidden="true" class="btn qcl ')).join('');
+        .concat(appIn() ? [`<button type="button" class="btn qsh" data-shareapp><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>${L('ایپ شیئر کریں', 'Share App')}</span></button>`] : [`<button type="button" class="btn qi">${svg('dl')}<span>${L('ایپ انسٹال کریں', 'Install App')}</span></button>`]);
+        const cl = B.map(h => h.replace(/^<(a|button)( type="button")? class="btn /, '<$1$2 tabindex="-1" aria-hidden="true" class="btn qcl ')).join('');
         return `<div class="cta qb${B.length > 4 ? ' q5' : ''}" id="qTrack" data-n="${B.length}">${B.join('')}${cl}</div>`; })()}
     </div>
     <div class="orbit" aria-hidden="false">
@@ -1617,9 +1617,10 @@ document.addEventListener('submit', e => {
 try { if (localStorage.getItem('ahsa-site-big')) { document.documentElement.classList.add('big'); document.getElementById('bigBtn').setAttribute('aria-pressed', 'true'); } } catch (e) {}
 try { const th = localStorage.getItem('ahsa-site-theme'); if (th) document.documentElement.dataset.theme = th; } catch (e) {}
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); window.__bip = e; refreshInstall(); });
-window.addEventListener('appinstalled', () => { window.__bip = null; LSs('ahsa-installed', '1'); refreshInstall(); });
+window.addEventListener('appinstalled', () => { window.__bip = null; window.__instd = 1; LSs('ahsa-installed', '1'); refreshInstall(); });
 
 /* ===== Install as app (Android: native prompt; iPhone: Share > Add to Home Screen; others: browser menu) ===== */
+const appIn = () => isStandalone() || !!window.__instd;
 function isStandalone() { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }
 const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 function installCard() {
@@ -1629,7 +1630,7 @@ function installCard() {
     : L('براؤزر کے مینو ⋮ میں «Install app» یا «Add to Home screen» دبائیں۔', 'In the browser menu ⋮ tap “Install app” or “Add to Home screen”.');
   return `<button type="button" class="btn gold instone" id="installBtn2" title="${how.replace(/"/g, '&quot;')}">⬇ ${L('ایپ انسٹال کریں', 'Install app')}</button>`;
 }
-function refreshInstall() { if (isStandalone() && document.querySelector('.qb .qi')) render(); document.querySelectorAll('#installBtn').forEach(b => b.hidden = isStandalone()); }
+function refreshInstall() { if (appIn() && document.querySelector('.qb .qi')) render(); document.querySelectorAll('#installBtn').forEach(b => b.hidden = isStandalone()); }
 function doInstall() {
   const e = window.__bip;
   if (e) { e.prompt(); e.userChoice.finally(() => { window.__bip = null; refreshInstall(); }); return; }
