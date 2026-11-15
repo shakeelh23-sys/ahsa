@@ -674,6 +674,10 @@ a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
 @media (max-width:560px){.hlabel{display:none!important}}
 @media (max-width:700px){.quick .qa{flex-direction:row;align-items:center;gap:10px;padding:12px}.quick .qa .ic{width:38px;height:38px}}
+/* QUICK-3 (Shakeel 2026-11-15): Contact card removed, 3 cards in one line */
+.quick{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+@media (max-width:700px){.quick{gap:8px}.quick .qa{flex-direction:column!important;align-items:center!important;text-align:center;gap:6px!important;padding:10px 6px!important}.quick .qa .ic{width:36px!important;height:36px!important}.quick .qa .ic svg{width:20px;height:20px}.quick .qa b{font-size:14px;line-height:1.25}.quick .qa small{font-size:11.5px;line-height:1.3}}
+@media (max-width:359px){.quick .qa b{font-size:13px}.quick .qa small{font-size:11px}}
 .tut-on form.nf .hint{color:var(--mut)}
 /* v6: announcements bar, install card, A+ */
 .annbar{background:var(--gold);color:#1d1600;border-bottom:1px solid rgba(0,0,0,.08)}
@@ -1313,7 +1317,6 @@ function vHome() {
       <a class="qa lift" href="#notes"><span class="ic">${svg('notes')}</span><span style="min-width:0"><b>${t('notes')}</b><small>${COUNTS.total.files} ${t('files')}</small></span></a>
       <a class="qa lift" href="#weekly"><span class="ic">${svg('tests')}</span><span style="min-width:0"><b>${t('weeklyTitle')}</b><small>${t('qaTest')}</small></span></a>
       <a class="qa lift" href="#papers"><span class="ic">${svg('papers')}</span><span style="min-width:0"><b>${t('papers')}</b><small>${t('qaSyl')}</small></span></a>
-      <a class="qa lift" href="#contact"><span class="ic">${svg('contact')}</span><span style="min-width:0"><b>${t('contact')}</b><small>0314-6011672</small></span></a>
     </nav>
     <div id="gres" style="margin-top:16px">${searchAll(hq)}</div>
     ${myFiles()}
