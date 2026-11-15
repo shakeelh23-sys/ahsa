@@ -1357,7 +1357,7 @@ function vHome() {
     <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2>${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
     ${classCards()}
   </div></section>
-  <div class="wrap"><div class="stats">
+  <div class="wrap"><h2 class="sth" lang="ur" dir="rtl">📊 ہمارا مفت مواد ایک نظر میں</h2><div class="stats">
     <div class="stat"><b class="count" data-to="${COUNTS.total.mcq}">${COUNTS.total.mcq}</b><span>${t('sMcq')}</span></div>
     <div class="stat"><b class="count" data-to="${COUNTS.total.sq}">${COUNTS.total.sq}</b><span>${t('sSq')}</span></div>
     <div class="stat"><b class="count" data-to="${COUNTS.total.lq}">${COUNTS.total.lq}</b><span>${t('sLq')}</span></div>
@@ -2037,6 +2037,12 @@ body:has(#helpFab[aria-expanded="true"]) .afab{opacity:0;pointer-events:none}
 </style>
 <style>/* ONE-SHARE: single Share button beside "Help a friend study for free" */
 .shtxt .shbig{flex:none;margin-inline-start:auto;height:48px;padding:0 18px;border-radius:14px;font-size:16px;gap:8px}.shtxt .shbig svg{width:22px;height:22px}
+</style>
+<style>/* STATS-HEAD */
+.sth{font:400 22px/1.9 var(--f-ur);text-align:center;margin:26px 0 6px;color:var(--ink)}
+.sth+.stats{margin-top:0!important}
+@media (max-width:700px){.sth{font-size:19px;margin-top:-6px}}
+.sth{margin-top:-4px}
 </style>
 <button class="hfab" id="helpFab" type="button" aria-expanded="false" aria-controls="helpPanel" aria-label="سوال جواب · Q&amp;A">
   <span class="hq hqt" aria-hidden="true">Q&amp;A</span>
