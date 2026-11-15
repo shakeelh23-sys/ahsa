@@ -757,7 +757,7 @@ html[lang="ur"] .tsh b{font:700 17px/1.9 var(--f-ur)}
 .tsf button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:999px;padding:5px 14px;font:700 14px/1.3 var(--f-body);cursor:pointer}
 html[lang="ur"] .tsf button{font:400 14px/1.8 var(--f-ur)}
 .tsf button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#1d1600}
-.ttrack{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.ttrack{touch-action:pan-x pan-y;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .ttrack::-webkit-scrollbar{display:none}
 .tsl{text-align:start;flex:0 0 100%;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px;padding:12px 14px;border-radius:16px;background:var(--card);color:var(--ink);min-width:0;box-shadow:0 8px 24px rgba(0,0,0,.18)}
 @media (min-width:640px){.tsl{flex-basis:calc(50% - 5px)}}
@@ -1657,6 +1657,15 @@ function featShow() {
     ${slideDots('fDots', F.length)}</div>`;
 }
 const SLT = {};
+/* only a real sideways gesture on a slideshow pauses it; vertical page scrolling never does (Shakeel 2026-11-15) */
+function sideHold(tr, fn) {
+  let x0 = null, y0 = 0, done = false;
+  tr.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; done = false; }, {passive: true});
+  tr.addEventListener('touchmove', e => { if (x0 === null || done) return; const dx = Math.abs(e.touches[0].clientX - x0), dy = Math.abs(e.touches[0].clientY - y0); if (dx > 12 && dx > dy * 1.3) { done = true; fn(); } else if (dy > 12) x0 = null; }, {passive: true});
+  tr.addEventListener('wheel', e => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) fn(); }, {passive: true});
+  tr.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') fn(); }, {passive: true});
+  tr.addEventListener('slidehold', fn);
+}
 function autoSlide(tid, did, ms, startAt) {
   clearInterval(SLT[tid]); const tr = document.getElementById(tid); if (!tr) return;
   const n = +tr.dataset.n; if (!n) return; let hold = 0;
@@ -1668,7 +1677,7 @@ function autoSlide(tid, did, ms, startAt) {
   const dots = () => document.querySelectorAll('#' + did + ' button');
   const settle = () => { const k = idx(); if (k >= n) jump((k - n) * step()); dots().forEach((d, j) => d.toggleAttribute('aria-current', j === k % n)); };
   tr.addEventListener('scroll', () => { clearTimeout(tr._d); tr._d = setTimeout(settle, 140); }, {passive: true});
-  ['pointerdown', 'touchstart', 'wheel', 'focusin'].forEach(ev => tr.addEventListener(ev, () => { hold = Date.now() + 9000; }, {passive: true}));
+  sideHold(tr, () => { hold = Date.now() + 9000; });
   const dz = document.getElementById(did); if (dz) dz.onclick = e => { const b = e.target.closest('button[data-si]'); if (!b) return; hold = Date.now() + 9000; const k = idx() % n, j = +b.dataset.si; if (j < k) jump(k * step()); go(j < k ? n + j : j); };
   if (startAt > 0) { jump(startAt * step()); hold = Date.now() + 9000; settle(); }
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1694,7 +1703,7 @@ function tsInit() {
   const go = i => tr.scrollTo({left: i * step(), behavior: 'smooth'});
   const settle = () => { const k = idx(); if (n > 1 && k >= n) jump((k - n) * step()); document.querySelectorAll('#tDots button').forEach((d, j) => d.toggleAttribute('aria-current', j === k % n)); };
   tr.addEventListener('scroll', () => { clearTimeout(tr._d); tr._d = setTimeout(settle, 140); }, {passive: true});
-  ['pointerdown', 'touchstart', 'wheel'].forEach(ev => tr.addEventListener(ev, () => { tsHold = Date.now() + 8000; }, {passive: true}));
+  sideHold(tr, () => { tsHold = Date.now() + 8000; });
   const dz = document.getElementById('tDots'); if (dz) dz.onclick = e => { const b = e.target.closest('button[data-td]'); if (!b) return; tsHold = Date.now() + 8000; const k = idx() % n, j = +b.dataset.td; if (j < k) jump(k * step()); go(j < k ? n + j : j); };
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || n < 2) return;
   tsTimer = setInterval(() => { if (!document.getElementById('tTrack')) { clearInterval(tsTimer); return; } if (document.hidden || Date.now() < tsHold) return; go(idx() + 1); }, 3500);
@@ -2135,7 +2144,7 @@ function dqStart() {
   dqTimer = setInterval(() => { const w = document.querySelector('.dqshow'); if (!w || document.hidden || Date.now() < dqHold) return;
     const r = w.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; dqGo(1, true); }, 7000);
 }
-document.addEventListener('pointerdown', e => { if (e.target.closest && e.target.closest('.dqshow')) dqHold = Date.now() + 15000; }, true);
+document.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' && e.target.closest && e.target.closest('.dqshow')) dqHold = Date.now() + 15000; }, true);
 document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('.dqshow [data-dq], .dqshow [data-pc]'); if (b) dqHold = Date.now() + (b.dataset.dq ? 12000 : 20000); }, true);
 (() => { let x0 = null, y0 = 0; document.addEventListener('touchstart', e => { const w = e.target.closest && e.target.closest('.dqshow'); if (!w || e.target.closest('.chips')) { x0 = null; return; } x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive: true});
   document.addEventListener('touchend', e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) dqGo(dx < 0 ? 1 : -1, false); }, {passive: true}); })();
@@ -2192,7 +2201,7 @@ html .adc.adban .adbg{position:absolute;inset:-20px;background-size:cover;backgr
 <script>/* SLIDE-ARROWS */
 document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('button.sarr'); if (!b) return;
   const tr = document.getElementById(b.dataset.tr); if (!tr || tr.children.length < 2) return;
-  tr.dispatchEvent(new Event('wheel'));
+  tr.dispatchEvent(new Event('slidehold'));
   const n = +tr.dataset.n || tr.children.length, st = Math.abs(tr.children[1].offsetLeft - tr.children[0].offsetLeft) || tr.clientWidth;
   const sg = getComputedStyle(tr).direction === 'rtl' ? -1 : 1, d = +b.dataset.arr;
   let k = Math.round(Math.abs(tr.scrollLeft) / st);
