@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400&display=swap&text=%28%29%3A%D8%8C%D8%A6%D8%A7%D8%A8%D8%AA%D8%AC%D8%AD%D8%AE%D8%AF%D8%B1%D8%B2%D8%B3%D8%B4%D8%B7%D9%81%D9%82%D9%84%D9%85%D9%86%D9%88%D9%B9%D9%BE%DA%86%DA%88%DA%A9%DA%AF%DA%BA%DA%BE%DB%81%DB%8C%DB%92%DB%94">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400&display=swap&text=%28%29%D8%8C%D8%9F%D8%A2%D8%A6%D8%A7%D8%A8%D8%AA%D8%AB%D8%AC%D8%AD%D8%AE%D8%AF%D8%B1%D8%B2%D8%B3%D8%B4%D8%B5%D8%B7%D8%B8%D8%B9%D9%81%D9%82%D9%84%D9%85%D9%86%D9%88%D9%8B%D9%8F%D9%B9%D9%BE%DA%86%DA%88%DA%A9%DA%AF%DA%BA%DA%BE%DB%81%DB%8C%DB%92%DB%94">
 <style>
 [hidden]{display:none!important}img{max-width:100%}
 /* Layout: sticky top bar + navy hero band; content in a 1080px column; on phones the nav moves to an app-style bottom tab bar. */
@@ -674,6 +674,12 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .swap>.aur{opacity:0;visibility:hidden;text-align:right;font-family:var(--f-ur)}
 .swap.u>.aen{opacity:0;visibility:hidden}.swap.u>.aur{opacity:1;visibility:visible}
 .swap .aur b{font:400 17px/1.9 var(--f-ur)!important}.swap .aur small,.swap .aur p{font:400 12.5px/1.95 var(--f-ur)!important}
+/* ADV-UR: Advertise page in Urdu (RTL) */
+.urpg,.urpg h2,.urpg h3,.urpg label,.urpg .kick,.urpg p,.urpg li,.urpg .btn span,.urpg .hint,.urpg .vnote{font-family:var(--f-ur)!important;font-weight:400!important;letter-spacing:0!important;text-transform:none!important}
+.urpg h2{line-height:1.9}.urpg p,.urpg li,.urpg label,.urpg .hint,.urpg .vnote{line-height:2.1}
+.urpg textarea::placeholder{font-family:var(--f-ur);line-height:2}
+.urpg .adsg p{font-family:var(--f-body)!important;line-height:1.4!important}.urpg .adsg .aur p{font-family:var(--f-ur)!important;line-height:1.95!important}
+#toast,.toast{font-family:var(--f-body),var(--f-ur)}
 /* TUTOR-REG-OFF (Shakeel, 2026-11-15): "Register as Tutor" hidden for now. Delete this one line to bring it back everywhere. */
 a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
@@ -1674,7 +1680,7 @@ function adCard(x) { const href = x.link || (x.wa ? 'https://wa.me/' + x.wa : ''
   const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}${x.titleUr ? `<div class="swap" style="flex:1;min-width:0">${en}<div class="aur" lang="ur" dir="rtl"><span class="adtag">اشتہار</span><b>${esc(x.titleUr)}</b><p>${esc(x.textUr || '')}</p></div></div>` : en}`;
   return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }
 const adsHomeInner = () => ADS.length ? slideBlock('ad', ADS.slice(0, ADS_HOME_MAX).map(adCard), 'adsT') : '';
-const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">Current ads</h2></div><div class="adsg">${ADS.map(adCard).join('')}</div>` : '';
+const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">موجودہ اشتہارات</h2></div><div class="adsg" dir="ltr" lang="en">${ADS.map(adCard).join('')}</div>` : '';
 function adsHome() {
   return `<div id="adsHome">${adsHomeInner()}</div>
   <a class="adstrip lift" href="#advertise"><span class="ic">📢</span><span class="tx swap"><span class="aen"><b>Advertise with us</b><small>Put your shop, school or business in front of students and parents of Mianwali.</small></span><span class="aur" lang="ur" dir="rtl"><b>ہمارے ساتھ اشتہار لگائیں</b><small>اپنی دکان، اسکول یا کاروبار میانوالی کے طلبہ اور والدین تک پہنچائیں۔</small></span></span><span class="go" aria-hidden="true">›</span></a>`;
@@ -1685,21 +1691,21 @@ fetch('ads.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(j 
   const a = document.getElementById('adsAll'); if (a) a.innerHTML = adsAllInner();
 }).catch(() => {});
 function vAdv() {
-  return `<section><div class="wrap view">
-    <div class="sh"><div><div class="kick">📢 Advertisement</div><h2>Advertise on our website</h2><p>Students and parents from Dillewali and Mianwali visit this website every day for notes and tests. Show your shop, school, book store or business here.</p></div></div>
+  return `<section class="urpg" lang="ur" dir="rtl"><div class="wrap view">
+    <div class="sh"><div><div class="kick">📢 اشتہار</div><h2>ہماری ویب سائٹ پر اشتہار لگوائیں</h2><p>دلیوالی اور میانوالی کے طلبہ اور والدین روزانہ نوٹس اور ٹیسٹ کے لیے یہ ویب سائٹ دیکھتے ہیں۔ اپنی دکان، اسکول، بک سٹور یا کاروبار کا اشتہار یہاں لگوائیں۔</p></div></div>
     <div class="grid g2" style="align-items:start">
       <form class="card wa nf" id="adForm" novalidate>
         <div class="two">
-          <div><label for="adName">Your name${reqMark()}</label><input id="adName" autocomplete="name" required></div>
-          <div><label for="adBiz">Business / shop name${reqMark()}</label><input id="adBiz" required></div>
+          <div><label for="adName">آپ کا نام${reqMark()}</label><input id="adName" autocomplete="name" required></div>
+          <div><label for="adBiz">دکان یا کاروبار کا نام${reqMark()}</label><input id="adBiz" required></div>
         </div>
-        <label for="adPhone">Phone / WhatsApp${reqMark()}</label><input id="adPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="03xx-xxxxxxx" required>
-        <label for="adText">What should the ad say?${reqMark()}</label><textarea id="adText" rows="4" placeholder="e.g. New books and stationery at 10% off, Main Bazar Dillewali" required></textarea>
-        <div class="cta" style="margin-top:14px"><button class="btn wa" type="submit">${WA}Send on WhatsApp</button></div>
-        <p class="hint">The form opens WhatsApp with your details. You can send a picture or logo for the ad in the same chat.</p>
+        <label for="adPhone">فون / واٹس ایپ نمبر${reqMark()}</label><input id="adPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="03xx-xxxxxxx" dir="ltr" required>
+        <label for="adText">اشتہار میں کیا لکھا جائے؟${reqMark()}</label><textarea id="adText" rows="4" placeholder="مثلاً: نئی کتابیں اور سٹیشنری، طلبہ کے لیے رعایت، مین بازار دلیوالی" required></textarea>
+        <div class="cta" style="margin-top:14px"><button class="btn wa" type="submit">${WA}<span>واٹس ایپ پر بھیجیں</span></button></div>
+        <p class="hint">فارم بھیجنے پر واٹس ایپ کھل جائے گا۔ اشتہار کی تصویر یا لوگو اسی چیٹ میں بھیج دیں۔</p>
       </form>
-      <div class="card"><h3>How it works</h3><ol class="reg-steps"><li>Fill in the form and send it on WhatsApp.</li><li>The academy contacts you to discuss the ad.</li><li>Your ad goes live on the website after approval.</li></ol>
-        <div class="vnote"><span class="i">✅</span><span>Only suitable, family-friendly ads are accepted.</span></div></div>
+      <div class="card"><h3>طریقہ کار</h3><ol class="reg-steps"><li>فارم بھر کر واٹس ایپ پر بھیجیں۔</li><li>اکیڈمی آپ سے رابطہ کر کے اشتہار کی تفصیل طے کرے گی۔</li><li>منظوری کے بعد آپ کا اشتہار ویب سائٹ پر لگ جائے گا۔</li></ol>
+        <div class="vnote"><span class="i">✅</span><span>صرف مناسب اور گھریلو ماحول کے مطابق اشتہارات قبول کیے جاتے ہیں۔</span></div></div>
     </div>
     <div id="adsAll">${adsAllInner()}</div>
   </div></section>`;
@@ -1707,9 +1713,9 @@ function vAdv() {
 document.addEventListener('submit', e => {
   const f = e.target; if (f.id !== 'adForm') return; e.preventDefault();
   const v = id => document.getElementById(id).value.trim();
-  const lab = {adName: 'Your name', adBiz: 'Business name', adPhone: 'Phone', adText: 'Ad details'};
-  for (const id of ['adName', 'adBiz', 'adPhone', 'adText']) { if (!v(id)) { document.getElementById(id).focus(); toast('Please fill: ' + lab[id]); return; } }
-  openWA(['Assalam o Alaikum Sir! I want to advertise on the AHSA website.', '', 'Name: ' + v('adName'), 'Business: ' + v('adBiz'), 'Phone: ' + v('adPhone'), 'Ad details: ' + v('adText')].join('\n'));
+  const lab = {adName: 'آپ کا نام', adBiz: 'دکان یا کاروبار کا نام', adPhone: 'فون', adText: 'اشتہار کی تفصیل'};
+  for (const id of ['adName', 'adBiz', 'adPhone', 'adText']) { if (!v(id)) { document.getElementById(id).focus(); toast('براہ کرم یہ خانہ پُر کریں: ' + lab[id]); return; } }
+  openWA(['السلام علیکم سر! میں الحسن سائنس اکیڈمی کی ویب سائٹ پر اشتہار لگوانا چاہتا ہوں۔', '', 'نام: ' + v('adName'), 'کاروبار: ' + v('adBiz'), 'فون: ' + v('adPhone'), 'اشتہار کی تفصیل: ' + v('adText')].join('\n'));
 });
 function reqMark() { return ' <span class="req">*</span>'; }
 function openWA(txt) { const a = document.createElement('a'); a.href = 'https://wa.me/' + ACADEMY.wa + '?text=' + encodeURIComponent(txt); a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); }
@@ -1899,6 +1905,11 @@ function loadPool() {
   document.head.appendChild(s);
 }
 window.addEventListener('hashchange', route);
+document.addEventListener('click', e => { if (!e.target.closest('#aFab')) return; e.preventDefault();
+  const go = () => { const t = document.querySelector('.adstrip'); if (!t) return; const box = (document.getElementById('adsHome') || t).closest('section') || t;
+    box.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center'}); };
+  if (view !== 'home') { location.hash = '#home'; setTimeout(go, 350); } else go(); });
+
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => document.querySelectorAll('.swap').forEach(e => e.classList.toggle('u')), 4000);
 
 window.addEventListener('hashchange', () => { try { if (window.goatcounter && goatcounter.count) goatcounter.count({path: location.pathname + location.hash.split('?')[0]}); } catch (e) {} });
@@ -1997,7 +2008,7 @@ body:has(#helpFab[aria-expanded="true"]) .afab{opacity:0;pointer-events:none}
   <svg class="hx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
 </button>
 <span class="hlabel" id="helpLabel" lang="ur">سوال پوچھیں</span>
-<a class="afab" id="aFab" href="#advertise" aria-label="Advertise · اشتہار"><span lang="ur">اشتہار</span></a>
+<a class="afab" id="aFab" href="#home" aria-label="Advertise · اشتہار"><span lang="ur">اشتہار</span></a>
 <button class="cfab" id="cFab" type="button" aria-label="Contact Us · رابطہ کریں"><span lang="ur">رابطہ کریں</span></button>
 <div class="hpanel" id="helpPanel" role="dialog" aria-label="AHSA مدد" lang="ur" hidden>
   <div class="hhead">
