@@ -1726,7 +1726,7 @@ const STUDENTS9 = [[1,"Muhammad Hassan Attari"],[2,"Muhammad Mushtaq Ul Hassanai
 const STUDENTS_EX = [['arslan','Muhammad Arslan'],['asad','Muhammad Asad Hussain'],['zain','Zain ul Abideen Shah'],['shazil','Shazil Mehmood'],['shahmeer','Muhammad Shahmeer Ali']];
 const STUDENTS10 = [[2,"Mughees Mahmood"],[3,"Amir Hamza"],[4,"Abdul Moiz Shah"],[5,"Muhammad Saad Hanif"],[6,"Saim Ahmed"],[7,"Muhammad Usman Ghani"],[8,"Hamza Rauf"],[9,"Moiz Hassan"],[10,"Malik Muhammad Arslan"],[11,"Muhammad Ahmed Raza"],[13,"Muhammad Nasrullah"],[14,"Turab Ali"],[15,"Hamza Nousher"],[17,"Muhammad Faizan Khan"],[18,"Muhammad Saqib"],[20,"Ali Raza"],[21,"Faizan Ali"],[22,"Muhammad Mohsin"],[23,"Saim Ali"],[24,"Muhammad Saadein Ali"],[25,"Irfan Haider"],[26,"Danyal Alhadi"],[27,"Mian Ali Hassan Shah"],[28,"Heryson"],[29,"Hamza Bilal"],[30,"Muhammad Younas Khan"],[31,"Muhammad Taha"],[32,"Mazhar Ali Khan"],[33,"Aziz ur Rehman"]];
 function studentsShow() {
-  const STU_SHOW = [...STUDENTS9.map(x => [...x, 'c9']), ...STUDENTS10.map(x => [...x, 'c10']), ...STUDENTS_EX.map(x => [x[0], x[1], 'ex'])];
+  const STU_SHOW = [...STUDENTS_EX.map(x => [x[0], x[1], 'ex']), ...STUDENTS10.map(x => [...x, 'c10']), ...STUDENTS9.map(x => [...x, 'c9'])];
   if (!STU_SHOW.length) return '';
   const card = ([r, n, pre]) => `<div class="stu"><img src="assets/students/${pre}-${typeof r === 'number' ? String(r).padStart(2, '0') : r}.webp" alt="${esc(n)}" width="90" height="90" loading="lazy" decoding="async"><b>${esc(n)}</b></div>`;
   return `<h2 class="mph mpe stuh">Our Students</h2>${slideBlock('stu', STU_SHOW.map(card), 'stuT')}`;
