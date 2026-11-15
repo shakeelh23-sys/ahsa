@@ -1,5 +1,5 @@
 {
- "_help": "Approved ads only (Shakeel approves each one). Home slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, titleUr/textUr (optional Urdu; letters must be in the Noto Nastaliq text= subset in index.html), img (assets/ads/x.webp), phone (advertiser WhatsApp, e.g. 03001234567; click opens WhatsApp to THIS number with a pre-filled message; if missing, goes to the academy WhatsApp), link (optional website instead of WhatsApp), on (false = hide).",
+ "_help": "Approved ads only (Shakeel approves each one). Home slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, titleUr/textUr (Urdu; ALL ads are shown in Urdu only (Shakeel 2026-11-15); letters must be in the Noto Nastaliq text= subset in index.html), img (assets/ads/x.webp), phone (advertiser WhatsApp, e.g. 03001234567; click opens WhatsApp to THIS number with a pre-filled message; if missing, goes to the academy WhatsApp), link (optional website instead of WhatsApp), on (false = hide). sample:true shows the label نمونہ.",
  "ads": [
   {
    "title": "Tauqeer Plastic Store",
@@ -9,9 +9,12 @@
    "textUr": "شاپرز (پلاسٹک بیگ)، ہر سائز کے کھلونے اور ڈسپوزیبل سامان دستیاب ہے۔ ردی بھی خریدی جاتی ہے۔ پروپرائٹر: ملک فاروق حسن پوار"
   },
   {
-   "title": "SAMPLE 1: Al Noor Book Depot",
+   "title": "SAMPLE: Al Noor Book Depot",
    "text": "New books & stationery, 10% off for students",
-   "img": "assets/ads/s1.webp"
+   "img": "assets/ads/s1.webp",
+   "titleUr": "النور بک ڈپو",
+   "textUr": "نئی کتابیں، کاپیاں اور سٹیشنری۔ طلبہ کے لیے خصوصی رعایت۔ مین بازار دلیوالی",
+   "sample": true
   }
  ]
 }

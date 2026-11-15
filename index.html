@@ -680,6 +680,12 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .urpg textarea::placeholder{font-family:var(--f-ur);line-height:2}
 .urpg .adsg p{font-family:var(--f-body)!important;line-height:1.4!important}.urpg .adsg .aur p{font-family:var(--f-ur)!important;line-height:1.95!important}
 #toast,.toast{font-family:var(--f-body),var(--f-ur)}
+/* ADS-UR-ONLY: ad cards + Advertise card Urdu only (Shakeel 2026-11-15) */
+.adc,.adstrip{direction:rtl}.adc .aur{flex:1;min-width:0;text-align:right}
+.adc .aur .adtag{font:400 12px/1.6 var(--f-ur);letter-spacing:0;text-transform:none;padding:2px 8px}
+.adc .aur b{font:400 18px/1.9 var(--f-ur)}.adc .aur p{font:400 13px/2 var(--f-ur)!important;margin:0}
+.adstrip .aur{text-align:right}.adstrip .aur b{font:400 17px/1.9 var(--f-ur)}.adstrip .aur small{font:400 12.5px/1.95 var(--f-ur)}
+.adstrip .go{transform:scaleX(-1)}
 /* TUTOR-REG-OFF (Shakeel, 2026-11-15): "Register as Tutor" hidden for now. Delete this one line to bring it back everywhere. */
 a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
@@ -1679,14 +1685,13 @@ const adWa = x => { let n = String(x.phone || x.wa || '').replace(/\D/g, ''); if
   const msg = n === ACADEMY.wa ? `السلام علیکم! میں «${x.titleUr || x.title}» کے اشتہار کے بارے میں معلومات چاہتا ہوں۔ (AHSA ویب سائٹ)` : `السلام علیکم! میں نے آپ کا اشتہار «${x.titleUr || x.title}» الحسن سائنس اکیڈمی کی ویب سائٹ پر دیکھا ہے۔`;
   return 'https://wa.me/' + n + '?text=' + encodeURIComponent(msg); };
 function adCard(x) { const href = x.link || adWa(x);
-  const en = `<div class="aen"><span class="adtag">Ad</span><b>${esc(x.title)}</b><p>${esc(x.text || '')}</p></div>`;
-  const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}${x.titleUr ? `<div class="swap" style="flex:1;min-width:0">${en}<div class="aur" lang="ur" dir="rtl"><span class="adtag">اشتہار</span><b>${esc(x.titleUr)}</b><p>${esc(x.textUr || '')}</p></div></div>` : en}`;
+  const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}<div class="aur" lang="ur" dir="rtl"><span class="adtag">${x.sample ? 'نمونہ' : 'اشتہار'}</span><b>${esc(x.titleUr || x.title)}</b><p>${esc(x.textUr || x.text || '')}</p></div>`;
   return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }
 const adsHomeInner = () => ADS.length ? slideBlock('ad', ADS.slice(0, ADS_HOME_MAX).map(adCard), 'adsT') : '';
 const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">موجودہ اشتہارات</h2></div><div class="adsg" dir="ltr" lang="en">${ADS.map(adCard).join('')}</div>` : '';
 function adsHome() {
   return `<div id="adsHome">${adsHomeInner()}</div>
-  <a class="adstrip lift" href="#advertise"><span class="ic">📢</span><span class="tx swap"><span class="aen"><b>Advertise with us</b><small>Put your shop, school or business in front of students and parents of Mianwali.</small></span><span class="aur" lang="ur" dir="rtl"><b>ہمارے ساتھ اشتہار لگائیں</b><small>اپنی دکان، اسکول یا کاروبار میانوالی کے طلبہ اور والدین تک پہنچائیں۔</small></span></span><span class="go" aria-hidden="true">›</span></a>`;
+  <a class="adstrip lift" href="#advertise"><span class="ic">📢</span><span class="tx aur" lang="ur" dir="rtl"><b>ہمارے ساتھ اشتہار لگائیں</b><small>اپنی دکان، اسکول یا کاروبار میانوالی کے طلبہ اور والدین تک پہنچائیں۔</small></span><span class="go" aria-hidden="true">›</span></a>`;
 }
 fetch('ads.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(j => {
   ADS = (j && Array.isArray(j.ads) ? j.ads : []).filter(x => x && x.title && x.on !== false); if (!ADS.length) return;
