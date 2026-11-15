@@ -542,6 +542,8 @@ html[lang="ur"] .mini-steps li{font-weight:400}
 .apply-on{background:linear-gradient(135deg,#0b3d91,#082c6c 70%)}
 form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px color-mix(in srgb,var(--navy) 22%,transparent)}
 #needBox,#applyBox,#tutReg{scroll-margin-top:84px}
+/* TUTOR-REG-OFF (Shakeel, 2026-11-15): "Register as Tutor" hidden for now. Delete this one line to bring it back everywhere. */
+a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
 @media (max-width:560px){.hlabel{display:none!important}}
 @media (max-width:700px){.quick .qa{flex-direction:row;align-items:center;gap:10px;padding:12px}.quick .qa .ic{width:38px;height:38px}}
