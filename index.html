@@ -591,11 +591,11 @@ html[lang="ur"] .tsf button{font:400 14px/1.8 var(--f-ur)}
 .tsl img,.tsl .ini{width:64px;height:64px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;flex:none;background:var(--soft)}
 .tsl .ini{display:grid;place-items:center;font:800 20px/1 var(--f-head);color:var(--navy)}
 .tsl .tt{min-width:0;display:flex;flex-direction:column}
-.tsl b{font:700 17px/1.35 var(--f-head);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tsl b{font:700 17px/1.35 var(--f-head);overflow-wrap:break-word}
 .tsl small{color:var(--mut);font-size:13.5px}
 .tsl .ti{display:flex;flex-direction:column;gap:1px;font-size:14.5px;line-height:1.5;min-height:66px}
 .tsl .ti i{font-style:normal;color:var(--mut);font-weight:700}
-.tsl .r{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tsl .r{overflow-wrap:break-word}
 .tsl .btn{align-self:flex-start}
 html[lang="ur"] .tsl b{font:700 17px/1.9 var(--f-ur)}html[lang="ur"] .tsl small,html[lang="ur"] .tsl .ti{font:400 14px/1.9 var(--f-ur)}
 .tdots{display:flex;justify-content:center;gap:6px;margin-top:10px}
@@ -672,6 +672,7 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 .hero .cta.qb .btn:nth-child(3){background:linear-gradient(160deg,#fb923c,#c2410c)!important}
 .hero .cta.qb .btn:nth-child(4){background:linear-gradient(160deg,#a855f7,#6d28d9)!important}
 @media (max-width:700px){.hero .cta.qb{flex-direction:unset!important;width:100%;gap:6px;max-width:none}.hv2 .hero .cta.qb .btn{flex-direction:column;gap:2px;padding:7px 4px!important;font-size:13px!important;border-radius:14px}.hero .cta.qb .btn svg{width:20px;height:20px;margin:0}html[lang="ur"] .hero .cta.qb .btn span{font:400 13px/1.35 var(--f-ur)}}
+@media (max-width:700px){.hero .cta.qb .btn span{white-space:normal;text-align:center;line-height:1.15;overflow-wrap:anywhere}html[lang="ur"] .hero .cta.qb .btn span{line-height:1.45}.hero .cta.qb .btn{align-content:center}.hero .cta.qb .qs span{width:min-content;overflow-wrap:normal}}
 .instone{display:flex;width:100%;max-width:420px;margin:0 auto;justify-content:center}
 
 /* golden shine wave across the academy name (2026-11-15) */
@@ -738,7 +739,7 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
 <nav class="tabs" id="tabs" aria-label="Sections"></nav>
 <a class="fab" href="https://wa.me/923146011672" target="_blank" rel="noopener" aria-label="WhatsApp 03146011672"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
-<script src="tutors.js?v=41"></script>
+<script src="tutors.js?v=42"></script>
 <script>
 /* ===== Academy details: edit here. Items marked sample:true are placeholders until Shakeel sends the real details. ===== */
 const ACADEMY = {

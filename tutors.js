@@ -65,7 +65,7 @@ window.TUTORS = [
   },
   {
     name: 'Muhammad Umar Farooq',     nameUr: 'محمد عمر فاروق',
-    education: 'M.Phil Mathematics (University of Wah)',    educationUr: 'ایم فل ریاضی (یونیورسٹی آف واہ)',
+    education: 'M.Phil Mathematics (UOW)',    educationUr: 'ایم فل ریاضی (UOW)',
     subjects: 'Mathematics',
     subjectsUr: 'ریاضی',
     classes: '8 to 12',               classesUr: '8 تا 12',
