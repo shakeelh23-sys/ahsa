@@ -525,6 +525,7 @@ html[dir="rtl"] .act .go{transform:scaleX(-1)}
 .off .ic svg{width:24px;height:24px}
 .off h3{font-size:17.5px}
 .off p{font-size:15px;line-height:1.5}
+.otrack .off{min-height:100%}
 /* need-tutor / admission boxes */
 .tut-on.nfwrap,.tut-on:has(form.nf){align-items:start;padding:22px}
 .tut-on form.nf{background:var(--card);color:var(--ink);border:0;border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:block}
@@ -748,7 +749,7 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
       <p data-t="footAbout"></p>
     </div>
     <div class="fadm"><b data-t="joinTitle"></b><p class="num">0314-6011672</p><a class="btn gold sm" href="#apply"><span data-t="applyT"></span></a></div>
-    <div class="shtxt"><button type="button" class="shic" data-shareapp aria-label="Share the AHSA app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button><div><b data-sl="bandT"></b><p data-sl="bandS"></p></div></div>
+    <div class="shtxt"><button type="button" class="shic" data-share aria-label="Share website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button><div><b data-sl="bandT"></b><p data-sl="bandS"></p></div></div>
   </div>
   <div class="wrap fbar">
       <button class="btn gold sm ico" type="button" data-share aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span data-sl="share"></span></button>
@@ -1196,7 +1197,10 @@ function vHome() {
   </div></section>
   <section style="padding-top:0"><div class="wrap">
     <div class="sh"><div><div class="kick">AHSA · Dillewali</div><h2>${t('offT')}</h2><p>${t('offP')}</p></div></div>
-    <div class="offers">${[['layers','o1'],['notes','o2'],['tests','o3'],['about','o4'],['papers','o5'],['clock','o6']].map(([i, k]) => `<div class="card off lift"><span class="ic">${svg(i)}</span><div><h3>${t(k)}</h3><p>${t(k + 'p')}</p></div></div>`).join('')}<a class="card off lift owide" href="#need-tutor"><span class="ic">${svg('home')}</span><div><h3>${t('o7')}</h3><p>${t('o7p')}</p></div></a></div>
+    ${(() => { const O = [['layers','o1'],['notes','o2'],['tests','o3'],['about','o4'],['papers','o5'],['clock','o6']].map(([i, k]) => `<div class="card off csl"><span class="ic">${svg(i)}</span><div><h3>${t(k)}</h3><p>${t(k + 'p')}</p></div></div>`)
+      .concat([`<a class="card off csl" href="#need-tutor"><span class="ic">${svg('home')}</span><div><h3>${t('o7')}</h3><p>${t('o7p')}</p></div></a>`]);
+      const cl = O.map(h => h.replace(/^<(div|a) class="card off csl"/, '<$1 class="card off csl clone" inert aria-hidden="true"')).join('');
+      return `<div class="fshow"><div class="ttrack ftrack ctrack otrack" id="oTrack" data-n="${O.length}">${O.join('')}${cl}</div>${slideDots('oDots', O.length)}</div>`; })()}
   </div></section>
   <section style="padding-top:0"><div class="wrap ${RESULTS.length || REVIEWS.length ? 'grid g2' : ''}" style="align-items:start">
     <div><div class="sh"><h2>${t('annTitle')}</h2></div>${annList()}</div>
@@ -1574,7 +1578,7 @@ function render(scroll) {
   const app = document.getElementById('app');
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact}[view]();
   if (scroll) window.scrollTo(0, 0);
-  footInst(); if (view === 'home') { tsInit(); fsInit(); ccInit();  } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
+  footInst(); if (view === 'home') { tsInit(); fsInit(); ccInit(); autoSlide('oTrack', 'oDots', 4200);  } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.__counted = true;
     document.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
