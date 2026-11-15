@@ -1,0 +1,4 @@
+{
+  "_help": "Approved ads only (Shakeel approves each one). Home page slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, img (e.g. assets/ads/name.webp), link (website/Facebook) or wa (WhatsApp number like 923001234567), on (false = hide).",
+  "ads": []
+}

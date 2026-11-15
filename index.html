@@ -662,6 +662,7 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .adstrip .ic{font-size:24px;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--gold) 22%,var(--card));flex:none}
 .adstrip .tx{flex:1;min-width:0}.adstrip b{display:block;font:800 16px/1.3 var(--f-head)}.adstrip small{display:block;color:var(--mut);font-size:13px;line-height:1.4}
 .adstrip .go{font:700 24px/1 var(--f-body);color:var(--mut)}
+.ttrack.adsT{display:flex;margin:0 0 10px;padding:2px}#adsHome .fshow{margin-bottom:10px}
 .adsg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:10px}
 .adc{display:flex;gap:12px;align-items:center;padding:12px;border-radius:14px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--ink)}
 .adc img{width:72px;height:72px;object-fit:cover;border-radius:10px;flex:none}
@@ -1656,16 +1657,24 @@ function tsInit() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || n < 2) return;
   tsTimer = setInterval(() => { if (!document.getElementById('tTrack')) { clearInterval(tsTimer); return; } if (document.hidden || Date.now() < tsHold) return; go(idx() + 1); }, 3500);
 }
-/* ===== ADVERTISEMENT (Shakeel 2026-11-15). Add an ad ONLY after Shakeel approves it:
-   {title:'Business name', text:'One or two lines', img:'assets/ads/x.webp' (optional), link:'https://...' (optional), wa:'923xxxxxxxxx' (optional)} */
-const ADS = [];
+/* ===== ADVERTISEMENT (Shakeel 2026-11-15). Ads live in ads.json (add an ad ONLY after Shakeel approves it).
+   Home shows the first 10 ads as a slideshow; the Advertise page (#advertise) shows ALL ads. */
+let ADS = [];
+const ADS_HOME_MAX = 10;
 function adCard(x) { const href = x.link || (x.wa ? 'https://wa.me/' + x.wa : '');
   const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}<div><span class="adtag">Ad</span><b>${esc(x.title)}</b><p>${esc(x.text || '')}</p></div>`;
   return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }
+const adsHomeInner = () => ADS.length ? slideBlock('ad', ADS.slice(0, ADS_HOME_MAX).map(adCard), 'adsT') : '';
+const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">Current ads</h2></div><div class="adsg">${ADS.map(adCard).join('')}</div>` : '';
 function adsHome() {
-  return `${ADS.length ? `<div class="adsg">${ADS.slice(0, 2).map(adCard).join('')}</div>` : ''}
+  return `<div id="adsHome">${adsHomeInner()}</div>
   <a class="adstrip lift" href="#advertise"><span class="ic">📢</span><span class="tx"><b>Advertise with us</b><small>Put your shop, school or business in front of students and parents of Mianwali.</small></span><span class="go" aria-hidden="true">›</span></a>`;
 }
+fetch('ads.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(j => {
+  ADS = (j && Array.isArray(j.ads) ? j.ads : []).filter(x => x && x.title && x.on !== false); if (!ADS.length) return;
+  const h = document.getElementById('adsHome'); if (h) { h.innerHTML = adsHomeInner(); autoSlide('adT', 'adD', 4500); }
+  const a = document.getElementById('adsAll'); if (a) a.innerHTML = adsAllInner();
+}).catch(() => {});
 function vAdv() {
   return `<section><div class="wrap view">
     <div class="sh"><div><div class="kick">📢 Advertisement</div><h2>Advertise on our website</h2><p>Students and parents from Dillewali and Mianwali visit this website every day for notes and tests. Show your shop, school, book store or business here.</p></div></div>
@@ -1683,7 +1692,7 @@ function vAdv() {
       <div class="card"><h3>How it works</h3><ol class="reg-steps"><li>Fill in the form and send it on WhatsApp.</li><li>The academy contacts you to discuss the ad.</li><li>Your ad goes live on the website after approval.</li></ol>
         <div class="vnote"><span class="i">✅</span><span>Only suitable, family-friendly ads are accepted.</span></div></div>
     </div>
-    ${ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">Current ads</h2></div><div class="adsg">${ADS.map(adCard).join('')}</div>` : ''}
+    <div id="adsAll">${adsAllInner()}</div>
   </div></section>`;
 }
 document.addEventListener('submit', e => {
@@ -1742,7 +1751,7 @@ function render(scroll) {
   const app = document.getElementById('app');
   app.innerHTML = {home: vHome, notes: vNotes, tests: vTests, papers: vPapers, weekly: vWeekly, tutors: vTutors, about: vAbout, contact: vContact, advertise: vAdv}[view]();
   if (scroll) window.scrollTo(0, 0);
-  footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('oTrack', 'oDots', 4200); autoSlide('annT', 'annD', 5000); autoSlide('faqT', 'faqD', 5500);  } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
+  footInst(); if (view === 'home') { tsInit(); ccInit(); autoSlide('oTrack', 'oDots', 4200); autoSlide('annT', 'annD', 5000); autoSlide('faqT', 'faqD', 5500); autoSlide('adT', 'adD', 4500);  } else { clearInterval(tsTimer); Object.values(SLT).forEach(clearInterval); }
   if (view === 'home' && !window.__counted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.__counted = true;
     const runCount = () => document.querySelectorAll('.count').forEach(el => { const to = +el.dataset.to.replace(/,/g, ''), t0 = performance.now();
