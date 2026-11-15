@@ -688,6 +688,10 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .adstrip .go{transform:scaleX(-1)}
 .adpics{display:flex;gap:6px;margin-top:6px}.adpics img{width:64px;height:64px;border-radius:10px;flex:none;object-fit:cover}
 @media (max-width:359px){.adpics img{width:54px;height:54px}}
+/* ADS-ONE: one full-width ad per slide on every screen */
+.ttrack.adsT .csl{flex:0 0 100%!important;max-width:100%}
+#adsHome .adc{padding:14px 16px;gap:16px}
+@media (min-width:700px){#adsHome .adc>img{width:120px;height:120px}#adsHome .adpics img{width:96px;height:96px}#adsHome .adc .aur b{font-size:24px}}
 /* TUTOR-REG-OFF (Shakeel, 2026-11-15): "Register as Tutor" hidden for now. Delete this one line to bring it back everywhere. */
 a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
