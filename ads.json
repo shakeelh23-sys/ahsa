@@ -1,12 +1,17 @@
 {
- "_help": "Approved ads only (Shakeel approves each one). Home slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, titleUr/textUr (Urdu; ALL ads are shown in Urdu only (Shakeel 2026-11-15); letters must be in the Noto Nastaliq text= subset in index.html), img (assets/ads/x.webp), phone (advertiser WhatsApp, e.g. 03001234567; click opens WhatsApp to THIS number with a pre-filled message; if missing, goes to the academy WhatsApp), link (optional website instead of WhatsApp), on (false = hide). sample:true shows the label نمونہ.",
+ "_help": "Approved ads only (Shakeel approves each one). Home slideshow shows the first 10; the Advertise page shows all. Fields: title (required), text, titleUr/textUr (Urdu; ALL ads are shown in Urdu only (Shakeel 2026-11-15); letters must be in the Noto Nastaliq text= subset in index.html), img (assets/ads/x.webp), phone (advertiser WhatsApp, e.g. 03001234567; click opens WhatsApp to THIS number with a pre-filled message; if missing, goes to the academy WhatsApp), link (optional website instead of WhatsApp), on (false = hide). sample:true shows the label نمونہ. pics: optional list of small product pictures shown under the text.",
  "ads": [
   {
    "title": "Tauqeer Plastic Store",
-   "text": "Shoppers (plastic bags), toys of every size and disposable items. We also buy raddi (scrap). Proprietor: Malik Farooq Hassan Pawar.",
+   "text": "Shopping bags, disposable items and toys available.",
    "img": "assets/ads/tauqeer-plastic.webp",
    "titleUr": "توقیر پلاسٹک سٹور",
-   "textUr": "شاپرز (پلاسٹک بیگ)، ہر سائز کے کھلونے اور ڈسپوزیبل سامان دستیاب ہے۔ ردی بھی خریدی جاتی ہے۔ پروپرائٹر: ملک فاروق حسن پوار"
+   "textUr": "شاپنگ بیگز، ڈسپوزیبل سامان اور کھلونے دستیاب ہیں۔",
+   "pics": [
+    "assets/ads/tauqeer-bags.webp",
+    "assets/ads/tauqeer-disposable.webp",
+    "assets/ads/tauqeer-toys.webp"
+   ]
   },
   {
    "title": "SAMPLE: Al Noor Book Depot",

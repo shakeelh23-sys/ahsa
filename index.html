@@ -686,6 +686,8 @@ form.wa input:focus,form.wa select:focus,form.wa textarea:focus{outline:none;bor
 .adc .aur b{font:400 18px/1.9 var(--f-ur)}.adc .aur p{font:400 13px/2 var(--f-ur)!important;margin:0}
 .adstrip .aur{text-align:right}.adstrip .aur b{font:400 17px/1.9 var(--f-ur)}.adstrip .aur small{font:400 12.5px/1.95 var(--f-ur)}
 .adstrip .go{transform:scaleX(-1)}
+.adpics{display:flex;gap:6px;margin-top:6px}.adpics img{width:64px;height:64px;border-radius:10px;flex:none;object-fit:cover}
+@media (max-width:359px){.adpics img{width:54px;height:54px}}
 /* TUTOR-REG-OFF (Shakeel, 2026-11-15): "Register as Tutor" hidden for now. Delete this one line to bring it back everywhere. */
 a[href="#tutors-register"],#tutReg,#tutReg+.grid{display:none!important}
 /* tidier mobile: hide the floating help label on small phones */
@@ -1685,7 +1687,7 @@ const adWa = x => { let n = String(x.phone || x.wa || '').replace(/\D/g, ''); if
   const msg = n === ACADEMY.wa ? `السلام علیکم! میں «${x.titleUr || x.title}» کے اشتہار کے بارے میں معلومات چاہتا ہوں۔ (AHSA ویب سائٹ)` : `السلام علیکم! میں نے آپ کا اشتہار «${x.titleUr || x.title}» الحسن سائنس اکیڈمی کی ویب سائٹ پر دیکھا ہے۔`;
   return 'https://wa.me/' + n + '?text=' + encodeURIComponent(msg); };
 function adCard(x) { const href = x.link || adWa(x);
-  const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}<div class="aur" lang="ur" dir="rtl"><span class="adtag">${x.sample ? 'نمونہ' : 'اشتہار'}</span><b>${esc(x.titleUr || x.title)}</b><p>${esc(x.textUr || x.text || '')}</p></div>`;
+  const inner = `${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async">` : ''}<div class="aur" lang="ur" dir="rtl"><span class="adtag">${x.sample ? 'نمونہ' : 'اشتہار'}</span><b>${esc(x.titleUr || x.title)}</b><p>${esc(x.textUr || x.text || '')}</p>${(x.pics || []).length ? `<span class="adpics">${x.pics.map(u => `<img src="${esc(u)}" alt="" loading="lazy" decoding="async" width="64" height="64">`).join('')}</span>` : ''}</div>`;
   return href ? `<a class="adc" href="${esc(href)}" target="_blank" rel="noopener sponsored">${inner}</a>` : `<div class="adc">${inner}</div>`; }
 const adsHomeInner = () => ADS.length ? slideBlock('ad', ADS.slice(0, ADS_HOME_MAX).map(adCard), 'adsT') : '';
 const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">موجودہ اشتہارات</h2></div><div class="adsg" dir="ltr" lang="en">${ADS.map(adCard).join('')}</div>` : '';
