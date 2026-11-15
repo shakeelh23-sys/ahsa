@@ -84,6 +84,12 @@ window.TUTORS = [
     subjects: 'Mathematics',          subjectsUr: 'ریاضی',
     classes: '8 to 12',               classesUr: '8 تا 12',
     experience: '22 years',           experienceUr: '22 سال',
+    expDetail: ['14 years: Senior Mathematics Teacher, Government High Schools, Punjab',
+                '8 years: Mathematics Teacher, Pakistan Overseas Higher Secondary School, Dinga Road, Kharian, Gujrat',
+                'Exam Coordinator: exam planning, paper setting and assessment'],
+    expDetailUr: ['14 سال: سینئر ریاضی ٹیچر، گورنمنٹ ہائی اسکولز، پنجاب',
+                  '8 سال: ریاضی ٹیچر، پاکستان اوورسیز ہائیر سیکنڈری اسکول، ڈنگہ روڈ، کھاریاں، گجرات',
+                  'امتحانی کوآرڈینیٹر: امتحانات کی منصوبہ بندی، پیپر سیٹنگ اور جانچ'],
     area: 'Dillewali, Mianwali',      areaUr: 'دلیوالی، میانوالی',
     modes: ['online'],                platforms: '',
     photo: 'assets/tutors/shahzad-hassan.webp?v=1'
