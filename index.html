@@ -663,7 +663,7 @@ footer .fbar .btn svg{width:15px;height:15px}
 html[lang="ur"] footer .fbar .btn,html[lang="ur"] footer .fbar .btn [data-sl]{font:400 12.5px/1.6 var(--f-ur)}
 @media (min-width:1000px){footer .wrap.fbar{justify-content:center}}
 footer .fbar .lbs{display:none}
-footer .fbar .finst{background:linear-gradient(160deg,#ec4899,#be185d);color:#fff;border:0}
+footer .fbar .finst{background:linear-gradient(160deg,#ec4899,#be185d);color:#fff;border:0;gap:5px}footer .fbar .finst svg{width:15px;height:15px;flex:none}
 a.btn[href="#tutors-register"]{background:linear-gradient(160deg,#14b8a6,#0f766e)!important;color:#fff!important;border-color:transparent!important;box-shadow:0 4px 12px rgba(15,118,110,.3)}a.btn[href="#tutors-register"] svg{color:#fff}
 @media (max-width:370px){footer .wrap.fbar{gap:3px!important;padding-inline:4px!important}footer .fbar [data-shcopy]{display:none!important}footer .fbar .ico{width:31px!important;height:31px!important}footer .fbar .btn:not(.ico){padding:5px 7px!important;font-size:12px!important}}
 @media (max-width:700px){footer .wrap.fbar{gap:4px;justify-content:center;padding-inline:8px}footer .fbar .btn{padding:6px 9px;font-size:12.5px}footer .fbar .ico{width:34px;height:34px;padding:0;justify-content:center;border-radius:50%}footer .fbar .ico svg{width:17px;height:17px;margin:0}footer .fbar .ico .lbl,footer .fbar .ico [data-sl]{display:none}footer .fbar .lbl{display:none}footer .fbar .lbs{display:inline}footer .fbar a:not(.ico) .lbl{display:none}}
@@ -757,7 +757,7 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
       <a class="btn sm wa ico" href="https://wa.me/923146011672" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg><span class="lbl">WhatsApp</span></a>
         <a class="btn sm fb ico" href="https://www.facebook.com/share/1Hut4s8zxY/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v2H7v4h2v7h4v-7h3l1-4h-4V9a1 1 0 0 1 1-1Z"/></svg><span class="lbl">Facebook</span></a>
         <a class="btn sm map ico" href="https://maps.app.goo.gl/MLtLrsaFgS5ertMY9" target="_blank" rel="noopener" aria-label="Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="lbl">Google Maps</span></a>
-        <button class="btn sm ico finst" type="button" id="fInst" aria-label="Install App"></button>
+        <button class="btn sm finst" type="button" id="fInst" aria-label="Install App"></button>
         <a class="btn sm gold" href="#tutors" data-t="tutorsFoot"></a>
         <a class="btn sm line" href="#tutors-register"><span class="lbl" data-t="regFoot"></span><span class="lbs" data-t="regShort"></span></a>
   </div>
@@ -1649,9 +1649,9 @@ window.addEventListener('appinstalled', () => { window.__bip = null; window.__in
 /* ===== Install as app (Android: native prompt; iPhone: Share > Add to Home Screen; others: browser menu) ===== */
 const appIn = () => isStandalone() || !!window.__instd;
 function cfabTxt() { const c = document.getElementById('cFab'); if (c) c.firstChild.textContent = L('رابطہ کریں', 'Contact Us'); }
-function footInst() { cfabTxt(); const b = document.getElementById('fInst'); if (!b) return; const sh = appIn(), lb = sh ? L('ایپ شیئر کریں', 'Share App') : L('ایپ انسٹال کریں', 'Install App');
+function footInst() { cfabTxt(); const b = document.getElementById('fInst'); if (!b) return; const sh = appIn(), lb = sh ? L('ایپ شیئر کریں', 'Share App') : L('ایپ انسٹال کریں', 'Install App'), lh = sh ? L('ایپ شیئر<i class="fk"> کریں</i>', 'Share App') : L('ایپ انسٹال<i class="fk"> کریں</i>', 'Install App');
   b.classList.toggle('qi', !sh); b.toggleAttribute('data-shareapp', sh); b.setAttribute('aria-label', lb);
-  b.innerHTML = (sh ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>' : svg('dl')) + `<span class="lbl">${lb}</span>`; }
+  b.innerHTML = (sh ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>' : svg('dl')) + `<span class="flb">${lh}</span>`; }
 function isStandalone() { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }
 const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 function installCard() {
@@ -1759,6 +1759,23 @@ loadAnn(); loadPool();
 .hfoot svg{width:18px;height:18px}
 @media (max-width:820px){.hfab{bottom:calc(150px + env(safe-area-inset-bottom,0px))}.hlabel{bottom:calc(162px + env(safe-area-inset-bottom,0px))}.hpanel{bottom:calc(280px + env(safe-area-inset-bottom,0px));max-height:calc(100vh - 260px)}}
 @media (max-height:640px) and (max-width:820px){.hpanel{bottom:calc(76px + env(safe-area-inset-bottom,0px));max-height:calc(100vh - 100px)}}
+/* floating buttons (Shakeel 2026-11-15): 48px, order top-to-bottom Q&A, WhatsApp, Contact Us */
+.fab,.hfab,.cfab{width:48px!important;height:48px!important}
+.fab svg{width:24px!important;height:24px!important}.hfab .hqt{font-size:14px!important}.hfab svg{width:23px;height:23px}
+.cfab{font-size:10px!important}html[lang="ur"] .cfab{font-size:11px!important;line-height:1.4!important}.cfab span{width:40px!important}
+.cfab{bottom:calc(18px + env(safe-area-inset-bottom,0px))!important}
+.fab{bottom:calc(74px + env(safe-area-inset-bottom,0px))!important}
+.hfab{bottom:calc(130px + env(safe-area-inset-bottom,0px))!important}
+.hlabel{bottom:calc(140px + env(safe-area-inset-bottom,0px))!important;inset-inline-end:calc(max(16px,env(safe-area-inset-right,0px)) + 56px)!important}
+.hpanel{bottom:calc(188px + env(safe-area-inset-bottom,0px))!important}
+@media (max-width:820px){.cfab{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}.fab{bottom:calc(140px + env(safe-area-inset-bottom,0px))!important}.hfab{bottom:calc(196px + env(safe-area-inset-bottom,0px))!important}.hlabel{bottom:calc(206px + env(safe-area-inset-bottom,0px))!important}.hpanel{bottom:calc(254px + env(safe-area-inset-bottom,0px))!important}}
+@media (max-height:640px) and (max-width:820px){.hpanel{bottom:calc(76px + env(safe-area-inset-bottom,0px))!important}}
+footer .fbar .fk{font-style:normal}@media (max-width:370px){footer .fbar .fk{display:none}}
+.hlabel{display:none!important}
+/* footer buttons fill the whole line */
+footer .wrap.fbar>*{flex:1 1 auto!important;justify-content:center}
+footer .wrap.fbar .ico{width:auto!important;min-width:34px;border-radius:12px!important}
+@media (max-width:700px){footer .wrap.fbar>*{height:40px!important}}
 </style>
 <button class="hfab" id="helpFab" type="button" aria-expanded="false" aria-controls="helpPanel" aria-label="سوال جواب · Q&amp;A">
   <span class="hq hqt" aria-hidden="true">Q&amp;A</span>
