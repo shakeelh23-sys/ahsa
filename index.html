@@ -1364,14 +1364,8 @@ function vHome() {
     <div class="stat"><b class="count" data-to="${COUNTS.total.files}">${COUNTS.total.files}</b><span>${t('sFiles')}</span></div>
   </div></div>
   ${actionBand()}
-  <div class="wrap" style="margin-top:28px">
-    <label class="hsearch hs2">${svg('search')}<input id="gq" type="search" placeholder="${t('gsearchPh')}" value="${esc(hq)}" aria-label="${t('gsearchPh')}" autocomplete="off"></label>
-    <nav class="quick" aria-label="${t('quickTitle')}">
-      <a class="qa lift" href="#notes"><span class="ic">${svg('notes')}</span><span style="min-width:0"><b>${t('notes')}</b><small>${COUNTS.total.files} ${t('files')}</small></span></a>
-      <a class="qa lift" href="#weekly"><span class="ic">${svg('tests')}</span><span style="min-width:0"><b>${t('weeklyTitle')}</b><small>${t('qaTest')}</small></span></a>
-      <a class="qa lift" href="#papers"><span class="ic">${svg('papers')}</span><span style="min-width:0"><b>${t('papers')}</b><small>${t('qaSyl')}</small></span></a>
-    </nav>
-    <div id="gres" style="margin-top:16px">${searchAll(hq)}</div>
+  <div class="wrap">
+    <!-- QUICK-OFF 2026-11-15: home search box + Notes/Weekly test/Syllabus cards removed (header search remains) -->
     ${myFiles()}
   </div>
   <section><div class="wrap">
@@ -2073,6 +2067,12 @@ html footer .wrap.fbar .btn svg{width:17px!important;height:17px!important}
 .hero .cta.qb .qs2 .qs2t b{font-weight:800}
 .hero .cta.qb .qs2 .qs2t b:first-child{font-size:1.12em}
 </style>
+<style>/* HDR-AP (2026-11-15): A+ back in phone header; desktop: name left, gap, menu + buttons pushed right */
+@media (max-width:700px){.top #bigBtn{display:inline-flex!important;align-items:center;justify-content:center;padding:0 9px;font-size:14px}.top .tools{gap:6px}.srchp .sopts button:first-child{display:none}}
+@media (max-width:380px){html .brand b{font-size:15px!important}html .brand img{width:40px!important;height:40px!important}.top .tools .pill{min-width:0}.top #bigBtn{padding:0 7px;font-size:13px}}
+@media (max-width:345px){html .brand b{font-size:13.5px!important}html .brand img{width:34px!important;height:34px!important}html .brand{gap:6px!important}.top .tools{gap:4px}.top .tools .pill{width:38px;height:38px;padding:0!important}}
+@media (min-width:701px){.top #nav{margin-inline-start:auto}.top .wrap{gap:clamp(16px,2.5vw,40px)!important}}
+</style>
 <button class="hfab" id="helpFab" type="button" aria-expanded="false" aria-controls="helpPanel" aria-label="سوال جواب · Q&amp;A">
   <span class="hq hqt" aria-hidden="true">Q&amp;A</span>
   <svg class="hx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
@@ -2203,7 +2203,7 @@ html[lang="ur"] .pill.shp .shl{font:400 13px/1 var(--f-ur);padding-top:3px}
 @media (max-width:400px){.brand b{font-size:12.5px}.brand small{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top .wrap{gap:8px}.brand{gap:7px}}
 /* BRAND-1LINE (Shakeel 2026-11-15): "Al Hassan Science Academy" on one line, "AHSA · Dillewali" below */
 /* reverted 2026-11-15 v133: name back to multi-line (Shakeel); A+/theme stay in search panel on phones */
-@media (max-width:700px){.top #bigBtn,.top #themeBtn{display:none}.brand b{font-size:17px!important;line-height:1.12!important;max-width:none!important;white-space:normal!important}.brand small{font-size:11.5px!important;margin-top:2px}.brand img{width:46px!important;height:46px!important}.top .wrap{padding-block:8px}}
+@media (max-width:700px){.top #themeBtn{display:none}.brand b{font-size:17px!important;line-height:1.12!important;max-width:none!important;white-space:normal!important}.brand small{font-size:11.5px!important;margin-top:2px}.brand img{width:46px!important;height:46px!important}.top .wrap{padding-block:8px}}
 @media (min-width:701px){.pill.shp .shl{display:none}.pill.shp{padding:6px 9px}html .brand b{max-width:none!important;min-width:0!important;white-space:normal!important;line-height:1.08!important;font-size:clamp(17px,1.5vw,20px)!important}}
 @media (min-width:1201px){.nav a{padding:8px 10px}}
 .srchp .sopts{display:flex;gap:8px;margin-top:10px}.srchp .sopts button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:9px;font:700 14px/1.2 var(--f-body);cursor:pointer}
