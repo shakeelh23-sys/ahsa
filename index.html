@@ -148,9 +148,8 @@ html[lang="ur"] .kick{letter-spacing:0;text-transform:none;font:400 13px/1.9 var
 .stats .stat:nth-child(2){animation-delay:1s}.stats .stat:nth-child(3){animation-delay:2s}.stats .stat:nth-child(4){animation-delay:3s}
 @keyframes statBlink{0%,30%,100%{border-color:var(--line);box-shadow:0 8px 24px rgba(8,44,108,.08);transform:none}12%{border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,193,7,.55),0 10px 28px rgba(255,170,0,.35);transform:translateY(-2px) scale(1.03)}}
 @media (prefers-reduced-motion:reduce){.stats .stat{animation:none}}
-.hero .cta.qb .btn{animation:qbBlink 5s ease-in-out infinite}
-.hero .cta.qb .qt{animation-delay:1s}.hero .cta.qb .qa{animation-delay:2s}.hero .cta.qb .qs{animation-delay:3s}.hero .cta.qb .qi,.hero .cta.qb .qsh{animation-delay:4s}
-@keyframes qbBlink{0%,24%,100%{transform:none;filter:none}10%{transform:translateY(-3px) scale(1.05);filter:brightness(1.18) drop-shadow(0 0 8px rgba(255,215,90,.85))}}
+.hero .cta.qb .btn.glow{animation:qbBlink .9s ease-in-out}
+@keyframes qbBlink{0%,100%{transform:none;filter:none}40%{transform:translateY(-3px) scale(1.05);filter:brightness(1.18) drop-shadow(0 0 8px rgba(255,215,90,.85))}}
 @media (prefers-reduced-motion:reduce){.hero .cta.qb .btn{animation:none}}
 
 .grid{display:grid;gap:12px}
@@ -1731,6 +1730,13 @@ document.addEventListener('click', e => {
 });
 route();
 loadAnn(); loadPool();
+/* random glow on the hero quick buttons (Shakeel): one random button at a time, never the same twice, paused when hidden/off screen */
+(function () { if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; let last = null;
+  const tick = () => { setTimeout(tick, 800 + Math.random() * 1000); if (document.hidden) return; const tr = document.getElementById('qTrack'); if (!tr) return;
+    const r = tr.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    const bs = [...tr.querySelectorAll('.btn:not(.qcl)')].filter(b => b !== last && b.offsetParent); if (!bs.length) return;
+    const b = bs[Math.floor(Math.random() * bs.length)]; last = b; b.classList.remove('glow'); void b.offsetWidth; b.classList.add('glow'); setTimeout(() => b.classList.remove('glow'), 950); };
+  setTimeout(tick, 1200); })();
 </script>
 
 <!-- ===== Help assistant (static FAQ chat, no server). Edit answers in HELP_QA below. ===== -->
