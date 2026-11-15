@@ -1365,7 +1365,7 @@ function vHome() {
     ${myFiles()}
   </div>
   <section><div class="wrap">
-    <div class="sh"><div><h2 class="dqur" lang="ur" dir="rtl">آج کا سوال</h2><p class="dqsub" lang="ur" dir="rtl">ہر جماعت کا روزانہ ایک نیا سوال</p></div></div>
+    <div class="sh dqsh"><div class="dqrow" dir="rtl"><h2 class="dqur" lang="ur" dir="rtl">آج کا سوال</h2><p class="dqsub" lang="ur" dir="rtl">ہر جماعت کا روزانہ ایک نیا سوال</p></div></div>
     <div id="dailyWrap" class="dqshow">${dailyBox()}</div>
   </div></section>
   <!-- HOME-TRIM 2026-11-15: 'What the academy offers', Announcements list and Common questions removed from home (data kept: ANNOUNCE, T.o1-o7, T.q1-q7) -->
@@ -2123,6 +2123,8 @@ p.dqsub{font:400 17px/1.8 var(--f-ur)!important;white-space:nowrap;margin:10px 0
 html .hero .cta.qb .qa.qs2 .qao b{font-size:min(3.65vw,17px)!important;line-height:1.15}html .hero .cta.qb .qa.qs2 .qao b+b{font-size:min(4.4vw,19px)!important}@media (max-width:700px){html .hero .cta.qb.q5{gap:5px!important}html .hero .cta.qb.q5 .btn.qa{flex:1.4 1 0!important}html .hv2 .hero .cta.qb .btn.qa{padding-inline:2px!important}}@media (min-width:701px){html .hero .cta.qb .qa.qs2 .qao b{font-size:20px!important}}
 h2.dqur{font:400 30px/1.9 var(--f-ur)!important;letter-spacing:0}
 @media (max-width:700px){h2.dqur{font-size:26px!important}}
+.sh.dqsh{justify-content:center}.dqrow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:nowrap;min-width:0;max-width:100%}.dqrow h2.dqur{flex:none;margin:0!important}.dqrow p.dqsub{margin:0!important;padding-inline-start:12px;border-inline-start:2px solid var(--gold);line-height:1.6!important;min-width:0}
+@media (max-width:700px){.sh.dqsh{padding-right:0}.dqrow{gap:8px}.dqrow h2.dqur{font-size:min(6.2vw,26px)!important}.dqrow p.dqsub{font-size:min(3.7vw,17px)!important;padding-inline-start:8px}}
 .dqshow .dqinR{animation:dqR .45s ease}.dqshow .dqinL{animation:dqL .45s ease}
 @keyframes dqR{from{opacity:.2;transform:translateX(40px)}to{opacity:1;transform:none}}
 @keyframes dqL{from{opacity:.2;transform:translateX(-40px)}to{opacity:1;transform:none}}
