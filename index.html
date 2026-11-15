@@ -742,7 +742,7 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
 <nav class="tabs" id="tabs" aria-label="Sections"></nav>
 <a class="fab" href="https://wa.me/923146011672" target="_blank" rel="noopener" aria-label="WhatsApp 03146011672"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
-<script src="tutors.js?v=43"></script>
+<script src="tutors.js?v=44"></script>
 <script>
 /* ===== Academy details: edit here. Items marked sample:true are placeholders until Shakeel sends the real details. ===== */
 const ACADEMY = {
@@ -1333,7 +1333,7 @@ function vContact() {
       </form>
     </div>
     <div class="teach" style="margin-top:26px"><img src="assets/shakeel-hassan.webp?v=2" alt="Shakeel Hassan" width="132" height="132" loading="lazy" decoding="async">
-      <div><div class="kick">${t('teachTitle')}</div><h3 class="en-only" style="margin-top:4px">Shakeel Hassan</h3><p class="role">${L('ایم ایس سی میتھ · ایم ایس سی اسٹیٹ', 'M.Sc Math · M.Sc Stat')}</p><p style="margin:6px 0 0;color:var(--mut)">${t('teachP')}</p>
+      <div><div class="kick">${t('teachTitle')}</div><h3 class="en-only" style="margin-top:4px">Shakeel Hassan</h3><p class="role">${L('ایم ایس سی ریاضی · ایم ایس سی شماریات', 'M.Sc Mathematics · M.Sc Statistics')}</p><p style="margin:6px 0 0;color:var(--mut)">${t('teachP')}</p>
       <div class="sig" style="margin-top:8px">Shakeel Hassan<br>SST Science<br>GHS MC Boys, Muslim Bazar Mianwali.<br>💬 03146011672</div>
       <div class="cta"><a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}" target="_blank" rel="noopener">${WA}03146011672</a><a class="btn sm line" href="#about">${t('about')}</a></div></div></div>
     <div class="sh" style="margin-top:26px"><div><h2 style="font-size:22px">${t('mapTitle')}</h2></div></div>
@@ -1453,7 +1453,7 @@ function tutorShow() {
     const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} سے پڑھنا ہے، تفصیل بتا دیں۔\nI want to study with tutor ${x.name || x.nameUr || ''}. Please share details.` + (x.subjects || x.subjectsUr ? `\nمضامین / Subjects: ${[x.subjectsUr, x.subjects].filter(Boolean).join(' / ')}` : '');
     const row = (k, v) => v ? `<span class="r"><i>${t(k)}:</i> ${v}</span>` : '';
     return `<div class="tsl" dir="${lang === 'ur' ? 'rtl' : 'ltr'}"><a class="tp" href="#tutors">${x.photo ? `<img src="${esc(x.photo)}" alt="" width="64" height="64" loading="lazy" decoding="async">` : `<span class="ini">${esc(ini)}</span>`}<span class="tt"><b>${tf(x, 'name')}</b><small>${modesOf(x).filter(m => TMODES[m]).map(m => t(TMODES[m][0])).join(' · ')}</small></span></a>
-      <div class="ti">${row('tSubj', tf(x, 'subjects'))}${row('tCls', tf(x, 'classes'))}${row('tEdu', tf(x, 'education'))}</div>
+      <div class="ti">${row('tSubj', tf(x, 'subjects'))}${row('tCls', tf(x, 'classes'))}${row('tEdu', x.eduShort ? tf(x, 'eduShort') : tf(x, 'education'))}</div>
       <a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${L('اس استاد سے رابطہ کریں', 'Contact this tutor')}</a></div>`; }).join('');
   return `<div class="tshow" aria-label="${L('ہماری ٹیم', 'Our Team')}"><div class="tsh"><b>👥 ${L('ہماری ٹیم', 'Our Team')}</b><a href="#tutors">${L('سب دیکھیں ←', 'See all →')}</a></div>${chips}
     ${T.length ? `<div class="ttrack" id="tTrack" dir="ltr" data-n="${T.length}">${sl}${T.length > 1 ? sl.replace(/<div class="tsl"/g, '<div class="tsl clone" aria-hidden="true" inert') : ''}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>` : `<p class="tnone">${L('اس زمرے میں ابھی کوئی استاد نہیں۔', 'No tutor in this group yet.')}</p>`}</div>`;
