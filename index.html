@@ -673,6 +673,8 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
 @media (min-width:1000px){.ftrack .fsl{flex-basis:calc(33.333% - 7px)}}
 .ftrack{padding:4px 2px 8px}
 .fdots button{background:var(--line)}.fdots button[aria-current]{background:var(--navy)}
+
+button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,background .15s}button.shic:hover,button.shic:focus-visible{background:rgba(255,193,7,.28);transform:scale(1.06)}
 </style>
 
 </head>
@@ -703,7 +705,7 @@ footer .wrap.fgrid{grid-template-columns:1.2fr 1fr 1fr}@media (max-width:900px){
       <p data-t="footAbout"></p>
     </div>
     <div class="fadm"><b data-t="joinTitle"></b><p class="num">0314-6011672</p><a class="btn gold sm" href="#apply"><span data-t="applyT"></span></a></div>
-    <div class="shtxt"><span class="shic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></span><div><b data-sl="bandT"></b><p data-sl="bandS"></p></div></div>
+    <div class="shtxt"><button type="button" class="shic" data-shareapp aria-label="Share the AHSA app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button><div><b data-sl="bandT"></b><p data-sl="bandS"></p></div></div>
   </div>
   <div class="wrap fbar">
       <button class="btn gold sm ico" type="button" data-share aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span data-sl="share"></span></button>
@@ -1948,6 +1950,19 @@ html[lang="ur"] .shqr span{font:400 13px/2 var(--f-ur)}
 <!-- cloud edit test 2026-11-13 -->
 <script>/* hide floating buttons while the footer is on screen (footer has its own buttons) */
 (function(){try{const f=document.querySelector('footer');if(!f||!('IntersectionObserver' in window))return;new IntersectionObserver(es=>{document.body.classList.toggle('atfoot',es[0].isIntersecting)},{rootMargin:'0px 0px -40px 0px'}).observe(f)}catch(e){}})();
+</script>
+<script>/* share the installable AHSA app (icon next to "Help a friend study for free") */
+document.addEventListener('click', async e => {
+  const b = e.target.closest('[data-shareapp]'); if (!b) return; e.preventDefault();
+  const url = 'https://shakeelh23-sys.github.io/ahsa/';
+  const text = 'AHSA App - الحسن سائنس اکیڈمی دلیوالی\nمفت نوٹس اور MCQs ٹیسٹ (جماعت 8 تا 12)۔ یہ لنک کھولیں اور «ایپ انسٹال کریں» دبائیں، ایپ آپ کے موبائل پر آ جائے گی۔\nFree notes and MCQs tests for Class 8 to 12. Open this link and tap "Install app" to get the AHSA app on your phone.';
+  const ur = document.documentElement.lang === 'ur';
+  if (navigator.share) { try { await navigator.share({title: 'AHSA App', text, url}); return; } catch (err) { if (err && err.name === 'AbortError') return; } }
+  const all = text + '\n' + url;
+  const done = () => { if (typeof toast === 'function') toast(ur ? 'ایپ کا لنک کاپی ہو گیا، اب واٹس ایپ میں پیسٹ کریں' : 'App link copied, paste it in WhatsApp'); };
+  try { await navigator.clipboard.writeText(all); done(); }
+  catch (err) { const t = document.createElement('textarea'); t.value = all; t.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); done(); } catch (x) {} t.remove(); }
+});
 </script>
 </body>
 </html>
