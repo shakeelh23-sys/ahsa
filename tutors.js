@@ -119,7 +119,7 @@ window.TUTORS = [
     subjects: 'English',              subjectsUr: 'انگلش',
     experience: 'More than 10 years', experienceUr: '10 سال سے زیادہ',
     modes: ['online', 'academy'],     platforms: '',
-    photo: 'assets/tutors/tariq-hassan.webp?v=1'
+    photo: 'assets/tutors/tariq-hassan.webp?v=2'
   },
   {
     name: 'Muhammad Rajab Ali',       nameUr: 'محمد رجب علی',
