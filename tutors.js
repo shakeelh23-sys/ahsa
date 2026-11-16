@@ -121,6 +121,19 @@ window.TUTORS = [
     modes: ['online', 'academy'],     platforms: '',
     photo: 'assets/tutors/tariq-hassan.webp?v=1'
   },
+  {
+    name: 'Muhammad Rajab Ali',       nameUr: 'محمد رجب علی',
+    education: 'Chartered Accountancy (CA)', educationUr: 'چارٹرڈ اکاؤنٹنسی (سی اے)',
+    eduShort: 'Chartered Accountancy (CA)',  eduShortUr: 'چارٹرڈ اکاؤنٹنسی (سی اے)',
+    subjects: 'Accounts',             subjectsUr: 'اکاؤنٹس',
+    classes: '11 and 12',             classesUr: '11 اور 12',
+    experience: '1 to 2 years',       experienceUr: '1 سے 2 سال',
+    expDetail: ['Financial and Management Accounting', 'Taxation Principles and Compliance', 'Corporate Laws and Governance',
+                'Business Insights and Analysis', 'Audit and Assurance', 'Strategic Business Finance and Decisions'],
+    area: 'Saudi Arabia',             areaUr: 'سعودی عرب',
+    modes: ['online'],     platforms: 'Zoom, Google Meet',
+    photo: ''
+  },
   // {
   //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
   //   education: 'M.Sc Physics',        educationUr: 'ایم ایس سی فزکس',
