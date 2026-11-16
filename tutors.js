@@ -132,7 +132,7 @@ window.TUTORS = [
                 'Business Insights and Analysis', 'Audit and Assurance', 'Strategic Business Finance and Decisions'],
     area: 'Saudi Arabia',             areaUr: 'سعودی عرب',
     modes: ['online'],     platforms: 'Zoom, Google Meet',
-    photo: ''
+    photo: 'assets/tutors/rajab-ali.webp?v=1'
   },
   // {
   //   name: 'Muhammad Ali',            nameUr: 'محمد علی',
