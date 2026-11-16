@@ -950,7 +950,7 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
 <nav class="tabs" id="tabs" aria-label="Sections"></nav>
 <a class="fab" href="https://wa.me/923146011672" target="_blank" rel="noopener" aria-label="WhatsApp 03146011672"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
-<script src="tutors.js?v=53"></script>
+<script src="tutors.js?v=54"></script>
 <script>
 /* ===== Academy details: edit here. Items marked sample:true are placeholders until Shakeel sends the real details. ===== */
 const ACADEMY = {
@@ -1737,10 +1737,10 @@ function studentsShow() {
 }
 /* Shakeel 2026-11-15: ads slot now shows the male teachers' photos. Ads (ads.json, assets/ads) are kept; set SHOW_ADS = true to bring them back. */
 const SHOW_ADS = false;
-const MALE_TEACHERS = ['Shakeel Hassan', 'Najeeb Ullah', 'Muhammad Umar Farooq', 'Shahzad Hassan', 'Amaar Yasir Shah', 'Tariq Hassan'];
+const MALE_TEACHERS = ['Shakeel Hassan', 'Najeeb Ullah', 'Muhammad Umar Farooq', 'Shahzad Hassan', 'Amaar Yasir Shah', 'Tariq Hassan', 'Muhammad Rajab Ali'];
 const FEMALE_TEACHERS = ['Humaira Hayat', 'Shazia Hassan', 'Shahnaz Habib'];
-const teacherSlides = () => { const T = (window.TUTORS || []); return [...MALE_TEACHERS, ...FEMALE_TEACHERS].map(n => T.find(x => x.name === n)).filter(x => x && x.photo).map(x =>
-  `<a class="tch" href="#tutors"><img src="${esc(x.photo)}" alt="${esc(x.name)}" width="200" height="200" loading="lazy" decoding="async"><b>${esc(x.name)}</b><span>${esc(x.eduShort || x.education || '')}</span>${x.subjects ? `<small>${esc(x.subjects)}</small>` : ''}</a>`); };
+const teacherSlides = () => { const T = (window.TUTORS || []); return [...MALE_TEACHERS, ...FEMALE_TEACHERS].map(n => T.find(x => x.name === n)).filter(x => x).map(x =>
+  `<a class="tch" href="#tutors">${x.photo ? `<img src="${esc(x.photo)}" alt="${esc(x.name)}" width="200" height="200" loading="lazy" decoding="async">` : `<span class="tini" aria-hidden="true">${esc(String(x.name).trim().split(/\s+/).filter((w, i, a) => a.length < 2 || !/^(mrs?|miss|ms|dr|sir|prof)\.?$/i.test(w)).map(w => w[0]).slice(0, 2).join('').toUpperCase())}</span>`}<b>${esc(x.name)}</b><span>${esc(x.eduShort || x.education || '')}</span>${x.subjects ? `<small>${esc(x.subjects)}</small>` : ''}</a>`); };
 const adsHomeInner = () => SHOW_ADS ? slideBlock('ad', [...ADS.slice(0, ADS_HOME_MAX).map(adCard), ADV_SLIDE], 'adsT') : `<h2 class="mph mpe tchh">Our Teachers</h2>${slideBlock('th', teacherSlides(), 'tchT')}`;
 const adsAllInner = () => ADS.length ? `<div class="sh" style="margin-top:26px"><h2 style="font-size:22px">موجودہ اشتہارات</h2></div><div class="adsg" dir="ltr" lang="en">${ADS.map(adCard).join('')}</div>` : '';
 function adsHome() {
@@ -2212,6 +2212,7 @@ html .adc.adban .adbg{position:absolute;inset:-20px;background-size:cover;backgr
 html .ttrack.tchT .csl{flex:0 0 100%!important}@media (min-width:640px){html .ttrack.tchT .csl{flex-basis:calc(50% - 5px)!important}}@media (min-width:1000px){html .ttrack.tchT .csl{flex-basis:calc(33.333% - 7px)!important}}
 .tch{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:18px 12px 16px;background:var(--card);border:1px solid var(--line);border-radius:18px;text-decoration:none;color:var(--ink);box-shadow:var(--sh1)}
 .tch img{width:180px;height:180px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);margin-bottom:8px;background:#fff}
+.tch .tini{width:180px;height:180px;border-radius:50%;border:4px solid var(--gold);margin-bottom:8px;background:#e8eef9;color:#123a7a;display:flex;align-items:center;justify-content:center;font:800 56px/1 var(--f-head);flex:none}
 .tch b{font:800 20px/1.25 var(--f-head)}.tch span{color:var(--mut);font-size:15px;line-height:1.4}.tch small{font-weight:700;color:var(--navy);font-size:14px}
 :root[data-theme="dark"] .tch small{color:var(--gold)}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tch small{color:var(--gold)}}
 h2.tchh{margin:0 0 12px}.sarrw{position:relative}
