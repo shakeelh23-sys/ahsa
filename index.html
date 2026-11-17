@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="google-site-verification" content="iM45S6Xc_19EEJ1x0lGEHs2s0LuinyHNsiO4mv-jR48" />
 <title>Al Hassan Science Academy Dillewali (AHSA) · Free Notes & MCQs Tests · Mianwali</title>
-<meta name="description" content="Al Hassan Science Academy (AHSA) Dillewali, Mianwali: free notes, MCQs tests, smart syllabus and paper schemes for Class 8, 9, 10, 1st Year and 2nd Year. Tuition for Physics, Chemistry, Biology, Math, Computer and English.">
+<meta name="description" content="Al Hassan Science Academy (AHSA) Dillewali, Mianwali: free notes, MCQs tests, question banks, smart syllabus and paper schemes for Class 8, 9, 10, 1st Year and 2nd Year. Tuition for Physics, Chemistry, Biology, Math, Computer and English.">
 <meta name="keywords" content="Mianwali tuition, Dillewali academy, Al Hassan Science Academy, AHSA, Mianwali academy, 9th class notes, 10th class notes, 1st year notes, 2nd year notes, MCQs test, smart syllabus 2027, Punjab board notes">
 <meta name="theme-color" content="#082c6c">
 <meta property="og:type" content="website"><meta property="og:title" content="Al Hassan Science Academy Dillewali (AHSA)">
-<meta property="og:description" content="Free notes and MCQs tests for Class 8 to 12. Dillewali, Kalabagh Road, Mianwali. WhatsApp 0314-6011672.">
+<meta property="og:description" content="Free notes, MCQs tests and question banks for Class 8 to 12. Dillewali, Kalabagh Road, Mianwali. WhatsApp 0314-6011672.">
 <meta property="og:image" content="https://shakeelh23-sys.github.io/ahsa/assets/og-share.jpg"><meta property="og:image:secure_url" content="https://shakeelh23-sys.github.io/ahsa/assets/og-share.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Al Hassan Science Academy Dillewali (AHSA) logo with free notes and MCQs tests for Class 8 to 12"><meta property="og:url" content="https://shakeelh23-sys.github.io/ahsa/"><meta property="og:site_name" content="AHSA Dillewali"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="ur_PK">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Al Hassan Science Academy Dillewali (AHSA)"><meta name="twitter:description" content="Free notes and MCQs tests for Class 8 to 12. Dillewali, Kalabagh Road, Mianwali."><meta name="twitter:image" content="https://shakeelh23-sys.github.io/ahsa/assets/og-share.jpg">
 <link rel="canonical" href="https://shakeelh23-sys.github.io/ahsa/">
@@ -1426,9 +1426,9 @@ function stuCorner() {
   const mine = MYC ? `<div class="scmy"><div class="sct">🎒 My Class: <b>Class ${clsLbl(MYC)}</b> <button type="button" class="sclink" data-myc="">Change · تبدیل کریں</button></div>
     <div class="scbtns"><a class="btn sm" href="#notes-${MYC}">📚 Notes</a>${ca ? `<a class="btn sm" href="${ca.local}" target="_blank" rel="noopener">📝 MCQs Test</a>` : ''}<a class="btn sm" href="#qbank" data-qbc="${MYC}">❓ Question Bank</a>${MYC !== '9t' ? `<a class="btn sm" href="#papers">📄 Syllabus</a>` : ''}<button type="button" class="btn sm" data-gosaved>⭐ My Saved (${FAV.filter(id => FILES[id]).length})</button></div></div>` : pick;
   return `<section class="scorner"><div class="wrap">
+    ${mine}
     <label class="search scsearch">${svg('search')}<input id="hsq" type="search" placeholder="Search: Physics 9, Question Bank 10…" value="${esc(SCQ)}" aria-label="Search all files" autocomplete="off"></label>
     <div id="hsr" class="hsr">${scResults(SCQ)}</div>
-    ${mine}
     ${nf.length ? `<div class="scnew"><div class="sh" style="margin:14px 0 6px"><div><div class="kick">🆕 Recently added · نئی فائلیں</div><h2 style="font-size:20px">New files${MYC && nMine ? ` · ${nMine} for Class ${clsLbl(MYC)}` : ''}</h2></div></div>
       <div class="files">${show.map(x => fileRow(x.f, `${x.c.k === '9t' ? '9 Tech' : 'Class ' + x.c.k} · ${L(x.s.ur, x.s.en)}`)).join('')}</div>
       ${nf.length > 6 ? `<button type="button" class="btn sm line" id="scMore" style="margin-top:8px">${SCALL ? 'Show less' : `Show all new files (${Math.min(nf.length, 40)})`}</button>` : ''}</div>` : ''}
@@ -1468,6 +1468,11 @@ function vHome() {
     </div>
   </div></section>
   ${stuCorner()}
+  <section class="mpsec"><div class="wrap">
+    <div class="mpbar"><h2 class="mph mpe">Board Papers</h2><div class="mpbtns">
+      <a class="btn navy mpb" href="#papers">Pairing <br>Scheme</a><a class="btn gold mpb" href="#model">Model <br>Papers</a><a class="btn mpb mpp" href="#past">Past <br>Papers</a><a class="btn mpb mqb" href="#qbank">Question <br>Bank</a>
+    </div></div>
+  </div></section>
   <section class="tband"><div class="wrap"><div id="tshowWrap">${tutorShow()}</div></div></section>
   <section><div class="wrap">
     <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2 class="cch">${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
@@ -1479,21 +1484,25 @@ function vHome() {
     <div class="stat"><b class="count" data-to="${COUNTS.total.lq}">${COUNTS.total.lq}</b><span>${t('sLq')}</span></div>
     <div class="stat"><b class="count" data-to="${COUNTS.total.files}">${COUNTS.total.files}</b><span>${t('sFiles')}</span></div>
   </div></div>
+  <div class="wrap"><div class="why"><h2 class="whyh">Why choose AHSA? <span lang="ur" dir="rtl">ہمیں کیوں چنیں؟</span></h2><div class="whyg">
+    <div class="wy"><span>🎓</span><b>19 years of teaching</b><i lang="ur" dir="rtl">19 سالہ تدریسی تجربہ</i></div>
+    <div class="wy"><span>📚</span><b>Free notes, Class 8 to 12</b><i lang="ur" dir="rtl">مفت نوٹس، اردو اور انگلش میڈیم</i></div>
+    <div class="wy"><span>📝</span><b>Daily tests &amp; progress</b><i lang="ur" dir="rtl">روزانہ ٹیسٹ اور والدین کو رپورٹ</i></div>
+    <div class="wy"><span>👩‍🏫</span><b>Separate boys &amp; girls classes</b><i lang="ur" dir="rtl">طلبہ و طالبات کی الگ کلاسز</i></div>
+  </div></div></div>
   <!-- ACTION-BAND-OFF 2026-11-15: داخلہ / ٹیوٹر چاہیے / ہماری ٹیم block removed from home -->
   <div class="wrap">
     <!-- QUICK-OFF 2026-11-15: home search box + Notes/Weekly test/Syllabus cards removed (header search remains) -->
     <div id="mySaved">${myFiles()}</div>
   </div>
   <section><div class="wrap">
-    <div class="mpbar"><h2 class="mph mpe">Board Papers</h2><div class="mpbtns">
-      <a class="btn navy mpb" href="#papers">Pairing <br>Scheme</a><a class="btn gold mpb" href="#model">Model <br>Papers</a><a class="btn mpb mpp" href="#past">Past <br>Papers</a><a class="btn mpb mqb" href="#qbank">Question <br>Bank</a>
-    </div></div>
     <div class="sh dqsh"><div class="dqrow" dir="rtl"><h2 class="dqur" lang="ur" dir="rtl">آج کا سوال</h2><p class="dqsub" lang="ur" dir="rtl">ہر جماعت کا روزانہ ایک نیا سوال</p></div></div>
     <div class="sarrw dqarr"><div id="dailyWrap" class="dqshow">${dailyBox()}</div><button type="button" class="sarr sprev" data-dqa="-1" aria-label="Previous class">‹</button><button type="button" class="sarr snext" data-dqa="1" aria-label="Next class">›</button></div>
   </div></section>
-  <!-- HOME-TRIM 2026-11-15: 'What the academy offers', Announcements list and Common questions removed from home (data kept: ANNOUNCE, T.o1-o7, T.q1-q7) -->
-  <section style="padding-top:0"><div class="wrap">${adsHome()}</div></section>
+  <!-- HOME-V2 2026-11-17 (Shakeel approved): FAQ + Why-choose strip + contact strip back on home; backup branch backup-before-home-v2 = 794c3f0 -->
   <section class="stusec" style="padding-top:0"><div class="wrap">${studentsShow()}</div></section>
+  <section style="padding-top:0"><div class="wrap">${adsHome()}</div></section>
+  <section style="padding-top:0"><div class="wrap"><div class="sh"><div><div class="kick">FAQ · عام سوالات</div><h2 style="font-size:22px">Common questions</h2></div></div>${faq()}</div></section>
   </div>`;
 }
 
@@ -2609,6 +2618,17 @@ body.pvOpen .fabT{display:none!important}
 .scpick .qbc{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible}.scpick .qbc button{padding:9px 4px}
 .scbtns{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
 .scbtns .btn{justify-content:center;background:var(--navy);color:#fff;border:0}
+
+/* Home v2 (2026-11-17) */
+.mpsec{padding:4px 0 6px!important}
+.why{margin:14px 0 4px}.whyh{font-size:20px;margin:0 0 10px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}.whyh [lang=ur]{font:400 20px/1.9 var(--f-ur)}
+.whyg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.wy{background:var(--card,#fff);border:1.5px solid var(--line,#ddd);border-radius:14px;padding:12px 10px;text-align:center;display:flex;flex-direction:column;gap:4px;align-items:center}
+.wy span{font-size:26px}.wy b{font-size:14px;line-height:1.3}.wy i{font:400 15px/2 var(--f-ur);font-style:normal;opacity:.85}
+@media (max-width:700px){.whyg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.trust{background:var(--card,#fff);border:1.5px solid var(--line,#ddd);border-radius:14px;padding:14px}
+.trust h2 [lang=ur]{font:400 18px/1.9 var(--f-ur)}
+.trb{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}.trb .btn{justify-content:center}
 </style>
 <div class="shov" id="shOv" hidden>
   <div class="shsheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">

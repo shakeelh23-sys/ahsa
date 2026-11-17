@@ -3,6 +3,11 @@
   "on": true,
   "items": [
     {
+      "ur": "🆕 نیا ہوم پیج: My Class، بڑا سرچ، نئی فائلیں، کوئسچن بینک اور بورڈ پیپرز اوپر، «ہمیں کیوں چنیں» اور عام سوالات",
+      "en": "🆕 New home page: My Class, big search, new files, Question Bank and Board Papers on top, Why choose AHSA and FAQ",
+      "link": "#home"
+    },
+    {
       "ur": "🆕 ویب سائٹ اب اور آسان: ہوم پر بڑا سرچ باکس، اپنی کلاس منتخب کریں (My Class)، نئی فائلیں، ہر فائل کا Preview اور ⭐ محفوظ کریں",
       "en": "🆕 Easier website: big search on Home, choose My Class, new files list, Preview every file and ⭐ save your files",
       "link": "#home"
@@ -26,11 +31,6 @@
       "ur": "🆕 نئے نوٹس: ترجمۃ القرآن نہم (مختصر سوالات) — نوٹس از شہزاد حسن",
       "en": "🆕 New notes: Tarjuma tul Quran 9 (Short Questions) — Notes by Shahzad Hassan",
       "link": "#notes-9-um-tq"
-    },
-    {
-      "ur": "🆕 نئے نوٹس: ترجمۃ القرآن دہم (MCQs، SQs، LQs) — بائے شہزاد حسن",
-      "en": "🆕 New notes: Tarjuma tul Quran 10 (MCQs, SQs, LQs) — By Shahzad Hassan",
-      "link": "#notes-10-um-tq"
     }
   ]
 }
