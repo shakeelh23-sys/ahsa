@@ -1294,15 +1294,57 @@ function vPast() {
     <div class="soon">📄 Coming soon. Board past papers for Class 8 to 12 will be added here.</div>
     <div class="cta"><a class="btn ghost" href="#papers">Pairing scheme</a><a class="btn ghost" href="#model">Model papers</a></div></div></section>`;
 }
+const PVI = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+let QBF = {c: 'all', md: 'all', q: ''};
+try { const v = JSON.parse(localStorage.getItem('ahsa-qbf') || 'null'); if (v) QBF = Object.assign(QBF, v); } catch (e) {}
+function qbSave() { try { localStorage.setItem('ahsa-qbf', JSON.stringify(QBF)); } catch (e) {} }
+function qbApply() {
+  const box = document.getElementById('qbf'); if (!box) return;
+  box.querySelectorAll('[data-qc]').forEach(b => b.setAttribute('aria-pressed', b.dataset.qc === QBF.c));
+  box.querySelectorAll('[data-qm]').forEach(b => b.setAttribute('aria-pressed', b.dataset.qm === QBF.md));
+  const q = (QBF.q || '').trim().toLowerCase(); let any = 0;
+  document.querySelectorAll('.qbcls').forEach(g => {
+    let gv = 0; const cOk = QBF.c === 'all' || g.dataset.c === QBF.c;
+    g.querySelectorAll('.qbs').forEach(sb => {
+      let sv = 0; const sOk = !q || sb.dataset.s.includes(q);
+      sb.querySelectorAll('.qbr').forEach(r => { const ok = cOk && sOk && (QBF.md === 'all' || r.dataset.md === 'both' || r.dataset.md === QBF.md); r.style.display = ok ? '' : 'none'; if (ok) sv++; });
+      sb.style.display = sv ? '' : 'none'; gv += sv; });
+    g.style.display = gv ? '' : 'none'; any += gv; });
+  const em = document.getElementById('qbEmpty'); if (em) em.style.display = any ? 'none' : '';
+}
+document.addEventListener('click', e => { const b = e.target.closest('#qbf button'); if (!b) return; if (b.dataset.qc) QBF.c = b.dataset.qc; if (b.dataset.qm) QBF.md = b.dataset.qm; qbSave(); qbApply(); });
+document.addEventListener('input', e => { if (e.target.id !== 'qbq') return; QBF.q = e.target.value; qbSave(); qbApply(); });
+function pvOpen(src, title, dlh, img) {
+  pvClose();
+  const d = document.createElement('div'); d.id = 'pvm'; d.className = 'pvm'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', title);
+  d.innerHTML = `<div class="pvbox"><div class="pvh"><b>${esc(title)}</b><a class="btn sm wa" href="${dlh}" target="_blank" rel="noopener">${svg('dl')}Download</a><button type="button" class="pvx" aria-label="Close · بند کریں">✕</button></div>
+    <div class="pvbody">${img ? `<img src="${src}" alt="${esc(title)}">` : `<iframe src="${src}" title="${esc(title)}" allow="autoplay"></iframe>`}<div class="pvload">Loading… لوڈ ہو رہا ہے</div></div></div>`;
+  document.body.appendChild(d); document.body.classList.add('pvOpen');
+  d.addEventListener('click', ev => { if (ev.target === d || ev.target.closest('.pvx')) pvClose(); });
+}
+function pvClose() { const d = document.getElementById('pvm'); if (d) d.remove(); document.body.classList.remove('pvOpen'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') pvClose(); });
+window.addEventListener('hashchange', pvClose);
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-pv],[data-pvu]'); if (!b) return; e.preventDefault();
+  if (b.dataset.pv) return pvOpen('https://drive.google.com/file/d/' + b.dataset.pv + '/preview', b.dataset.pt || 'Preview', dl(b.dataset.pv));
+  const u = b.dataset.pvu, abs = new URL(u, location.href).href, img = /\.(png|jpe?g|webp)$/i.test(u);
+  pvOpen(img ? u : 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(abs), b.dataset.pt || 'Preview', u, img);
+});
 function vQbank() {
+  setTimeout(qbApply, 0);
   const ord = ['8', '9', '9t', '10', '11', '12'];
   const groups = ord.map(k => { const c = DATA.find(x => x.k === k); if (!c) return '';
     const rows = c.s.map(s => ({s, fs: s.f.filter(f => f.k === 'qb' && /Question Bank/.test(f.t))})).filter(r => r.fs.length);
     if (!rows.length) return '';
-    return `<div class="qbcls"><h3 style="margin:18px 0 8px">${esc(clsName(c))}</h3><div class="qbg">${rows.map(({s, fs}) => `<div class="qbs"><div class="qbh"><span class="qbi">${s.ic || '📘'}</span><div style="min-width:0"><b>${esc(s.en)}</b><span class="qbu" lang="ur" dir="rtl">${esc(s.ur)}</span></div></div>
-      <div class="qbf">${fs.map(f => `<div class="qbr"><div class="qbm">${f.md ? `<span class="tag ${f.md}">${f.md === 'UM' ? 'Urdu Medium' : 'English Medium'}</span>` : '<span class="tag">EM + UM</span>'}${isNew(f) ? '<span class="tag new">New</span>' : ''}${f.nsq ? `<span class="tag">${fmt(f.nsq)} SQs</span>` : ''}${f.nlq ? `<span class="tag">${fmt(f.nlq)} LQs</span>` : ''}${f.nnum ? `<span class="tag">${fmt(f.nnum)} Numericals</span>` : ''}${f.pg ? `<span class="tag">${f.pg} pages</span>` : ''}</div><a class="btn sm wa" href="${dl(f.id)}" target="_blank" rel="noopener" data-dl="${f.id}">${svg('dl')}Download</a></div>`).join('')}</div></div>`).join('')}</div></div>`; }).join('');
+    return `<div class="qbcls" data-c="${c.k}"><h3 style="margin:18px 0 8px">${esc(clsName(c))}</h3><div class="qbg">${rows.map(({s, fs}) => `<div class="qbs" data-s="${esc((s.en + ' ' + s.ur).toLowerCase())}"><div class="qbh"><span class="qbi">${s.ic || '📘'}</span><div style="min-width:0"><b>${esc(s.en)}</b><span class="qbu" lang="ur" dir="rtl">${esc(s.ur)}</span></div></div>
+      <div class="qbf">${fs.map(f => `<div class="qbr" data-md="${f.md || 'both'}"><div class="qbm">${f.md ? `<span class="tag ${f.md}">${f.md === 'UM' ? 'Urdu Medium' : 'English Medium'}</span>` : '<span class="tag">EM + UM</span>'}${isNew(f) ? '<span class="tag new">New</span>' : ''}${f.nsq ? `<span class="tag">${fmt(f.nsq)} SQs</span>` : ''}${f.nlq ? `<span class="tag">${fmt(f.nlq)} LQs</span>` : ''}${f.nnum ? `<span class="tag">${fmt(f.nnum)} Numericals</span>` : ''}${f.pg ? `<span class="tag">${f.pg} pages</span>` : ''}</div><span class="qbb"><button type="button" class="btn sm pvb" data-pv="${f.id}" data-pt="${esc(f.t)}">${PVI}Preview</button><a class="btn sm wa" href="${dl(f.id)}" target="_blank" rel="noopener" data-dl="${f.id}">${svg('dl')}Download</a></span></div>`).join('')}</div></div>`).join('')}</div></div>`; }).join('');
   return `<section><div class="wrap view"><div class="sh"><div><div class="kick">Question Bank · کوئسچن بینک</div><h2>Question Bank: questions only, without answers</h2><p>Every subject of Class 8 to 12 in one PDF: all short questions and long questions of our notes, chapter-wise, without answers. Use it for practice, self-tests and revision.</p>
     <p class="qbu2" lang="ur" dir="rtl">ہر مضمون کا ایک PDF: ہمارے نوٹس کے تمام مختصر اور تفصیلی سوالات، باب وار، بغیر جوابات کے۔ جوابات اسی مضمون کے نوٹس میں موجود ہیں۔</p></div></div>
+    <div class="qbf2" id="qbf"><div class="qbc" role="group" aria-label="Class">${[['all','All'],['8','8'],['9','9'],['9t','9 Tech'],['10','10'],['11','11'],['12','12']].map(([k,l]) => `<button type="button" data-qc="${k}" aria-pressed="${QBF.c === k}">${k === 'all' ? 'All' : 'Class ' + l}</button>`).join('')}</div>
+      <div class="qbc" role="group" aria-label="Medium">${[['all','EM + UM'],['EM','English Medium'],['UM','Urdu Medium']].map(([k,l]) => `<button type="button" data-qm="${k}" aria-pressed="${QBF.md === k}">${l}</button>`).join('')}</div>
+      <label class="search">${svg('search')}<input id="qbq" type="search" placeholder="Subject: Physics, ریاضی…" value="${esc(QBF.q)}" aria-label="Search subject" autocomplete="off"></label></div>
+    <div id="qbEmpty" class="empty" style="display:none;margin-top:14px">No question bank for this choice. کوئی فائل نہیں ملی۔</div>
     ${groups || '<div class="soon">Coming soon.</div>'}
     <div class="cta"><a class="btn ghost" href="#notes">Notes with answers</a><a class="btn ghost" href="#papers">Pairing scheme</a></div></div></section>`;
 }
@@ -1310,7 +1352,7 @@ function vPapers() {
   const kindTag = k => k === 'summary' ? `<span class="tag smart">${L('ایک صفحے کا خلاصہ', '1-page summary')}</span>` : `<span class="tag ${k}">${t(k === 'smart' ? 'kSmart' : k === 'old' ? 'kOld' : 'kPattern')}</span>`;
   const groups = ['8', '9', '10', '11', '12'].map(k => { const c = DATA.find(x => x.k === k), items = SYL.filter(x => x.k === k);
     if (!items.length) return '';
-    return `<div><h3 style="margin:18px 0 8px">${esc(clsName(c))}</h3><div class="sylg">${items.map(x => `<div class="syl"><div style="min-width:0"><h4>${esc(L(x.ur, x.en))}</h4><div class="m" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${kindTag(x.kind)}<span class="tag">${x.ext} · ${x.mb} MB</span>${isNew(x) ? `<span class="tag new">${L('نیا', 'New')}</span>` : ''}</div></div><a class="btn sm navy" href="${x.f}" target="_blank" rel="noopener">${svg('papers')}${t('open')}</a></div>`).join('')}</div></div>`; }).join('');
+    return `<div><h3 style="margin:18px 0 8px">${esc(clsName(c))}</h3><div class="sylg">${items.map(x => `<div class="syl"><div style="min-width:0"><h4>${esc(L(x.ur, x.en))}</h4><div class="m" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${kindTag(x.kind)}<span class="tag">${x.ext} · ${x.mb} MB</span>${isNew(x) ? `<span class="tag new">${L('نیا', 'New')}</span>` : ''}</div></div><span class="qbb"><button type="button" class="btn sm pvb" data-pvu="${x.f}" data-pt="${esc(x.en)}">${PVI}${L('دیکھیں', 'Preview')}</button><a class="btn sm navy" href="${x.f}" target="_blank" rel="noopener">${svg('papers')}${t('open')}</a></span></div>`).join('')}</div></div>`; }).join('');
   const pp = []; DATA.forEach(c => c.s.forEach(s => s.f.forEach(f => { if (['pp', 'sel', 'scheme', 'selmcq', 'selsq', 'sellq'].includes(f.k)) pp.push(fileRow(f, `${c.k === '9t' ? '9 Tech' : L('', 'Class ') + c.k} · ${L(s.ur, s.en)}`)); })));
   return `<section><div class="wrap view">
     <div class="sh"><div><div class="kick">${t('papers')}</div><h2>${t('papersTitle')}</h2><p>${t('papersP')}</p></div></div>
@@ -1425,7 +1467,7 @@ function fileRow(f, ctx) {
     </div>
     <div class="facts"><button type="button" class="icb ${FAV.includes(f.id) ? 'on' : ''}" data-fav="${f.id}" aria-pressed="${FAV.includes(f.id)}" aria-label="${FAV.includes(f.id) ? t('unfav') : t('fav')}" title="${FAV.includes(f.id) ? t('unfav') : t('fav')}">${svg('star', FAV.includes(f.id))}</button>
     <a class="icb wa2" href="https://wa.me/?text=${encodeURIComponent('📘 ' + f.t + '\n' + dl(f.id) + '\n\nAl Hassan Science Academy Dillewali · WhatsApp 0314-6011672')}" target="_blank" rel="noopener" aria-label="${t('share')}" title="${t('share')}">${WA}</a>
-    <a class="btn wa" href="${dl(f.id)}" target="_blank" rel="noopener" data-dl="${f.id}">${svg('dl')}${t('download')}</a></div></div>`;
+    ${f.app ? '' : `<button type="button" class="btn pvb" data-pv="${f.id}" data-pt="${esc(f.t)}">${PVI}${L('دیکھیں', 'Preview')}</button>`}<a class="btn wa" href="${dl(f.id)}" target="_blank" rel="noopener" data-dl="${f.id}">${svg('dl')}${t('download')}</a></div></div>`;
 }
 function vNotes() {
   const c = DATA.find(x => x.k === cls) || DATA[1];
@@ -2484,6 +2526,29 @@ body.fabOpen::after{content:'';position:fixed;inset:0;z-index:39;background:rgba
 :root[data-theme="dark"] .tband .tsh a:not(.tsreg){color:var(--gold)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tband .tsh a:not(.tsreg){color:var(--gold)}}
 @media (max-width:599px){.tband .tsh{flex-wrap:wrap;align-items:center;row-gap:8px}.tband .tshl{width:100%;justify-content:flex-start!important;gap:10px!important}}
+
+/* Preview modal + Question Bank filters (2026-11-17) */
+.btn.pvb{background:transparent;color:var(--navy);border:1.5px solid currentColor}
+:root[data-theme="dark"] .btn.pvb{color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.pvb{color:var(--gold)}}
+.qbb{display:inline-flex;gap:6px;flex-wrap:wrap}
+.pvm{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:10px}
+.pvbox{background:var(--card,#fff);color:inherit;border-radius:14px;width:min(900px,100%);height:min(92vh,100%);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.pvh{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--line,#ddd)}
+.pvh b{flex:1;min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pvx{width:38px;height:38px;border-radius:50%;border:0;background:#e11d48;color:#fff;font-size:18px;cursor:pointer;flex:none}
+.pvbody{position:relative;flex:1;background:#525659;overflow:auto}
+.pvbody iframe{position:relative;z-index:1;width:100%;height:100%;border:0;background:transparent}
+.pvbody img{position:relative;z-index:1;display:block;max-width:100%;margin:0 auto;background:#fff}
+.pvload{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;z-index:0}
+body.pvOpen{overflow:hidden}
+body.pvOpen .fabT{display:none!important}
+.qbf2{display:flex;flex-direction:column;gap:8px;margin:12px 0 4px}
+.qbc{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.qbc::-webkit-scrollbar{display:none}
+.qbc button{flex:none;border:1.5px solid var(--line,#ccc);background:transparent;color:inherit;border-radius:999px;padding:6px 12px;font:700 13px/1.2 var(--f-body,inherit);cursor:pointer;white-space:nowrap}
+.qbc button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#3a2a00}
+.qbf2 .search{max-width:420px}
+@media (max-width:700px){.qbr .qbb{margin-inline-end:auto;max-width:calc(100% - 60px)}.qbr .qbb .btn{max-width:none}}
 </style>
 <div class="shov" id="shOv" hidden>
   <div class="shsheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
