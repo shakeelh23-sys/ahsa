@@ -2451,6 +2451,15 @@ html[lang="ur"] .shqr span{font:400 13px/2 var(--f-ur)}
   .shqr{display:none}
 }
 @media (prefers-reduced-motion:reduce){.shov,.shsheet{transition:none}}
+
+/* Hero quick buttons: tidy 3x2 grid on phones (2026-11-17) */
+@media (max-width:700px){
+html body .hero .cta.qb{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;overflow:visible!important;padding:4px 0 10px!important;margin-bottom:0!important;width:100%!important;max-width:none!important}
+html body .hero .cta.qb .btn.qs2{flex:none!important;width:auto!important;min-width:0!important;height:56px!important;min-height:56px!important;padding:6px 8px!important;border-radius:14px!important;box-sizing:border-box;overflow:hidden}
+html body .hero .cta.qb .btn.qs2 .qs2t{line-height:1.15!important;margin:0!important}
+html body .hero .cta.qb .btn.qs2 .qs2t b{font-size:15.5px!important;line-height:1.15!important;letter-spacing:0!important;white-space:nowrap}
+}
+@media (max-width:340px){html body .hero .cta.qb .btn.qs2 .qs2t b{font-size:14px!important}}
 </style>
 <div class="shov" id="shOv" hidden>
   <div class="shsheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
