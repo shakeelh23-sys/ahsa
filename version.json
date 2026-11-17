@@ -1,1 +1,6 @@
-{"versionCode":16,"versionName":"7.7","apk":"https://raw.githubusercontent.com/shakeelh23-sys/ahsa/recorder-app/AHSA-Recorder.apk","notes":"Whiteboard now also moves left and right (two fingers) for more space. Share includes writing on the sides too."}
+{
+ "versionCode": 17,
+ "versionName": "7.8",
+ "apk": "https://raw.githubusercontent.com/shakeelh23-sys/ahsa/recorder-app/AHSA-Recorder.apk",
+ "notes": "Whiteboard zoom: pinch with two fingers, or use the − / + buttons."
+}
