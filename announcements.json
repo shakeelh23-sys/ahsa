@@ -3,6 +3,11 @@
   "on": true,
   "items": [
     {
+      "ur": "🆕 ویب سائٹ اب اور آسان: ہوم پر بڑا سرچ باکس، اپنی کلاس منتخب کریں (My Class)، نئی فائلیں، ہر فائل کا Preview اور ⭐ محفوظ کریں",
+      "en": "🆕 Easier website: big search on Home, choose My Class, new files list, Preview every file and ⭐ save your files",
+      "link": "#home"
+    },
+    {
       "ur": "🆕 کوئسچن بینک: جماعت ہشتم تا بارہویں، ہر مضمون کے تمام مختصر اور انشائیہ سوالات (بغیر جوابات) ایک PDF میں، 63 فائلیں",
       "en": "🆕 Question Bank: Class 8 to 12, all short and long questions of every subject (without answers) in one PDF, 63 files",
       "link": "#qbank"

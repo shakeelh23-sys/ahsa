@@ -1399,6 +1399,52 @@ function dailyStats() {
   const tot = days.length, ok = days.filter(x => log[x] === 2).length;
   return {streak, tot, ok, log};
 }
+
+/* Student corner on Home (2026-11-17): big search, My Class, New files */
+let MYC = ''; try { MYC = localStorage.getItem('ahsa-my-cls') || ''; } catch (e) {}
+if (MYC) cls = MYC;
+let SCQ = '', SCALL = false;
+const CLS_LIST = [['8', '8'], ['9', '9'], ['9t', '9 Tech'], ['10', '10'], ['11', '11'], ['12', '12']];
+const clsLbl = k => k === '9t' ? '9 Tech' : k;
+function scResults(v) {
+  const w = norm(v).split(/\s+/).filter(Boolean); if (!w.length) return '';
+  const syl = SYL.filter(x => w.every(z => norm(`${x.en} ${x.ur} class ${x.k} syllabus paper scheme model ${x.kind}`).includes(z))).slice(0, 8);
+  const pg = HPAGES.filter(p => w.every(x => norm(p[0] + ' ' + p[2]).includes(x)));
+  let h = pg.length ? `<div class="pgs">${pg.map(p => `<a class="chip" href="${p[1]}">${p[0]}</a>`).join('')}</div>` : '';
+  if (syl.length) h += `<div class="kick" style="margin-top:8px">📄 Smart Syllabus · ${syl.length}</div><div class="sylg">${syl.map(x => `<div class="syl"><div style="min-width:0"><h4>${esc(L(x.ur, x.en))}</h4><div class="m"><span class="tag">Class ${esc(x.k)}</span><span class="tag">${x.ext} · ${x.mb} MB</span></div></div><span class="qbb"><button type="button" class="btn sm pvb" data-pvu="${x.f}" data-pt="${esc(x.en)}">${PVI}Preview</button><a class="btn sm navy" href="${x.f}" target="_blank" rel="noopener">${svg('papers')}${t('open')}</a></span></div>`).join('')}</div>`;
+  const r = searchAll(v); return h + ((syl.length || pg.length) && /class="empty"/.test(r) ? '' : r);
+}
+function newFiles() {
+  const all = []; DATA.forEach(c => c.s.forEach(s => s.f.forEach(f => { if (isNew(f)) all.push({c, s, f}); })));
+  all.sort((a, b) => (MYC && (a.c.k === MYC) !== (b.c.k === MYC)) ? (a.c.k === MYC ? -1 : 1) : (b.f.nw || '').localeCompare(a.f.nw || ''));
+  return all;
+}
+function stuCorner() {
+  const nf = newFiles(), show = nf.slice(0, SCALL ? 40 : 6), nMine = MYC ? nf.filter(x => x.c.k === MYC).length : 0;
+  const ca = MYC && CLASS_APPS.find(a => a.k === MYC);
+  const pick = `<div class="scpick"><div class="sct">👋 Which class are you in? <span lang="ur" dir="rtl">آپ کس کلاس میں ہیں؟</span></div><div class="qbc">${CLS_LIST.map(([k, l]) => `<button type="button" data-myc="${k}" aria-pressed="${MYC === k}">Class ${l}</button>`).join('')}</div></div>`;
+  const mine = MYC ? `<div class="scmy"><div class="sct">🎒 My Class: <b>Class ${clsLbl(MYC)}</b> <button type="button" class="sclink" data-myc="">Change · تبدیل کریں</button></div>
+    <div class="scbtns"><a class="btn sm" href="#notes-${MYC}">📚 Notes</a>${ca ? `<a class="btn sm" href="${ca.local}" target="_blank" rel="noopener">📝 MCQs Test</a>` : ''}<a class="btn sm" href="#qbank" data-qbc="${MYC}">❓ Question Bank</a>${MYC !== '9t' ? `<a class="btn sm" href="#papers">📄 Syllabus</a>` : ''}<button type="button" class="btn sm" data-gosaved>⭐ My Saved (${FAV.filter(id => FILES[id]).length})</button></div></div>` : pick;
+  return `<section class="scorner"><div class="wrap">
+    <label class="search scsearch">${svg('search')}<input id="hsq" type="search" placeholder="Search: Physics 9, Question Bank 10…" value="${esc(SCQ)}" aria-label="Search all files" autocomplete="off"></label>
+    <div id="hsr" class="hsr">${scResults(SCQ)}</div>
+    ${mine}
+    ${nf.length ? `<div class="scnew"><div class="sh" style="margin:14px 0 6px"><div><div class="kick">🆕 Recently added · نئی فائلیں</div><h2 style="font-size:20px">New files${MYC && nMine ? ` · ${nMine} for Class ${clsLbl(MYC)}` : ''}</h2></div></div>
+      <div class="files">${show.map(x => fileRow(x.f, `${x.c.k === '9t' ? '9 Tech' : 'Class ' + x.c.k} · ${L(x.s.ur, x.s.en)}`)).join('')}</div>
+      ${nf.length > 6 ? `<button type="button" class="btn sm line" id="scMore" style="margin-top:8px">${SCALL ? 'Show less' : `Show all new files (${Math.min(nf.length, 40)})`}</button>` : ''}</div>` : ''}
+  </div></section>`;
+}
+let scT = 0;
+document.addEventListener('input', e => { if (e.target.id !== 'hsq') return; SCQ = e.target.value; clearTimeout(scT); scT = setTimeout(() => { const r = document.getElementById('hsr'); if (r) r.innerHTML = scResults(SCQ); }, 180); });
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-myc],[data-qbc],#scMore,[data-gosaved]'); if (!b) return;
+  if (b.id === 'scMore') { SCALL = !SCALL; render(); return; }
+  if (b.dataset.qbc) { QBF.c = b.dataset.qbc; QBF.q = ''; qbSave(); return; }
+  if (b.hasAttribute('data-gosaved')) { const m = document.getElementById('mySaved'); if (m) m.scrollIntoView({behavior: 'smooth', block: 'start'}); else toast('⭐ Tap the star on any file to save it here'); return; }
+  MYC = b.dataset.myc; try { if (MYC) localStorage.setItem('ahsa-my-cls', MYC); else localStorage.removeItem('ahsa-my-cls'); } catch (x) {}
+  if (MYC) { cls = MYC; QBF.c = MYC; qbSave(); }
+  const y = scrollY; render(); scrollTo(0, y);
+});
 function vHome() {
   return `<div class="hv2">
   <div id="annBar">${annBar()}</div>
@@ -1421,6 +1467,7 @@ function vHome() {
       <a class="tohome" href="#home" aria-label="Home"><img class="logo" src="assets/logo.webp" alt="Al Hassan Science Academy logo" width="240" height="240" fetchpriority="high" decoding="async"></a>
     </div>
   </div></section>
+  ${stuCorner()}
   <section class="tband"><div class="wrap"><div id="tshowWrap">${tutorShow()}</div></div></section>
   <section><div class="wrap">
     <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2 class="cch">${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
@@ -1435,7 +1482,7 @@ function vHome() {
   <!-- ACTION-BAND-OFF 2026-11-15: داخلہ / ٹیوٹر چاہیے / ہماری ٹیم block removed from home -->
   <div class="wrap">
     <!-- QUICK-OFF 2026-11-15: home search box + Notes/Weekly test/Syllabus cards removed (header search remains) -->
-    ${myFiles()}
+    <div id="mySaved">${myFiles()}</div>
   </div>
   <section><div class="wrap">
     <div class="mpbar"><h2 class="mph mpe">Board Papers</h2><div class="mpbtns">
@@ -2549,6 +2596,19 @@ body.pvOpen .fabT{display:none!important}
 .qbc button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#3a2a00}
 .qbf2 .search{max-width:420px}
 @media (max-width:700px){.qbr .qbb{margin-inline-end:auto;max-width:calc(100% - 60px)}.qbr .qbb .btn{max-width:none}}
+
+/* Student corner (2026-11-17) */
+.scorner{padding:14px 0 6px}
+.scsearch{display:flex;width:100%;max-width:none}
+.scsearch input{font-size:16px!important;min-height:48px}
+.hsr:empty{display:none}.hsr{margin-top:8px;max-height:70vh;overflow:auto;border-radius:12px}
+.scpick,.scmy{margin-top:12px;padding:12px;border:1.5px solid var(--line,#ddd);border-radius:14px;background:var(--card,#fff)}
+.sct{font-weight:800;margin-bottom:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.sct [lang=ur]{font-family:var(--f-ur);font-weight:400;line-height:1.9}
+.sclink{border:0;background:none;color:var(--navy);text-decoration:underline;font:700 13px var(--f-body,inherit);cursor:pointer}
+:root[data-theme="dark"] .sclink{color:var(--gold)}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sclink{color:var(--gold)}}
+.scpick .qbc{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible}.scpick .qbc button{padding:9px 4px}
+.scbtns{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.scbtns .btn{justify-content:center;background:var(--navy);color:#fff;border:0}
 </style>
 <div class="shov" id="shOv" hidden>
   <div class="shsheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
