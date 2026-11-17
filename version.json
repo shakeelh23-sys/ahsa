@@ -1,6 +1,6 @@
 {
- "versionCode": 18,
- "versionName": "7.9",
+ "versionCode": 19,
+ "versionName": "7.10",
  "apk": "https://raw.githubusercontent.com/shakeelh23-sys/ahsa/recorder-app/AHSA-Recorder.apk",
- "notes": "Whiteboard Share now sends ALL your writing (left, right and far down). Long boards are sent as a few pictures, top to bottom."
+ "notes": "Updates now open the phone's own installer (fixes \"Install not allowed\" on Vivo). Whiteboard Share sends ALL your writing."
 }
