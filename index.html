@@ -1420,19 +1420,23 @@ function newFiles() {
   return all;
 }
 function stuCorner() {
-  const nf = newFiles(), show = nf.slice(0, SCALL ? 40 : 6), nMine = MYC ? nf.filter(x => x.c.k === MYC).length : 0;
   const ca = MYC && CLASS_APPS.find(a => a.k === MYC);
-  const pick = `<div class="scpick"><div class="sct">👋 Which class are you in? <span lang="ur" dir="rtl">آپ کس کلاس میں ہیں؟</span></div><div class="qbc">${CLS_LIST.map(([k, l]) => `<button type="button" data-myc="${k}" aria-pressed="${MYC === k}">Class ${l}</button>`).join('')}</div></div>`;
-  const mine = MYC ? `<div class="scmy"><div class="sct">🎒 My Class: <b>Class ${clsLbl(MYC)}</b> <button type="button" class="sclink" data-myc="">Change · تبدیل کریں</button></div>
-    <div class="scbtns"><a class="btn sm" href="#notes-${MYC}">📚 Notes</a>${ca ? `<a class="btn sm" href="${ca.local}" target="_blank" rel="noopener">📝 MCQs Test</a>` : ''}<a class="btn sm" href="#qbank" data-qbc="${MYC}">❓ Question Bank</a>${MYC !== '9t' ? `<a class="btn sm" href="#papers">📄 Syllabus</a>` : ''}<button type="button" class="btn sm" data-gosaved>⭐ My Saved (${FAV.filter(id => FILES[id]).length})</button></div></div>` : pick;
+  const sel = `<div class="scsel"><span class="sct">🎒 My Class <span lang="ur" dir="rtl">میری کلاس</span></span><div class="qbc">${CLS_LIST.map(([k, l]) => `<button type="button" data-myc="${k}" aria-pressed="${MYC === k}">${l}</button>`).join('')}</div></div>`;
+  const B = [[MYC ? `#notes-${MYC}` : '#notes', '📚', 'Notes', 'نوٹس', ''], [ca ? ca.local : '#tests', '📝', 'Tests', 'ٹیسٹ', ca ? ' target="_blank" rel="noopener"' : ''], ['#qbank', '❓', 'Question Bank', 'کوئسچن بینک', MYC ? ` data-qbc="${MYC}"` : ''], ['#papers', '📄', 'Syllabus', 'سلیبس', '']];
   return `<section class="scorner"><div class="wrap">
-    ${mine}
+    <h1 class="h3h">Free notes, tests &amp; question banks · Class 8 to 12 <span lang="ur" dir="rtl">مفت نوٹس اور ٹیسٹ</span></h1>
     <label class="search scsearch">${svg('search')}<input id="hsq" type="search" placeholder="Search: Physics 9, Question Bank 10…" value="${esc(SCQ)}" aria-label="Search all files" autocomplete="off"></label>
     <div id="hsr" class="hsr">${scResults(SCQ)}</div>
-    ${nf.length ? `<div class="scnew"><div class="sh" style="margin:14px 0 6px"><div><div class="kick">🆕 Recently added · نئی فائلیں</div><h2 style="font-size:20px">New files${MYC && nMine ? ` · ${nMine} for Class ${clsLbl(MYC)}` : ''}</h2></div></div>
-      <div class="files">${show.map(x => fileRow(x.f, `${x.c.k === '9t' ? '9 Tech' : 'Class ' + x.c.k} · ${L(x.s.ur, x.s.en)}`)).join('')}</div>
-      ${nf.length > 6 ? `<button type="button" class="btn sm line" id="scMore" style="margin-top:8px">${SCALL ? 'Show less' : `Show all new files (${Math.min(nf.length, 40)})`}</button>` : ''}</div>` : ''}
+    ${sel}
+    <div class="big4">${B.map(([h, i, e, u, x]) => `<a class="b4" href="${h}"${x}><span class="i">${i}</span><b>${e}</b><span lang="ur" dir="rtl">${u}</span>${MYC && e !== 'Syllabus' ? `<small>Class ${clsLbl(MYC)}</small>` : ''}</a>`).join('')}</div>
   </div></section>`;
+}
+function newSec() {
+  const nf = newFiles(), show = nf.slice(0, SCALL ? 40 : 4), nMine = MYC ? nf.filter(x => x.c.k === MYC).length : 0;
+  if (!nf.length) return '';
+  return `<section class="scnew"><div class="wrap"><h2 class="moreh" style="margin-top:4px">🆕 New files${MYC && nMine ? ` · Class ${clsLbl(MYC)}` : ''} <span lang="ur" dir="rtl">نئی فائلیں</span></h2>
+      <div class="files">${show.map(x => fileRow(x.f, `${x.c.k === '9t' ? '9 Tech' : 'Class ' + x.c.k} · ${L(x.s.ur, x.s.en)}`)).join('')}</div>
+      ${nf.length > 4 ? `<button type="button" class="btn sm line" id="scMore" style="margin-top:8px">${SCALL ? 'Show less' : `Show all new files (${Math.min(nf.length, 40)})`}</button>` : ''}</div></section>`;
 }
 let scT = 0;
 document.addEventListener('input', e => { if (e.target.id !== 'hsq') return; SCQ = e.target.value; clearTimeout(scT); scT = setTimeout(() => { const r = document.getElementById('hsr'); if (r) r.innerHTML = scResults(SCQ); }, 180); });
@@ -1446,33 +1450,22 @@ document.addEventListener('click', e => {
   const y = scrollY; render(); scrollTo(0, y);
 });
 function vHome() {
-  return `<div class="hv2">
+  return `<div class="hv2 hv3">
   <div id="annBar">${annBar()}</div>
-  <section class="hero" style="padding:0"><div class="wrap">
-    <div>
-      <h1 class="stk"><a class="tohome" href="#home"><span class="u">${(L('','Al Hassan|Science|Academy')).split('|').map((w, i) => `<span class="w w${i}">${w}</span>`).join(' ')}</span></a></h1>
-      <p class="alt">${t('heroAlt')}</p>
-      <p class="lead">${L('', 'Class 8 to 12: free notes, tests and experienced tutors.')}</p>
-      ${(() => { const B = [`<a class="btn qn qs2" href="#notes"><span class="qs2t"><b>Notes</b></span></a>`,
-        `<a class="btn qt qs2" href="#tests"><span class="qs2t"><b>Tests</b></span></a>`,
-        `<a class="btn gold qa qs2" href="#apply" aria-label="Admissions open"><span class="qs2t qao"><b>Admissions</b><b>Open</b></span></a>`,
-        `<a class="btn qs qs2" href="#papers"><span class="qs2t"><b>Smart</b><b>Syllabus</b></span></a>`,
-        `<a class="btn qqb qs2" href="#qbank"><span class="qs2t"><b>Question</b><b>Bank</b></span></a>`]
-        .concat(appIn() ? [`<button type="button" class="btn qsh qs2" data-shareapp aria-label="Share App"><span class="qs2t"><b>Share</b><b>App</b></span></button>`] : [`<button type="button" class="btn qi qs2" aria-label="Install App"><span class="qs2t"><b>Install</b><b>App</b></span></button>`]);
-        const cl = B.map(h => h.replace(/^<(a|button)( type="button")? class="btn /, '<$1$2 tabindex="-1" aria-hidden="true" class="btn qcl ')).join('');
-        return `<div class="cta qb${B.length > 4 ? ' q5' : ''}" id="qTrack" data-n="${B.length}">${B.join('')}${cl}</div>`; })()}
-    </div>
-    <div class="orbit" aria-hidden="false">
-      <svg class="rings" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><ellipse cx="100" cy="100" rx="96" ry="38"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(60 100 100)"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(120 100 100)"/><circle class="e" cx="196" cy="100" r="4"/><circle class="e" cx="52" cy="17" r="3.5"/><circle class="e" cx="52" cy="183" r="3"/></svg>
-      <a class="tohome" href="#home" aria-label="Home"><img class="logo" src="assets/logo.webp" alt="Al Hassan Science Academy logo" width="240" height="240" fetchpriority="high" decoding="async"></a>
-    </div>
-  </div></section>
   ${stuCorner()}
+  <div class="wrap"><div id="mySaved">${myFiles()}</div></div>
   <section class="mpsec"><div class="wrap">
-    <div class="mpbar"><h2 class="mph mpe">Board Papers</h2><div class="mpbtns">
-      <a class="btn navy mpb" href="#papers">Pairing <br>Scheme</a><a class="btn gold mpb" href="#model">Model <br>Papers</a><a class="btn mpb mpp" href="#past">Past <br>Papers</a><a class="btn mpb mqb" href="#qbank">Question <br>Bank</a>
+    <div class="mpbar"><h2 class="mph mpe">Board Papers</h2><div class="mpbtns m3">
+      <a class="btn navy mpb" href="#papers">Pairing <br>Scheme</a><a class="btn gold mpb" href="#model">Model <br>Papers</a><a class="btn mpb mpp" href="#past">Past <br>Papers</a>
     </div></div>
   </div></section>
+  ${newSec()}
+  <section><div class="wrap">
+    <div class="sh dqsh"><div class="dqrow" dir="rtl"><h2 class="dqur" lang="ur" dir="rtl">آج کا سوال</h2><p class="dqsub" lang="ur" dir="rtl">ہر جماعت کا روزانہ ایک نیا سوال</p></div></div>
+    <div class="sarrw dqarr"><div id="dailyWrap" class="dqshow">${dailyBox()}</div><button type="button" class="sarr sprev" data-dqa="-1" aria-label="Previous class">‹</button><button type="button" class="sarr snext" data-dqa="1" aria-label="Next class">›</button></div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap"><div class="admc"><div><b>Admissions open · داخلے جاری ہیں</b><span>Class 8 to 12 · Dillewali</span></div><a class="btn gold" href="#apply">Apply · داخلہ</a><a class="btn wa" href="https://wa.me/923146011672" target="_blank" rel="noopener">WhatsApp</a></div></div></section>
+  <div class="wrap"><h2 class="moreh">More from AHSA <span lang="ur" dir="rtl">مزید</span></h2></div>
   <section class="tband"><div class="wrap"><div id="tshowWrap">${tutorShow()}</div></div></section>
   <section><div class="wrap">
     <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2 class="cch">${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
@@ -1490,19 +1483,11 @@ function vHome() {
     <div class="wy"><span>📝</span><b>Daily tests &amp; progress</b><i lang="ur" dir="rtl">روزانہ ٹیسٹ اور والدین کو رپورٹ</i></div>
     <div class="wy"><span>👩‍🏫</span><b>Separate boys &amp; girls classes</b><i lang="ur" dir="rtl">طلبہ و طالبات کی الگ کلاسز</i></div>
   </div></div></div>
-  <!-- ACTION-BAND-OFF 2026-11-15: داخلہ / ٹیوٹر چاہیے / ہماری ٹیم block removed from home -->
-  <div class="wrap">
-    <!-- QUICK-OFF 2026-11-15: home search box + Notes/Weekly test/Syllabus cards removed (header search remains) -->
-    <div id="mySaved">${myFiles()}</div>
-  </div>
-  <section><div class="wrap">
-    <div class="sh dqsh"><div class="dqrow" dir="rtl"><h2 class="dqur" lang="ur" dir="rtl">آج کا سوال</h2><p class="dqsub" lang="ur" dir="rtl">ہر جماعت کا روزانہ ایک نیا سوال</p></div></div>
-    <div class="sarrw dqarr"><div id="dailyWrap" class="dqshow">${dailyBox()}</div><button type="button" class="sarr sprev" data-dqa="-1" aria-label="Previous class">‹</button><button type="button" class="sarr snext" data-dqa="1" aria-label="Next class">›</button></div>
-  </div></section>
-  <!-- HOME-V2 2026-11-17 (Shakeel approved): FAQ + Why-choose strip + contact strip back on home; backup branch backup-before-home-v2 = 794c3f0 -->
   <section class="stusec" style="padding-top:0"><div class="wrap">${studentsShow()}</div></section>
   <section style="padding-top:0"><div class="wrap">${adsHome()}</div></section>
   <section style="padding-top:0"><div class="wrap"><div class="sh"><div><div class="kick">FAQ · عام سوالات</div><h2 style="font-size:22px">Common questions</h2></div></div>${faq()}</div></section>
+  <div class="wrap" style="margin:6px auto 18px">${appIn() ? `<button type="button" class="btn line" data-shareapp>Share App</button>` : `<button type="button" class="btn line qi">⬇ Install App</button>`}</div>
+  <!-- HOME-V3 2026-11-17 (Shakeel approved student-first home): backup branch backup-before-home-v3 = 3ee9c4a; v2 backup backup-before-home-v2 = 794c3f0 -->
   </div>`;
 }
 
@@ -2629,6 +2614,29 @@ body.pvOpen .fabT{display:none!important}
 .trust{background:var(--card,#fff);border:1.5px solid var(--line,#ddd);border-radius:14px;padding:14px}
 .trust h2 [lang=ur]{font:400 18px/1.9 var(--f-ur)}
 .trb{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}.trb .btn{justify-content:center}
+
+/* Home v3 student-first (2026-11-17) */
+.hv3 .scorner{padding:12px 0 4px!important}.hv3 .mpsec,.hv3 .scnew{padding:10px 0!important}.hv3 .mpbar{margin:0}
+.h3h{font-size:clamp(16px,4.4vw,22px);margin:0 0 10px;line-height:1.3;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}.h3h [lang=ur]{font:400 16px/1.8 var(--f-ur);opacity:.85}
+.h3top{padding:12px 0 4px}
+.h3row{display:flex;align-items:center;gap:12px}
+.h3logo{width:60px;height:60px;border-radius:50%;flex:none;box-shadow:0 0 0 3px var(--gold)}
+.h3t h1{margin:0;font-size:clamp(19px,5.4vw,30px);line-height:1.2}
+.h3t p{margin:2px 0 0;font:400 15px/1.9 var(--f-ur);opacity:.85;text-align:start}
+.scsel{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.scsel .sct{font-weight:800;display:flex;gap:6px;align-items:baseline}.scsel .sct [lang=ur]{font:400 15px/1.8 var(--f-ur)}
+.scsel .qbc{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;overflow:visible}
+.scsel .qbc button{padding:8px 2px;font-size:13px}
+@media (max-width:380px){.scsel .qbc{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.big4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.b4{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:96px;padding:10px 6px;border-radius:16px;text-decoration:none;color:#fff;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.b4 .i{font-size:26px;line-height:1}.b4 b{font-size:15px;line-height:1.2}.b4 [lang=ur]{font:400 14px/1.7 var(--f-ur)}.b4 small{font-size:11px;opacity:.9;font-weight:700}
+.b4:nth-child(1){background:linear-gradient(160deg,#5b7f1f,#3f5b12)}.b4:nth-child(2){background:linear-gradient(160deg,#2f6fe0,#1d4fb5)}.b4:nth-child(3){background:linear-gradient(160deg,#8b35a3,#62207a)}.b4:nth-child(4){background:linear-gradient(160deg,#ea6a1b,#c2410c)}
+@media (max-width:700px){.big4{grid-template-columns:repeat(2,minmax(0,1fr))}.b4{min-height:84px}}
+.mpbtns.m3{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.admc{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px;border-radius:14px;border:1.5px solid var(--gold);background:var(--card,#fff)}
+.admc div{flex:1 1 200px;display:flex;flex-direction:column}.admc span{font-size:13px;opacity:.8}
+.moreh{font-size:20px;margin:22px 0 8px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}.moreh [lang=ur]{font:400 18px/1.9 var(--f-ur)}
 </style>
 <div class="shov" id="shOv" hidden>
   <div class="shsheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
