@@ -8,11 +8,12 @@
 <meta name="theme-color" content="#0a1222">
 <link rel="icon" href="../assets/logo-96.webp">
 <link rel="manifest" href="../manifest.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="../assets/fonts/jnn-site.woff2?v=1" as="font" type="font/woff2" crossorigin>
 <style>
 :root{--bg:#f3f6fb;--card:#fff;--soft:#e7eefa;--ink:#0f1b33;--mut:#58647a;--line:#dbe3f0;--navy:#0b3d91;--gold:#ffc107;--em:#0b3d91;--um:#7c3aed;--ok:#15803d;--bad:#dc2626;
---f-body:"Source Sans 3","Segoe UI",system-ui,Roboto,Arial,sans-serif;--f-ur:"Jameel Noori Nastaleeq","Noto Nastaliq Urdu","Noto Naskh Arabic","Urdu Typesetting",serif}
+--f-body:"Source Sans 3","Segoe UI",system-ui,Roboto,Arial,sans-serif;--f-ur:"AHSA JNN","Jameel Noori Nastaleeq","Noto Nastaliq Urdu","Urdu Typesetting",serif}
+@font-face{font-family:"AHSA JNN";src:local("Jameel Noori Nastaleeq"),url(../assets/fonts/jnn-site.woff2?v=1) format("woff2");font-display:swap;size-adjust:115%}
+@font-face{font-family:"AHSA JNN Paper";src:local("Jameel Noori Nastaleeq"),url(../assets/fonts/jnn-paper.woff2?v=1) format("woff2");font-display:block;size-adjust:112%}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1222;--card:#111c31;--soft:#16233d;--ink:#e6edf9;--mut:#9aa8c2;--line:#24324d;--navy:#0d3f97;--em:#7aa7ff;--um:#b794ff}}
 :root[data-theme="dark"]{--bg:#0a1222;--card:#111c31;--soft:#16233d;--ink:#e6edf9;--mut:#9aa8c2;--line:#24324d;--navy:#0d3f97;--em:#7aa7ff;--um:#b794ff}
 *{box-sizing:border-box}
@@ -116,7 +117,8 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
 /* ---------- A4 paper ---------- */
 #stage{position:absolute;left:-10000px;top:0}
 .page{width:794px;height:1123px;background:#fff;color:#000;padding:38px 42px 34px;position:relative;overflow:hidden;font:400 14.5px/1.45 "Times New Roman",Georgia,serif;margin:0 0 12px}
-.page[dir="rtl"]{font:400 16px/1.95 var(--f-ur)}
+.page[dir="rtl"]{font:400 17px/1.75 "AHSA JNN Paper",var(--f-ur)}
+.page[dir="rtl"] .u,.page[dir="rtl"] .sh,.page[dir="rtl"] .ph{font-family:"AHSA JNN Paper",var(--f-ur)}
 .page .pf{position:absolute;left:42px;right:42px;bottom:12px;display:flex;justify-content:space-between;font:400 10.5px/1.2 Arial,sans-serif;color:#555;direction:ltr}
 .page .body>*{break-inside:avoid}
 .ph{border:2px solid #000;border-radius:6px;padding:8px 10px;margin-bottom:10px}
@@ -234,7 +236,7 @@ function stepSubject(){
   const nos=S.s&&S.m?(()=>{const p=IDX[key()];const a=cnt(p);return `<div class="note">${a[0]} MCQs · ${a[1]} Short · ${a[2]} Long ${a[1]===0&&a[2]===0?`<br>${bi('Only MCQs are available for this subject right now.','اس مضمون کے ابھی صرف MCQs دستیاب ہیں۔')}`:''}</div>`})():'';
   return `<div class="card"><h2 class="q">Step 2 · Select Subject<span class="u">مرحلہ 2 · مضمون منتخب کریں</span></h2>
   <p class="hint">${CL[S.c][0]} · <span class="u">${CL[S.c][1]}</span></p>
-  <div class="grid">${subs.map(s=>`<button type="button" class="ch" data-s="${s}" aria-pressed="${S.s===s}"><b>${SB[s][0]}</b><span class="u">${SB[s][1]}</span><small>${P.filter(p=>p.s===s).map(p=>p.m.toUpperCase()).join(' · ')}</small></button>`).join('')}</div></div>${med}${nos}
+  <div class="grid">${subs.map(s=>`<button type="button" class="ch" data-s="${s}" aria-pressed="${S.s===s}"><b>${SB[s][0]}</b><span class="u">${SB[s][1]}</span><small>${P.filter(p=>p.s===s).map(p=>p.m.toUpperCase()).sort().join(' · ')}</small></button>`).join('')}</div></div>${med}${nos}
   <div class="nav2"><button class="btn line" data-step="1" type="button">‹ Back</button><button class="btn gold" data-step="3" type="button" ${S.s&&S.m?'':'disabled'}>Next ›</button></div>`;
 }
 async function stepChapters(){
@@ -372,7 +374,7 @@ function paginate(B,rtl){ // fills A4 pages in #stage, returns array of page ele
   pages.forEach((x,i)=>x.querySelector('.pg').textContent=`Page ${i+1} of ${pages.length}`);
   return pages;
 }
-async function ensureFont(){if(VP&&VP.m==='um'&&!document.getElementById('nfont')){const l=document.createElement('link');l.id='nfont';l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap';document.head.appendChild(l);await new Promise(r=>{l.onload=r;l.onerror=r;setTimeout(r,6000)})}try{if(VP&&VP.m==='um')await Promise.race([document.fonts.load('400 16px "Noto Nastaliq Urdu"','ابپتٹثجچحخدڈذرڑزژسشصضطظعغفقکگلمنںوہھءیے'),document.fonts.load('700 16px "Noto Nastaliq Urdu"','ابپ'),new Promise(r=>setTimeout(r,8000))]);await document.fonts.ready}catch(e){}}
+async function ensureFont(){try{const w=[document.fonts.load('400 16px "AHSA JNN"','الحسن')];if(VP&&VP.m==='um')w.push(document.fonts.load('400 17px "AHSA JNN Paper"','سوال نمبر'));await Promise.race([Promise.all(w),new Promise(r=>setTimeout(r,15000))]);await document.fonts.ready}catch(e){}}
 async function buildPages(kind,set){ // kind: paper|key
   await getPack(VP.k); await ensureFont();
   if(kind==='key'){const k=paginate(keyBlocks(VP),false).map(p=>p.outerHTML);$('#stage').innerHTML='';return k}
