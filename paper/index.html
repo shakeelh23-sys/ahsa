@@ -176,8 +176,80 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
  #printArea{display:block!important}
  #printArea .page{margin:0;break-after:page;box-shadow:none}
  #printArea .page.half{break-after:auto}
+ #printArea .t2pg{page-break-after:always;margin:0}
  #printArea .page.half:nth-child(2n){break-after:page;border-top:1px dashed #999}
 }
+
+/* MCQ test 2 students per A4 (reference: Math 10 Test 2) */
+.t2pg{padding:0;font:400 12pt/1.4 "Times New Roman",Georgia,serif}
+.t2pg .t2h{width:210mm;height:148.5mm;padding:7mm 8mm 7mm;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.t2pg.one .t2h{height:297mm}
+.t2pg .cut{position:absolute;left:0;right:0;top:148.5mm;border-top:.35mm dashed #000;height:0}
+.t2pg .cut span{position:absolute;left:1.5mm;top:-3.1mm;font-family:"DejaVu Sans",Verdana,Arial,sans-serif;font-size:12pt;background:#fff;line-height:1;padding:0 .5mm}
+.t2pg .lt,.t2pg .l,.t2pg .bb,.t2pg .bn,.t2pg .n,.t2pg .set,.t2pg .h1,.t2pg .h2,.t2pg .ftr,.t2pg .gm{font-family:"DejaVu Sans",Verdana,Arial,sans-serif}
+.t2pg .hdr{display:flex;align-items:center;justify-content:space-between;gap:4mm;border-top:.5mm solid #000;border-bottom:.5mm solid #000;padding:.8mm 0;direction:ltr}
+.t2pg .h1{font-size:9pt;font-weight:bold}.t2pg .h2{font-size:7.5pt}
+.t2pg .hdr span{white-space:nowrap}
+.t2pg .set{background:#000;color:#fff;font-weight:bold;font-size:10pt;padding:.3mm 3mm;border-radius:1mm}
+.t2pg .hdr.sm .h1{font-size:8pt}.t2pg .hdr.sm .h2{font-size:7pt}
+.t2pg .boxes{display:flex;gap:2mm;margin-top:1.8mm;min-height:37mm}
+.t2pg .bx{border:.4mm solid #000;border-radius:1.2mm;padding:1mm 2mm;display:flex;flex-direction:column}
+.t2pg .nm{width:48mm;justify-content:space-around}
+.t2pg .tm{font-size:12pt;font-weight:bold;line-height:1.6;white-space:nowrap}
+.t2pg.fs1 .qt{font-size:13.5pt;line-height:1.6}.t2pg.fs1 .ops{font-size:12.5pt;line-height:1.5}
+.t2pg.fs2 .qt{font-size:12pt;line-height:1.5}.t2pg.fs2 .ops{font-size:11.5pt;line-height:1.4}
+.t2pg.fs3 .qt{font-size:11pt;line-height:1.4}.t2pg.fs3 .ops{font-size:10.5pt;line-height:1.3}
+.t2pg[dir="ltr"].fs1 .qt{font-size:10.5pt}.t2pg[dir="ltr"].fs1 .ops{font-size:10pt}.t2pg[dir="ltr"].fs2 .qt,.t2pg[dir="ltr"].fs3 .qt{font-size:9.5pt}.t2pg[dir="ltr"].fs2 .ops,.t2pg[dir="ltr"].fs3 .ops{font-size:9pt}
+.t2pg .dl{font-size:13pt;font-weight:bold;border-bottom:.35mm dotted #000;line-height:1.7;padding-top:1mm}
+.t2pg .bs{flex:1;padding:0 0 1mm;overflow:hidden}
+.t2pg .bh{background:#000;color:#fff;text-align:center;font-size:12pt;line-height:1.55;font-weight:bold}
+.t2pg .bh .lt{font-size:8pt}
+.t2pg .bg{display:flex;direction:ltr;justify-content:space-around;padding:1mm 1mm 0}
+.t2pg .bc{padding:0 2mm}.t2pg .bc+.bc{border-left:.3mm dashed #000}
+.t2pg .bg.c4 .bc{padding:0 .8mm}
+.t2pg .br{display:flex;align-items:center;gap:1.1mm;height:4.75mm}
+.t2pg .bn{width:5mm;text-align:right;font-size:8pt;font-weight:bold}
+.t2pg .bb{width:4.1mm;height:4.1mm;border:.3mm solid #000;border-radius:50%;font-size:6.5pt;font-weight:bold;display:flex;align-items:center;justify-content:center;line-height:1}
+.t2pg .bb.on{background:#000;color:#fff}
+.t2pg .ins{font-size:9.5pt;text-align:center;line-height:1.5;margin-top:auto;padding:0 1mm}
+.t2pg .mk{width:32mm;padding:0;align-items:center}
+.t2pg .mk .bh{align-self:stretch;font-size:11pt}
+.t2pg .circ{width:23mm;height:23mm;border:.5mm solid #000;border-radius:50%;margin:auto;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.t2pg .circ .up{height:8mm;width:13mm;border-bottom:.45mm solid #000}
+.t2pg .circ .dn{font-size:14pt;font-weight:bold;line-height:1.3}
+.t2pg .qa{flex:1;display:flex;gap:0;margin-top:1.2mm;min-height:0}
+.t2pg .col{flex:1;width:50%;overflow:hidden;padding:0 2mm}
+.t2pg .col+.col{border-inline-start:.3mm dashed #000}
+.t2pg .q{padding:.8mm 0 1mm;border-bottom:.25mm dashed #000;break-inside:avoid;position:relative}
+.t2pg .q:last-child{border-bottom:none}
+.t2pg .qh{display:flex;gap:1.6mm;align-items:flex-start}
+.t2pg .n{flex:none;width:6mm;height:6mm;border:.35mm solid #000;border-radius:50%;font-size:8.5pt;font-weight:bold;display:flex;align-items:center;justify-content:center;margin-top:1.6mm}
+.t2pg .qt{font-size:15pt;font-weight:bold;line-height:1.75}
+.t2pg .ops{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;column-gap:2mm;padding-inline-start:7.5mm;font-size:14pt;line-height:1.65}
+.t2pg .ops.two{grid-template-columns:1fr 1fr}
+.t2pg .ops.one{grid-template-columns:1fr}
+.t2pg .o{display:flex;gap:1mm;align-items:baseline;white-space:nowrap;padding:0 1mm;border-radius:1mm}
+.t2pg .ops.one .o,.t2pg .ops.two .o{white-space:normal}
+.t2pg .o .l{font-size:10pt;font-weight:bold;direction:ltr}
+.t2pg .o.ok{background:#bdbdbd;outline:.3mm solid #000}
+.t2pg .turn{font-size:11pt;text-align:end;line-height:1.4;font-weight:bold}
+.t2pg .ftr{border-top:.5mm solid #000;border-bottom:.5mm solid #000;padding:.8mm 0;font-size:8pt;direction:ltr;text-align:center;margin-top:1mm}
+.t2pg .gm{background:#000;color:#fff;padding:.2mm 1.5mm;font-size:7.5pt;border-radius:.7mm}
+.t2pg math{font-size:.9em}
+.t2pg[dir="rtl"]{font-family:"AHSA JNN Paper",var(--f-ur)}
+.t2pg[dir="rtl"] .qt,.t2pg[dir="rtl"] .ot,.t2pg[dir="rtl"] .tm,.t2pg[dir="rtl"] .dl,.t2pg[dir="rtl"] .bh,.t2pg[dir="rtl"] .ins,.t2pg[dir="rtl"] .turn{font-family:"AHSA JNN Paper",var(--f-ur)}
+.t2pg[dir="ltr"] .qt{font-size:11.5pt;line-height:1.4;font-weight:bold}
+.t2pg[dir="ltr"] .ops{font-size:11pt;line-height:1.45}
+.t2pg[dir="ltr"] .n{margin-top:.3mm}
+.t2pg[dir="ltr"] .tm{font-size:10.5pt;font-family:"DejaVu Sans",Verdana,Arial,sans-serif}
+.t2pg[dir="ltr"] .dl{font-size:10.5pt;font-family:"DejaVu Sans",Verdana,Arial,sans-serif;line-height:2.2}
+.t2pg[dir="ltr"] .bh{font-size:9.5pt;font-family:"DejaVu Sans",Verdana,Arial,sans-serif}
+.t2pg[dir="ltr"] .ins{font-size:7.5pt;font-family:"DejaVu Sans",Verdana,Arial,sans-serif}
+.t2pg[dir="ltr"] .turn{font-size:9pt;font-family:"DejaVu Sans",Verdana,Arial,sans-serif}
+.page.t2pg .set{display:inline-block;border:0;gap:0;margin:0;min-width:0;text-align:center}
+.page.t2pg .ops{margin:0;row-gap:0}
+.page.t2pg .qa .n{min-width:0}
+#pvin.swm .t2pg .q[data-sw]{cursor:pointer;outline:2px dashed #e0a800;outline-offset:1px}
 #printArea{display:none}
 .tabs{display:flex;gap:6px;overflow-x:auto;margin:6px 0 10px;padding-bottom:2px}
 .tab{flex:none;border:2px solid var(--line);background:var(--soft);color:var(--ink);border-radius:999px;padding:8px 14px;font:700 15px/1.2 var(--f-body);cursor:pointer}
@@ -252,7 +324,8 @@ const TPL=[
  {k:'mt',en:'Monthly Test',ur:'ماہانہ ٹیسٹ',time:70,mcq:[10,1],sq:[10,2],lq:[2,5],d:'2 to 4 chapters · 40 marks'},
  {k:'hb',en:'Half Book Test',ur:'ہاف بک ٹیسٹ',time:120,mcq:[15,1],sq:[15,2],lq:[3,5],d:'Half syllabus · 60 marks'},
  {k:'fb',en:'Full Book Test',ur:'فل بک ٹیسٹ',time:180,mcq:[20,1],sq:[20,2],lq:[4,10],d:'Full syllabus · 100 marks'},
- {k:'am',en:'Annual / Model Paper',ur:'سالانہ / ماڈل پیپر',time:160,mcq:[12,1],sq:[18,2],lq:[3,9],d:'Full syllabus · 75 marks'}];
+ {k:'am',en:'Annual / Model Paper',ur:'سالانہ / ماڈل پیپر',time:160,mcq:[12,1],sq:[18,2],lq:[3,9],d:'Full syllabus · 75 marks'},
+ {k:'t2',en:'MCQ Test · 2 students per A4',ur:'MCQ ٹیسٹ · ایک A4 پر 2 طالب علم',time:20,mcq:[15,1],sq:[0,2],lq:[0,5],d:'Set A top · Set B bottom · bubble sheet'}];
 const TYP={mcq:['MCQs','کثیر الانتخابی سوالات'],sq:['Short Questions','مختصر سوالات'],lq:['Long Questions','تفصیلی سوالات'],num:['Numericals','عددی سوالات']};
 const TT=['mcq','sq','lq','num'];
 const DIF=[['Easy','آسان'],['Medium','درمیانہ'],['Hard','مشکل']];
@@ -264,6 +337,7 @@ S=Object.assign({c:null,s:null,m:null,ch:[],tpl:'mt',time:70,pass:33,ab:false,ex
 if(!S.num)S.num={n:0,mk:5,mix:false,e:0,md:0,h:0};
 if(!S.pick)S.pick={mcq:[],sq:[],lq:[],num:[]};
 if(S.lastN==null)S.lastN=S.norep===false?'0':'all';
+if(!S.tno)S.tno=1;if(!S.lay)S.lay=2;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const bi=(en,ur)=>`<span><b>${en}</b> <span class="u">${ur}</span></span>`;
 function toast(m){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
@@ -357,22 +431,22 @@ async function stepSettings(){
   <p class="hint">${pk?`<b>Picked: ${pk}</b><br>${bi('The rest will be filled automatically.','باقی سوالات خودکار شامل ہوں گے۔')} <button type="button" class="btn line" data-pclear style="min-height:36px;padding:4px 10px;font-size:14px">Clear picks</button>`:bi('Or let the app pick all questions at random.','یا تمام سوالات ایپ خود چنے۔')}</p>
   <div class="set"><label>Time (minutes)<span class="u">وقت (منٹ)</span></label>${stp('time',S.time)}</div>
   <div class="set"><label>Passing %<span class="u">پاسنگ فیصد</span></label>${stp('pass',S.pass)}</div>
-  ${sec('mcq')}${sec('sq')}${sec('lq')}${sec('num')}
+  ${S.tpl==='t2'?t2Fields()+sec('mcq'):sec('mcq')+sec('sq')+sec('lq')+sec('num')}
   <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing Marks<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${S.time}</b><span>Minutes<br><span class="u">منٹ</span></span></div></div>
-  <label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>
+  ${S.tpl==='t2'?'':`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`}
   ${lastNSel()}
   ${PACK.u.some(u=>['sq','lq'].some(t=>u[t].some(q=>q.x)))?`<label class="tog"><input type="checkbox" data-opt="exd" ${S.exd?'checked':''}> ${bi('Smart Syllabus 2027 only (skip deleted questions)','اسمارٹ سلیبس 2027 (خارج سوالات نہیں)')}</label>`:''}
   <div class="set" style="grid-template-columns:1fr"><label for="inst">Name on paper<span class="u">پیپر پر ادارے کا نام</span></label><input class="inp" id="inst" value="${esc(S.inst)}" maxlength="70"></div>
-  ${hdrFields()}
+  ${hdrFields(S.tpl==='t2')}
   <p class="hint">${bi('Easy/Medium/Hard is estimated automatically from question length.','آسان/مشکل کا اندازہ سوال کی لمبائی سے خودکار لگایا جاتا ہے۔')}</p>
   ${presetSave()}</div>
   <div class="nav2"><button class="btn line" data-step="4" type="button">‹ Back</button><button class="btn gold" id="genBtn" type="button" ${T?'':'disabled'}>✨ Make Paper</button></div>`;
 }
 function lastNSel(){return `<div class="set"><label for="lastN">Don't repeat questions of<span class="u">ان پیپرز کے سوالات نہ دہرائیں</span></label><select class="inp" id="lastN" style="width:auto">${[['0','Off · بند'],['1','Last 1 paper'],['3','Last 3 papers'],['5','Last 5 papers'],['10','Last 10 papers'],['all','All my papers']].map(([v,l])=>`<option value="${v}" ${S.lastN===v?'selected':''}>${l}</option>`).join('')}</select></div>`}
-function hdrFields(){return `<div class="ef"><label for="ttl">Paper title<span class="u">پیپر کا عنوان (اختیاری)</span></label><input class="inp" id="ttl" value="${esc(S.ttl||'')}" maxlength="60" placeholder="e.g. December Test">
+function hdrFields(t2){return `<div class="ef"><label for="ttl">Paper title<span class="u">پیپر کا عنوان (اختیاری)</span></label><input class="inp" id="ttl" value="${esc(S.ttl||'')}" maxlength="60" placeholder="e.g. December Test">
   <label for="tch">Teacher name<span class="u">استاد کا نام (اختیاری)</span></label><input class="inp" id="tch" value="${esc(S.tch||'')}" maxlength="50">
   <label for="dstr">Date on paper<span class="u">تاریخ (اختیاری)</span></label><input class="inp" id="dstr" value="${esc(S.dstr||'')}" maxlength="30" placeholder="e.g. 20-11-2026"></div>
-  <div class="ef"><label>Paper size<span class="u">پیپر کا سائز</span></label><div class="seg"><button type="button" class="ch" data-half="0" aria-pressed="${!S.half}"><b>A4 full page</b><span class="u">پورا صفحہ</span></button><button type="button" class="ch" data-half="1" aria-pressed="${!!S.half}"><b>Half page</b><span class="u">آدھا صفحہ (ایک A4 پر 2)</span></button></div></div>
+  ${t2?'':`<div class="ef"><label>Paper size<span class="u">پیپر کا سائز</span></label><div class="seg"><button type="button" class="ch" data-half="0" aria-pressed="${!S.half}"><b>A4 full page</b><span class="u">پورا صفحہ</span></button><button type="button" class="ch" data-half="1" aria-pressed="${!!S.half}"><b>Half page</b><span class="u">آدھا صفحہ (ایک A4 پر 2)</span></button></div></div>`}
   <div class="ef"><label>Logo on paper<span class="u">پیپر پر لوگو</span></label><div class="row"><label class="btn line" style="flex:1">🖼️ My logo<input type="file" id="logoIn" accept="image/*" hidden></label>${LS.get('ahsa-pm-logo',null)?`<button type="button" class="btn line" data-logodel style="flex:1">↩️ AHSA logo</button>`:''}</div>${LS.get('ahsa-pm-logo',null)?`<img src="${LS.get('ahsa-pm-logo','')}" alt="" style="width:56px;height:56px;border-radius:50%;margin-top:6px;object-fit:cover">`:''}</div>`}
 function presetSave(){return `<div class="ef" style="border-top:1px solid var(--line);padding-top:10px"><label for="pname">Save these settings as a preset<span class="u">یہ ترتیب محفوظ کریں</span></label><div class="srow"><input class="inp" id="pname" maxlength="40" placeholder="e.g. Class 10 Physics Monthly"><button type="button" class="btn line" data-psave>💾 Save</button></div></div>`}
 const logoSrc=()=>LS.get('ahsa-pm-logo',null)||'../assets/logo-96.webp';
@@ -435,7 +509,7 @@ function generate(){
   });
   used[k]=U; LS.set('ahsa-pm-used',used);
   const tp=TPL.find(t=>t.k===S.tpl);
-  const P=Object.assign({id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:S.tpl,title:tp.en,titleUr:tp.ur,inst:S.inst||DEF_INST,time:S.time,pass:S.pass,ab:S.ab,seed,chs:S.ch.slice(),sec,date:new Date().toISOString().slice(0,10)},hdrOf());
+  const P=Object.assign({id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:S.tpl,title:tp.en,titleUr:tp.ur,inst:S.inst||DEF_INST,time:S.time,pass:S.pass,ab:S.ab,seed,chs:S.ch.slice(),sec,date:new Date().toISOString().slice(0,10)},hdrOf(),S.tpl==='t2'?{ab:true,half:false,t2:{tno:S.tno||1,lay:S.lay===1?1:2}}:{});
   storeP(P);
   VP=Object.assign({saved:true},P);
   if(short.length)toast('Not enough questions for: '+short.join(', ')+' · جتنے سوال ملے، شامل کر دیے');
@@ -521,8 +595,79 @@ function paginate(B,rtl,half){ // fills A4 (or half-A4) pages in #stage, returns
   return pages;
 }
 async function ensureFont(){try{const w=[document.fonts.load('400 16px "AHSA JNN"','الحسن')];if(VP&&VP.m==='um')w.push(document.fonts.load('400 17px "AHSA JNN Paper"','سوال نمبر'));await Promise.race([Promise.all(w),new Promise(r=>setTimeout(r,15000))]);await document.fonts.ready}catch(e){}}
+/* ---------------- MCQ test, 2 students per A4 (layout of Math 10 Test 2) ---------------- */
+function t2Fields(){return `<div class="set"><label>Test number<span class="u">ٹیسٹ نمبر</span></label>${stp('tno',S.tno)}</div>
+  <div class="ef"><label>Print layout<span class="u">پرنٹ کا طریقہ</span></label><div class="seg"><button type="button" class="ch" data-lay="2" aria-pressed="${S.lay!==1}"><b>2 students per A4</b><span class="u">ایک A4 پر 2 طالب علم</span></button><button type="button" class="ch" data-lay="1" aria-pressed="${S.lay===1}"><b>1 per page</b><span class="u">ایک صفحے پر ایک</span></button></div></div>
+  <p class="hint">${bi('Set A on top, Set B below (different order and options). Print both sides: «Flip on long edge», then cut on the dashed line.','اوپر سیٹ A، نیچے سیٹ B۔ دونوں طرف پرنٹ کریں («Flip on long edge») اور ڈیش لائن سے کاٹ لیں۔')}</p>`}
+function t2Units(chs){const a=chs.filter(n=>n>0&&n<100).sort((x,y)=>x-y);if(!a.length)return '';const pre=a.length>1?'UNITS ':'UNIT ';
+  if(a.length>2&&a[a.length-1]-a[0]===a.length-1)return pre+a[0]+'–'+a[a.length-1];return pre+a.join(', ')}
+function t2Hdr(P){const cn=CL[P.c][0].replace('Class ','').toUpperCase(), sub=SB[P.s][0].toUpperCase(), tn=(P.t2&&P.t2.tno)||1;
+  return {h1:`${sub} ${cn} · TEST ${tn} · OBJECTIVE${t2Units(P.chs)?' · '+t2Units(P.chs):''}`, hb:`${sub} ${cn} · TEST ${tn} · BACK SIDE`,
+   me:P.teacher?`<b>${esc(P.teacher.toUpperCase())}</b>${P.inst&&P.inst!==DEF_INST?' · '+esc(P.inst.toUpperCase()):''}`:(P.inst===DEF_INST?'<b>SHAKEEL HASSAN</b> · SST SCIENCE · GHS MC MIANWALI':`<b>${esc(P.inst.toUpperCase())}</b>`),
+   ft:P.inst===DEF_INST?'<span class="gm">Find us on Google Maps:</span> <b>AL HASSAN SCIENCE ACADEMY</b> &nbsp;DILLEWALI · WhatsApp 0314-6011672':`<b>${esc(P.inst.toUpperCase())}</b>`}}
+function t2Front(P,set,D,key,H,T){const ur=P.m==='um', n=D.length, L='abcd';
+  let rows=5, cols=Math.ceil(n/5); if(cols>4){cols=4;rows=Math.ceil(n/4)}
+  let bg=''; for(let c=0;c<cols;c++){let r='';for(let i=c*rows;i<Math.min(n,c*rows+rows);i++)r+=`<div class="br"><span class="bn">${i+1}</span>${[0,1,2,3].map(k=>`<span class="bb${key&&D[i].a===k?' on':''}">${L[k]}</span>`).join('')}</div>`;bg+=`<div class="bc">${r}</div>`}
+  const time=P.time, ds=P.dstr?esc(P.dstr):'';
+  const tm=ur?`کُل نمبر: <span class="lt">${T}</span> &nbsp;وقت: <span class="lt">${time}</span> منٹ${ds?`<br>تاریخ: <span class="lt">${ds}</span>`:''}`:`Total Marks: <span class="lt">${T}</span><br>Time: <span class="lt">${time}</span> min${ds?`<br>Date: ${ds}`:''}`;
+  return `<div class="t2h front" data-set="${set}"><div class="hdr"><span class="h1">${H.h1}</span>${P.ab?`<span class="set">SET ${set}</span>`:''}<span class="h2">${H.me}</span></div>
+  <div class="boxes"><div class="bx nm"><div class="tm">${tm}</div><div class="dl">${ur?'نام:':'Name:'}</div><div class="dl">${ur?'رول نمبر:':'Roll No.:'}</div></div>
+  <div class="bx bs"><div class="bh">${key?(ur?'جوابات کی کنجی':'ANSWER KEY'):(ur?'جوابی شیٹ':'ANSWER SHEET')} ${P.ab?`<span class="lt">· SET ${set}</span>`:''}</div><div class="bg${cols>3?' c4':''}">${bg}</div>
+  <div class="ins">${ur?'درست جواب والا ایک دائرہ پُر کریں۔ ایک سے زیادہ دائرے پُر کرنے یا کاٹنے پر جواب غلط ہوگا۔':'Fill one circle for the correct answer. Filling or cutting more than one circle makes the answer wrong.'}</div></div>
+  <div class="bx mk"><div class="bh">${ur?'حاصل کردہ نمبر':'MARKS OBTAINED'}</div><div class="circ"><div class="up"></div><div class="dn lt">${T}</div></div></div></div>
+  <div class="qa"><div class="col"></div><div class="col"></div></div><div class="turn">${ur?'صفحہ پلٹیں، باقی سوالات پچھلی طرف ہیں ←':'Turn over: the remaining questions are on the back →'}</div></div>`}
+function t2Back(P,set,H){return `<div class="t2h back" data-set="${set}"><div class="hdr sm"><span class="h1">${H.hb}</span>${P.ab?`<span class="set">SET ${set}</span>`:''}<span class="h2">${H.me}</span></div>
+  <div class="qa"><div class="col"></div><div class="col"></div></div><div class="ftr">${H.ft}</div></div>`}
+function t2Q(q,i,key,sw){return `<div class="q"${sw?` data-sw="mcq|${i}"`:''}><div class="qh"><span class="n">${i+1}</span><span class="qt">${q.q}</span></div><div class="ops">${q.o.map((o,k)=>`<div class="o${key&&q.a===k?' ok':''}"><span class="l">(${'abcd'[k]})</span><span class="ot">${o}</span></div>`).join('')}</div></div>`}
+function t2Fill(cols,qs){ // put questions column by column; returns how many fitted
+  let ci=0,placed=0;
+  for(const h of qs){const t=document.createElement('div');t.innerHTML=h;const q=t.firstChild;
+    while(ci<cols.length){cols[ci].appendChild(q);const ops=q.querySelector('.ops');ops.classList.remove('two','one');
+      if(ops.scrollWidth>ops.clientWidth+1){ops.classList.add('two');if(ops.scrollWidth>ops.clientWidth+1){ops.classList.remove('two');ops.classList.add('one')}}
+      if(cols[ci].scrollHeight<=cols[ci].clientHeight+0.5){placed++;break}
+      cols[ci].removeChild(q);ci++}
+    if(ci>=cols.length)break}
+  return placed}
+async function t2Pages(kind){
+  let r; for(let fs=0;fs<4;fs++){r=await t2Build(kind,fs);if(r.n<=((VP.t2&&VP.t2.lay===1)?1:2))break} return r.out}
+async function t2Build(kind,fs){
+  const P=VP, key=kind==='key', ur=P.m==='um', H=t2Hdr(P), [T]=totals(P), one=P.t2&&P.t2.lay===1, sets=P.ab?['A','B']:['A'];
+  const st=$('#stage'); st.innerHTML='';
+  const mkPage=()=>{const p=document.createElement('div');p.className='page t2pg'+(one?' one':'')+(fs?' fs'+fs:'');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';st.appendChild(p);return p};
+  const data={}, QH={}; sets.forEach(s=>data[s]=setData(P,s).mcq);
+  // 0) question HTML, with formulas already turned into pictures so the layout below measures what the PDF will show
+  for(const s of sets){const pre=mkPage();pre.innerHTML=`<div class="t2h"><div class="qa"><div class="col" style="overflow:visible">${data[s].map((q,i)=>t2Q(q,i,key,s==='A'&&!key)).join('')}</div></div></div>`;
+    await ensureFont();await mathImgs(pre);QH[s]=[...pre.querySelectorAll('.q')].map(e=>e.outerHTML);pre.remove()}
+  // 1) how many questions fit on the front of each set; use the same number for both sets
+  let k=Infinity;
+  for(const s of sets){const pg=mkPage();pg.innerHTML=t2Front(P,s,data[s],key,H,T);await new Promise(r=>requestAnimationFrame(r));
+    k=Math.min(k,t2Fill([...pg.querySelectorAll('.qa .col')],QH[s]));pg.remove()}
+  // 2) build halves: front (first k) + as many back halves as needed
+  const halves={};
+  for(const s of sets){const D=data[s], qs=QH[s]; const list=[];
+    let pg=mkPage();pg.innerHTML=t2Front(P,s,D,key,H,T);const fr=pg.firstChild;
+    t2Fill([...fr.querySelectorAll('.qa .col')],qs.slice(0,k)); let rest=qs.slice(k); list.push(fr);
+    if(!rest.length)fr.querySelector('.turn').style.visibility='hidden';
+    while(rest.length){pg=mkPage();pg.innerHTML=t2Back(P,s,H);const bk=pg.firstChild;const n=t2Fill([...bk.querySelectorAll('.qa .col')],rest);list.push(bk);rest=rest.slice(Math.max(1,n))}
+    halves[s]=list}
+  // 3) assemble A4 pages
+  const out=[]; const N=Math.max(...sets.map(s=>halves[s].length));
+  if(one){sets.forEach(s=>halves[s].forEach(h=>{const p=document.createElement('div');p.className='page t2pg one'+(fs?' fs'+fs:'');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';p.appendChild(h);out.push(p.outerHTML)}))}
+  else for(let i=0;i<N;i++){const p=document.createElement('div');p.className='page t2pg'+(fs?' fs'+fs:'');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';
+    sets.forEach((s,j)=>{const h=halves[s][i];if(h)p.appendChild(h);else{const e=document.createElement('div');e.className='t2h';p.appendChild(e)}
+      if(j===0&&sets.length>1){const c=document.createElement('div');c.className='cut';c.innerHTML='<span>✂</span>';p.appendChild(c)}});
+    out.push(p.outerHTML)}
+  st.innerHTML=''; return {out,n:N}}
+async function t2Png(){ // preview image: pages side by side
+  busy(true,'⏳ تصویر بن رہی ہے…<br>Making image…');
+  try{await Promise.all(LIBS.map(load));const pages=await buildPages('paper');const st=$('#stage');st.innerHTML=pages.join('');await mathImgs(st);
+    await Promise.all([...st.querySelectorAll('img')].map(im=>im.complete?0:new Promise(r=>{im.onload=im.onerror=r})));
+    const cvs=[];for(const el of st.querySelectorAll('.page'))cvs.push(await html2canvas(el,{scale:1.2,backgroundColor:'#ffffff',logging:false}));st.innerHTML='';
+    const g=24,w=cvs[0].width,h=cvs[0].height,c=document.createElement('canvas');c.width=cvs.length*w+(cvs.length+1)*g;c.height=h+2*g;const x=c.getContext('2d');x.fillStyle='#e0e0e0';x.fillRect(0,0,c.width,c.height);
+    cvs.forEach((v,i)=>x.drawImage(v,g+i*(w+g),g));return await new Promise(r=>c.toBlob(r,'image/png'))}finally{busy(false)}}
 async function buildPages(kind,set){ // kind: paper|key
   await getPack(VP.k); await ensureFont();
+  if(VP.tpl==='t2')return t2Pages(kind);
   if(kind==='key'){const k=paginate(keyBlocks(VP),false).map(p=>p.outerHTML);$('#stage').innerHTML='';return k}
   const sets=set?[set]:(VP.ab?['A','B']:['A']); let all=[];
   for(const s of sets){const pg=paginate(blocks(VP,s),VP.m==='um',!!VP.half);all=all.concat(pg.map(p=>p.outerHTML))}
@@ -540,11 +685,13 @@ function paperView(){
    <button class="btn wa full" data-act="share" type="button">📤 Share on WhatsApp</button>
    <button class="btn line" data-act="print" type="button">🖨️ Print</button>
    <button class="btn line" data-act="word" type="button">📝 Word file</button>
+   ${P.tpl==='t2'?`<button class="btn line full" data-act="png" type="button">🖼️ Preview image (PNG)</button>`:''}
    <button class="btn ${EDM?'gold':'navy'} full" data-act="edm" type="button">${EDM?'✓ Done editing · ایڈٹ مکمل':'✏️ Edit paper · پیپر میں تبدیلی'}</button>
    <button class="btn line" data-act="regen" type="button">🔁 Regenerate</button>
    <button class="btn ${SWM?'gold':'line'} full" data-act="swm" type="button">${SWM?'✓ Done · ہو گیا':'⇄ Change one question · ایک سوال بدلیں'}</button>
    <button class="btn line full" data-act="again" type="button">⚙️ Change Settings / New Paper</button>
   </div>
+  ${P.tpl==='t2'&&!(P.t2&&P.t2.lay===1)?`<div class="gap">${bi('Printing: choose both sides and «Flip on long edge». Then cut each sheet on the dashed line: 2 students per sheet.','پرنٹ: دونوں طرف (Both sides) اور «Flip on long edge» چنیں، پھر ڈیش لائن سے کاٹ لیں۔ ایک شیٹ سے 2 طالب علم۔')}</div>`:''}
   ${SWM?`<div class="gap" id="swhint">${bi('Now tap any question in the paper below to change it.','اب نیچے پیپر میں جس سوال کو بدلنا ہو اس پر ٹیپ کریں۔')}</div>`:''}
   <p class="hint">${bi('Saved in My Papers on this phone.','یہ پیپر اس فون میں «میرے پیپرز» میں محفوظ ہے۔')}<br>${bi('Regenerate changes all questions.','«Regenerate» سے سارے سوالات بدل جائیں گے۔')}</p></div>
   ${EDM?editPanel(P):''}
@@ -553,19 +700,33 @@ function paperView(){
 async function drawPreview(){
   const w=$('#pvw'),inn=$('#pvin'); inn.innerHTML='<p style="color:#fff;padding:20px">Loading…</p>';
   const pg=await buildPages('paper'); inn.innerHTML=pg.join('');
-  inn.classList.toggle('swm',SWM); if(SWM)inn.querySelectorAll('.qi[data-sw]').forEach(q=>{const b=document.createElement('button');b.type='button';b.className='swb';b.dataset.sw=q.dataset.sw;b.title='Swap this question';b.setAttribute('aria-label','Swap this question');b.textContent='⇄';q.appendChild(b)});
+  inn.classList.toggle('swm',SWM); if(SWM)inn.querySelectorAll('.qi[data-sw],.t2pg .q[data-sw]').forEach(q=>{const b=document.createElement('button');b.type='button';b.className='swb';b.dataset.sw=q.dataset.sw;b.title='Swap this question';b.setAttribute('aria-label','Swap this question');b.textContent='⇄';q.appendChild(b)});
   fitPreview();
 }
 /* ---------------- PDF / share / print ---------------- */
 const LIBS=['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];
 function load(src){return new Promise((ok,no)=>{if(document.querySelector(`script[src="${src}"]`))return ok();const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
 function fname(P,kind){return `AHSA ${SB[P.s][0]} ${P.c.toUpperCase()} ${P.title}${kind==='key'?' Answer Key':''} ${P.date}.pdf`.replace(/[\/\\:*?"<>|]/g,'')}
+// html2canvas cannot draw MathML: turn every <math> into a PNG of the browser's own rendering (SVG foreignObject)
+async function mathImgs(root){
+  const ms=[...root.querySelectorAll('math')]; if(!ms.length)return;
+  const ser=new XMLSerializer();
+  for(const m of ms){const r=m.getBoundingClientRect(); if(!r.width)continue;
+    const mk=document.createElement('span');mk.style.cssText='display:inline-block;width:0;height:0;vertical-align:baseline';m.parentNode.insertBefore(mk,m);
+    const base=mk.getBoundingClientRect().top; mk.remove();
+    const w=Math.ceil(r.width)+2,h=Math.ceil(r.height)+2,cs=getComputedStyle(m),Z=3;
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w*Z}" height="${h*Z}"><foreignObject x="0" y="0" width="${w}" height="${h}" transform="scale(${Z})"><div xmlns="http://www.w3.org/1999/xhtml" style="margin:0;padding:1px;display:flex;align-items:flex-start;font-size:${cs.fontSize};font-weight:${cs.fontWeight};font-style:${cs.fontStyle};color:#000;white-space:nowrap;line-height:${cs.lineHeight}">${ser.serializeToString(m)}</div></foreignObject></svg>`;
+    try{const im=new Image();im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await im.decode();
+      const c=document.createElement('canvas');c.width=w*Z;c.height=h*Z;c.getContext('2d').drawImage(im,0,0);
+      const img=document.createElement('img');img.src=c.toDataURL('image/png');img.width=w;img.height=h;img.alt='';
+      img.style.cssText=`width:${w}px;height:${h}px;vertical-align:${-(r.bottom+1-base)}px;display:inline`;m.replaceWith(img)}catch(e){}}
+}
 async function makePDF(kind){
   busy(true,'⏳ PDF بن رہی ہے…<br>Making PDF…');
   try{
     await Promise.all(LIBS.map(load));
     const pages=await buildPages(kind); const st=$('#stage'); st.innerHTML=pages.join('');
-    await new Promise(r=>setTimeout(r,60));
+    await new Promise(r=>setTimeout(r,60)); await mathImgs(st);
     const {jsPDF}=window.jspdf; const pdf=new jsPDF({unit:'pt',format:'a4',compress:true});
     const els=[...st.querySelectorAll('.page')];
     await Promise.all([...st.querySelectorAll('img')].map(im=>im.complete?0:new Promise(r=>{im.onload=im.onerror=r})));
@@ -590,7 +751,8 @@ async function act(a,P){
       const txt=`${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]}\nAl Hassan Science Academy Dillewali (AHSA)\nhttps://shakeelh23-sys.github.io/ahsa/paper/`;
       if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:f.name,text:txt})}catch(e){}}
       else{download(b,f.name);toast('PDF saved. Attach it in WhatsApp · پی ڈی ایف محفوظ ہو گئی، واٹس ایپ میں بھیجیں');setTimeout(()=>{location.href='https://wa.me/?text='+encodeURIComponent(txt)},1200)}}
-    else if(a==='print'){const pg=await buildPages('paper');const k=await buildPages('key');$('#printArea').innerHTML=(P.half?pg.flatMap(x=>[x,x]):pg).join('')+k.join('');setTimeout(()=>print(),300)}
+    else if(a==='print'){const pg=await buildPages('paper');const k=await buildPages('key');$('#printArea').innerHTML=(P.half&&P.tpl!=='t2'?pg.flatMap(x=>[x,x]):pg).join('')+k.join('');setTimeout(()=>print(),300)}
+    else if(a==='png'){const b=await t2Png();download(b,fname(P,'pdf').replace(/\.pdf$/,' Preview.png'));toast('Image downloaded · تصویر ڈاؤن لوڈ ہو گئی')}
     else if(a==='word'){const b=await makeDocx(P);download(b,fname(P,'pdf').replace(/\.pdf$/,'.docx'));toast('Word file downloaded · ورڈ فائل ڈاؤن لوڈ ہو گئی')}
   }catch(e){busy(false);toast('Could not make PDF. Check internet and try again · انٹرنیٹ چیک کریں')}
 }
@@ -645,7 +807,7 @@ function stepBoard(){
   <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing (33%)<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${fmtTime(sc.time).replace(' minutes',' min')}</b><span>Time<br><span class="u">وقت</span></span></div></div>
   ${u0?`<div class="gap">${bi('Short/long questions of this subject are not chapter-wise in our notes yet, so they are picked from the whole book. MCQs follow the exact chapter scheme.','اس مضمون کے مختصر/تفصیلی سوالات ابھی باب وار نہیں، اس لیے پوری کتاب سے لیے جائیں گے۔ MCQs بورڈ اسکیم کے مطابق باب وار ہوں گے۔')}</div>`:''}
   ${numP&&!numHave?`<div class="gap">${bi('Numericals for this subject are not in our notes yet, so part (b) is a long question.','اس مضمون کے عددی سوالات ابھی نوٹس میں نہیں، اس لیے جز (ب) بھی تفصیلی سوال ہوگا۔')}</div>`:''}
-  <label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>
+  ${S.tpl==='t2'?'':`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`}
   ${lastNSel()}
   <div class="set" style="grid-template-columns:1fr"><label for="inst">Name on paper<span class="u">پیپر پر ادارے کا نام</span></label><input class="inp" id="inst" value="${esc(S.inst)}" maxlength="70"></div>
   ${hdrFields()}
@@ -865,7 +1027,7 @@ function bump(id,dir){
 }
 document.addEventListener('click',async e=>{
   const g=e.target.closest('[data-go]'); if(g){if(g.dataset.go==='gen'&&view==='gen'){step=1}go(g.dataset.go);return}
-  const qs=SWM&&e.target.closest('#pvin .qi[data-sw]'); if(qs){swapQ(qs.dataset.sw);return}
+  const qs=SWM&&e.target.closest('#pvin .qi[data-sw],#pvin .t2pg .q[data-sw]'); if(qs){swapQ(qs.dataset.sw);return}
   const b=e.target.closest('button'); if(!b)return;
   if(b.id==='themeBtn'){const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('ahsa-site-theme',r.dataset.theme)}catch(x){}return}
   if(b.hasAttribute('data-gopick')){S.inst=($('#inst')||{}).value?.trim()||S.inst;save();PF.ch='';PF.q='';PF.lim=30;go('pick');return}
@@ -878,6 +1040,7 @@ document.addEventListener('click',async e=>{
   if(b.dataset.pdel){if(b.dataset.sure){const L=LS.get('ahsa-pm-presets',[]);L.splice(+b.dataset.pdel,1);LS.set('ahsa-pm-presets',L);render()}else{b.dataset.sure=1;b.textContent='✓?';toast('Tap again to delete · دوبارہ دبائیں')}return}
   if(b.hasAttribute('data-psave')){const nm=($('#pname').value||'').trim();if(!nm){toast('Write a name first · پہلے نام لکھیں');$('#pname').focus();return}
     S.inst=($('#inst')||{}).value?.trim()||S.inst;const{pick,...snap}=S;const L=LS.get('ahsa-pm-presets',[]).filter(x=>x.name!==nm);L.unshift({name:nm,S:JSON.parse(JSON.stringify(snap))});LS.set('ahsa-pm-presets',L.slice(0,20));toast('Preset saved · ترتیب محفوظ ہو گئی');$('#pname').value='';return}
+  if(b.dataset.lay){S.lay=+b.dataset.lay;save();const y=scrollY;await render();scrollTo(0,y);return}
   if(b.dataset.half){if(view==='paper'&&VP){VP.half=b.dataset.half==='1';await saveEdit(true)}else{S.half=b.dataset.half==='1';save();const y=scrollY;await render();scrollTo(0,y)}return}
   if(b.hasAttribute('data-logodel')){LS.set('ahsa-pm-logo',null);try{localStorage.removeItem('ahsa-pm-logo')}catch(x){}const y=scrollY;await render();scrollTo(0,y);return}
   if(b.dataset.em){const[a,t,i]=b.dataset.em.split('|');editAct(a,t,+i);return}
@@ -891,7 +1054,7 @@ document.addEventListener('click',async e=>{
   if(b.dataset.s){if(S.s!==b.dataset.s){S.s=b.dataset.s;S.m=null;S.ch=[];S.pick={mcq:[],sq:[],lq:[],num:[]}}save();render();return}
   if(b.dataset.m){if(S.m!==b.dataset.m)S.pick={mcq:[],sq:[],lq:[],num:[]};S.m=b.dataset.m;S.ch=[];save();render();return}
   if(b.dataset.step){step=+b.dataset.step;if(step===3&&!S.ch.length){S.ch=IDX[key()].u.map(u=>u[0]).slice(0,1)}save();render();scrollTo(0,0);return}
-  if(b.dataset.tpl){S.tpl=b.dataset.tpl;if(S.tpl!=='bp'){const t=TPL.find(x=>x.k===S.tpl);S.time=t.time;['mcq','sq','lq'].forEach(k=>{S[k].n=t[k][0];S[k].mk=t[k][1];S[k].mix=false});S.num.n=0;S.num.mix=false}step=5;save();render();scrollTo(0,0);return}
+  if(b.dataset.tpl){S.tpl=b.dataset.tpl;if(S.tpl!=='bp'){const t=TPL.find(x=>x.k===S.tpl);S.time=t.time;['mcq','sq','lq'].forEach(k=>{S[k].n=t[k][0];S[k].mk=t[k][1];S[k].mix=false});S.num.n=0;S.num.mix=false;if(S.tpl==='t2')S.ab=true}step=5;save();render();scrollTo(0,0);return}
   if(b.dataset.board){if(b.dataset.board==='fb'){toast('Federal Board scheme coming soon · فیڈرل بورڈ جلد آ رہا ہے');return}S.board=b.dataset.board;save();render();return}
   if(b.dataset.sw){swapQ(b.dataset.sw);return}
   if(b.dataset.inc||b.dataset.dec){bump(b.dataset.inc||b.dataset.dec,b.dataset.inc?1:-1);save();const y=scrollY;await render();scrollTo(0,y);return}
