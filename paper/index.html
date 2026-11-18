@@ -148,7 +148,7 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
 .page[dir="rtl"] .sh{font-size:16.5px}
 .qi{display:flex;gap:6px;padding:3px 0;position:relative}
 .bq{font-weight:700;margin:8px 0 2px}.bq .mk{float:right;font-weight:400}.page[dir="rtl"] .bq .mk{float:left}
-.pt{font-weight:700;text-align:center;font-size:15.5px;margin:10px 0 2px;letter-spacing:.3px}
+.pt{font-weight:700;text-align:center;font-size:15.5px;margin:10px 0 2px;letter-spacing:.3px}.page[dir="rtl"] .pt{letter-spacing:0;font-size:17px}
 .qi .pm{flex:none;font-weight:400}
 .qimg{display:block;max-width:100%;height:auto;margin:1px 0}
 .swb{position:absolute;right:-34px;top:0;width:28px;height:28px;font-size:17px!important;border-radius:50%;border:2px solid #b45309;background:#fff7e0;color:#b45309;font:700 20px/1 Arial,sans-serif;cursor:pointer;padding:0}
@@ -169,6 +169,8 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
 .kg{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:12px}
 .kg span{border:1px solid #000;border-radius:4px;padding:3px 6px;font:700 14px/1.3 Arial,sans-serif;text-align:center}
 .page math{font-size:1.05em;direction:ltr;unicode-bidi:isolate}
+.rf{font-size:.8em;color:var(--mut);white-space:nowrap}.page .rf{display:none}
+.tx math,.qrow math{direction:ltr;unicode-bidi:isolate}
 @media print{
  @page{size:A4;margin:0}
  body{background:#fff;padding:0}
@@ -541,17 +543,18 @@ function blocks(P,set){
   const ur=P.m==='um', D=setData(P,set), [T,pm]=totals(P), B=[];
   const chs=P.chs.slice().sort((a,b)=>a-b).filter(n=>n>0&&n<100);
   B.push(phead(P,set,T,pm,chs.length?(ur?'ابواب: '+chs.join('، '):'Chapters: '+chs.join(', ')):''));
-  let qn=0;
+  let qn=0, sn=0; const nSec=['mcq','sq','lq','num'].filter(t=>D[t]&&D[t].length).length;
+  const sec=(en,u)=>{if(nSec<2)return;const L='ABCD'[sn],U=['اول','دوم','سوم','چہارم'][sn];sn++;B.push(`<div class="pt">${ur?`حصہ ${U} (${u})`:`SECTION ${L} · ${en}`}</div>`)};
   const sw=(t,i)=>set==='A'?` data-sw="${t}|${i}"`:'';
   const head=(t,en,u)=>{const c=D[t].length,mk=P.sec[t].mk;qn++;const ins=P.ins&&P.ins[t]?esc(P.ins[t]):(ur?u:en);return `<div class="sh"><span>${ur?`سوال نمبر ${qn}: ${ins}`:`Q.${qn} ${ins}`}</span><span dir="ltr">(${c} × ${mk} = ${c*mk})</span></div>`};
-  if(D.mcq.length){B.push(head('mcq','Choose the correct option.','درست جواب کا انتخاب کریں۔'));
+  if(D.mcq.length){sec('OBJECTIVE','معروضی');B.push(head('mcq','Choose the correct option.','درست جواب کا انتخاب کریں۔'));
     D.mcq.forEach((q,i)=>{const L=Math.max(...q.o.map(o=>plain(o).length));const cols=L<=16?'c4':L<=38?'c2':'c1';
       B.push(`<div class="qi"${sw('mcq',i)}><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});}
-  if(D.sq.length){B.push(head('sq','Write short answers to the following questions.','درج ذیل سوالات کے مختصر جوابات تحریر کریں۔'));
+  if(D.sq.length){sec('SHORT QUESTIONS','مختصر سوالات');B.push(head('sq','Write short answers to the following questions.','درج ذیل سوالات کے مختصر جوابات تحریر کریں۔'));
     D.sq.forEach((q,i)=>B.push(`<div class="qi"${sw('sq',i)}><span class="n">${ur?'('+(i+1)+')':(roman(i+1))}</span><div class="tx">${q.q}</div></div>`));}
-  if(D.lq.length){B.push(head('lq','Answer the following questions in detail.','درج ذیل سوالات کے تفصیلی جوابات تحریر کریں۔'));
+  if(D.lq.length){sec('LONG QUESTIONS','تفصیلی سوالات');B.push(head('lq','Answer the following questions in detail.','درج ذیل سوالات کے تفصیلی جوابات تحریر کریں۔'));
     D.lq.forEach((q,i)=>B.push(`<div class="qi lqs"${sw('lq',i)}><span class="n">${ur?'('+(i+1)+')':(String.fromCharCode(97+i))+')'}</span><div class="tx">${q.q}</div></div>`));}
-  if(D.num&&D.num.length){B.push(head('num','Solve the following numericals.','درج ذیل عددی سوالات حل کریں۔'));
+  if(D.num&&D.num.length){sec('NUMERICALS','عددی سوالات');B.push(head('num','Solve the following numericals.','درج ذیل عددی سوالات حل کریں۔'));
     D.num.forEach((q,i)=>B.push(`<div class="qi lqs"${sw('num',i)}><span class="n">${ur?'('+(i+1)+')':(String.fromCharCode(97+i))+')'}</span><div class="tx">${q.q}</div></div>`));}
   return B;
 }
@@ -660,9 +663,9 @@ async function t2Build(kind,fs){
   st.innerHTML=''; return {out,n:N}}
 async function t2Png(){ // preview image: pages side by side
   busy(true,'⏳ تصویر بن رہی ہے…<br>Making image…');
-  try{await Promise.all(LIBS.map(load));const pages=await buildPages('paper');const st=$('#stage');st.innerHTML=pages.join('');await mathImgs(st);
+  try{await Promise.all(LIBS.map(load));const pages=await buildPages('paper');const st=$('#stage');st.innerHTML=pages.join('');
     await Promise.all([...st.querySelectorAll('img')].map(im=>im.complete?0:new Promise(r=>{im.onload=im.onerror=r})));
-    const cvs=[];for(const el of st.querySelectorAll('.page'))cvs.push(await html2canvas(el,{scale:1.2,backgroundColor:'#ffffff',logging:false}));st.innerHTML='';
+    const cvs=await rasterAll(st,1.2);st.innerHTML='';
     const g=24,w=cvs[0].width,h=cvs[0].height,c=document.createElement('canvas');c.width=cvs.length*w+(cvs.length+1)*g;c.height=h+2*g;const x=c.getContext('2d');x.fillStyle='#e0e0e0';x.fillRect(0,0,c.width,c.height);
     cvs.forEach((v,i)=>x.drawImage(v,g+i*(w+g),g));return await new Promise(r=>c.toBlob(r,'image/png'))}finally{busy(false)}}
 async function buildPages(kind,set){ // kind: paper|key
@@ -683,10 +686,10 @@ function paperView(){
    <button class="btn gold" data-act="pdf" type="button">⬇️ Paper PDF</button>
    <button class="btn navy" data-act="key" type="button">🔑 Answer Key PDF</button>
    <button class="btn wa full" data-act="share" type="button">📤 Share on WhatsApp</button>
-   <button class="btn line" data-act="print" type="button">🖨️ Print</button>
-   <button class="btn line" data-act="word" type="button">📝 Word file</button>
+   <button class="btn line full" data-act="print" type="button">🖨️ Print / Save as PDF (selectable text)<span class="u">پرنٹ / کاپی ہونے والے ٹیکسٹ کی PDF</span></button>
    ${P.tpl==='t2'?`<button class="btn line full" data-act="png" type="button">🖼️ Preview image (PNG)</button>`:''}
    <button class="btn ${EDM?'gold':'navy'} full" data-act="edm" type="button">${EDM?'✓ Done editing · ایڈٹ مکمل':'✏️ Edit paper · پیپر میں تبدیلی'}</button>
+   <button class="btn line" data-act="word" type="button">📝 Word file</button>
    <button class="btn line" data-act="regen" type="button">🔁 Regenerate</button>
    <button class="btn ${SWM?'gold':'line'} full" data-act="swm" type="button">${SWM?'✓ Done · ہو گیا':'⇄ Change one question · ایک سوال بدلیں'}</button>
    <button class="btn line full" data-act="again" type="button">⚙️ Change Settings / New Paper</button>
@@ -721,18 +724,44 @@ async function mathImgs(root){
       const img=document.createElement('img');img.src=c.toDataURL('image/png');img.width=w;img.height=h;img.alt='';
       img.style.cssText=`width:${w}px;height:${h}px;vertical-align:${-(r.bottom+1-base)}px;display:inline`;m.replaceWith(img)}catch(e){}}
 }
+// Draw a page the way the browser itself shows it (real Urdu shaping, native MathML): page HTML + CSS + embedded fonts/images in an SVG foreignObject
+const DATAU={};
+function dataURL(u){if(!DATAU[u])DATAU[u]=fetch(u).then(r=>{if(!r.ok)throw 0;return r.blob()}).then(b=>new Promise(ok=>{const f=new FileReader();f.onload=()=>ok(f.result);f.readAsDataURL(b)})).catch(()=>{delete DATAU[u];return ''});return DATAU[u]}
+const PCSS={};
+async function pageCSS(ur){if(PCSS[ur])return PCSS[ur];
+  let css=[...document.querySelectorAll('style')].map(s=>s.textContent).join('\n').replace(/@media print\{[\s\S]*?\n\}\n/,'');
+  for(const f of ['jnn-site','jnn-paper']){const re=new RegExp('src:local\\("Jameel Noori Nastaleeq"\\),url\\(\\.\\./assets/fonts/'+f+'\\.woff2\\?v=1\\) format\\("woff2"\\)');
+    const want=f==='jnn-site'||ur; const d=want?await dataURL(new URL('../assets/fonts/'+f+'.woff2?v=1',location.href).href):'';
+    css=css.replace(re,d?`src:url(${d}) format("woff2")`:'src:local("Jameel Noori Nastaleeq")')}
+  return PCSS[ur]=css}
+async function rasterPage(el,Z){
+  const ur=el.getAttribute('dir')==='rtl'||!!el.querySelector('[dir="rtl"]'), css=await pageCSS(ur&&VP&&VP.m==='um');
+  const c=el.cloneNode(true); c.style.margin='0';
+  for(const im of c.querySelectorAll('img')){const s=im.getAttribute('src')||'';if(!s.startsWith('data:'))im.setAttribute('src',await dataURL(new URL(s,location.href).href))}
+  const w=el.offsetWidth,h=el.offsetHeight, ser=new XMLSerializer().serializeToString(c);
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w*Z}" height="${h*Z}"><foreignObject x="0" y="0" width="${w}" height="${h}" transform="scale(${Z})"><div xmlns="http://www.w3.org/1999/xhtml" style="width:${w}px;height:${h}px;background:#fff"><style><![CDATA[${css.replace(/\]\]>/g,'')}]]></style>${ser}</div></foreignObject></svg>`;
+  const url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
+  try{const im=new Image();im.src=url;await im.decode();await new Promise(r=>setTimeout(r,30));
+    const cv=document.createElement('canvas');cv.width=w*Z;cv.height=h*Z;const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.drawImage(im,0,0);
+    cv.toDataURL('image/png',0); // throws here if the browser taints SVG drawings (old Safari) -> caller falls back
+    return cv}finally{URL.revokeObjectURL(url)}}
+// all pages: browser rendering first; html2canvas (with formulas as pictures) only if that is blocked
+async function rasterAll(st,Z,cb){const els=[...st.querySelectorAll('.page')],out=[];let fo=true;
+  for(let i=0;i<els.length;i++){cb&&cb(i,els.length);let cv=null;
+    if(fo){try{cv=await rasterPage(els[i],Z)}catch(e){fo=false;await mathImgs(st)}}
+    if(!cv)cv=await html2canvas(els[i],{scale:Z,backgroundColor:'#ffffff',useCORS:true,logging:false});
+    out.push(cv)}return out}
 async function makePDF(kind){
   busy(true,'⏳ PDF بن رہی ہے…<br>Making PDF…');
   try{
     await Promise.all(LIBS.map(load));
     const pages=await buildPages(kind); const st=$('#stage'); st.innerHTML=pages.join('');
-    await new Promise(r=>setTimeout(r,60)); await mathImgs(st);
+    await new Promise(r=>setTimeout(r,60));
     const {jsPDF}=window.jspdf; const pdf=new jsPDF({unit:'pt',format:'a4',compress:true});
     const els=[...st.querySelectorAll('.page')];
     await Promise.all([...st.querySelectorAll('img')].map(im=>im.complete?0:new Promise(r=>{im.onload=im.onerror=r})));
-    for(let i=0;i<els.length;i++){
-      busy(true,`⏳ PDF بن رہی ہے… ${i+1}/${els.length}<br>Making PDF…`);
-      const cv=await html2canvas(els[i],{scale:1.8,backgroundColor:'#ffffff',useCORS:true,logging:false});
+    const cvs=await rasterAll(st,2,(i,n)=>busy(true,`⏳ PDF بن رہی ہے… ${i+1}/${n}<br>Making PDF…`));
+    for(let i=0;i<els.length;i++){const cv=cvs[i];
       if(i)pdf.addPage();
       const im=cv.toDataURL('image/jpeg',0.82);
       if(els[i].classList.contains('half')){pdf.addImage(im,'JPEG',0,0,595.28,420.6);pdf.addImage(im,'JPEG',0,421.3,595.28,420.6);pdf.setLineDashPattern([4,3],0);pdf.setDrawColor(120);pdf.line(14,421,581,421);pdf.setFontSize(7);pdf.text('cut here',560,418)}
@@ -972,9 +1001,24 @@ async function makeDocx(P){
       if(n.nodeType!==1)return;const tg=n.tagName;
       if(tg==='BR'){out.push(new X.TextRun({break:1}));return}
       if(tg==='IMG'){const g=IMG.get(n.getAttribute('src'));if(g){let w=+n.getAttribute('width')||g.w,h=+n.getAttribute('height')||g.h;if(n.closest('.ph')){w=h=48}const k=Math.min(1,600/w);out.push(new X.ImageRun({data:g.d,transformation:{width:Math.round(w*k),height:Math.round(h*k)}}))}return}
-      if(n.classList&&n.classList.contains('ops'))return;
+      if(n.classList&&(n.classList.contains('ops')||n.classList.contains('rf')))return;
+      if(tg==='math'||tg==='MATH'){out.push(...mathRuns(n,o));return}
       const no=Object.assign({},o);if(tg==='SUP')no.superScript=true;if(tg==='SUB')no.subScript=true;if(tg==='B'||tg==='STRONG')no.bold=true;if(tg==='I'||tg==='EM')no.italics=true;
       out.push(...runs(n,no))});return out};
+    const mathRuns=(n,o)=>{const t=(n.localName||'').toLowerCase(),k=[...n.children];
+      if(n.nodeType===3)return [tr(n.textContent,o)];
+      if(t==='annotation')return [];
+      if(['mi','mn','mo','mtext','ms'].includes(t)){const v=n.textContent;return v?[tr(t==='mo'&&/^[=+<>≤≥×÷−]$/.test(v)?' '+v+' ':v,o)]:[]}
+      if(t==='mspace')return [tr(' ',o)];
+      const sub=(e,x)=>e?mathRuns(e,Object.assign({},o,x)):[];
+      if(t==='msup')return [...sub(k[0]),...sub(k[1],{superScript:true})];
+      if(t==='msub')return [...sub(k[0]),...sub(k[1],{subScript:true})];
+      if(t==='msubsup')return [...sub(k[0]),...sub(k[1],{subScript:true}),...sub(k[2],{superScript:true})];
+      if(t==='mfrac'){const w=e=>e&&e.textContent.trim().length>1?[tr('(',o),...sub(e),tr(')',o)]:sub(e);return [...w(k[0]),tr('/',o),...w(k[1])]}
+      if(t==='msqrt')return [tr('√(',o),...k.flatMap(e=>sub(e)),tr(')',o)];
+      if(t==='mroot')return [...sub(k[1],{superScript:true}),tr('√(',o),...sub(k[0]),tr(')',o)];
+      if(t==='munderover'||t==='munder'||t==='mover'){const acc=t==='mover'&&k[1]&&/^[→⃗^¯‾]$/.test(k[1].textContent);return [...sub(k[0]),...(acc?[]:k.slice(1).flatMap((e,i)=>sub(e,(t==='munder'||i===0&&t==='munderover')?{subScript:true}:{superScript:true})))]}
+      return [...n.childNodes].flatMap(e=>e.nodeType===1||e.nodeType===3?mathRuns(e,o):[])};
     const para=(children,o={})=>new X.Paragraph(Object.assign({children,bidirectional:ur,alignment:ur?AL.RIGHT:AL.LEFT,spacing:{after:60}},o));
     const kids=[];
     box.childNodes.forEach((el,ix)=>{if(el.nodeType!==1)return;const pb=blk[ix]&&blk[ix][1];const cl=el.classList;
