@@ -137,7 +137,17 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
 .page[dir="rtl"] .ph .chs{font-size:13px}
 .sh{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:15px;border-bottom:1.5px solid #000;padding:6px 0 3px;margin:6px 0 6px}
 .page[dir="rtl"] .sh{font-size:16.5px}
-.qi{display:flex;gap:6px;padding:3px 0}
+.qi{display:flex;gap:6px;padding:3px 0;position:relative}
+.bq{font-weight:700;margin:8px 0 2px}.bq .mk{float:right;font-weight:400}.page[dir="rtl"] .bq .mk{float:left}
+.pt{font-weight:700;text-align:center;font-size:15.5px;margin:10px 0 2px;letter-spacing:.3px}
+.qi .pm{flex:none;font-weight:400}
+.swb{position:absolute;right:-34px;top:0;width:28px;height:28px;font-size:17px!important;border-radius:50%;border:2px solid #b45309;background:#fff7e0;color:#b45309;font:700 20px/1 Arial,sans-serif;cursor:pointer;padding:0}
+.page[dir="rtl"] .swb{right:auto;left:-36px}
+.pvin .page{overflow:visible}
+.pvin.swm .qi[data-sw]{cursor:pointer;outline:2px dashed rgba(180,83,9,.45);outline-offset:1px;border-radius:4px;margin:2px 0}
+.pvin.swm .qi[data-sw]:active{background:#fff3cd}
+.bsum{font-size:16px;line-height:1.55;margin:6px 0 10px;padding:0 0 0 18px}.bsum li{margin:2px 0}
+.gap{border-left:4px solid var(--gold);padding:8px 12px;background:var(--soft);border-radius:8px;font-size:15px;margin:8px 0}
 .qi .n{flex:none;min-width:26px;font-weight:700}
 .qi .tx{flex:1}
 .ops{display:grid;gap:2px 10px;margin:1px 0 2px 32px}
@@ -189,13 +199,15 @@ const TPL=[
  {k:'hb',en:'Half Book Test',ur:'ہاف بک ٹیسٹ',time:120,mcq:[15,1],sq:[15,2],lq:[3,5],d:'Half syllabus · 60 marks'},
  {k:'fb',en:'Full Book Test',ur:'فل بک ٹیسٹ',time:180,mcq:[20,1],sq:[20,2],lq:[4,10],d:'Full syllabus · 100 marks'},
  {k:'am',en:'Annual / Model Paper',ur:'سالانہ / ماڈل پیپر',time:160,mcq:[12,1],sq:[18,2],lq:[3,9],d:'Full syllabus · 75 marks'}];
-const TYP={mcq:['MCQs','کثیر الانتخابی سوالات'],sq:['Short Questions','مختصر سوالات'],lq:['Long Questions','تفصیلی سوالات']};
+const TYP={mcq:['MCQs','کثیر الانتخابی سوالات'],sq:['Short Questions','مختصر سوالات'],lq:['Long Questions','تفصیلی سوالات'],num:['Numericals','عددی سوالات']};
+const TT=['mcq','sq','lq','num'];
 const DIF=[['Easy','آسان'],['Medium','درمیانہ'],['Hard','مشکل']];
 const DEF_INST='Al Hassan Science Academy Dillewali';
-let IDX=null, PACK=null, view='gen', step=1, VP=null;
+let IDX=null, PACK=null, view='gen', step=1, VP=null, SWM=false;
 let S=LS.get('ahsa-pm-last',null)||{};
 S=Object.assign({c:null,s:null,m:null,ch:[],tpl:'mt',time:70,pass:33,ab:false,exd:true,norep:true,inst:LS.get('ahsa-pm-inst',DEF_INST),
-  mcq:{n:10,mk:1,mix:false,e:4,md:4,h:2},sq:{n:10,mk:2,mix:false,e:4,md:4,h:2},lq:{n:2,mk:5,mix:false,e:1,md:1,h:0}},S);
+  mcq:{n:10,mk:1,mix:false,e:4,md:4,h:2},sq:{n:10,mk:2,mix:false,e:4,md:4,h:2},lq:{n:2,mk:5,mix:false,e:1,md:1,h:0},num:{n:0,mk:5,mix:false,e:0,md:0,h:0}},S);
+if(!S.num)S.num={n:0,mk:5,mix:false,e:0,md:0,h:0};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const bi=(en,ur)=>`<span><b>${en}</b> <span class="u">${ur}</span></span>`;
 function toast(m){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
@@ -208,7 +220,7 @@ function save(){LS.set('ahsa-pm-last',S)}
 function rng(seed){let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 function shuf(arr,r){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 /* ---------------- views ---------------- */
-function go(v){view=v;render();scrollTo(0,0)}
+function go(v){view=v;SWM=false;render();scrollTo(0,0)}
 async function render(){
   const app=$('#app');
   document.querySelectorAll('.bnav [data-go]').forEach(b=>{if(b.dataset.go===view||(view==='paper'&&b.dataset.go==='my'&&VP&&VP.saved))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
@@ -246,30 +258,32 @@ async function stepChapters(){
   return `<div class="card"><h2 class="q">Step 3 · Select Chapters<span class="u">مرحلہ 3 · ابواب منتخب کریں</span></h2>
   <p class="hint">${SB[S.s][0]} · ${CL[S.c][0]} · ${S.m.toUpperCase()}</p>
   <label class="all"><input type="checkbox" id="chAll" ${allOn?'checked':''}> <span>${bi('Select All','تمام ابواب')}</span></label>
-  <div class="chl">${p.u.map(u=>{const on=S.ch.includes(u[0]);const c=[u[2],u[3],u[4]].map(a=>a.reduce((x,y)=>x+y,0));
+  <div class="chl">${p.u.map(u=>{const on=S.ch.includes(u[0]);const c=[u[2],u[3],u[4],u[5]||[0]].map(a=>a.reduce((x,y)=>x+y,0));
     const lab=u[0]>=100?'':(rtl?`باب ${u[0]}: `:`Ch ${u[0]}: `);
-    return `<label class="chi${on?' on':''}" ${rtl?'dir="rtl"':''}><input type="checkbox" data-chn="${u[0]}" ${on?'checked':''}><span class="t"><b>${esc(lab+u[1])}</b><small dir="ltr">${c[0]} MCQs · ${c[1]} Short · ${c[2]} Long</small></span></label>`}).join('')}</div></div>
+    return `<label class="chi${on?' on':''}" ${rtl?'dir="rtl"':''}><input type="checkbox" data-chn="${u[0]}" ${on?'checked':''}><span class="t"><b>${esc(lab+u[1])}</b><small dir="ltr">${c[0]} MCQs · ${c[1]} Short · ${c[2]} Long${c[3]?' · '+c[3]+' Numericals':''}</small></span></label>`}).join('')}</div></div>
   <div class="nav2"><button class="btn line" data-step="2" type="button">‹ Back</button><button class="btn gold" data-step="4" type="button" ${S.ch.length?'':'disabled'}>Next ›</button></div>`;
 }
 function stepTemplate(){
   return `<div class="card"><h2 class="q">Step 4 · Paper Type<span class="u">مرحلہ 4 · پیپر کی قسم</span></h2>
+  ${boardOK()?`<button type="button" class="ch" data-tpl="bp" aria-pressed="${S.tpl==='bp'}" style="margin-bottom:10px;border-color:var(--gold)"><b>🏛️ Board Pattern Paper</b><span class="u">بورڈ پیٹرن پیپر · پنجاب بورڈ 2027</span><small>Official 2027 scheme: MCQs + short (choice) + long${hasNum()?' with numericals':''} · ${schTot(SCH[S.c+'-'+S.s])} marks</small></button>`:(SCH[S.c+'-'+S.s]?`<div class="gap">${bi('Board Pattern Paper needs short and long questions, which are not in our notes for this subject / medium yet.','اس مضمون / میڈیم کے مختصر اور تفصیلی سوالات ابھی نوٹس میں نہیں، اس لیے بورڈ پیٹرن پیپر دستیاب نہیں۔')}</div>`:'')}
   <div class="grid">${TPL.map(t=>`<button type="button" class="ch" data-tpl="${t.k}" aria-pressed="${S.tpl===t.k}"><b>${t.en}</b><span class="u">${t.ur}</span><small>${t.d}</small></button>`).join('')}</div>
   <p class="hint">${bi('You can change every number in the next step.','اگلے مرحلے میں ہر چیز بدل سکتے ہیں۔')}</p></div>
   <div class="nav2"><button class="btn line" data-step="3" type="button">‹ Back</button><button class="btn gold" data-step="5" type="button">Next ›</button></div>`;
 }
 function avail(){ // available counts per type & difficulty in selected chapters
-  const A={mcq:[0,0,0],sq:[0,0,0],lq:[0,0,0]};
+  const A={mcq:[0,0,0],sq:[0,0,0],lq:[0,0,0],num:[0,0,0]};
   if(!PACK)return A;
-  PACK.u.forEach(u=>{if(!S.ch.includes(u.n))return;['mcq','sq','lq'].forEach(t=>u[t].forEach(q=>{if(S.exd&&q.x)return;A[t][q.d]++}))});
+  PACK.u.forEach(u=>{if(!S.ch.includes(u.n))return;TT.forEach(t=>(u[t]||[]).forEach(q=>{if(S.exd&&q.x)return;A[t][q.d]++}))});
   return A;
 }
 const stp=(id,v)=>`<div class="stp"><button type="button" data-dec="${id}" aria-label="minus">−</button><output>${v}</output><button type="button" data-inc="${id}" aria-label="plus">+</button></div>`;
 async function stepSettings(){
   await getPack(key());
+  if(S.tpl==='bp'){if(boardOK())return stepBoard();S.tpl='mt'}
   const A=avail(); const sum=a=>a[0]+a[1]+a[2];
-  ['mcq','sq','lq'].forEach(t=>{const tot=sum(A[t]);if(S[t].n>tot)S[t].n=tot;if(S[t].mix){const c=S[t];c.e=Math.min(c.e,A[t][0]);c.md=Math.min(c.md,A[t][1]);c.h=Math.min(c.h,A[t][2]);c.n=c.e+c.md+c.h}});
-  const T=['mcq','sq','lq'].reduce((x,t)=>x+S[t].n*S[t].mk,0); const pm=Math.ceil(T*S.pass/100);
-  const sec=t=>{const c=S[t],a=A[t];if(!sum(a))return `<div class="sec"><h3>${TYP[t][0]} <span class="u">${TYP[t][1]}</span></h3><div class="av">${bi('Not available for this subject yet','ابھی دستیاب نہیں')}</div></div>`;
+  TT.forEach(t=>{const tot=sum(A[t]);if(S[t].n>tot)S[t].n=tot;if(S[t].mix){const c=S[t];c.e=Math.min(c.e,A[t][0]);c.md=Math.min(c.md,A[t][1]);c.h=Math.min(c.h,A[t][2]);c.n=c.e+c.md+c.h}});
+  const T=TT.reduce((x,t)=>x+S[t].n*S[t].mk,0); const pm=Math.ceil(T*S.pass/100);
+  const sec=t=>{const c=S[t],a=A[t];if(!sum(a)&&t==='num')return '';if(!sum(a))return `<div class="sec"><h3>${TYP[t][0]} <span class="u">${TYP[t][1]}</span></h3><div class="av">${bi('Not available for this subject yet','ابھی دستیاب نہیں')}</div></div>`;
     return `<div class="sec"><h3>${TYP[t][0]} <span class="u">${TYP[t][1]}</span></h3><div class="av">Available: ${sum(a)} (Easy ${a[0]} · Medium ${a[1]} · Hard ${a[2]})</div>
     <div class="set"><label>Questions<span class="u">سوالات کی تعداد</span></label>${stp(t+'.n',c.n)}</div>
     <div class="set"><label>Marks each<span class="u">ہر سوال کے نمبر</span></label>${stp(t+'.mk',c.mk)}</div>
@@ -278,7 +292,7 @@ async function stepSettings(){
   return `<div class="card"><h2 class="q">Step 5 · Paper Settings<span class="u">مرحلہ 5 · پیپر کی ترتیب</span></h2>
   <div class="set"><label>Time (minutes)<span class="u">وقت (منٹ)</span></label>${stp('time',S.time)}</div>
   <div class="set"><label>Passing %<span class="u">پاسنگ فیصد</span></label>${stp('pass',S.pass)}</div>
-  ${sec('mcq')}${sec('sq')}${sec('lq')}
+  ${sec('mcq')}${sec('sq')}${sec('lq')}${sec('num')}
   <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing Marks<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${S.time}</b><span>Minutes<br><span class="u">منٹ</span></span></div></div>
   <label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>
   <label class="tog"><input type="checkbox" data-opt="norep" ${S.norep?'checked':''}> ${bi('Avoid questions used in my last papers','پچھلے پیپرز کے سوالات نہ دہرائیں')}</label>
@@ -292,10 +306,10 @@ function generate(){
   const k=key(), used=LS.get('ahsa-pm-used',{}), U=used[k]||{};
   const seed=(Date.now()^Math.floor(Math.random()*1e9))>>>0, r=rng(seed);
   const sec={}, short=[];
-  ['mcq','sq','lq'].forEach(t=>{
+  TT.forEach(t=>{
     const c=S[t]; if(!c.n){sec[t]={mk:c.mk,ids:[]};return}
     const pool=[[],[],[]];
-    PACK.u.forEach(u=>{if(!S.ch.includes(u.n))return;u[t].forEach((q,i)=>{if(S.exd&&q.x)return;pool[q.d].push(u.n+':'+i)})});
+    PACK.u.forEach(u=>{if(!S.ch.includes(u.n))return;(u[t]||[]).forEach((q,i)=>{if(S.exd&&q.x)return;pool[q.d].push(u.n+':'+i)})});
     const ut=new Set(S.norep?(U[t]||[]):[]);
     const order=a=>{const s=shuf(a,r);return s.filter(x=>!ut.has(x)).concat(s.filter(x=>ut.has(x)))};
     const P=pool.map(order); let want=c.mix?[c.e,c.md,c.h]:null, got=[];
@@ -310,20 +324,23 @@ function generate(){
   used[k]=U; LS.set('ahsa-pm-used',used);
   const tp=TPL.find(t=>t.k===S.tpl);
   const P={id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:S.tpl,title:tp.en,titleUr:tp.ur,inst:S.inst||DEF_INST,time:S.time,pass:S.pass,ab:S.ab,seed,chs:S.ch.slice(),sec,date:new Date().toISOString().slice(0,10)};
-  const all=LS.get('ahsa-papers',[]); all.unshift(P); while(all.length>60)all.pop();
-  if(!LS.set('ahsa-papers',all)){all.splice(20);LS.set('ahsa-papers',all)}
+  storeP(P);
   VP=Object.assign({saved:true},P);
   if(short.length)toast('Not enough questions for: '+short.join(', ')+' · جتنے سوال ملے، شامل کر دیے');
-  view='paper';render();scrollTo(0,0);
+  SWM=false;view='paper';render();scrollTo(0,0);
 }
 /* ---------------- paper building ---------------- */
 const fmtTime=m=>{const h=Math.floor(m/60),mm=m%60;return h?(h+(h>1?' hours':' hour')+(mm?' '+mm+' min':'')):mm+' minutes'};
 const fmtTimeUr=m=>{const h=Math.floor(m/60),mm=m%60;return h?(h+' گھنٹے'+(mm?' '+mm+' منٹ':'')):mm+' منٹ'};
-function totals(P){const T=['mcq','sq','lq'].reduce((x,t)=>x+P.sec[t].ids.length*P.sec[t].mk,0);return [T,Math.ceil(T*P.pass/100)]}
-function getQ(id,t){const[n,i]=id.split(':').map(Number);const u=PACK.u.find(u=>u.n===n);return u&&u[t][i]}
+const SEC=(P,t)=>(P.sec&&P.sec[t])||{mk:0,ids:[]};
+function totals(P){const T=P.bp?schTot(SCH[P.bp.sc]):TT.reduce((x,t)=>x+SEC(P,t).ids.length*SEC(P,t).mk,0);return [T,Math.ceil(T*P.pass/100)]}
+function cnt(P){if(P.bp){const b=P.bp,l=b.lq.flat();return {mcq:b.mcq.length,sq:b.sq.flat().length,lq:l.filter(x=>x.startsWith('lq|')).length,num:l.filter(x=>x.startsWith('num|')).length}}const o={};TT.forEach(t=>o[t]=SEC(P,t).ids.length);return o}
+function getQ(id,t){const[n,i]=id.split(':').map(Number);const u=PACK.u.find(u=>u.n===n);return u&&u[t]&&u[t][i]}
+function storeP(P){const all=LS.get('ahsa-papers',[]);const j=all.findIndex(x=>x.id===P.id);if(j>=0)all[j]=P;else all.unshift(P);while(all.length>60)all.pop();
+  if(!LS.set('ahsa-papers',all)){all.splice(20);LS.set('ahsa-papers',all)}}
 function setData(P,set){ // returns sections with question objects (Set B = shuffled order + options)
   const r=rng(P.seed+(set==='B'?7919:0)); const out={};
-  ['mcq','sq','lq'].forEach(t=>{let ids=P.sec[t].ids.slice(); if(set==='B')ids=shuf(ids,r);
+  TT.forEach(t=>{let ids=SEC(P,t).ids.slice(); if(set==='B')ids=shuf(ids,r);
     out[t]=ids.map(id=>{const q=getQ(id,t);if(!q)return null;if(t!=='mcq')return {q:q.q,ch:+id.split(':')[0]};
       let ord=[0,1,2,3].slice(0,q.o.length); if(set==='B')ord=shuf(ord,r);
       return {q:q.q,o:ord.map(i=>q.o[i]),a:ord.indexOf(q.a),ch:+id.split(':')[0]}}).filter(Boolean)});
@@ -331,6 +348,7 @@ function setData(P,set){ // returns sections with question objects (Set B = shuf
 }
 const plain=s=>s.replace(/<[^>]+>/g,'');
 function blocks(P,set){
+  if(P.bp)return boardBlocks(P,set);
   const ur=P.m==='um', D=setData(P,set), [T,pm]=totals(P), B=[];
   const inst=esc(P.inst), isDef=P.inst===DEF_INST;
   const chs=P.chs.slice().sort((a,b)=>a-b).filter(n=>n<100);
@@ -340,25 +358,29 @@ function blocks(P,set){
    <div class="r4">${ur?'<div>طالب علم کا نام:</div><div>رول نمبر:</div><div>حاصل کردہ نمبر:</div>':'<div>Student Name:</div><div>Roll No.:</div><div>Marks Obtained:</div>'}</div>
    <div class="chs">${chs.length?(ur?'ابواب: '+chs.join('، '):'Chapters: '+chs.join(', ')):''}</div></div>`);
   let qn=0;
+  const sw=(t,i)=>set==='A'?` data-sw="${t}|${i}"`:'';
   const head=(t,en,u)=>{const c=D[t].length,mk=P.sec[t].mk;qn++;return `<div class="sh"><span>${ur?`سوال نمبر ${qn}: ${u}`:`Q.${qn} ${en}`}</span><span dir="ltr">(${c} × ${mk} = ${c*mk})</span></div>`};
   if(D.mcq.length){B.push(head('mcq','Choose the correct option.','درست جواب کا انتخاب کریں۔'));
     D.mcq.forEach((q,i)=>{const L=Math.max(...q.o.map(o=>plain(o).length));const cols=L<=16?'c4':L<=38?'c2':'c1';
-      B.push(`<div class="qi"><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});}
+      B.push(`<div class="qi"${sw('mcq',i)}><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});}
   if(D.sq.length){B.push(head('sq','Write short answers to the following questions.','درج ذیل سوالات کے مختصر جوابات تحریر کریں۔'));
-    D.sq.forEach((q,i)=>B.push(`<div class="qi"><span class="n">${ur?'('+(i+1)+')':(roman(i+1))}</span><div class="tx">${q.q}</div></div>`));}
+    D.sq.forEach((q,i)=>B.push(`<div class="qi"${sw('sq',i)}><span class="n">${ur?'('+(i+1)+')':(roman(i+1))}</span><div class="tx">${q.q}</div></div>`));}
   if(D.lq.length){B.push(head('lq','Answer the following questions in detail.','درج ذیل سوالات کے تفصیلی جوابات تحریر کریں۔'));
-    D.lq.forEach((q,i)=>B.push(`<div class="qi lqs"><span class="n">${ur?'('+(i+1)+')':(String.fromCharCode(97+i))+')'}</span><div class="tx">${q.q}</div></div>`));}
+    D.lq.forEach((q,i)=>B.push(`<div class="qi lqs"${sw('lq',i)}><span class="n">${ur?'('+(i+1)+')':(String.fromCharCode(97+i))+')'}</span><div class="tx">${q.q}</div></div>`));}
+  if(D.num&&D.num.length){B.push(head('num','Solve the following numericals.','درج ذیل عددی سوالات حل کریں۔'));
+    D.num.forEach((q,i)=>B.push(`<div class="qi lqs"${sw('num',i)}><span class="n">${ur?'('+(i+1)+')':(String.fromCharCode(97+i))+')'}</span><div class="tx">${q.q}</div></div>`));}
   return B;
 }
 function roman(n){const m=[[10,'x'],[9,'ix'],[5,'v'],[4,'iv'],[1,'i']];let s='';for(const[v,r]of m)while(n>=v){s+=r;n-=v}return '('+s+')'}
 function keyBlocks(P){
+  if(P.bp)return boardKey(P);
   const B=[], sets=P.ab?['A','B']:['A'];
   B.push(`<div class="ph"><div class="r1"><img src="../assets/logo-96.webp" alt=""><div class="nm"><b>${esc(P.inst)}</b></div></div><div class="r2">Answer Key · ${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div>`);
   sets.forEach(s=>{const D=setData(P,s);
     B.push(`<div class="kt">${P.ab?'Set '+s+' · ':''}MCQs Answer Key</div>`);
     if(D.mcq.length)B.push(`<div class="kg">${D.mcq.map((q,i)=>`<span>${i+1} · ${'ABCD'[q.a]}</span>`).join('')}</div>`);
     else B.push('<p>No MCQs in this paper.</p>');
-    if(D.sq.length||D.lq.length)B.push(`<p style="font-size:13px">Short / long questions by chapter (answers are in AHSA notes): ${D.sq.length?'Short: '+D.sq.map((q,i)=>roman(i+1)+' Ch '+(q.ch<100?q.ch:'-')).join(', ')+'. ':''}${D.lq.length?'Long: '+D.lq.map((q,i)=>String.fromCharCode(97+i)+') Ch '+(q.ch<100?q.ch:'-')).join(', ')+'.':''}</p>`);
+    if(D.sq.length||D.lq.length||(D.num&&D.num.length))B.push(`<p style="font-size:13px">Short / long questions by chapter (answers are in AHSA notes): ${D.sq.length?'Short: '+D.sq.map((q,i)=>roman(i+1)+' Ch '+(q.ch<100?q.ch:'-')).join(', ')+'. ':''}${D.lq.length?'Long: '+D.lq.map((q,i)=>String.fromCharCode(97+i)+') Ch '+(q.ch<100?q.ch:'-')).join(', ')+'. ':''}${D.num&&D.num.length?'Numericals: '+D.num.map((q,i)=>String.fromCharCode(97+i)+') Ch '+q.ch).join(', ')+' (solutions in AHSA Numericals notes).':''}</p>`);
   });
   return B;
 }
@@ -370,7 +392,11 @@ function paginate(B,rtl){ // fills A4 pages in #stage, returns array of page ele
     if(body.getBoundingClientRect().height+38>lim&&body.children.length>1){
       const prev=body.children[body.children.length-2]; // keep a section heading with its first question
       p=mk();const nb=p.querySelector('.body');
-      if(prev.classList.contains('sh')){nb.appendChild(prev)} nb.appendChild(el); body=nb;}});
+      const mv=[]; if(prev.classList.contains('sh')||prev.classList.contains('pt')){mv.push(prev);const pp=prev.previousElementSibling;if(prev.classList.contains('sh')&&pp&&pp.classList.contains('pt'))mv.unshift(pp)}
+      if(el.classList.contains('pt')||el.classList.contains('sh')){}
+      mv.forEach(x=>nb.appendChild(x)); nb.appendChild(el); body=nb;}});
+  // a part title or section head left alone at the bottom of a page moves to the next page
+  for(let i=0;i<pages.length-1;i++){const b=pages[i].querySelector('.body'),l=b.lastElementChild;if(l&&(l.classList.contains('pt')||l.classList.contains('sh'))){const nb=pages[i+1].querySelector('.body');nb.insertBefore(l,nb.firstChild);const l2=b.lastElementChild;if(l2&&l2.classList.contains('pt')&&l.classList.contains('sh'))nb.insertBefore(l2,nb.firstChild)}}
   pages.forEach((x,i)=>x.querySelector('.pg').textContent=`Page ${i+1} of ${pages.length}`);
   return pages;
 }
@@ -385,22 +411,27 @@ async function buildPages(kind,set){ // kind: paper|key
 }
 function paperView(){
   const P=VP,[T,pm]=totals(P);
-  const n=t=>P.sec[t].ids.length;
+  const n=cnt(P);
   return `<div class="card"><h2 class="q">✅ Paper Ready<span class="u">پیپر تیار ہے</span></h2>
-  <p class="hint">${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} · ${P.m.toUpperCase()}<br>${n('mcq')} MCQs · ${n('sq')} Short · ${n('lq')} Long · ${T} marks · ${P.ab?'Set A + B':'1 set'}</p>
+  <p class="hint">${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} · ${P.m.toUpperCase()}<br>${n.mcq} MCQs · ${n.sq} Short · ${n.lq} Long${n.num?' · '+n.num+' Numericals':''} · ${T} marks · ${P.ab?'Set A + B':'1 set'}</p>
   <div class="acts">
    <button class="btn gold" data-act="pdf" type="button">⬇️ Paper PDF</button>
    <button class="btn navy" data-act="key" type="button">🔑 Answer Key PDF</button>
    <button class="btn wa full" data-act="share" type="button">📤 Share on WhatsApp</button>
    <button class="btn line" data-act="print" type="button">🖨️ Print</button>
-   <button class="btn line" data-act="again" type="button">🔄 New Paper</button>
+   <button class="btn line" data-act="regen" type="button">🔁 Regenerate</button>
+   <button class="btn ${SWM?'gold':'line'} full" data-act="swm" type="button">${SWM?'✓ Done · ہو گیا':'⇄ Change one question · ایک سوال بدلیں'}</button>
+   <button class="btn line full" data-act="again" type="button">⚙️ Change Settings / New Paper</button>
   </div>
-  <p class="hint">${bi('Saved in My Papers on this phone.','یہ پیپر اس فون میں «میرے پیپرز» میں محفوظ ہے۔')}</p></div>
+  ${SWM?`<div class="gap" id="swhint">${bi('Now tap any question in the paper below to change it.','اب نیچے پیپر میں جس سوال کو بدلنا ہو اس پر ٹیپ کریں۔')}</div>`:''}
+  <p class="hint">${bi('Saved in My Papers on this phone.','یہ پیپر اس فون میں «میرے پیپرز» میں محفوظ ہے۔')}<br>${bi('Regenerate changes all questions.','«Regenerate» سے سارے سوالات بدل جائیں گے۔')}</p></div>
   <div class="pvw" id="pvw"><div class="pvin" id="pvin"></div></div>`;
 }
 async function drawPreview(){
   const w=$('#pvw'),inn=$('#pvin'); inn.innerHTML='<p style="color:#fff;padding:20px">Loading…</p>';
-  const pg=await buildPages('paper'); inn.innerHTML=pg.join(''); fitPreview();
+  const pg=await buildPages('paper'); inn.innerHTML=pg.join('');
+  inn.classList.toggle('swm',SWM); if(SWM)inn.querySelectorAll('.qi[data-sw]').forEach(q=>{const b=document.createElement('button');b.type='button';b.className='swb';b.dataset.sw=q.dataset.sw;b.title='Swap this question';b.setAttribute('aria-label','Swap this question');b.textContent='⇄';q.appendChild(b)});
+  fitPreview();
 }
 /* ---------------- PDF / share / print ---------------- */
 const LIBS=['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];
@@ -436,6 +467,164 @@ async function act(a,P){
     else if(a==='print'){const pg=await buildPages('paper');const k=await buildPages('key');$('#printArea').innerHTML=pg.join('')+k.join('');setTimeout(()=>print(),300)}
   }catch(e){busy(false);toast('Could not make PDF. Check internet and try again · انٹرنیٹ چیک کریں')}
 }
+/* ---------------- Board pattern (Punjab 2027 pairing schemes, PECTAA) ---------------- */
+// mcq:{chapter:count}; sq:[{c:{chapter:count}, a:attempt}] (marks 2 each); lq:{a:attempt, mk:[part marks], q:[[chapters for part a],[part b]]...], num: part index that is a numerical (1 = b), 'opt' = numerical sometimes}
+const rng2=(a,b)=>{const o={};for(let i=a;i<=b;i++)o[i]=1;return o};
+const ev=(a,n)=>{const o={};a.forEach(c=>o[c]=n);return o};
+const SCH={
+ '9-phy':{time:120,mcq:{1:1,2:1,3:2,4:2,5:1,6:2,7:1,8:1,9:1},sq:[{c:{1:3,2:3,3:2},a:5},{c:{4:3,5:2,6:3},a:5},{c:{7:3,8:3,9:2},a:5}],lq:{a:2,mk:[4,5],num:1,q:[[[1,2,3],[1,2,3]],[[4,5,6],[4,5,6]],[[7,8,9],[7,8,9]]]}},
+ '9-chem':{time:120,mcq:Object.assign(rng2(1,10),{11:2}),sq:[{c:{1:1,2:2,3:2,4:3},a:5},{c:{5:3,6:2,7:1,8:2},a:5},{c:{9:3,10:2,11:3},a:5}],lq:{a:2,mk:[5,4],num:'opt',q:[[[1],[2]],[[3],[7]],[[8],[10]]]}},
+ '9-bio':{time:120,mcq:Object.assign(rng2(1,8),{9:2,10:2}),sq:[{c:{1:4,2:2,3:2},a:5},{c:{4:2,5:2,6:2,10:2},a:5},{c:{7:2,8:3,9:3},a:5}],lq:{a:2,mk:[5,4],q:[[[2],[3]],[[6],[7]],[[9],[10]]]}},
+ '10-phy':{time:120,mcq:rng2(10,21),sq:[{c:ev([10,11,12,13],2),a:5},{c:ev([14,15,16,17],2),a:5},{c:ev([18,19,20,21],2),a:5}],lq:{a:2,mk:[4,5],num:1,q:[[[10,11,12,13],[10,11,12,13]],[[14,15,16,17],[14,15,16,17]],[[18,19,20,21],[18,19,20,21]]]}},
+ '10-chem':{time:120,mcq:(()=>{const o=rng2(14,26);delete o[25];return o})(),sq:[{c:{14:2,15:1,16:1,17:2,18:2},a:5},{c:ev([19,20,21,22],2),a:5},{c:ev([23,24,25,26],2),a:5}],lq:{a:2,mk:[5,4],num:'opt',q:[[[14],[15]],[[20],[22]],[[23],[25]]]}},
+ '10-bio':{time:120,mcq:Object.assign(rng2(1,10),{4:2,10:2}),sq:[{c:{1:2,2:4,5:2},a:5},{c:{3:2,4:3,6:1,7:2},a:5},{c:{8:2,9:2,10:4},a:5}],lq:{a:2,mk:[5,4],q:[[[1],[3]],[[6],[5]],[[9],[8]]]}},
+ '10-cs':{time:120,mcq:{1:1,3:2,4:1,5:2,6:1,7:2,8:1},sq:[{c:{1:2,3:4},a:4},{c:{4:2,5:4},a:4},{c:{6:2,7:2,8:2},a:4}],lq:{a:2,mk:[8],q:[[[1]],[[4]],[[6,8]]]}},
+ '11-phy':{time:180,mcq:{1:1,2:1,3:1,4:1,5:2,6:1,7:2,8:1,9:2,10:2,11:1,12:2},sq:[{c:{1:2,2:2,3:4,4:4},a:8},{c:{5:4,6:2,7:4,8:2},a:8},{c:{9:3,10:3,11:1,12:2},a:6}],lq:{a:3,mk:[5,3],num:1,q:[[[1,2,3],[1,2,3]],[[4,5,6],[4,5,6]],[[7,8],[7,8]],[[9,10],[9,10]],[[11,12],[11,12]]]}},
+ '11-chem':{time:180,mcq:Object.assign(rng2(1,14),{1:2,6:2,10:2}),sq:[{c:{1:3,2:2,7:2,8:2,13:3},a:8},{c:{3:3,5:2,6:3,9:2,11:2},a:8},{c:{4:2,10:3,12:2,14:2},a:6}],lq:{a:3,mk:[4,4],q:[[[2],[5]],[[3],[7]],[[8],[9]],[[11],[14]],[[12],[13]]]}},
+ '11-bio':{time:180,mcq:{1:2,2:1,3:1,4:2,5:1,6:2,8:2,9:1,10:1,11:2,12:2},sq:[{c:{1:2,3:3,8:4,11:3},a:8},{c:{2:2,5:3,9:3,12:4},a:8},{c:{4:3,6:3,10:3},a:6}],lq:{a:3,mk:[4,4],q:[[[1],[11]],[[3],[9]],[[6],[10]],[[2],[12]],[[4],[8]]]}},
+ '11-cs':{time:150,mcq:{1:3,2:1,3:1,4:1,5:2,6:1,7:2,8:2,9:2},sq:[{c:{1:4,2:3,8:2},a:6},{c:{3:3,6:4,7:2},a:6},{c:{4:3,5:3,9:3},a:6}],lq:{a:3,mk:[8],q:[[[2]],[[3]],[[4]],[[5]],[[7]]]}},
+ '12-phy':{time:180,mcq:Object.assign(ev([13,14,15,16,17,18,19,20],2),{21:1}),sq:[{c:ev([13,14,15],4),a:8},{c:ev([16,17,18],4),a:8},{c:ev([19,20,21],3),a:6}],lq:{a:3,mk:[5,3],num:1,q:[[[13],[14]],[[15],[16]],[[17],[17]],[[18],[19]],[[20],[21]]]}},
+ '12-chem':{time:180,mcq:rng2(17,33),sq:[{c:{17:1,18:1,19:3,20:2,24:3,25:2},a:8},{c:{21:1,22:1,23:2,27:2,28:3,29:3},a:8},{c:{26:1,30:2,31:2,32:2,33:2},a:6}],lq:{a:3,mk:[4,4],q:[[[17],[21]],[[18],[26]],[[20],[31]],[[22],[32]],[[23],[33]]]}},
+ '12-bio':{time:180,mcq:{13:1,14:1,15:2,16:1,17:1,18:2,19:2,20:2,21:1,23:1,24:1,25:2},sq:[{c:{13:3,14:3,19:3,20:3},a:8},{c:{15:2,16:2,17:2,18:4,24:2},a:8},{c:{21:3,23:3,25:3},a:6}],lq:{a:3,mk:[4,4],q:[[[13],[25]],[[14],[24]],[[15],[21]],[[16],[20]],[[17],[19]]]}},
+ '12-cs':{time:150,mcq:{1:2,2:3,3:2,4:2,6:2,7:2,8:1,9:1},sq:[{c:{1:3,2:4,6:2},a:6},{c:{3:3,4:6},a:6},{c:{7:4,8:2,9:3},a:6}],lq:{a:3,mk:[8],q:[[[1]],[[3]],[[6]],[[8]],[[9]]]}}
+};
+const vsum=o=>Object.values(o).reduce((x,y)=>x+y,0);
+function schTot(c){if(!c)return 0;return vsum(c.mcq)+c.sq.reduce((x,g)=>x+g.a*2,0)+c.lq.a*c.lq.mk.reduce((x,y)=>x+y,0)}
+function boardOK(){const c=SCH[S.c+'-'+S.s],p=IDX&&IDX[key()];if(!c||!p)return false;const t=i=>p.u.reduce((x,u)=>x+u[i].reduce((a,b)=>a+b,0),0);return t(3)>0&&t(4)>0}
+function hasNum(){const p=IDX&&IDX[key()];return !!(p&&p.u.some(u=>u[5]))}
+const W_EN=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
+const W_UR=['','ایک','دو','تین','چار','پانچ','چھ','سات','آٹھ','نو','دس','گیارہ','بارہ'];
+function stepBoard(){
+  const sc=SCH[S.c+'-'+S.s], T=schTot(sc), pm=Math.ceil(T*.33), L=sc.lq, ur=S.m==='um';
+  if(!S.board)S.board='pb';
+  const u0=PACK.u.some(u=>u.n===0&&(u.sq.length||u.lq.length));
+  const chOf=c=>Object.keys(c).join(', ');
+  const numP=L.num!==undefined, numHave=PACK.u.some(u=>u.num&&u.num.length);
+  return `<div class="card"><h2 class="q">Step 5 · Board Pattern Paper<span class="u">مرحلہ 5 · بورڈ پیٹرن پیپر</span></h2>
+  <p class="hint">${SB[S.s][0]} · ${CL[S.c][0]} · ${S.m.toUpperCase()}</p>
+  <div class="grid"><button type="button" class="ch" data-board="pb" aria-pressed="${S.board==='pb'}"><b>Punjab Boards (BISE)</b><span class="u">پنجاب بورڈ</span><small>PECTAA pairing scheme 2027</small></button>
+  <button type="button" class="ch" data-board="fb" aria-pressed="false" style="opacity:.6"><b>Federal Board (FBISE)</b><span class="u">فیڈرل بورڈ</span><small>Coming soon · جلد</small></button></div>
+  <ul class="bsum">
+   <li><b>Part I · Objective:</b> Q.1 ${vsum(sc.mcq)} MCQs × 1 = ${vsum(sc.mcq)}</li>
+   ${sc.sq.map((g,i)=>`<li><b>Q.${i+2} Short:</b> attempt any ${g.a} of ${vsum(g.c)} (Ch ${chOf(g.c)}) = ${g.a*2}</li>`).join('')}
+   <li><b>Long (Q.${sc.sq.length+2}–Q.${sc.sq.length+1+L.q.length}):</b> attempt any ${L.a} of ${L.q.length}, ${L.mk.length>1?'parts (a) '+L.mk[0]+' + (b) '+L.mk[1]:L.mk[0]+' marks each'} = ${L.a*L.mk.reduce((x,y)=>x+y,0)}${numP?(numHave?' · part (b) numerical':''):''}</li>
+  </ul>
+  <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing (33%)<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${fmtTime(sc.time).replace(' minutes',' min')}</b><span>Time<br><span class="u">وقت</span></span></div></div>
+  ${u0?`<div class="gap">${bi('Short/long questions of this subject are not chapter-wise in our notes yet, so they are picked from the whole book. MCQs follow the exact chapter scheme.','اس مضمون کے مختصر/تفصیلی سوالات ابھی باب وار نہیں، اس لیے پوری کتاب سے لیے جائیں گے۔ MCQs بورڈ اسکیم کے مطابق باب وار ہوں گے۔')}</div>`:''}
+  ${numP&&!numHave?`<div class="gap">${bi('Numericals for this subject are not in our notes yet, so part (b) is a long question.','اس مضمون کے عددی سوالات ابھی نوٹس میں نہیں، اس لیے جز (ب) بھی تفصیلی سوال ہوگا۔')}</div>`:''}
+  <label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>
+  <label class="tog"><input type="checkbox" data-opt="norep" ${S.norep?'checked':''}> ${bi('Avoid questions used in my last papers','پچھلے پیپرز کے سوالات نہ دہرائیں')}</label>
+  <div class="set" style="grid-template-columns:1fr"><label for="inst">Name on paper<span class="u">پیپر پر ادارے کا نام</span></label><input class="inp" id="inst" value="${esc(S.inst)}" maxlength="70"></div>
+  <p class="hint">${bi('Questions are picked at random from AHSA notes, with a mix of easy, medium and hard.','سوالات اکیڈمی کے نوٹس سے خودکار طریقے سے چنے جاتے ہیں، آسان، درمیانے اور مشکل ملا کر۔')}</p></div>
+  <div class="nav2"><button class="btn line" data-step="4" type="button">‹ Back</button><button class="btn gold" id="genBtn" type="button">✨ Make Board Paper</button></div>`;
+}
+// pick one question id of type t from chapters chs; avoids ids in ex; prefers unused and difficulty d
+function pickQ(t,chs,ex,U,d,r,fallback){
+  const cand=[];const use=new Set(U||[]);
+  const add=f=>PACK.u.forEach(u=>{if(!f(u))return;(u[t]||[]).forEach((q,i)=>{const id=u.n+':'+i;if(q.x||ex.has(t+'|'+id))return;cand.push([id,q.d])})});
+  add(u=>chs.includes(u.n));
+  if(!cand.length&&fallback!==false){add(u=>u.n===0);if(!cand.length&&fallback==='any')add(()=>true)}
+  if(!cand.length)return null;
+  const s=shuf(cand,r); const sc=c=>(use.has(c[0])?2:0)+(d==null||c[1]===d?0:1);
+  s.sort((a,b)=>sc(a)-sc(b)); return s[0][0];
+}
+const DSEQ=[0,1,2,1,0,1,2,0,1,1];
+function boardPick(sc,r,U){
+  const ex=new Set(); let k=0; const take=(t,chs,fb)=>{const id=pickQ(t,chs,ex,U[t],DSEQ[k++%DSEQ.length],r,fb);if(id)ex.add(t+'|'+id);return id};
+  const mcq=[];Object.entries(sc.mcq).forEach(([c,n])=>{for(let i=0;i<n;i++){const id=take('mcq',[+c],'any');if(id)mcq.push(id)}});
+  const sq=sc.sq.map(g=>{const a=[];const all=Object.keys(g.c).map(Number);Object.entries(g.c).forEach(([c,n])=>{for(let i=0;i<n;i++){const id=take('sq',[+c],false)||take('sq',all,true)||take('sq',[],'any');if(id)a.push(id)}});return a});
+  const lq=sc.lq.q.map(parts=>{let usedCh=null;return parts.map((chs,pi)=>{
+    let L=shuf(chs,r); if(usedCh!=null&&L.length>1)L=L.filter(c=>c!==usedCh).concat([usedCh]);
+    const wantNum=sc.lq.num===pi||(sc.lq.num==='opt'&&r()<.5);
+    for(const c of L){if(wantNum){const id=take('num',[c],false);if(id){usedCh=c;return 'num|'+id}}const id=take('lq',[c],false);if(id){usedCh=c;return 'lq|'+id}}
+    if(wantNum){const id=take('num',chs,false);if(id)return 'num|'+id}
+    const id=take('lq',chs,true)||take('lq',[],'any');return id?'lq|'+id:null}).filter(Boolean)});
+  return {mcq,sq,lq};
+}
+function markUsed(k,b){const used=LS.get('ahsa-pm-used',{}),U=used[k]||{};
+  const add=(t,ids)=>{const s=new Set([...(U[t]||[]),...ids]);let a=[...s];if(a.length>4000)a=a.slice(-4000);U[t]=a};
+  add('mcq',b.mcq);add('sq',b.sq.flat());const l=b.lq.flat();add('lq',l.filter(x=>x.startsWith('lq|')).map(x=>x.slice(3)));add('num',l.filter(x=>x.startsWith('num|')).map(x=>x.slice(4)));
+  used[k]=U;LS.set('ahsa-pm-used',used)}
+function genBoard(old){
+  const k=old?old.k:key(), sk=old?old.bp.sc:S.c+'-'+S.s, sc=SCH[sk], U=(S.norep?(LS.get('ahsa-pm-used',{})[k]||{}):{});
+  const seed=(Date.now()^Math.floor(Math.random()*1e9))>>>0, r=rng(seed);
+  const b=boardPick(sc,r,U); b.sc=sk; b.board='pb';
+  markUsed(k,b);
+  const P=old?Object.assign({},old,{seed,bp:b,date:new Date().toISOString().slice(0,10)}):{id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:'bp',title:'Board Pattern Paper (Punjab 2027)',titleUr:'بورڈ پیٹرن پیپر (پنجاب بورڈ 2027)',inst:S.inst||DEF_INST,time:sc.time,pass:33,ab:S.ab,seed,chs:[],bp:b,sec:{},date:new Date().toISOString().slice(0,10)};
+  storeP(P); VP=Object.assign({saved:true},P);
+  if(b.mcq.length<vsum(sc.mcq)||b.sq.flat().length<sc.sq.reduce((x,g)=>x+vsum(g.c),0))toast('Some questions were not available · کچھ سوالات دستیاب نہیں تھے');
+  SWM=false;view='paper';render();scrollTo(0,0);
+}
+function boardData(P,set){
+  const r=rng(P.seed+(set==='B'?7919:0)), b=P.bp, B=set==='B';
+  const mq=id=>{const q=getQ(id,'mcq');if(!q)return null;let ord=[0,1,2,3].slice(0,q.o.length);if(B)ord=shuf(ord,r);return {id,q:q.q,o:ord.map(i=>q.o[i]),a:ord.indexOf(q.a),ch:+id.split(':')[0]}};
+  const tq=(t,id)=>{const q=getQ(id,t);return q?{id,t,q:q.q,ch:+id.split(':')[0]}:null};
+  const mcq=(B?shuf(b.mcq,r):b.mcq).map(mq).filter(Boolean);
+  const sq=b.sq.map(g=>(B?shuf(g,r):g).map(id=>tq('sq',id)).filter(Boolean));
+  const lq=b.lq.map(p=>p.map(x=>{const[t,id]=x.split('|');return tq(t,id)}));
+  return {mcq,sq,lq:B?shuf(lq,r):lq};
+}
+function boardBlocks(P,set){
+  const ur=P.m==='um', sc=SCH[P.bp.sc], D=boardData(P,set), [T,pm]=totals(P), B=[], A=set==='A';
+  const sw=p=>A?` data-sw="${p}"`:'';
+  const inst=esc(P.inst), isDef=P.inst===DEF_INST;
+  B.push(`<div class="ph"><div class="r1"><img src="../assets/logo-96.webp" alt=""><div class="nm"><b>${inst}</b>${isDef?'<span class="u">الحسن سائنس اکیڈمی دلیوالی</span>':''}</div>${P.ab?`<span class="set">SET ${set}</span>`:''}</div>
+   <div class="r2">${ur?`<span class="u">${P.titleUr} · ${SB[P.s][1]} · ${CL[P.c][1]}</span>`:`${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]}`}</div>
+   <div class="r3">${ur?`<span>وقت: ${fmtTimeUr(P.time)}</span><span>کل نمبر: ${T}</span><span>پاسنگ نمبر: ${pm}</span><span>تاریخ: ____________</span>`:`<span>Time: ${fmtTime(P.time)}</span><span>Total Marks: ${T}</span><span>Passing Marks: ${pm}</span><span>Date: ____________</span>`}</div>
+   <div class="r4">${ur?'<div>طالب علم کا نام:</div><div>رول نمبر:</div><div>حاصل کردہ نمبر:</div>':'<div>Student Name:</div><div>Roll No.:</div><div>Marks Obtained:</div>'}</div>
+   <div class="chs">${ur?'اسمارٹ سلیبس 2027 · پنجاب بورڈ پیئرنگ اسکیم کے مطابق':'As per Smart Syllabus 2027 · Punjab Boards pairing scheme'}</div></div>`);
+  const nm=vsum(sc.mcq);
+  B.push(`<div class="pt">${ur?'حصہ اول (معروضی)':'PART – I (OBJECTIVE)'}</div>`);
+  B.push(`<div class="sh"><span>${ur?'سوال نمبر 1: درست جواب کا انتخاب کریں۔':'Q.1 Choose the correct option.'}</span><span dir="ltr">(${D.mcq.length} × 1 = ${D.mcq.length})</span></div>`);
+  D.mcq.forEach((q,i)=>{const L=Math.max(...q.o.map(o=>plain(o).length));const cols=L<=16?'c4':L<=38?'c2':'c1';
+    B.push(`<div class="qi"${sw('mcq|'+b_i(P,'mcq',q.id))}><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});
+  B.push(`<div class="pt">${ur?'حصہ دوم (انشائیہ / مختصر سوالات)':'PART – II (SUBJECTIVE · SHORT QUESTIONS)'}</div>`);
+  D.sq.forEach((g,gi)=>{const a=sc.sq[gi].a;
+    B.push(`<div class="sh"><span>${ur?`سوال نمبر ${gi+2}: کوئی سے ${W_UR[a]} (${a}) سوالات کے مختصر جوابات لکھیں۔`:`Q.${gi+2} Write short answers to any ${W_EN[a].toUpperCase()} (${a}) questions.`}</span><span dir="ltr">(${a} × 2 = ${a*2})</span></div>`);
+    g.forEach((q,i)=>B.push(`<div class="qi"${sw('sq|'+gi+'|'+P.bp.sq[gi].indexOf(q.id))}><span class="n">${ur?'('+(i+1)+')':roman(i+1)}</span><div class="tx">${q.q}</div></div>`))});
+  const L=sc.lq, lm=L.mk.reduce((x,y)=>x+y,0), q0=sc.sq.length+2;
+  B.push(`<div class="pt">${ur?'حصہ سوم (تفصیلی سوالات)':'PART – III (LONG QUESTIONS)'}</div>`);
+  B.push(`<div class="sh"><span>${ur?`نوٹ: کوئی سے ${W_UR[L.a]} (${L.a}) سوالات کے جوابات لکھیں۔`:`Note: Attempt any ${W_EN[L.a].toUpperCase()} (${L.a}) questions.`}</span><span dir="ltr">(${L.a} × ${lm} = ${L.a*lm})</span></div>`);
+  D.lq.forEach((parts,qi)=>{const oi=P.bp.lq.findIndex(p=>p.join()===parts.map(x=>x?x.t+'|'+x.id:'').join());
+    parts.forEach((q,pi)=>{if(!q)return;const lab=parts.length>1?(ur?['(الف)','(ب)'][pi]:['(a)','(b)'][pi]):'';
+      B.push(`<div class="qi lqs"${sw('lq|'+oi+'|'+pi)}><span class="n">${pi===0?(ur?`سوال ${q0+qi}:`:`Q.${q0+qi}`):''} ${lab}</span><div class="tx">${q.q}</div><span class="pm" dir="ltr">(${L.mk[pi]})</span></div>`)})});
+  return B;
+}
+function b_i(P,t,id){return P.bp[t].indexOf(id)}
+function boardKey(P){
+  const B=[], sets=P.ab?['A','B']:['A'], sc=SCH[P.bp.sc];
+  B.push(`<div class="ph"><div class="r1"><img src="../assets/logo-96.webp" alt=""><div class="nm"><b>${esc(P.inst)}</b></div></div><div class="r2">Answer Key · ${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div>`);
+  sets.forEach(s=>{const D=boardData(P,s);
+    B.push(`<div class="kt">${P.ab?'Set '+s+' · ':''}Q.1 MCQs Answer Key</div>`);
+    B.push(`<div class="kg">${D.mcq.map((q,i)=>`<span>${i+1} · ${'ABCD'[q.a]}</span>`).join('')}</div>`);
+    B.push(`<p style="font-size:13px">${D.sq.map((g,gi)=>`Q.${gi+2}: `+g.map((q,i)=>roman(i+1)+' Ch '+(q.ch||'-')).join(', ')).join('<br>')}<br>${D.lq.map((p,qi)=>`Q.${sc.sq.length+2+qi}: `+p.map((q,pi)=>q?(p.length>1?'('+'ab'[pi]+') ':'')+(q.t==='num'?'Numerical ':'')+'Ch '+(q.ch||'-'):'').join(' ')).join(' · ')}<br>Answers are in AHSA notes (short / long questions and Numericals notes).</p>`);
+  });
+  return B;
+}
+/* ---------------- swap / regenerate ---------------- */
+async function swapQ(path,quiet){
+  const P=VP; await getPack(P.k); const r=rng((Date.now()^Math.floor(Math.random()*1e9))>>>0); const U=LS.get('ahsa-pm-used',{})[P.k]||{};
+  const ex=new Set(); let nid=null;
+  if(P.bp){const b=P.bp,sc=SCH[b.sc];b.mcq.forEach(i=>ex.add('mcq|'+i));b.sq.flat().forEach(i=>ex.add('sq|'+i));b.lq.flat().forEach(x=>ex.add(x));
+    const a=path.split('|');
+    if(a[0]==='mcq'){const old=b.mcq[+a[1]];nid=pickQ('mcq',[+old.split(':')[0]],ex,U.mcq,null,r,false);if(nid)b.mcq[+a[1]]=nid}
+    else if(a[0]==='sq'){const g=+a[1],i=+a[2],old=b.sq[g][i],ch=+old.split(':')[0];nid=pickQ('sq',[ch],ex,U.sq,null,r,false)||pickQ('sq',Object.keys(sc.sq[g].c).map(Number),ex,U.sq,null,r,true);if(nid)b.sq[g][i]=nid}
+    else{const qi=+a[1],pi=+a[2],old=b.lq[qi][pi],[t,oid]=old.split('|'),ch=+oid.split(':')[0];
+      nid=pickQ(t,[ch],ex,U[t],null,r,false)||pickQ(t,sc.lq.q[qi][pi],ex,U[t],null,r,t==='lq');if(nid){nid=t+'|'+nid;b.lq[qi][pi]=nid}}
+    if(nid)markUsed(P.k,{mcq:a[0]==='mcq'?[nid]:[],sq:a[0]==='sq'?[[nid]]:[[]],lq:a[0]==='lq'?[[nid]]:[[]]});
+  }else{const [t,i]=path.split('|');const ids=P.sec[t].ids;ids.forEach(x=>ex.add(t+'|'+x));const old=ids[+i],ch=+old.split(':')[0];
+    const q=getQ(old,t);nid=pickQ(t,[ch],ex,U[t],q&&q.d,r,false)||pickQ(t,P.chs,ex,U[t],q&&q.d,r,false);
+    if(nid){ids[+i]=nid;const used=LS.get('ahsa-pm-used',{});const UU=used[P.k]||{};UU[t]=[...(UU[t]||[]),nid];used[P.k]=UU;LS.set('ahsa-pm-used',used)}}
+  if(quiet)return !!nid;
+  if(!nid){toast('No other question available here · یہاں اور سوال دستیاب نہیں');return}
+  const {saved,...clean}=P; storeP(clean); const y=scrollY; await drawPreview(); scrollTo(0,y); toast('Question changed · سوال بدل دیا');
+}
+async function regen(){
+  const P=VP; await getPack(P.k);
+  if(P.bp){const sv=S.norep;S.norep=true;genBoard((({saved,...c})=>c)(P));S.norep=sv;toast('New questions · نئے سوالات');return}
+  busy(true,'⏳'); try{for(const t of TT){const ids=SEC(P,t).ids;for(let i=0;i<ids.length;i++)await swapQ(t+'|'+i,true)}}finally{busy(false)}
+  const {saved,...clean}=P; storeP(clean); await drawPreview(); toast('New questions · نئے سوالات');
+}
 /* ---------------- My Papers ---------------- */
 function myPapers(){
   const all=LS.get('ahsa-papers',[]);
@@ -448,8 +637,8 @@ function info(P){
   const[T,pm]=totals(P); const m=document.createElement('div'); m.className='modal';
   m.innerHTML=`<div role="dialog" aria-label="Paper info"><h2 class="q">Paper Info<span class="u">پیپر کی تفصیل</span></h2><dl>
    <dt>Type</dt><dd>${P.title}</dd><dt>Class</dt><dd>${CL[P.c][0]}</dd><dt>Subject</dt><dd>${SB[P.s][0]} (${P.m.toUpperCase()})</dd>
-   <dt>Chapters</dt><dd>${P.chs.filter(n=>n<100).sort((a,b)=>a-b).join(', ')||'-'}</dd>
-   <dt>MCQs</dt><dd>${P.sec.mcq.ids.length} × ${P.sec.mcq.mk}</dd><dt>Short</dt><dd>${P.sec.sq.ids.length} × ${P.sec.sq.mk}</dd><dt>Long</dt><dd>${P.sec.lq.ids.length} × ${P.sec.lq.mk}</dd>
+   <dt>Chapters</dt><dd>${P.bp?'Board scheme 2027':(P.chs.filter(n=>n<100).sort((a,b)=>a-b).join(', ')||'-')}</dd>
+   ${P.bp?(()=>{const n=cnt(P);return `<dt>MCQs</dt><dd>${n.mcq}</dd><dt>Short</dt><dd>${n.sq}</dd><dt>Long</dt><dd>${n.lq}${n.num?' + '+n.num+' numericals':''}</dd>`})():TT.filter(t=>t!=='num'||SEC(P,t).ids.length).map(t=>`<dt>${TYP[t][0].replace(' Questions','')}</dt><dd>${SEC(P,t).ids.length} × ${SEC(P,t).mk}</dd>`).join('')}
    <dt>Total / Pass</dt><dd>${T} / ${pm} (${P.pass}%)</dd><dt>Time</dt><dd>${fmtTime(P.time)}</dd><dt>Sets</dt><dd>${P.ab?'A and B':'One'}</dd><dt>Made on</dt><dd>${P.date}</dd></dl>
    <div class="row"><button class="btn red" data-del="${P.id}" type="button">🗑 Delete</button><button class="btn line" data-close type="button" style="flex:1">Close</button></div></div>`;
   document.body.appendChild(m);
@@ -467,16 +656,19 @@ function bump(id,dir){
 }
 document.addEventListener('click',async e=>{
   const g=e.target.closest('[data-go]'); if(g){if(g.dataset.go==='gen'&&view==='gen'){step=1}go(g.dataset.go);return}
+  const qs=SWM&&e.target.closest('#pvin .qi[data-sw]'); if(qs){swapQ(qs.dataset.sw);return}
   const b=e.target.closest('button'); if(!b)return;
   if(b.id==='themeBtn'){const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('ahsa-site-theme',r.dataset.theme)}catch(x){}return}
   if(b.dataset.c){if(S.c!==b.dataset.c){S.c=b.dataset.c;S.s=null;S.m=null;S.ch=[]}step=2;save();render();scrollTo(0,0);return}
   if(b.dataset.s){if(S.s!==b.dataset.s){S.s=b.dataset.s;S.m=null;S.ch=[]}save();render();return}
   if(b.dataset.m){S.m=b.dataset.m;S.ch=[];save();render();return}
   if(b.dataset.step){step=+b.dataset.step;if(step===3&&!S.ch.length){S.ch=IDX[key()].u.map(u=>u[0]).slice(0,1)}save();render();scrollTo(0,0);return}
-  if(b.dataset.tpl){S.tpl=b.dataset.tpl;const t=TPL.find(x=>x.k===S.tpl);S.time=t.time;['mcq','sq','lq'].forEach(k=>{S[k].n=t[k][0];S[k].mk=t[k][1];S[k].mix=false});step=5;save();render();scrollTo(0,0);return}
+  if(b.dataset.tpl){S.tpl=b.dataset.tpl;if(S.tpl!=='bp'){const t=TPL.find(x=>x.k===S.tpl);S.time=t.time;['mcq','sq','lq'].forEach(k=>{S[k].n=t[k][0];S[k].mk=t[k][1];S[k].mix=false});S.num.n=0;S.num.mix=false}step=5;save();render();scrollTo(0,0);return}
+  if(b.dataset.board){if(b.dataset.board==='fb'){toast('Federal Board scheme coming soon · فیڈرل بورڈ جلد آ رہا ہے');return}S.board=b.dataset.board;save();render();return}
+  if(b.dataset.sw){swapQ(b.dataset.sw);return}
   if(b.dataset.inc||b.dataset.dec){bump(b.dataset.inc||b.dataset.dec,b.dataset.inc?1:-1);save();const y=scrollY;await render();scrollTo(0,y);return}
-  if(b.id==='genBtn'){S.inst=($('#inst').value||'').trim()||DEF_INST;LS.set('ahsa-pm-inst',S.inst);save();busy(true,'⏳');try{await getPack(key());generate()}finally{busy(false)}return}
-  if(b.dataset.act){if(b.dataset.act==='again'){step=5;view='gen';render();scrollTo(0,0);return}act(b.dataset.act,VP);return}
+  if(b.id==='genBtn'){S.inst=($('#inst').value||'').trim()||DEF_INST;LS.set('ahsa-pm-inst',S.inst);save();busy(true,'⏳');try{await getPack(key());S.tpl==='bp'?genBoard():generate()}finally{busy(false)}return}
+  if(b.dataset.act){if(b.dataset.act==='again'){if(VP){S.c=VP.c;S.s=VP.s;S.m=VP.m;if(VP.bp)S.tpl='bp';save()}step=5;view='gen';render();scrollTo(0,0);return}if(b.dataset.act==='regen'){regen();return}if(b.dataset.act==='swm'){SWM=!SWM;const y=scrollY;await render();scrollTo(0,y);if(SWM)toast('Tap a question in the paper · پیپر میں سوال پر ٹیپ کریں');return}act(b.dataset.act,VP);return}
   if(b.dataset.pv){const P=LS.get('ahsa-papers',[]).find(x=>x.id==b.dataset.pv);if(P){VP=Object.assign({saved:true},P);view='paper';render();scrollTo(0,0)}return}
   if(b.dataset.pa){const[a,id]=b.dataset.pa.split('|');const P=LS.get('ahsa-papers',[]).find(x=>x.id==id);if(P)act(a,P);return}
   if(b.dataset.info){const P=LS.get('ahsa-papers',[]).find(x=>x.id==b.dataset.info);if(P)info(P);return}
