@@ -1473,6 +1473,7 @@ function vHome() {
       <a class="btn navy mpb" href="#papers">Pairing <br>Scheme</a><a class="btn gold mpb" href="#model">Model <br>Papers</a><a class="btn mpb mpp" href="#past">Past <br>Papers</a><a class="btn mpb mqb" href="#qbank">Question <br>Bank</a>
     </div></div>
   </div></section>
+  <section class="apmsec"><div class="wrap"><a class="apm" href="paper/"><span class="apmi" aria-hidden="true">📝</span><span class="apmt"><b>Auto Paper Maker</b><span lang="ur" dir="rtl">آٹو پیپر میکر: ایک منٹ میں ٹیسٹ پیپر بنائیں</span><small>Class, subject, chapters → printable PDF + answer key</small></span><span class="apmg" aria-hidden="true">›</span></a></div></section>
   <section class="tband"><div class="wrap"><div id="tshowWrap">${tutorShow()}</div></div></section>
   <section><div class="wrap">
     <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2 class="cch">${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
@@ -2679,6 +2680,16 @@ body.pvOpen .fabT{display:none!important}
 .tdr{display:grid;grid-template-columns:110px 1fr;gap:8px;font-size:15px;line-height:1.5;border-top:1px dashed var(--line,#ddd);padding-top:8px}
 .tdr i{font-style:normal;font-weight:800;color:var(--mut)}.tdr ul{margin:4px 0 0;padding-inline-start:18px;font-size:14px}
 .tdbtn{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+
+/* Auto Paper Maker home banner */
+.apmsec{padding:0 0 10px!important;margin-top:-6px}
+.apm{display:flex;align-items:center;gap:12px;text-decoration:none;color:#1a1300;background:linear-gradient(135deg,#ffc107,#ffdd66);border-radius:16px;padding:12px 14px;box-shadow:var(--sh1)}
+.apmi{font-size:30px;flex:none}
+.apmt{flex:1;min-width:0;display:flex;flex-direction:column}
+.apmt b{font:800 19px/1.25 var(--f-head)}
+.apmt span{font:400 16px/1.9 var(--f-ur)}
+.apmt small{font-size:14px;opacity:.85}
+.apmg{font-size:30px;font-weight:800}
 </style>
 <div class="shov" id="shOv" hidden>
   <div class="shsheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
