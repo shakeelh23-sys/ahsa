@@ -141,6 +141,7 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
 .bq{font-weight:700;margin:8px 0 2px}.bq .mk{float:right;font-weight:400}.page[dir="rtl"] .bq .mk{float:left}
 .pt{font-weight:700;text-align:center;font-size:15.5px;margin:10px 0 2px;letter-spacing:.3px}
 .qi .pm{flex:none;font-weight:400}
+.qimg{display:block;max-width:100%;height:auto;margin:1px 0}
 .swb{position:absolute;right:-34px;top:0;width:28px;height:28px;font-size:17px!important;border-radius:50%;border:2px solid #b45309;background:#fff7e0;color:#b45309;font:700 20px/1 Arial,sans-serif;cursor:pointer;padding:0}
 .page[dir="rtl"] .swb{right:auto;left:-36px}
 .pvin .page{overflow:visible}
@@ -341,12 +342,13 @@ function storeP(P){const all=LS.get('ahsa-papers',[]);const j=all.findIndex(x=>x
 function setData(P,set){ // returns sections with question objects (Set B = shuffled order + options)
   const r=rng(P.seed+(set==='B'?7919:0)); const out={};
   TT.forEach(t=>{let ids=SEC(P,t).ids.slice(); if(set==='B')ids=shuf(ids,r);
-    out[t]=ids.map(id=>{const q=getQ(id,t);if(!q)return null;if(t!=='mcq')return {q:q.q,ch:+id.split(':')[0]};
+    out[t]=ids.map(id=>{const q=getQ(id,t);if(!q)return null;if(t!=='mcq')return {q:qh(q),ch:+id.split(':')[0]};
       let ord=[0,1,2,3].slice(0,q.o.length); if(set==='B')ord=shuf(ord,r);
       return {q:q.q,o:ord.map(i=>q.o[i]),a:ord.indexOf(q.a),ch:+id.split(':')[0]}}).filter(Boolean)});
   return out;
 }
 const plain=s=>s.replace(/<[^>]+>/g,'');
+const qh=q=>q.i?`<img class="qimg" src="${q.i}" width="${Math.round(q.w*1.32)}" height="${Math.round(q.h*1.32)}" alt="">`:q.q;
 function blocks(P,set){
   if(P.bp)return boardBlocks(P,set);
   const ur=P.m==='um', D=setData(P,set), [T,pm]=totals(P), B=[];
@@ -486,10 +488,16 @@ const SCH={
  '12-phy':{time:180,mcq:Object.assign(ev([13,14,15,16,17,18,19,20],2),{21:1}),sq:[{c:ev([13,14,15],4),a:8},{c:ev([16,17,18],4),a:8},{c:ev([19,20,21],3),a:6}],lq:{a:3,mk:[5,3],num:1,q:[[[13],[14]],[[15],[16]],[[17],[17]],[[18],[19]],[[20],[21]]]}},
  '12-chem':{time:180,mcq:rng2(17,33),sq:[{c:{17:1,18:1,19:3,20:2,24:3,25:2},a:8},{c:{21:1,22:1,23:2,27:2,28:3,29:3},a:8},{c:{26:1,30:2,31:2,32:2,33:2},a:6}],lq:{a:3,mk:[4,4],q:[[[17],[21]],[[18],[26]],[[20],[31]],[[22],[32]],[[23],[33]]]}},
  '12-bio':{time:180,mcq:{13:1,14:1,15:2,16:1,17:1,18:2,19:2,20:2,21:1,23:1,24:1,25:2},sq:[{c:{13:3,14:3,19:3,20:3},a:8},{c:{15:2,16:2,17:2,18:4,24:2},a:8},{c:{21:3,23:3,25:3},a:6}],lq:{a:3,mk:[4,4],q:[[[13],[25]],[[14],[24]],[[15],[21]],[[16],[20]],[[17],[19]]]}},
+ '9-math':{time:150,mcq:Object.assign(rng2(1,13),{3:2,4:2,6:2,8:0}),sq:[{c:{1:2,2:2,3:2,4:2,5:1},a:6},{c:{6:3,7:3,9:3},a:6},{c:{10:2,11:2,12:3,13:2},a:6}],lq:{a:2,mk:[4,4],q:[[[1],[2]],[[3],[4]],[[5],[6]]]},lq2:{a:1,mk:[4,4],q:[[[7,10],[9]],[[12],[11,13]]]}},
+ '10-math':{time:150,mcq:Object.assign(rng2(1,12),{9:2,11:2,12:2}),sq:[{c:{1:3,2:2,3:2,4:2},a:6},{c:{5:3,6:2,7:2,8:2},a:6},{c:{9:3,10:2,11:2,12:2},a:6}],lq:{a:2,mk:[4,4],q:[[[1],[2]],[[3],[4]],[[5],[7]]]},lq2:{a:1,mk:[4,4],q:[[[6],[8,11]],[[10],[9,12]]]}},
+ '11-math':{time:180,mcq:{1:2,2:1,3:1,4:2,5:1,6:2,7:2,9:1,10:2,11:1,12:1,13:2,14:2},sq:[{c:{1:4,2:2,3:2,4:3,5:1},a:8},{c:{6:4,7:3,9:2,10:3},a:8},{c:{11:2,12:3,13:4,14:4},a:9}],lq:{a:3,mk:[5,5],q:[[[1],[2,3]],[[4],[5,9]],[[6],[7]],[[10],[12]],[[13],[14]]]}},
+ '12-math':{time:180,mcq:{1:2,2:3,3:3,4:1,5:2,6:2,7:2,8:1,9:1,10:2,11:1},sq:[{c:{1:2,2:5,4:3,7:2},a:8},{c:{3:5,5:3,6:4},a:8},{c:{8:3,9:3,10:3,11:4},a:9}],lq:{a:3,mk:[5,5],q:[[[1],[9,10]],[[2],[4]],[[2],[5]],[[3],[7]],[[6],[8]]]}},
  '12-cs':{time:150,mcq:{1:2,2:3,3:2,4:2,6:2,7:2,8:1,9:1},sq:[{c:{1:3,2:4,6:2},a:6},{c:{3:3,4:6},a:6},{c:{7:4,8:2,9:3},a:6}],lq:{a:3,mk:[8],q:[[[1]],[[3]],[[6]],[[8]],[[9]]]}}
 };
 const vsum=o=>Object.values(o).reduce((x,y)=>x+y,0);
-function schTot(c){if(!c)return 0;return vsum(c.mcq)+c.sq.reduce((x,g)=>x+g.a*2,0)+c.lq.a*c.lq.mk.reduce((x,y)=>x+y,0)}
+const LG=sc=>[sc.lq].concat(sc.lq2?[sc.lq2]:[]); const LQS=sc=>LG(sc).flatMap(g=>g.q);
+const lgOf=(sc,qi)=>qi<sc.lq.q.length?sc.lq:sc.lq2;
+function schTot(c){if(!c)return 0;return vsum(c.mcq)+c.sq.reduce((x,g)=>x+g.a*2,0)+LG(c).reduce((x,g)=>x+g.a*g.mk.reduce((p,q)=>p+q,0),0)}
 function boardOK(){const c=SCH[S.c+'-'+S.s],p=IDX&&IDX[key()];if(!c||!p)return false;const t=i=>p.u.reduce((x,u)=>x+u[i].reduce((a,b)=>a+b,0),0);return t(3)>0&&t(4)>0}
 function hasNum(){const p=IDX&&IDX[key()];return !!(p&&p.u.some(u=>u[5]))}
 const W_EN=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
@@ -507,7 +515,7 @@ function stepBoard(){
   <ul class="bsum">
    <li><b>Part I · Objective:</b> Q.1 ${vsum(sc.mcq)} MCQs × 1 = ${vsum(sc.mcq)}</li>
    ${sc.sq.map((g,i)=>`<li><b>Q.${i+2} Short:</b> attempt any ${g.a} of ${vsum(g.c)} (Ch ${chOf(g.c)}) = ${g.a*2}</li>`).join('')}
-   <li><b>Long (Q.${sc.sq.length+2}–Q.${sc.sq.length+1+L.q.length}):</b> attempt any ${L.a} of ${L.q.length}, ${L.mk.length>1?'parts (a) '+L.mk[0]+' + (b) '+L.mk[1]:L.mk[0]+' marks each'} = ${L.a*L.mk.reduce((x,y)=>x+y,0)}${numP?(numHave?' · part (b) numerical':''):''}</li>
+   ${LG(sc).map((L,gi)=>{const s0=sc.sq.length+2+(gi?sc.lq.q.length:0);return `<li><b>Long (Q.${s0}–Q.${s0+L.q.length-1}):</b> attempt any ${L.a} of ${L.q.length}, ${L.mk.length>1?'parts (a) '+L.mk[0]+' + (b) '+L.mk[1]:L.mk[0]+' marks each'} = ${L.a*L.mk.reduce((x,y)=>x+y,0)}${numP&&!gi?(numHave?' · part (b) numerical':''):''}</li>`}).join('')}
   </ul>
   <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing (33%)<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${fmtTime(sc.time).replace(' minutes',' min')}</b><span>Time<br><span class="u">وقت</span></span></div></div>
   ${u0?`<div class="gap">${bi('Short/long questions of this subject are not chapter-wise in our notes yet, so they are picked from the whole book. MCQs follow the exact chapter scheme.','اس مضمون کے مختصر/تفصیلی سوالات ابھی باب وار نہیں، اس لیے پوری کتاب سے لیے جائیں گے۔ MCQs بورڈ اسکیم کے مطابق باب وار ہوں گے۔')}</div>`:''}
@@ -533,7 +541,7 @@ function boardPick(sc,r,U){
   const ex=new Set(); let k=0; const take=(t,chs,fb)=>{const id=pickQ(t,chs,ex,U[t],DSEQ[k++%DSEQ.length],r,fb);if(id)ex.add(t+'|'+id);return id};
   const mcq=[];Object.entries(sc.mcq).forEach(([c,n])=>{for(let i=0;i<n;i++){const id=take('mcq',[+c],'any');if(id)mcq.push(id)}});
   const sq=sc.sq.map(g=>{const a=[];const all=Object.keys(g.c).map(Number);Object.entries(g.c).forEach(([c,n])=>{for(let i=0;i<n;i++){const id=take('sq',[+c],false)||take('sq',all,true)||take('sq',[],'any');if(id)a.push(id)}});return a});
-  const lq=sc.lq.q.map(parts=>{let usedCh=null;return parts.map((chs,pi)=>{
+  const lq=LQS(sc).map(parts=>{let usedCh=null;return parts.map((chs,pi)=>{
     let L=shuf(chs,r); if(usedCh!=null&&L.length>1)L=L.filter(c=>c!==usedCh).concat([usedCh]);
     const wantNum=sc.lq.num===pi||(sc.lq.num==='opt'&&r()<.5);
     for(const c of L){if(wantNum){const id=take('num',[c],false);if(id){usedCh=c;return 'num|'+id}}const id=take('lq',[c],false);if(id){usedCh=c;return 'lq|'+id}}
@@ -558,11 +566,12 @@ function genBoard(old){
 function boardData(P,set){
   const r=rng(P.seed+(set==='B'?7919:0)), b=P.bp, B=set==='B';
   const mq=id=>{const q=getQ(id,'mcq');if(!q)return null;let ord=[0,1,2,3].slice(0,q.o.length);if(B)ord=shuf(ord,r);return {id,q:q.q,o:ord.map(i=>q.o[i]),a:ord.indexOf(q.a),ch:+id.split(':')[0]}};
-  const tq=(t,id)=>{const q=getQ(id,t);return q?{id,t,q:q.q,ch:+id.split(':')[0]}:null};
+  const tq=(t,id)=>{const q=getQ(id,t);return q?{id,t,q:qh(q),ch:+id.split(':')[0]}:null};
   const mcq=(B?shuf(b.mcq,r):b.mcq).map(mq).filter(Boolean);
   const sq=b.sq.map(g=>(B?shuf(g,r):g).map(id=>tq('sq',id)).filter(Boolean));
-  const lq=b.lq.map(p=>p.map(x=>{const[t,id]=x.split('|');return tq(t,id)}));
-  return {mcq,sq,lq:B?shuf(lq,r):lq};
+  const lq=b.lq.map((p,qi)=>Object.assign(p.map(x=>{const[t,id]=x.split('|');return tq(t,id)}),{qi}));
+  const n1=SCH[b.sc].lq.q.length, g1=lq.slice(0,n1), g2=lq.slice(n1);
+  return {mcq,sq,lq:B?shuf(g1,r).concat(shuf(g2,r)):lq};
 }
 function boardBlocks(P,set){
   const ur=P.m==='um', sc=SCH[P.bp.sc], D=boardData(P,set), [T,pm]=totals(P), B=[], A=set==='A';
@@ -582,10 +591,10 @@ function boardBlocks(P,set){
   D.sq.forEach((g,gi)=>{const a=sc.sq[gi].a;
     B.push(`<div class="sh"><span>${ur?`سوال نمبر ${gi+2}: کوئی سے ${W_UR[a]} (${a}) سوالات کے مختصر جوابات لکھیں۔`:`Q.${gi+2} Write short answers to any ${W_EN[a].toUpperCase()} (${a}) questions.`}</span><span dir="ltr">(${a} × 2 = ${a*2})</span></div>`);
     g.forEach((q,i)=>B.push(`<div class="qi"${sw('sq|'+gi+'|'+P.bp.sq[gi].indexOf(q.id))}><span class="n">${ur?'('+(i+1)+')':roman(i+1)}</span><div class="tx">${q.q}</div></div>`))});
-  const L=sc.lq, lm=L.mk.reduce((x,y)=>x+y,0), q0=sc.sq.length+2;
+  const q0=sc.sq.length+2, n1=sc.lq.q.length;
   B.push(`<div class="pt">${ur?'حصہ سوم (تفصیلی سوالات)':'PART – III (LONG QUESTIONS)'}</div>`);
-  B.push(`<div class="sh"><span>${ur?`نوٹ: کوئی سے ${W_UR[L.a]} (${L.a}) سوالات کے جوابات لکھیں۔`:`Note: Attempt any ${W_EN[L.a].toUpperCase()} (${L.a}) questions.`}</span><span dir="ltr">(${L.a} × ${lm} = ${L.a*lm})</span></div>`);
-  D.lq.forEach((parts,qi)=>{const oi=P.bp.lq.findIndex(p=>p.join()===parts.map(x=>x?x.t+'|'+x.id:'').join());
+  D.lq.forEach((parts,qi)=>{const oi=parts.qi, L=lgOf(sc,qi);
+    if(qi===0||qi===n1){const lm=L.mk.reduce((x,y)=>x+y,0),one=L.a===1;B.push(`<div class="sh"><span>${ur?`نوٹ: کوئی سے ${W_UR[L.a]} (${L.a}) ${one?'سوال کا جواب لکھیں۔':'سوالات کے جوابات لکھیں۔'}`:`Note: Attempt any ${W_EN[L.a].toUpperCase()} (${L.a}) question${one?'':'s'}.`}</span><span dir="ltr">(${L.a} × ${lm} = ${L.a*lm})</span></div>`)}
     parts.forEach((q,pi)=>{if(!q)return;const lab=parts.length>1?(ur?['(الف)','(ب)'][pi]:['(a)','(b)'][pi]):'';
       B.push(`<div class="qi lqs"${sw('lq|'+oi+'|'+pi)}><span class="n">${pi===0?(ur?`سوال ${q0+qi}:`:`Q.${q0+qi}`):''} ${lab}</span><div class="tx">${q.q}</div><span class="pm" dir="ltr">(${L.mk[pi]})</span></div>`)})});
   return B;
@@ -610,7 +619,7 @@ async function swapQ(path,quiet){
     if(a[0]==='mcq'){const old=b.mcq[+a[1]];nid=pickQ('mcq',[+old.split(':')[0]],ex,U.mcq,null,r,false);if(nid)b.mcq[+a[1]]=nid}
     else if(a[0]==='sq'){const g=+a[1],i=+a[2],old=b.sq[g][i],ch=+old.split(':')[0];nid=pickQ('sq',[ch],ex,U.sq,null,r,false)||pickQ('sq',Object.keys(sc.sq[g].c).map(Number),ex,U.sq,null,r,true);if(nid)b.sq[g][i]=nid}
     else{const qi=+a[1],pi=+a[2],old=b.lq[qi][pi],[t,oid]=old.split('|'),ch=+oid.split(':')[0];
-      nid=pickQ(t,[ch],ex,U[t],null,r,false)||pickQ(t,sc.lq.q[qi][pi],ex,U[t],null,r,t==='lq');if(nid){nid=t+'|'+nid;b.lq[qi][pi]=nid}}
+      nid=pickQ(t,[ch],ex,U[t],null,r,false)||pickQ(t,LQS(sc)[qi][pi],ex,U[t],null,r,t==='lq');if(nid){nid=t+'|'+nid;b.lq[qi][pi]=nid}}
     if(nid)markUsed(P.k,{mcq:a[0]==='mcq'?[nid]:[],sq:a[0]==='sq'?[[nid]]:[[]],lq:a[0]==='lq'?[[nid]]:[[]]});
   }else{const [t,i]=path.split('|');const ids=P.sec[t].ids;ids.forEach(x=>ex.add(t+'|'+x));const old=ids[+i],ch=+old.split(':')[0];
     const q=getQ(old,t);nid=pickQ(t,[ch],ex,U[t],q&&q.d,r,false)||pickQ(t,P.chs,ex,U[t],q&&q.d,r,false);
