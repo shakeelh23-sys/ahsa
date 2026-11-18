@@ -3,6 +3,11 @@
   "on": true,
   "items": [
     {
+      "ur": "🆕 آٹو پیپر میکر: کلاس، مضمون اور ابواب چنیں، ایک منٹ میں پرنٹ ہونے والا ٹیسٹ پیپر PDF، جوابی کلید اور سیٹ A/B",
+      "en": "🆕 Auto Paper Maker: choose class, subject and chapters, get a printable test paper PDF with answer key and Set A/B in one minute",
+      "link": "paper/"
+    },
+    {
       "ur": "🆕 نیا ہوم پیج: My Class، بڑا سرچ، نئی فائلیں، کوئسچن بینک اور بورڈ پیپرز اوپر، «ہمیں کیوں چنیں» اور عام سوالات",
       "en": "🆕 New home page: My Class, big search, new files, Question Bank and Board Papers on top, Why choose AHSA and FAQ",
       "link": "#home"
