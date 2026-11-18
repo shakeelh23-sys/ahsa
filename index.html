@@ -1669,17 +1669,46 @@ function tutorCard(x) {
   const rows = [['tEdu','education'],['tSubj','subjects'],['tCls','classes'],['tExp','experience'],['tArea','area'],['tAvail','available']].filter(r => tf(x, r[1])).map(r => `<dt>${t(r[0])}</dt><dd dir="auto">${tf(x, r[1])}${(D => (x[D] || x[D + 'Ur']) ? `<ul class="txd">${((lang === 'ur' && x[D + 'Ur']) || x[D] || x[D + 'Ur']).map(d => `<li>${esc(d)}</li>`).join('')}</ul>` : '')({experience: 'expDetail', education: 'eduDetail'}[r[1]] || '-')}</dd>`).join('')
     + (isOnline(x) && x.platforms ? `<dt>${t('tPlat')}</dt><dd><bdi dir="ltr">${esc(x.platforms)}</bdi></dd>` : '');
   const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} کے بارے میں معلومات چاہییں۔\nI want details about tutor ${x.name || x.nameUr || ''}.` + (x.subjects || x.subjectsUr ? `\nمضامین / Subjects: ${[x.subjectsUr, x.subjects].filter(Boolean).join(' / ')}` : '');
-  return `<div class="card tut lift"><div class="hd">${x.photo ? `<img class="av" src="${esc(x.photo)}" alt="" width="72" height="72" loading="lazy" decoding="async">` : `<span class="av">${esc(ini)}</span>`}
+  const ti = TUTORS.indexOf(x);
+  return `<div class="card tut lift"><div class="hd" data-tut="${ti}" role="button" tabindex="0" aria-label="Details: ${esc(x.name || '')}">${x.photo ? `<img class="av" src="${esc(x.photo)}" alt="" width="72" height="72" loading="lazy" decoding="async">` : `<span class="av">${esc(ini)}</span>`}
     <div style="min-width:0"><h3>${nm}</h3>${modeBadge(x)}</div></div>
     <dl>${rows}</dl>
-    <div class="row"><a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${t('tAsk')}</a></div></div>`;
+    <div class="row"><a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${t('tAsk')}</a><button type="button" class="btn sm line" data-tsh="${ti}">↗ Share</button><button type="button" class="btn sm line" data-tut="${ti}">Details</button></div></div>`;
 }
+
+/* Team detail view + share (2026-11-18) */
+function tutShareText(x) { return `👩‍🏫 ${x.name || ''}${x.nameUr ? ' · ' + x.nameUr : ''}\n${[x.subjects, x.classes ? 'Class ' + x.classes : '', x.education].filter(Boolean).join(' · ')}\nAl Hassan Science Academy Dillewali (AHSA)\nhttps://shakeelh23-sys.github.io/ahsa/#tutors\nWhatsApp: 0314-6011672`; }
+function tutShare(x) { const txt = tutShareText(x);
+  if (navigator.share) { navigator.share({title: x.name, text: txt}).catch(() => {}); return; }
+  window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank', 'noopener'); }
+function tutOpen(i) {
+  const x = TUTORS[i]; if (!x) return; pvClose();
+  const ini = String(x.name || x.nameUr || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  const row = (k, f) => { const v = tf(x, f); if (!v) return ''; const D = f === 'experience' ? ((lang === 'ur' && x.expDetailUr) || x.expDetail || x.expDetailUr) : null;
+    return `<div class="tdr"><i>${t(k)}</i><span dir="auto">${v}${D ? `<ul>${D.map(d => `<li>${esc(d)}</li>`).join('')}</ul>` : ''}</span></div>`; };
+  const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} سے پڑھنا ہے، تفصیل بتا دیں۔\nI want to study with tutor ${x.name || x.nameUr || ''}. Please share details.` + (x.subjects ? `\nSubjects: ${x.subjects}` : '');
+  const d = document.createElement('div'); d.id = 'pvm'; d.className = 'pvm'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', x.name || '');
+  d.innerHTML = `<div class="pvbox tdbox"><div class="pvh"><b>👥 Our Team · ہماری ٹیم</b><button type="button" class="pvx" aria-label="Close · بند کریں">✕</button></div>
+    <div class="tdb">${x.photo ? `<img class="tdph" src="${esc(x.photo)}" alt="${esc(x.name || '')}" width="160" height="160" decoding="async">` : `<span class="tdph ini">${esc(ini)}</span>`}
+    <h3>${esc(x.name || '')}</h3>${x.nameUr ? `<p class="tdur" lang="ur" dir="rtl">${esc(x.nameUr)}</p>` : ''}${modeBadge(x)}
+    <div class="tdrs">${row('tSubj', 'subjects')}${row('tCls', 'classes')}${row('tEdu', 'education')}${row('tExp', 'experience')}${row('tArea', 'area')}${row('tAvail', 'available')}</div>
+    <div class="tdbtn"><a class="btn wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}Contact on WhatsApp</a><button type="button" class="btn line" data-tsh="${i}">↗ Share</button></div>
+    <p class="hint">WhatsApp goes to the academy number 0314-6011672.</p></div></div>`;
+  document.body.appendChild(d); document.body.classList.add('pvOpen');
+  d.addEventListener('click', ev => { if (ev.target === d || ev.target.closest('.pvx')) pvClose(); });
+}
+document.addEventListener('click', e => {
+  const s = e.target.closest('[data-tsh]'); if (s) { e.preventDefault(); tutShare(TUTORS[+s.dataset.tsh]); return; }
+  const b = e.target.closest('[data-tut]'); if (!b || e.target.closest('a.btn')) return; e.preventDefault(); tutOpen(+b.dataset.tut);
+});
+document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.hd[data-tut]')) { e.preventDefault(); tutOpen(+e.target.dataset.tut); } });
 function tutorList() {
   if (!TUTORS.length) return `<div class="soon tsoon"><span class="em">👩‍🏫👨‍🏫</span><b>${t('tutSoonT')}</b>${t('tutSoonP')}
     <div class="cta" style="justify-content:center;margin-top:12px"><a class="btn sm gold" href="#tutors-register">${svg('tutors')}${t('tutReg')}</a></div></div>`;
-  const L2 = TUTORS.filter(x => tmode === 'all' || hasMode(x, tmode));
+  const L2 = TUTORS.filter(x => (tmode === 'all' || hasMode(x, tmode)) && tsMatch(x, tsF));
   const TM = {all:'tmAll', online:'tmOnline', academy:'tmAcademy', home:'tmHomeF'};
   return `<div class="seg tseg" role="group" aria-label="Mode" style="margin-bottom:12px">${['all','online','academy','home'].map(m => `<button type="button" data-tm="${m}" aria-pressed="${tmode === m}">${m === 'home' ? '🏠 ' : ''}${t(TM[m])} (${m === 'all' ? TUTORS.length : TUTORS.filter(x => hasMode(x, m)).length})</button>`).join('')}</div>
+    ${tsChips(TUTORS)}
     ${L2.length ? `<div class="tgrid">${L2.map(tutorCard).join('')}</div>` : `<div class="empty">${t(tmode === 'home' ? 'noHomeM' : 'noTutM')}${tmode === 'home' ? `<div class="cta" style="justify-content:center;margin-top:10px"><a class="btn sm gold" href="#need-tutor">🏠 ${t('homeAsk')}</a></div>` : ''}</div>`}`;
 }
 function vTutors() {
@@ -1748,23 +1777,24 @@ function actionBand() {
 }
 /* ===== Tutors slideshow on Home (swipe; auto-plays every 3.5 s; pauses on touch; tap opens Our Tutors) ===== */
 let tsF = 'all';
-const TSF = {all: ['سب', 'All'], math: ['ریاضی', 'Math'], sci: ['سائنس', 'Science'], online: ['آن لائن', 'Online']};
+const TSF = {all: ['سب', 'All'], math: ['ریاضی', 'Math'], sci: ['سائنس', 'Science'], eng: ['انگلش', 'English'], com: ['کامرس', 'Economics / Accounts'], online: ['آن لائن', 'Online']};
 const tsMatch = (x, f) => { const s = [x.subjects, x.subjectsUr].join(' ');
-  return f === 'all' || (f === 'math' ? /math|ریاضی/i.test(s) : f === 'sci' ? /physics|chemistry|biology|science|فزکس|کیمسٹری|بیالوجی|سائنس/i.test(s) : hasMode(x, 'online')); };
+  return f === 'all' || (f === 'math' ? /math|ریاضی/i.test(s) : f === 'sci' ? /physics|chemistry|biology|science|فزکس|کیمسٹری|بیالوجی|سائنس/i.test(s) : f === 'eng' ? /english|انگلش/i.test(s) : f === 'com' ? /econom|account|معاشیات|اکاؤنٹس/i.test(s) : hasMode(x, 'online')); };
+const tsChips = A => `<div class="tsf" role="group" aria-label="Filter tutors">${Object.keys(TSF).map(k => [k, A.filter(x => tsMatch(x, k)).length]).filter(([k, n]) => n && (k === 'all' || n < A.length)).map(([k, n]) => `<button type="button" data-tsf="${k}" aria-pressed="${k === tsF}">${L(...TSF[k])} (${n})</button>`).join('')}</div>`;
 function tutorShow() {
   const A = (window.TUTORS || []).filter(x => x && (x.name || x.nameUr)); if (!A.length) return '';
   const T = A.filter(x => tsMatch(x, tsF));
-  const chips = A.length < 10 ? '' : `<div class="tsf" role="group" aria-label="${L('', 'Filter tutors')}">${Object.keys(TSF).map(k => `<button type="button" data-tsf="${k}" aria-pressed="${k === tsF}">${L(...TSF[k])}</button>`).join('')}</div>`;
+  const chips = tsChips(A);
   const sl = T.map(x => { const ini = String(x.name || x.nameUr).trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
     const msg = `Assalam o Alaikum Sir,\nمجھے استاد ${x.nameUr || x.name || ''} سے پڑھنا ہے، تفصیل بتا دیں۔\nI want to study with tutor ${x.name || x.nameUr || ''}. Please share details.` + (x.subjects || x.subjectsUr ? `\nمضامین / Subjects: ${[x.subjectsUr, x.subjects].filter(Boolean).join(' / ')}` : '');
     const row = (k, v) => v ? `<span class="r"><i>${t(k)}:</i> ${v}</span>` : '';
-    return `<div class="tsl" dir="${lang === 'ur' ? 'rtl' : 'ltr'}"><a class="tp" href="#tutors">${x.photo ? `<img src="${esc(x.photo)}" alt="" width="64" height="64" loading="lazy" decoding="async">` : `<span class="ini">${esc(ini)}</span>`}<span class="tt"><b>${tf(x, 'name')}</b><small>${modesOf(x).filter(m => TMODES[m]).map(m => t(TMODES[m][0])).join(' · ')}</small></span></a>
+    return `<div class="tsl" dir="${lang === 'ur' ? 'rtl' : 'ltr'}"><a class="tp" href="#tutors" data-tut="${TUTORS.indexOf(x)}">${x.photo ? `<img src="${esc(x.photo)}" alt="" width="64" height="64" loading="lazy" decoding="async">` : `<span class="ini">${esc(ini)}</span>`}<span class="tt"><b>${tf(x, 'name')}</b><small>${modesOf(x).filter(m => TMODES[m]).map(m => t(TMODES[m][0])).join(' · ')}</small></span></a>
       <div class="ti">${row('tSubj', tf(x, 'subjects'))}${row('tCls', tf(x, 'classes'))}${row('tEdu', x.eduShort ? tf(x, 'eduShort') : tf(x, 'education'))}</div>
       <a class="btn sm wa" href="https://wa.me/${ACADEMY.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${WA}${L('', 'Contact this tutor')}</a></div>`; }).join('');
-  return `<div class="tshow" aria-label="${L('', 'Our Team')}"><div class="tsh"><b>👥 ${L('', 'Our Team')}</b><span class="tshl"><a class="tsreg" href="#tutors-register">➕ <span class="rl">Register as a Tutor</span><span class="rs">Register</span></a><a href="#tutors">${L('', 'See all →')}</a></span></div>${chips}
+  return `<div class="tshow" aria-label="${L('', 'Our Team')}"><div class="tsh"><b>👥 ${L('', 'Our Team')} <span class="tcnt">${A.length}</span></b><span class="tshl"><a class="tsreg" href="#tutors-register">➕ <span class="rl">Register as a Tutor</span><span class="rs">Register</span></a><a href="#tutors">${L('', 'See all →')}</a></span></div>${chips}
     ${T.length ? `<div class="sarrw"><div class="ttrack" id="tTrack" dir="ltr" data-n="${T.length}">${sl}${T.length > 1 ? sl.replace(/<div class="tsl"/g, '<div class="tsl clone" aria-hidden="true" inert') : ''}</div>${T.length > 1 ? `<button type="button" class="sarr sprev" data-arr="-1" data-tr="tTrack" aria-label="Previous">‹</button><button type="button" class="sarr snext" data-arr="1" data-tr="tTrack" aria-label="Next">›</button>` : ''}</div><div class="tdots" id="tDots" dir="ltr">${T.map((_, i) => `<button type="button" data-td="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('')}</div>` : `<p class="tnone">${L('', 'No tutor in this group yet.')}</p>`}</div>`;
 }
-document.addEventListener('click', e => { const b = e.target.closest('button[data-tsf]'); if (!b) return; tsF = b.dataset.tsf; const w = document.getElementById('tshowWrap'); if (w) { w.innerHTML = tutorShow(); tsHold = Date.now() + 8000; tsInit(); } });
+document.addEventListener('click', e => { const b = e.target.closest('button[data-tsf]'); if (!b) return; tsF = b.dataset.tsf; const w = document.getElementById('tshowWrap'); if (w) { w.innerHTML = tutorShow(); tsHold = Date.now() + 8000; tsInit(); } else if (view === 'tutors') { const y = scrollY; render(); scrollTo(0, y); } });
 let tsTimer = null, tsHold = 0;
 /* ===== "What students get" slideshow (same behaviour as the team slideshow) ===== */
 function featShow() {
@@ -2629,6 +2659,26 @@ body.pvOpen .fabT{display:none!important}
 .trust{background:var(--card,#fff);border:1.5px solid var(--line,#ddd);border-radius:14px;padding:14px}
 .trust h2 [lang=ur]{font:400 18px/1.9 var(--f-ur)}
 .trb{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}.trb .btn{justify-content:center}
+
+/* Team v2 (2026-11-18) */
+@media (max-width:820px){.tband .sarr{display:none!important}}
+.tcnt{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--gold);color:#3a2a00;font:800 14px/1 var(--f-body,inherit);vertical-align:middle;margin-inline-start:4px}
+.tsf{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0 8px}.tsf::-webkit-scrollbar{display:none}.tsf button{flex:none;white-space:nowrap}
+@media (max-width:639px){#tTrack .tsl{flex-basis:86%!important}}
+@media (max-width:820px){#tTrack .tsl{padding-right:12px!important}}
+.tsl img,.tsl .ini{width:72px!important;height:72px!important;object-fit:cover;object-position:center 20%}
+.tsl .tp::after{content:'Details ›';margin-inline-start:auto;align-self:center;font-size:12px;font-weight:800;color:var(--gold);white-space:nowrap}
+.tut .hd[data-tut]{cursor:pointer}.tut .av{object-fit:cover;object-position:center 20%}
+.tut .row{display:flex;flex-wrap:wrap;gap:8px}
+.tdbox{height:auto!important;max-height:92vh;width:min(520px,100%)!important;overflow:auto}
+.tdb{padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.tdph{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:center 20%;border:4px solid var(--gold);background:var(--soft)}
+.tdph.ini{display:grid;place-items:center;font:800 44px/1 var(--f-head);color:var(--navy)}
+.tdb h3{margin:6px 0 0;font-size:22px}.tdur{margin:0;font:400 20px/1.9 var(--f-ur)}
+.tdrs{width:100%;text-align:start;display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.tdr{display:grid;grid-template-columns:110px 1fr;gap:8px;font-size:15px;line-height:1.5;border-top:1px dashed var(--line,#ddd);padding-top:8px}
+.tdr i{font-style:normal;font-weight:800;color:var(--mut)}.tdr ul{margin:4px 0 0;padding-inline-start:18px;font-size:14px}
+.tdbtn{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}
 </style>
 <div class="shov" id="shOv" hidden>
   <div class="shsheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
