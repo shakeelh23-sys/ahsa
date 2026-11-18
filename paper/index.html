@@ -99,6 +99,15 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
 .mpi b{font-size:18px}
 .mpi .meta{color:var(--mut);font-size:15px;margin:2px 0 10px}
 .mpi .row .btn{flex:1;min-width:0;padding:10px 8px;font-size:15px;min-height:44px}
+.cvt{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 4px}
+.cvt th,.cvt td{padding:7px 4px;border-bottom:1px solid var(--line);text-align:end}
+.cvt th:first-child,.cvt td:first-child{text-align:start}
+.cvt th{font-size:12.5px;color:var(--mut);font-weight:700}
+.cvt tr.ct td{font-weight:800;background:var(--soft)}
+.cvt small{display:block;color:var(--mut);font-size:11.5px}
+.cvbig{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 12px}
+.cvbig div{background:var(--navy);color:#fff;border-radius:14px;padding:10px;text-align:center}
+.cvbig b{display:block;font-size:22px;color:#ffc107}
 .empty{text-align:center;color:var(--mut);padding:30px 10px}
 .bnav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -4px 16px rgba(0,0,0,.12)}
 .bnav a,.bnav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:6px 2px 7px;border:0;background:none;text-decoration:none;color:var(--mut);font:700 12.5px/1.15 var(--f-body);min-height:62px;cursor:pointer}
@@ -273,6 +282,7 @@ async function render(){
   document.querySelectorAll('.bnav [data-go]').forEach(b=>{if(b.dataset.go===view||(view==='paper'&&b.dataset.go==='my'&&VP&&VP.saved))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
   if(view==='my'){app.innerHTML=myPapers();return}
   if(view==='paper'){app.innerHTML=paperView();await drawPreview();return}
+  if(view==='cov'){await getIdx();app.innerHTML=covView();return}
   if(view==='pick'){await getIdx();await getPack(key());app.innerHTML=pickView();return}
   await getIdx();
   const bar=`<div class="steps" aria-label="Step ${step} of 5">${[1,2,3,4,5].map(i=>`<i class="${i<=step?'on':''}"></i>`).join('')}</div>`;
@@ -282,6 +292,7 @@ function stepClass(){
   const has=c=>Object.values(IDX).some(p=>p.c===c);
   return `<div class="card"><h2 class="q">Step 1 · Select Class<span class="u">مرحلہ 1 · کلاس منتخب کریں</span></h2>
   <div class="grid">${Object.keys(CL).filter(has).map(c=>`<button type="button" class="ch" data-c="${c}" aria-pressed="${S.c===c}"><b>${CL[c][0]}</b><span class="u">${CL[c][1]}</span></button>`).join('')}</div></div>
+  <button type="button" class="btn line" data-go="cov" style="width:100%;margin:0 0 12px">📊 Questions available · کتنے سوالات دستیاب ہیں</button>
   ${presetsCard()}
   <div class="note">${bi('Questions come only from AHSA notes (MCQ test apps and question banks).','سوالات صرف اکیڈمی کے نوٹس سے لیے جاتے ہیں۔')}</div>`;
 }
@@ -367,6 +378,23 @@ function presetSave(){return `<div class="ef" style="border-top:1px solid var(--
 const logoSrc=()=>LS.get('ahsa-pm-logo',null)||'../assets/logo-96.webp';
 function usedSet(k,t){const N=S.lastN;if(N==='0')return new Set();if(N==='all'||N==null)return new Set((LS.get('ahsa-pm-used',{})[k]||{})[t]||[]);
   const s=new Set();LS.get('ahsa-papers',[]).filter(p=>p.k===k).slice(0,+N).forEach(p=>{if(p.bp){const b=p.bp;if(t==='mcq')b.mcq.forEach(x=>s.add(x));if(t==='sq')b.sq.flat().forEach(x=>s.add(x));b.lq.flat().forEach(x=>{const[tt,id]=x.split('|');if(tt===t)s.add(id)})}else SEC(p,t).ids.forEach(x=>s.add(x))});return s}
+/* ---------------- coverage (questions available) ---------------- */
+function covView(){
+  const sum=a=>(a||[]).reduce((x,y)=>x+y,0), fm=n=>n.toLocaleString('en-US');
+  const by={}; Object.entries(IDX).forEach(([k,p])=>{const t=[0,0,0,0];p.u.forEach(u=>{for(let j=0;j<4;j++)t[j]+=sum(u[2+j])});(by[p.c]=by[p.c]||{});(by[p.c][p.s]=by[p.c][p.s]||{})[p.m]=t});
+  const G=[0,0,0,0]; let body='';
+  Object.keys(CL).filter(c=>by[c]).forEach(c=>{const C=[0,0,0,0];let rows='';
+    SORD.filter(s=>by[c][s]).forEach(s=>{const d=by[c][s],ms=Object.keys(d).sort(),mx=[0,1,2,3].map(j=>Math.max(...ms.map(m=>d[m][j])));mx.forEach((v,j)=>C[j]+=v);
+      rows+=`<tr><td>${SB[s][0]}<small>${ms.map(m=>m.toUpperCase()).join(' + ')}</small></td><td>${fm(mx[0])}</td><td>${fm(mx[1])}</td><td>${fm(mx[2])}</td><td>${mx[3]||'–'}</td></tr>`});
+    C.forEach((v,j)=>G[j]+=v);
+    body+=`<tr class="ct"><td>${CL[c][0]}</td><td>${fm(C[0])}</td><td>${fm(C[1])}</td><td>${fm(C[2])}</td><td>${C[3]||'–'}</td></tr>${rows}`});
+  return `<div class="card"><h2 class="q">📊 Questions Available<span class="u">پیپر بنانے کے لیے دستیاب سوالات</span></h2>
+  <div class="cvbig"><div><b>${fm(G[0])}</b>MCQs</div><div><b>${fm(G[1])}</b>Short · مختصر</div><div><b>${fm(G[2])}</b>Long · تفصیلی</div><div><b>${fm(G[3])}</b>Numericals · عددی</div></div>
+  <p class="hint">${bi('Every MCQ, short and long question on the AHSA website is here. A question in both English and Urdu medium is counted once.','ویب سائٹ کے تمام سوالات یہاں موجود ہیں۔ جو سوال انگلش اور اردو دونوں میڈیم میں ہے وہ ایک بار گنا گیا ہے۔')}</p>
+  <table class="cvt"><thead><tr><th>Class / Subject</th><th>MCQs</th><th>Short</th><th>Long</th><th>Num.</th></tr></thead><tbody>${body}</tbody></table>
+  <p class="hint">${bi('Numericals: Physics and Chemistry 9–10 (English medium).','عددی سوالات: فزکس اور کیمسٹری 9، 10 (انگلش میڈیم)۔')}</p>
+  <button class="btn gold" data-go="gen" type="button" style="width:100%">📝 Make a Paper · پیپر بنائیں</button></div>`;
+}
 /* ---------------- question browser (hand-pick) ---------------- */
 function pickView(){
   const rtl=S.m==='um', units=PACK.u.filter(u=>S.ch.includes(u.n));
@@ -892,7 +920,7 @@ document.addEventListener('change',e=>{const t=e.target;
 });
 function fitPreview(){const w=$('#pvw'),inn=$('#pvin');if(!w||!inn)return;inn.style.width='794px';const sc=Math.min(1,(w.clientWidth-20)/794);inn.style.transform=`scale(${sc})`;w.style.height=(inn.scrollHeight*sc+20)+'px'}
 addEventListener('resize',()=>{if(view==='paper')fitPreview()});
-if(location.hash==='#my')view='my';
+if(location.hash==='#my')view='my';if(location.hash==='#cov')view='cov';
 if(S.c&&S.s&&S.m)step=S.ch.length?5:3;else if(S.c)step=2;
 render().catch(()=>{$('#app').innerHTML='<div class="card warn">Could not load. Check internet and refresh. · انٹرنیٹ چیک کر کے دوبارہ کھولیں۔</div>'});
 </script>
