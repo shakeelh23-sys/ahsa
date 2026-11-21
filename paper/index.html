@@ -672,7 +672,7 @@ function t2Hdr(P){const cn=CL[P.c][0].replace('Class ','').toUpperCase(), sub=SB
    me:P.teacher?`<b>${esc(P.teacher.toUpperCase())}</b>${P.inst&&P.inst!==DEF_INST?' · '+esc(P.inst.toUpperCase()):''}`:(P.inst===DEF_INST?'<b>SHAKEEL HASSAN</b> · SST SCIENCE · GHS MC MIANWALI':`<b>${esc(P.inst.toUpperCase())}</b>`),
    ft:P.inst===DEF_INST?'<span class="gm">Find us on Google Maps:</span> <b>AL HASSAN SCIENCE ACADEMY</b> &nbsp;DILLEWALI · WhatsApp 0314-6011672':`<b>${esc(P.inst.toUpperCase())}</b>`}}
 function t2Front(P,set,D,key,H,T){const ur=P.m==='um', n=D.length, L='abcd';
-  let rows=5, cols=Math.ceil(n/5); if(cols>4){cols=4;rows=Math.ceil(n/4)}
+  let cols=Math.max(1,Math.min(4,Math.ceil(n/5))),rows=Math.ceil(n/cols);
   let bg=''; for(let c=0;c<cols;c++){let r='';for(let i=c*rows;i<Math.min(n,c*rows+rows);i++)r+=`<div class="br"><span class="bn">${i+1}</span>${[0,1,2,3].map(k=>`<span class="bb${key&&D[i].a===k?' on':''}">${L[k]}</span>`).join('')}</div>`;bg+=`<div class="bc">${r}</div>`}
   const time=P.time, ds=P.dstr?esc(P.dstr):'';
   const tm=ur?`کُل نمبر: <span class="lt">${T}</span> &nbsp;وقت: <span class="lt">${time}</span> منٹ${ds?`<br>تاریخ: <span class="lt">${ds}</span>`:''}`:`Total Marks: <span class="lt">${T}</span><br>Time: <span class="lt">${time}</span> min${ds?`<br>Date: ${ds}`:''}`;
@@ -747,7 +747,7 @@ function btLt(x){return `<span dir="ltr" style="unicode-bidi:isolate">${x}</span
 function btSide(P,set,i,nS,D,H,Tm,Ts,tm){ // one A4 side; i=0 is the front
   const ur=P.m==='um',L='abcd',n=D.mcq.length,ds=P.dstr?esc(P.dstr):'',sl=P.ab?`<span class="bset">SET ${set}</span>`:'',two=nS>1,last=i===nS-1;
   let top=`<div class="hdr"><span class="h1">${H.o}${i?' · BACK':''}</span>${sl}<span class="h2">${H.me}</span></div>`;
-  if(!i){let rows=5,cols=Math.ceil(n/5);if(cols>4){cols=4;rows=Math.ceil(n/4)}
+  if(!i){let cols=Math.max(1,Math.min(4,Math.ceil(n/5))),rows=Math.ceil(n/cols);
     let bg='';for(let c=0;c<cols;c++){let r='';for(let k=c*rows;k<Math.min(n,c*rows+rows);k++)r+=`<div class="br"><span class="bn">${k+1}</span>${[0,1,2,3].map(j=>`<span class="bb">${L[j]}</span>`).join('')}</div>`;bg+=`<div class="bc">${r}</div>`}
     top+=`<div class="boxes"><div class="bx nm"><div>${ur?`کُل نمبر: ${btLt(Tm)}`:`Marks: ${Tm}`}</div><div>${ur?`وقت: ${btLt(tm[0])} منٹ`:`Time: ${tm[0]} min`}</div><div class="dl">${ur?'تاریخ:':'Date:'} ${ds}</div><div class="dl">${ur?'نام:':'Name:'}</div><div class="dl">${ur?'رول نمبر:':'Roll No.:'}</div></div>
     <div class="bx bs"><div class="bh">${ur?'جوابی شیٹ':'ANSWER SHEET'}</div><div class="bg${cols>3?' c4':''}">${bg}</div></div>
