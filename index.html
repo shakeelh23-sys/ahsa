@@ -978,8 +978,8 @@ const RESULTS = [ // [name, class, marks or note, sample?]  (top students; send 
   // Empty until Shakeel sends real names. Example row: ['علی احمد', 'Ali Ahmad', 'جماعت دہم', 'Class 10', '1050/1100', false],
 ];
 const MAP_EMBED = 'https://maps.google.com/maps?q=32.711413,71.543859&z=17&output=embed';
-const COUNTS = {total:{mcq:'15,301',sq:'13,982',lq:'3,362',files:'466'},
-  '8':[2423,1713,532,44],'9':[3103,2105,568,112],'9t':[1542,1210,226,46],'10':[2750,2577,606,114],'11':[2759,3319,726,74],'12':[2724,3058,704,71]};
+const COUNTS = {total:{mcq:'15,301',sq:'13,982',lq:'3,362',files:'1,044'},
+  '8':[2423,1713,532,49],'9':[3103,2105,568,297],'9t':[1542,1210,226,46],'10':[2750,2577,606,299],'11':[2759,3319,726,170],'12':[2724,3058,704,178]};
 const HOME_APPS = {tests:'1y9DF1WxJwnGsXDMxpnqQ9cZVMTBQyFwj', notes:'1g6g6Sc7FHHnlNY3aQv_3rZNkxvNBOwwo'};
 const CLASS_APPS = [{"k":"8","id":"1wgAZdP4RPTiRUNKoPdS9xCiDWXCFqxXR","local":"tests/class-8.html","subs":9,"mb":1.8},{"k":"9","id":"1I8IcrJltN5X8wDvtT9Ep_xP50zuibAuH","local":"tests/class-9.html","subs":14,"mb":2.5},{"k":"9t","id":"1F4LZv41cYLSsFTtOX3qyeHyPiTvvWOsm","local":"tests/class-9-tech.html","subs":8,"mb":1.6},{"k":"10","id":"1GV7h5snjth29Eh5cNWFaMGDjzaPiq5CQ","local":"tests/class-10.html","subs":15,"mb":2.3},{"k":"11","id":"1IUUiszwJV6S2ApBwoX-ozYsJ9UDJOLQ1","local":"tests/class-11.html","subs":9,"mb":1.3},{"k":"12","id":"15JgYSUFXm04F5_UQoju-F9QhYyo9FJxr","local":"tests/class-12.html","subs":9,"mb":1.3}];
 const SUBJ_APPS = [{"en":"Physics","ur":"فزکس","ic":"⚛️","id":"1OE7Etb6A2Y6SKrOLW_AydDikYwTeueVp","local":"tests/physics-all-classes.html","mb":1.7},{"en":"Chemistry","ur":"کیمسٹری","ic":"⚗️","id":"1H3Hnjyrmnsnluyf-BlQ65bbTQvSnw2FV","local":"tests/chemistry-all-classes.html","mb":1.2},{"en":"Biology","ur":"بیالوجی","ic":"🧬","id":"1tFOMf9Vt0kV-k6bIzUJ80bOIELlalheN","local":"tests/biology-all-classes.html","mb":1.3},{"en":"Math","ur":"ریاضی","ic":"📐","id":"1P6fLhtPjq3Jb4LgHVbcGHsr3Z5ozWZB3","local":"tests/math-all-classes.html","mb":1.3},{"en":"Computer","ur":"کمپیوٹر","ic":"💻","id":"169wqgHTKDwoscLfIEbZlf1fV9ZrWb8Io","local":"tests/computer-all-classes.html","mb":1.4}];
@@ -1067,7 +1067,7 @@ const T = {
  open:['','Open'], kSmart:['','Smart syllabus 2027'], kOld:['','Old scheme 2026'], kPattern:['','Unofficial'],
  notReleased:['','Official PECTAA smart syllabus 2027 for Class 9, 10, 11 and 12 is here, class-wise and subject-wise. Class 8 official syllabus is not out yet.'],
  ppNotes:['','Paper pattern notes and selected units'],
- pastTitle:['','Past papers'], pastP:['','Board past papers will be added here soon.'],
+ pastTitle:['','Board past papers'], pastP:['','578 past papers of all Punjab boards for Class 8 to 12 (2023, 2024, 2025). Choose class, subject, year and board.'],
  dailyTitle:['','Today\'s MCQ'], dailyP:['','A new question every day for each class. Tap an answer.'],
  right:['','Well done! Correct answer.'], wrong:['','Wrong. The correct answer is in green.'],
  tomorrow:['','A new question comes tomorrow.'],
@@ -1290,9 +1290,40 @@ function vModel() {
     <div class="soon" style="text-align:start">Model papers for Class 8 will be added here when released.</div>${g}
     <div class="cta"><a class="btn ghost" href="#papers">Pairing scheme</a><a class="btn ghost" href="#past">Past papers</a></div></div></section>`;
 }
+let PAST = null, PPF = {c: '10', s: 'all', y: 'all', b: 'all'};
+try { const v = JSON.parse(localStorage.getItem('ahsa-ppf') || 'null'); if (v) PPF = Object.assign(PPF, v); } catch (e) {}
+const PP_UR = {'Biology':'بیالوجی','Chemistry':'کیمسٹری','Physics':'فزکس','Mathematics':'ریاضی','English':'انگلش','Urdu':'اردو','Islamiat':'اسلامیات','Pakistan Studies':'مطالعہ پاکستان','Computer Science':'کمپیوٹر','Tarjuma tul Quran':'ترجمۃ القرآن','General Science':'جنرل سائنس'};
+function ppLoad() { if (PAST) return Promise.resolve(PAST); return fetch('past.json', {cache: 'no-cache'}).then(r => r.json()).then(j => (PAST = j)); }
+function ppSave() { try { localStorage.setItem('ahsa-ppf', JSON.stringify(PPF)); } catch (e) {} }
+function ppDraw() {
+  const box = document.getElementById('ppBox'); if (!box || !PAST) return;
+  const uniq = a => [...new Set(a)];
+  const inC = PAST.filter(r => r[0] === PPF.c);
+  const subs = uniq(inC.map(r => r[1])).sort();
+  if (PPF.s !== 'all' && !subs.includes(PPF.s)) PPF.s = 'all';
+  const inS = inC.filter(r => PPF.s === 'all' || r[1] === PPF.s);
+  const yrs = uniq(inS.map(r => r[2])).sort((a, b) => b - a);
+  if (PPF.y !== 'all' && !yrs.includes(+PPF.y)) PPF.y = 'all';
+  const inY = inS.filter(r => PPF.y === 'all' || r[2] === +PPF.y);
+  const bds = uniq(inY.map(r => r[3])).sort();
+  if (PPF.b !== 'all' && !bds.includes(PPF.b)) PPF.b = 'all';
+  const rows = inY.filter(r => PPF.b === 'all' || r[3] === PPF.b);
+  const grp = (k, arr, cur, lab) => `<div class="qbc" role="group">${[['all', 'All']].concat(arr.map(x => [String(x), lab(x)])).map(([v, l]) => `<button type="button" data-pp${k}="${esc(v)}" aria-pressed="${String(cur) === v}">${l}</button>`).join('')}</div>`;
+  const cls = `<div class="qbc" role="group" aria-label="Class">${['8', '9', '10', '11', '12'].map(c => `<button type="button" data-ppc="${c}" aria-pressed="${PPF.c === c}">Class ${c}</button>`).join('')}</div>`;
+  const ttl = r => `Class ${r[0]} ${r[1]} ${r[2]} ${r[3]}${r[3] === 'PEC' ? '' : ' Board'} Past Paper`;
+  const bySub = {}; rows.forEach(r => (bySub[r[1]] = bySub[r[1]] || []).push(r));
+  const list = Object.keys(bySub).sort().map(s => `<div><h3 style="margin:18px 0 8px">${esc(s)} <span lang="ur" dir="rtl" style="font-weight:400;font-size:.85em">${PP_UR[s] || ''}</span> · ${bySub[s].length}</h3><div class="sylg">${bySub[s].sort((a, b) => b[2] - a[2] || a[3].localeCompare(b[3])).map(r => `<div class="syl"><div style="min-width:0"><h4>${r[2]} · ${esc(r[3])}${r[3] === 'PEC' ? '' : ' Board'}</h4><div class="m" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span class="tag">Class ${r[0]}</span><span class="tag">PDF · ${r[5]} MB</span>${Date.now() < Date.parse('2026-12-05') ? '<span class="tag new">New</span>' : ''}</div></div><span class="qbb"><button type="button" class="btn sm pvb" data-pv="${r[4]}" data-pt="${esc(ttl(r))}">${PVI}Preview</button><a class="btn sm wa" href="${dl(r[4])}" target="_blank" rel="noopener">Download</a></span></div>`).join('')}</div></div>`).join('');
+  box.innerHTML = `<div class="qbf2" id="ppf">${cls}${grp('s', subs, PPF.s, x => esc(x))}${grp('y', yrs, PPF.y, x => x)}${grp('b', bds, PPF.b, x => esc(x))}</div>
+    <p style="margin:12px 0 0"><b>${rows.length}</b> papers · ${rows.length} پرچے</p>${list || '<div class="empty" style="margin-top:14px">No paper for this choice. کوئی پرچہ نہیں ملا۔</div>'}`;
+}
+document.addEventListener('click', e => { const b = e.target.closest('#ppf button'); if (!b) return; const d = b.dataset;
+  if (d.ppc) { PPF.c = d.ppc; PPF.s = 'all'; PPF.y = 'all'; PPF.b = 'all'; } if (d.pps) PPF.s = d.pps; if (d.ppy) PPF.y = d.ppy; if (d.ppb) PPF.b = d.ppb; ppSave(); ppDraw(); });
 function vPast() {
-  return `<section><div class="wrap view"><div class="sh"><div><div class="kick">Past Papers</div><h2>${t('pastTitle')}</h2><p>${t('pastP')}</p></div></div>
-    <div class="soon">📄 Coming soon. Board past papers for Class 8 to 12 will be added here.</div>
+  setTimeout(() => ppLoad().then(ppDraw).catch(() => { const b = document.getElementById('ppBox'); if (b) b.innerHTML = '<div class="soon">Could not load. Please refresh.</div>'; }), 0);
+  return `<section><div class="wrap view"><div class="sh"><div><div class="kick">Past Papers · پچھلے بورڈ پرچے</div><h2>${t('pastTitle')}</h2><p>${t('pastP')}</p>
+    <p class="qbu2" lang="ur" dir="rtl">جماعت ہشتم تا بارہویں کے پنجاب بورڈز کے پچھلے پرچے (2023، 2024، 2025): جماعت، مضمون، سال اور بورڈ منتخب کریں، پھر Preview یا Download کریں۔</p></div></div>
+    <div id="ppBox"><div class="soon">Loading…</div></div>
+    <div class="soon" style="text-align:start;margin-top:18px">2026 papers are not online yet; they will be added when released. Class 8: only PEC 2019 papers are available online.</div>
     <div class="cta"><a class="btn ghost" href="#papers">Pairing scheme</a><a class="btn ghost" href="#model">Model papers</a></div></div></section>`;
 }
 const PVI = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
@@ -2418,7 +2449,7 @@ document.addEventListener('click', e => { const b = e.target.closest && e.target
   const WAN = (typeof ACADEMY !== 'undefined' && ACADEMY.wa) || '923146011672';
   const FB = (typeof ACADEMY !== 'undefined' && ACADEMY.fb) || 'https://www.facebook.com/share/1Hut4s8zxY/';
   const MAP = (typeof ACADEMY !== 'undefined' && ACADEMY.map) || 'https://maps.google.com/maps?cid=5900353971638601020';
-  const C = (typeof COUNTS !== 'undefined' && COUNTS.total) || {mcq: '15,301', sq: '13,982', lq: '3,362', files: '466'};
+  const C = (typeof COUNTS !== 'undefined' && COUNTS.total) || {mcq: '15,301', sq: '13,982', lq: '3,362', files: '1,044'};
   const WAI = (typeof WA !== 'undefined') ? WA : '';
   const waLink = txt => 'https://wa.me/' + WAN + (txt ? '?text=' + encodeURIComponent(txt) : '');
   const B = {
