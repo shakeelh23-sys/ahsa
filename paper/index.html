@@ -252,6 +252,64 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
 .page.t2pg .ops{margin:0;row-gap:0}
 .page.t2pg .qa .n{min-width:0}
 #pvin.swm .t2pg .q[data-sw]{cursor:pointer;outline:2px dashed #e0a800;outline-offset:1px}
+/* Test · 1 student per A4: MCQs top, subjective bottom, cut line (reference: Physics 10 November test). ONE size --F for all writing */
+.page.btpg{padding:0;--F:13pt;--H:148.5mm;font:400 var(--F)/1.5 "Times New Roman",Georgia,serif}
+.page.btpg[dir="rtl"]{font-size:var(--F);font-family:"AHSA JNN Paper",var(--f-ur);line-height:1.72}
+.page.btpg *{font-size:inherit}
+.page.btpg .btop{position:absolute;left:0;right:0;top:0;height:var(--H);padding:6mm 7mm 2mm;display:flex;flex-direction:column}
+.page.btpg .bbot{position:absolute;left:0;right:0;top:var(--H);bottom:0;padding:3.5mm 7mm 5mm;display:flex;flex-direction:column}
+.page.btpg.s1 .bot{padding-bottom:5mm}
+.page.btpg .cut{position:absolute;left:0;right:0;top:var(--H);border-top:.35mm dashed #000;height:0}
+.page.btpg .cut span{position:absolute;left:1.5mm;top:-3.1mm;font:12pt/1 "DejaVu Sans",Verdana,Arial,sans-serif;background:#fff;padding:0 .5mm}
+.page.btpg .hdr{display:flex;align-items:center;justify-content:space-between;gap:3mm;border-top:.5mm solid #000;border-bottom:.5mm solid #000;padding:.6mm 0;direction:ltr;font:9pt/1.35 "DejaVu Sans",Verdana,Arial,sans-serif;white-space:nowrap;flex:none}
+.page.btpg .hdr *{font-size:9pt}.page.btpg .hdr .h2{font-size:7.5pt}
+.page.btpg .bset{background:#000;color:#fff;font-weight:bold;padding:.2mm 2.5mm;border-radius:1mm}
+.page.btpg .ftr{border-top:.5mm solid #000;border-bottom:.5mm solid #000;padding:.6mm 0;font:8pt/1.35 "DejaVu Sans",Verdana,Arial,sans-serif;direction:ltr;text-align:center;margin-top:auto;flex:none}
+.page.btpg .ftr *{font-size:8pt}
+.page.btpg .boxes{display:flex;gap:2mm;margin-top:1.5mm;flex:none}
+.page.btpg .bx{border:.4mm solid #000;border-radius:1.2mm;padding:.5mm 2mm;display:flex;flex-direction:column}
+.page.btpg .nm{min-width:46mm;white-space:nowrap;justify-content:space-around;font-weight:bold}
+.page.btpg .dl{border-bottom:.35mm dotted #000}
+.page.btpg .bs{flex:1;padding:0 0 1mm;overflow:hidden}
+.page.btpg .bh{background:#000;color:#fff;text-align:center;font:bold 9pt/1.6 "DejaVu Sans",Verdana,Arial,sans-serif;margin:0 -2mm}
+.page.btpg[dir="rtl"] .bh{font:400 11pt/1.6 "AHSA JNN Paper",var(--f-ur)}
+.page.btpg .bg{display:flex;direction:ltr;justify-content:space-around;padding:1mm 1mm 0}
+.page.btpg .bc{padding:0 2mm}.page.btpg .bc+.bc{border-left:.3mm dashed #000}
+.page.btpg .bg.c4 .bc{padding:0 .8mm}
+.page.btpg .br{display:flex;align-items:center;gap:1.1mm;height:4.75mm}
+.page.btpg .bn{width:5mm;text-align:right;font:bold 8pt/1 "DejaVu Sans",Verdana,Arial,sans-serif}
+.page.btpg .bb{width:4.1mm;height:4.1mm;border:.3mm solid #000;border-radius:50%;font:bold 6.5pt/1 "DejaVu Sans",Verdana,Arial,sans-serif;display:flex;align-items:center;justify-content:center}
+.page.btpg .mk{width:30mm;padding:0 2mm;align-items:center}.page.btpg .mk .bh{align-self:stretch}
+.page.btpg .circ{width:21mm;height:21mm;border:.5mm solid #000;border-radius:50%;margin:auto;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.page.btpg .circ .up{height:7.5mm;width:12mm;border-bottom:.45mm solid #000}
+.page.btpg .circ .dn{font:bold 13pt/1.3 "DejaVu Sans",Verdana,Arial,sans-serif}
+.page.btpg .bsh{display:flex;justify-content:space-between;gap:3mm;font-weight:bold;border:0;margin:0;padding:0}
+.page.btpg .ish{background:#e6e6e6;padding:0 1.5mm;border-radius:1mm;margin:.8mm 0 .3mm}
+.page.btpg .info{border-bottom:.3mm solid #000;font-weight:bold;flex:none}
+.page.btpg .qa{flex:1;display:flex;margin-top:.5mm;min-height:0}
+.page.btpg .col{flex:1;width:50%;overflow:hidden;padding:0 2mm}
+.page.btpg .col+.col{border-inline-start:.3mm dashed #000}
+.page.btpg .q{padding:.4mm 0 .7mm;border-bottom:.25mm dashed #000;position:relative}
+.page.btpg .q:last-child{border-bottom:none}
+.page.btpg .qh{display:flex;gap:1.5mm}.page.btpg .qh .n{flex:none;font-weight:bold}
+.page.btpg .qt{font-weight:bold}
+.page.btpg .bo{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;column-gap:4mm;margin:0;padding-inline-start:5mm}
+.page.btpg .bo.two{grid-template-columns:1fr 1fr}.page.btpg .bo.one{grid-template-columns:1fr}
+.page.btpg .o{display:flex;gap:1mm;align-items:baseline;white-space:nowrap}
+.page.btpg .bo.one .o,.page.btpg .bo.two .o{white-space:normal}
+.page.btpg .o span[dir="ltr"]{white-space:nowrap}
+.page.btpg .o .l{font-weight:bold;direction:ltr;unicode-bidi:isolate}
+.page.btpg .turn{text-align:end;font-weight:bold;flex:none}
+.page.btpg .sb{flex:1;min-height:0;overflow:hidden}
+.page.btpg .blk{padding:.3mm 0 .6mm;position:relative}
+.page.btpg .its{display:grid;grid-template-columns:1fr;column-gap:5mm}.page.btpg .its.two{grid-template-columns:1fr 1fr}
+.page.btpg .it{display:flex;gap:1.2mm;align-items:baseline;position:relative}
+.page.btpg .it .r{font-weight:bold;flex:none;min-width:2em}.page.btpg .it .t{flex:1}
+.page.btpg .it .pm{flex:none;font-weight:bold}
+.page.btpg .qimg{max-width:100%;height:auto}
+.page.btpg math{font-size:1em}
+#printArea .btpg{page-break-after:always;margin:0}
+#pvin.swm .btpg [data-sw]{cursor:pointer;outline:2px dashed #e0a800;outline-offset:1px}
 #printArea{display:none}
 .tabs{display:flex;gap:6px;overflow-x:auto;margin:6px 0 10px;padding-bottom:2px}
 .tab{flex:none;border:2px solid var(--line);background:var(--soft);color:var(--ink);border-radius:999px;padding:8px 14px;font:700 15px/1.2 var(--f-body);cursor:pointer}
@@ -327,6 +385,7 @@ const TPL=[
  {k:'hb',en:'Half Book Test',ur:'ہاف بک ٹیسٹ',time:120,mcq:[15,1],sq:[15,2],lq:[3,5],d:'Half syllabus · 60 marks'},
  {k:'fb',en:'Full Book Test',ur:'فل بک ٹیسٹ',time:180,mcq:[20,1],sq:[20,2],lq:[4,10],d:'Full syllabus · 100 marks'},
  {k:'am',en:'Annual / Model Paper',ur:'سالانہ / ماڈل پیپر',time:160,mcq:[12,1],sq:[18,2],lq:[3,9],d:'Full syllabus · 75 marks'},
+ {k:'bt',en:'Test · 1 student per A4',ur:'ٹیسٹ · ایک A4 پر ایک طالب علم',time:120,mcq:[12,1],sq:[10,2],lq:[2,5],d:'MCQs top · subjective bottom · cut line'},
  {k:'t2',en:'MCQ Test · 2 students per A4',ur:'MCQ ٹیسٹ · ایک A4 پر 2 طالب علم',time:20,mcq:[15,1],sq:[0,2],lq:[0,5],d:'Set A top · Set B bottom · bubble sheet'}];
 const TYP={mcq:['MCQs','کثیر الانتخابی سوالات'],sq:['Short Questions','مختصر سوالات'],lq:['Long Questions','تفصیلی سوالات'],num:['Numericals','عددی سوالات']};
 const TT=['mcq','sq','lq','num'];
@@ -433,13 +492,13 @@ async function stepSettings(){
   <p class="hint">${pk?`<b>Picked: ${pk}</b><br>${bi('The rest will be filled automatically.','باقی سوالات خودکار شامل ہوں گے۔')} <button type="button" class="btn line" data-pclear style="min-height:36px;padding:4px 10px;font-size:14px">Clear picks</button>`:bi('Or let the app pick all questions at random.','یا تمام سوالات ایپ خود چنے۔')}</p>
   <div class="set"><label>Time (minutes)<span class="u">وقت (منٹ)</span></label>${stp('time',S.time)}</div>
   <div class="set"><label>Passing %<span class="u">پاسنگ فیصد</span></label>${stp('pass',S.pass)}</div>
-  ${S.tpl==='t2'?t2Fields()+sec('mcq'):sec('mcq')+sec('sq')+sec('lq')+sec('num')}
+  ${S.tpl==='t2'?t2Fields()+sec('mcq'):(S.tpl==='bt'?btFields():'')+sec('mcq')+sec('sq')+sec('lq')+sec('num')}
   <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing Marks<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${S.time}</b><span>Minutes<br><span class="u">منٹ</span></span></div></div>
-  ${S.tpl==='t2'?'':`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`}
+  ${S.tpl==='t2'||S.tpl==='bt'?'':`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`}
   ${lastNSel()}
   ${PACK.u.some(u=>['sq','lq'].some(t=>u[t].some(q=>q.x)))?`<label class="tog"><input type="checkbox" data-opt="exd" ${S.exd?'checked':''}> ${bi('Smart Syllabus 2027 only (skip deleted questions)','اسمارٹ سلیبس 2027 (خارج سوالات نہیں)')}</label>`:''}
   <div class="set" style="grid-template-columns:1fr"><label for="inst">Name on paper<span class="u">پیپر پر ادارے کا نام</span></label><input class="inp" id="inst" value="${esc(S.inst)}" maxlength="70"></div>
-  ${hdrFields(S.tpl==='t2')}
+  ${hdrFields(S.tpl==='t2'||S.tpl==='bt')}
   <p class="hint">${bi('Easy/Medium/Hard is estimated automatically from question length.','آسان/مشکل کا اندازہ سوال کی لمبائی سے خودکار لگایا جاتا ہے۔')}</p>
   ${presetSave()}</div>
   <div class="nav2"><button class="btn line" data-step="4" type="button">‹ Back</button><button class="btn gold" id="genBtn" type="button" ${T?'':'disabled'}>✨ Make Paper</button></div>`;
@@ -492,7 +551,8 @@ function pickView(){
 function generate(){
   const k=key(), used=LS.get('ahsa-pm-used',{}), U=used[k]||{};
   const seed=(Date.now()^Math.floor(Math.random()*1e9))>>>0, r=rng(seed);
-  const sec={}, short=[];
+  const sec={}, short=[], seen=new Set();
+  const txtK=(id,t)=>{const q=getQ(id,t);return q?(q.i?'i:'+q.i:plain(q.q).replace(/\s+/g,' ').trim().toLowerCase()):id};
   TT.forEach(t=>{
     const c=S[t]; const pk=[...new Set(S.pick[t]||[])].filter(id=>S.ch.includes(+id.split(':')[0])&&getQ(id,t)); if(pk.length>c.n)c.n=pk.length;
     if(!c.n){sec[t]={mk:c.mk,ids:[]};return}
@@ -502,7 +562,8 @@ function generate(){
     const order=a=>{const s=shuf(a,r);return s.filter(x=>!ut.has(x)).concat(s.filter(x=>ut.has(x)))};
     const P=pool.map(order); let want=c.mix&&!pk.length?[c.e,c.md,c.h]:null, got=pk.slice();
     if(want){want.forEach((w,i)=>{got=got.concat(P[i].splice(0,w))})}
-    const rest=order(P.flat()); while(got.length<c.n&&rest.length)got.push(rest.shift());
+    const rest=order(P.flat()), cand=got.slice(pk.length).concat(rest); got=pk.slice(); pk.forEach(id=>seen.add(txtK(id,t)));
+    for(const id of cand){if(got.length>=c.n)break;if(got.includes(id))continue;const x=txtK(id,t);if(seen.has(x))continue;seen.add(x);got.push(id)}
     if(got.length<c.n)short.push(TYP[t][0]);
     // keep chapter order inside the paper
     got.sort((a,b)=>{const[x,y]=a.split(':').map(Number),[p,q]=b.split(':').map(Number);return x-p||y-q});
@@ -511,7 +572,7 @@ function generate(){
   });
   used[k]=U; LS.set('ahsa-pm-used',used);
   const tp=TPL.find(t=>t.k===S.tpl);
-  const P=Object.assign({id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:S.tpl,title:tp.en,titleUr:tp.ur,inst:S.inst||DEF_INST,time:S.time,pass:S.pass,ab:S.ab,seed,chs:S.ch.slice(),sec,date:new Date().toISOString().slice(0,10)},hdrOf(),S.tpl==='t2'?{ab:true,half:false,t2:{tno:S.tno||1,lay:S.lay===1?1:2}}:{});
+  const P=Object.assign({id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:S.tpl,title:tp.en,titleUr:tp.ur,inst:S.inst||DEF_INST,time:S.time,pass:S.pass,ab:S.ab,seed,chs:S.ch.slice(),sec,date:new Date().toISOString().slice(0,10)},hdrOf(),S.tpl==='t2'?{ab:!S.t2one,half:false,t2:{tno:S.tno||1,lay:S.lay===1?1:2,one:!!S.t2one}}:S.tpl==='bt'?{half:false}:{});
   storeP(P);
   VP=Object.assign({saved:true},P);
   if(short.length)toast('Not enough questions for: '+short.join(', ')+' · جتنے سوال ملے، شامل کر دیے');
@@ -601,6 +662,8 @@ async function ensureFont(){try{const w=[document.fonts.load('400 16px "AHSA JNN
 /* ---------------- MCQ test, 2 students per A4 (layout of Math 10 Test 2) ---------------- */
 function t2Fields(){return `<div class="set"><label>Test number<span class="u">ٹیسٹ نمبر</span></label>${stp('tno',S.tno)}</div>
   <div class="ef"><label>Print layout<span class="u">پرنٹ کا طریقہ</span></label><div class="seg"><button type="button" class="ch" data-lay="2" aria-pressed="${S.lay!==1}"><b>2 students per A4</b><span class="u">ایک A4 پر 2 طالب علم</span></button><button type="button" class="ch" data-lay="1" aria-pressed="${S.lay===1}"><b>1 per page</b><span class="u">ایک صفحے پر ایک</span></button></div></div>
+  <div class="ef"><label>Versions<span class="u">ورژن</span></label><div class="seg"><button type="button" class="ch" data-t2v="1" aria-pressed="${!!S.t2one}"><b>One version</b><span class="u">دونوں حصے ایک جیسے</span></button><button type="button" class="ch" data-t2v="0" aria-pressed="${!S.t2one}"><b>Set A + Set B</b><span class="u">دو ورژن</span></button></div></div>
+  <p class="hint">${S.t2one?bi('Both halves of the sheet are the same paper (no Set A/B).','شیٹ کے دونوں حصوں پر ایک ہی پیپر (سیٹ A/B نہیں)۔'):''}</p>
   <p class="hint">${bi('Set A on top, Set B below (different order and options). Print both sides: «Flip on long edge», then cut on the dashed line.','اوپر سیٹ A، نیچے سیٹ B۔ دونوں طرف پرنٹ کریں («Flip on long edge») اور ڈیش لائن سے کاٹ لیں۔')}</p>`}
 function t2Units(chs){const a=chs.filter(n=>n>0&&n<100).sort((x,y)=>x-y);if(!a.length)return '';const pre=a.length>1?'UNITS ':'UNIT ';
   if(a.length>2&&a[a.length-1]-a[0]===a.length-1)return pre+a[0]+'–'+a[a.length-1];return pre+a.join(', ')}
@@ -657,8 +720,8 @@ async function t2Build(kind,fs){
   const out=[]; const N=Math.max(...sets.map(s=>halves[s].length));
   if(one){sets.forEach(s=>halves[s].forEach(h=>{const p=document.createElement('div');p.className='page t2pg one'+(fs?' fs'+fs:'');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';p.appendChild(h);out.push(p.outerHTML)}))}
   else for(let i=0;i<N;i++){const p=document.createElement('div');p.className='page t2pg'+(fs?' fs'+fs:'');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';
-    sets.forEach((s,j)=>{const h=halves[s][i];if(h)p.appendChild(h);else{const e=document.createElement('div');e.className='t2h';p.appendChild(e)}
-      if(j===0&&sets.length>1){const c=document.createElement('div');c.className='cut';c.innerHTML='<span>✂</span>';p.appendChild(c)}});
+    (sets.length>1?sets:['A','A']).forEach((s,j)=>{let h=halves[s][i];if(h&&j&&sets.length===1)h=h.cloneNode(true);if(h)p.appendChild(h);else{const e=document.createElement('div');e.className='t2h';p.appendChild(e)}
+      if(j===0){const c=document.createElement('div');c.className='cut';c.innerHTML='<span>✂</span>';p.appendChild(c)}});
     out.push(p.outerHTML)}
   st.innerHTML=''; return {out,n:N}}
 async function t2Png(){ // preview image: pages side by side
@@ -668,9 +731,105 @@ async function t2Png(){ // preview image: pages side by side
     const cvs=await rasterAll(st,1.2);st.innerHTML='';
     const g=24,w=cvs[0].width,h=cvs[0].height,c=document.createElement('canvas');c.width=cvs.length*w+(cvs.length+1)*g;c.height=h+2*g;const x=c.getContext('2d');x.fillStyle='#e0e0e0';x.fillRect(0,0,c.width,c.height);
     cvs.forEach((v,i)=>x.drawImage(v,g+i*(w+g),g));return await new Promise(r=>c.toBlob(r,'image/png'))}finally{busy(false)}}
+/* ---------------- Test · 1 student per A4 (MCQs top, subjective bottom, cut line; ONE font size) ---------------- */
+function btDefaults(){ // Shakeel's fixed counts: Physics 9/10 = 12 MCQs, Math 9/10 = 15 MCQs (+60 subjective)
+  const m9=['9','10'].includes(S.c), set=(t,n,mk)=>{S[t].n=n;S[t].mk=mk;S[t].mix=false};
+  if(S.s==='phy'&&m9){set('mcq',12,1);set('sq',15,2);set('lq',2,9);S.time=120}
+  else if(S.s==='math'&&m9){set('mcq',15,1);set('sq',12,2);set('lq',4,9);S.time=150}
+  S.num.n=0;S.ab=false}
+function t2Count(){if(['9','10'].includes(S.c)){if(S.s==='phy'){S.mcq.n=12;S.time=15}else if(S.s==='math')S.mcq.n=15}}
+function btFields(){return `<div class="ef"><label>Versions<span class="u">ورژن</span></label><div class="seg"><button type="button" class="ch" data-btab="0" aria-pressed="${!S.ab}"><b>One version</b><span class="u">ایک ہی پیپر</span></button><button type="button" class="ch" data-btab="1" aria-pressed="${!!S.ab}"><b>Set A + Set B</b><span class="u">دو ورژن</span></button></div></div>
+  <p class="hint">${bi('One A4 per student: MCQs on the top half, subjective on the bottom half, cut on the dashed line after the objective time. One font size for the whole paper. Answer key is a separate file.','ہر طالب علم کے لیے ایک A4: اوپر MCQs، نیچے انشائیہ، معروضی وقت کے بعد ڈیش لائن سے کاٹ لیں۔ پورے پیپر میں ایک ہی فونٹ سائز۔ جوابات کی کنجی الگ فائل میں۔')}</p>`}
+function btTimes(P){const n=SEC(P,'mcq').ids.length;const o=n<=12?15:n<=15?20:Math.ceil(n*1.25/5)*5;return [o,Math.max(5,P.time-o)]}
+function btHdr(P){const cn=CL[P.c][0].replace('Class ','').replace(' (1st Year)','').replace(' (2nd Year)','').toUpperCase(),sub=SB[P.s][0].toUpperCase(),tt=esc((P.ctitle||'TEST').toUpperCase()),u=t2Units(P.chs),H=t2Hdr(P);
+  return {o:`<b>${sub} ${cn} · ${tt} · OBJECTIVE</b>${u?' · '+u:''}`,s:`<b>${sub} ${cn} · ${tt} · SUBJECTIVE</b>`,me:H.me,ft:H.ft}}
+function btLt(x){return `<span dir="ltr" style="unicode-bidi:isolate">${x}</span>`}
+function btSide(P,set,i,nS,D,H,Tm,Ts,tm){ // one A4 side; i=0 is the front
+  const ur=P.m==='um',L='abcd',n=D.mcq.length,ds=P.dstr?esc(P.dstr):'',sl=P.ab?`<span class="bset">SET ${set}</span>`:'',two=nS>1,last=i===nS-1;
+  let top=`<div class="hdr"><span class="h1">${H.o}${i?' · BACK':''}</span>${sl}<span class="h2">${H.me}</span></div>`;
+  if(!i){let rows=5,cols=Math.ceil(n/5);if(cols>4){cols=4;rows=Math.ceil(n/4)}
+    let bg='';for(let c=0;c<cols;c++){let r='';for(let k=c*rows;k<Math.min(n,c*rows+rows);k++)r+=`<div class="br"><span class="bn">${k+1}</span>${[0,1,2,3].map(j=>`<span class="bb">${L[j]}</span>`).join('')}</div>`;bg+=`<div class="bc">${r}</div>`}
+    top+=`<div class="boxes"><div class="bx nm"><div>${ur?`کُل نمبر: ${btLt(Tm)}`:`Marks: ${Tm}`}</div><div>${ur?`وقت: ${btLt(tm[0])} منٹ`:`Time: ${tm[0]} min`}</div><div class="dl">${ur?'تاریخ:':'Date:'} ${ds}</div><div class="dl">${ur?'نام:':'Name:'}</div><div class="dl">${ur?'رول نمبر:':'Roll No.:'}</div></div>
+    <div class="bx bs"><div class="bh">${ur?'جوابی شیٹ':'ANSWER SHEET'}</div><div class="bg${cols>3?' c4':''}">${bg}</div></div>
+    <div class="bx mk"><div class="bh">${ur?'حاصل کردہ نمبر':'MARKS'}</div><div class="circ"><div class="up"></div><div class="dn">${Tm}</div></div></div></div>
+    <div class="bsh ish"><span>${ur?`سوال نمبر 1: ${P.ins&&P.ins.mcq?esc(P.ins.mcq):'ہر سوال کا درست جواب چن کر جوابی شیٹ میں اس کا دائرہ پُر کریں۔'}`:`Q.1 ${P.ins&&P.ins.mcq?esc(P.ins.mcq):'Choose the correct option and fill its circle in the answer sheet.'}`}</span><span dir="ltr">(${n} × ${SEC(P,'mcq').mk} = ${Tm})</span></div>`}
+  top+=`<div class="qa"><div class="col"></div><div class="col"></div></div>${two&&!last?`<div class="turn tm">${ur?'باقی سوالات پچھلی طرف ہیں ←':'More questions on the back →'}</div>`:''}`;
+  let bot=`<div class="hdr"><span class="h1">${H.s}${i?' · BACK':''}</span>${sl}<span class="h2">${H.me}</span></div>`;
+  if(!i)bot+=`<div class="info">${ur?`نام: ____________ رول نمبر: ______ · کُل نمبر: ${btLt(Ts)} · وقت: ${fmtTimeUr(tm[1])}`:`Name: ______________ Roll No.: ______ · Marks: ${Ts} · Time: ${fmtTime(tm[1])}`}</div>`;
+  bot+=`<div class="sb"></div>${two&&!last?`<div class="turn ts">${ur?'باقی سوالات پچھلی طرف ہیں ←':'More questions on the back →'}</div>`:''}${last?`<div class="ftr">${H.ft}</div>`:''}`;
+  const p=document.createElement('div');p.className='page btpg'+(two?'':' s1');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';
+  p.innerHTML=`<div class="btop">${top}</div><div class="cut"><span>✂</span></div><div class="bbot">${bot}</div>`;return p}
+function btLtx(h){ // Urdu papers: wrap each Latin/number run (with its sup/sub tags) in an LTR isolate so "120–130 dB" or "m s⁻¹" keep their order
+  const keep=[];h=String(h).replace(/<math[\s\S]*?<\/math>|<img[^>]*>|<(?!\/?(?:sup|sub)>)[^>]+>|\((?:i{1,3}|iv|vi{0,3}|ix|x|[a-h]|\d{1,2})\)/g,m=>{if(m[0]==='(')m=`<span dir="ltr" style="unicode-bidi:isolate">${m}</span>`;keep.push(m);return '\uE000'+String.fromCharCode(0xE100+keep.length-1)});
+  h=h.replace(/(?:[A-Za-z0-9α-ωΑ-Ω°′⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺₀-₉(]|<(?:sup|sub)>)(?:[A-Za-z0-9α-ωΑ-Ω°′⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺₀-₉.,:×÷·\/=+\-−–^%()' →≈]|<\/?(?:sup|sub)>)*(?:[A-Za-z0-9α-ωΑ-Ω°′⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺₀-₉)%]|<\/(?:sup|sub)>)|[A-Za-z0-9α-ωΑ-Ω°′⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺₀-₉]/g,m=>`<span dir="ltr" style="unicode-bidi:isolate">${m}</span>`);
+  return h.replace(/\uE000([\uE100-\uF8FF])/g,(m,c)=>keep[c.charCodeAt(0)-0xE100])}
+function btMcq(q,i,sw,ur){if(ur)q={q:btLtx(q.q),o:q.o.map(btLtx)};return `<div class="q"${sw?` data-sw="mcq|${i}"`:''}><div class="qh"><span class="n">${i+1}.</span><span class="qt">${q.q}</span></div><div class="bo">${q.o.map((o,k)=>`<div class="o"><span class="l">(${'abcd'[k]})</span><span class="ot">${o}</span></div>`).join('')}</div></div>`}
+function btSub(P,D,sw){ // subjective blocks (each block = one unit that moves as a whole between halves)
+  const ur=P.m==='um',B=[];let qn=1;
+  const head=(t,en,u)=>{const c=D[t].length,mk=SEC(P,t).mk;qn++;const ins=P.ins&&P.ins[t]?esc(P.ins[t]):(ur?u:en);return `<div class="bsh ish"><span>${ur?`سوال نمبر ${qn}: ${ins}`:`Q.${qn} ${ins}`}</span><span dir="ltr">(${c} × ${mk} = ${c*mk})</span></div>`};
+  const it=(t,i,lab,q,mk)=>`<div class="it"${sw?` data-sw="${t}|${i}"`:''}><span class="r">${lab}</span><span class="t">${ur?btLtx(q.q):q.q}</span>${mk?`<span class="pm" dir="ltr">(${mk})</span>`:''}</div>`;
+  if(D.sq.length){const h=head('sq','Write short answers to the following questions.','درج ذیل سوالات کے مختصر جوابات تحریر کریں۔');
+    const lim=ur?52:62, short=q=>!q.r.i&&!/<(math|img|br)/i.test(q.q)&&plain(q.q).length<=lim;
+    const lab=i=>ur?'('+(i+1)+')':roman(i+1);let first=true;
+    for(let i=0;i<D.sq.length;){const a=D.sq[i],b=D.sq[i+1];let row;
+      if(b&&short(a)&&short(b)){row=`<div class="its two">${it('sq',i,lab(i),a)}${it('sq',i+1,lab(i+1),b)}</div>`;i+=2}else{row=`<div class="its">${it('sq',i,lab(i),a)}</div>`;i++}
+      B.push(`<div class="blk">${first?h:''}${row}</div>`);first=false}}
+  const lng=(t,en,u)=>{if(!D[t]||!D[t].length)return;const h=head(t,en,u),mk=SEC(P,t).mk;
+    D[t].forEach((q,i)=>B.push(`<div class="blk">${i?'':h}<div class="its">${it(t,i,ur?'('+(i+1)+')':String.fromCharCode(97+i)+')',q,mk)}</div></div>`))};
+  lng('lq','Answer the following questions in detail.','درج ذیل سوالات کے تفصیلی جوابات تحریر کریں۔');
+  lng('num','Solve the following numericals.','درج ذیل عددی سوالات حل کریں۔');
+  return B}
+const btFits=e=>e.scrollHeight<=e.clientHeight+0.5;
+function btPackM(cols,qs){ // MCQs column by column; false if they do not all fit
+  cols.forEach(c=>c.replaceChildren());let ci=0;for(const q of qs){while(ci<cols.length){cols[ci].appendChild(q);
+      const o=q.querySelector('.bo');o.classList.remove('two','one');
+      if(o.scrollWidth>o.clientWidth+1||[...o.children].some(c=>c.scrollWidth>c.clientWidth+1)){o.classList.add('two');if(o.scrollWidth>o.clientWidth+1||[...o.children].some(c=>c.scrollWidth>c.clientWidth+1)){o.classList.remove('two');o.classList.add('one')}}
+      if(btFits(cols[ci]))break;cols[ci].removeChild(q);ci++}
+    if(ci>=cols.length)return false}
+  return true}
+function btPackS(sbs,bl){sbs.forEach(c=>c.replaceChildren());let si=0;for(const b of bl){while(si<sbs.length){sbs[si].appendChild(b);if(btFits(sbs[si]))break;sbs[si].removeChild(b);si++}if(si>=sbs.length)return false}return true}
+async function btLayout(P,sets,data,nS){ // largest F (pt) and a cut line H (mm) where everything fits; null if none
+  const st=$('#stage');st.innerHTML='';const H=btHdr(P),[T]=totals(P),Tm=SEC(P,'mcq').ids.length*SEC(P,'mcq').mk,tm=btTimes(P);
+  const W=sets.map(s=>{const D=data[s],pg=[];for(let i=0;i<nS;i++){const p=btSide(P,s,i,nS,D,H,Tm,T-Tm,tm);st.appendChild(p);pg.push(p)}
+    const tmp=document.createElement('div');tmp.innerHTML=D.mcq.map((q,i)=>btMcq(q,i,false,P.m==='um')).join('');const qs=[...tmp.children];
+    const tb=document.createElement('div');tb.innerHTML=btSub(P,D,false).join('');const bl=[...tb.children];
+    return {pg,qs,bl,cols:pg.flatMap(p=>[...p.querySelectorAll('.col')]),sbs:pg.map(p=>p.querySelector('.sb'))}});
+  const setV=(F,Hm)=>W.forEach(w=>w.pg.forEach(p=>{p.style.setProperty('--F',F+'pt');p.style.setProperty('--H',Hm+'mm')}));
+  const okM=(F,Hm)=>{setV(F,Hm);return W.every(w=>btPackM(w.cols,w.qs))}, okS=(F,Hm)=>{setV(F,Hm);return W.every(w=>btPackS(w.sbs,w.bl))};
+  const lo=105,hi=195;
+  const fitAt=F=>{let a=lo,b=hi;if(!okM(F,hi))return null;while(a<b){const m=(a+b)>>1;if(okM(F,m))b=m;else a=m+1}const hM=a;
+    a=lo;b=hi;if(!okS(F,lo))return null;while(a<b){const m=(a+b+1)>>1;if(okS(F,m))a=m;else b=m-1}const hS=a;
+    return hM<=hS?[hM,hS]:null};
+  const ur=P.m==='um', Fs=[];for(let f=ur?16:13.5;f>=(ur?9.5:8);f-=0.25)Fs.push(f);
+  let a=0,b=Fs.length-1,best=null; // binary search: smallest index (largest F) that fits
+  if(!fitAt(Fs[b])){st.innerHTML='';return null}
+  while(a<b){const m=(a+b)>>1;if(fitAt(Fs[m]))b=m;else a=m+1}
+  const F=Fs[a],r=fitAt(F),Hm=Math.min(Math.max(148,r[0]),r[1]);best={F,H:Hm};
+  st.innerHTML='';return best}
+async function btPages(kind){
+  const P=VP,ur=P.m==='um',sets=P.ab?['A','B']:['A'],data={};sets.forEach(s=>data[s]=setData(P,s));
+  const hasM=data.A.mcq.length,hasS=['sq','lq','num'].some(t=>data.A[t]&&data.A[t].length);
+  if(kind==='key'||!hasM||!hasS)return null; // key: normal answer-key pages; one-part papers: normal layout
+  await ensureFont();
+  let nS=1,L=null;const minF1=ur?13:10.5;
+  L=await btLayout(P,sets,data,1);if(!L||L.F<minF1){nS=2;L=await btLayout(P,sets,data,2)}
+  if(!L){nS=4;L=await btLayout(P,sets,data,4)}
+  if(!L){nS=6;L=await btLayout(P,sets,data,6)}
+  if(!L)return null;
+  const st=$('#stage');st.innerHTML='';const H=btHdr(P),[T]=totals(P),Tm=SEC(P,'mcq').ids.length*SEC(P,'mcq').mk,tm=btTimes(P),out=[];
+  for(const s of sets){const D=data[s],pg=[];for(let i=0;i<nS;i++){const p=btSide(P,s,i,nS,D,H,Tm,T-Tm,tm);p.style.setProperty('--F',L.F+'pt');p.style.setProperty('--H',L.H+'mm');st.appendChild(p);pg.push(p)}
+    const sw=s==='A';const tmp=document.createElement('div');tmp.innerHTML=D.mcq.map((q,i)=>btMcq(q,i,sw,ur)).join('');
+    btPackM(pg.flatMap(p=>[...p.querySelectorAll('.col')]),[...tmp.children]);
+    const tb=document.createElement('div');tb.innerHTML=btSub(P,D,sw).join('');const sbs=pg.map(p=>p.querySelector('.sb'));btPackS(sbs,[...tb.children]);
+    // "more on the back" notes only where something really continues
+    pg.forEach((p,i)=>{const nx=pg[i+1];if(!nx)return;const tmn=p.querySelector('.turn.tm'),tsn=p.querySelector('.turn.ts');
+      if(tmn&&!nx.querySelector('.col').children.length)tmn.style.visibility='hidden';if(tsn&&!nx.querySelector('.sb').children.length)tsn.style.visibility='hidden'});
+    pg.forEach(p=>out.push(p.outerHTML))}
+  st.innerHTML='';return out}
 async function buildPages(kind,set){ // kind: paper|key
   await getPack(VP.k); await ensureFont();
   if(VP.tpl==='t2')return t2Pages(kind);
+  if(VP.tpl==='bt'){const r=await btPages(kind);if(r)return r}
   if(kind==='key'){const k=paginate(keyBlocks(VP),false).map(p=>p.outerHTML);$('#stage').innerHTML='';return k}
   const sets=set?[set]:(VP.ab?['A','B']:['A']); let all=[];
   for(const s of sets){const pg=paginate(blocks(VP,s),VP.m==='um',!!VP.half);all=all.concat(pg.map(p=>p.outerHTML))}
@@ -687,7 +846,7 @@ function paperView(){
    <button class="btn navy" data-act="key" type="button">🔑 Answer Key PDF</button>
    <button class="btn wa full" data-act="share" type="button">📤 Share on WhatsApp</button>
    <button class="btn line full" data-act="print" type="button">🖨️ Print / Save as PDF (selectable text)<span class="u">پرنٹ / کاپی ہونے والے ٹیکسٹ کی PDF</span></button>
-   ${P.tpl==='t2'?`<button class="btn line full" data-act="png" type="button">🖼️ Preview image (PNG)</button>`:''}
+   ${P.tpl==='t2'||P.tpl==='bt'?`<button class="btn line full" data-act="png" type="button">🖼️ Preview image (PNG)</button>`:''}
    <button class="btn ${EDM?'gold':'navy'} full" data-act="edm" type="button">${EDM?'✓ Done editing · ایڈٹ مکمل':'✏️ Edit paper · پیپر میں تبدیلی'}</button>
    <button class="btn line" data-act="word" type="button">📝 Word file</button>
    <button class="btn line" data-act="regen" type="button">🔁 Regenerate</button>
@@ -695,6 +854,7 @@ function paperView(){
    <button class="btn line full" data-act="again" type="button">⚙️ Change Settings / New Paper</button>
   </div>
   ${P.tpl==='t2'&&!(P.t2&&P.t2.lay===1)?`<div class="gap">${bi('Printing: choose both sides and «Flip on long edge». Then cut each sheet on the dashed line: 2 students per sheet.','پرنٹ: دونوں طرف (Both sides) اور «Flip on long edge» چنیں، پھر ڈیش لائن سے کاٹ لیں۔ ایک شیٹ سے 2 طالب علم۔')}</div>`:''}
+  ${P.tpl==='bt'?`<div class="gap">${bi('One A4 per student: print both sides («Flip on long edge»). After the objective time, cut on the dashed line and collect the top (MCQs) part. Answer key is a separate file (Answer Key PDF).','ہر طالب علم کے لیے ایک A4: دونوں طرف پرنٹ کریں («Flip on long edge»)۔ معروضی وقت کے بعد ڈیش لائن سے کاٹ کر اوپر والا (MCQs) حصہ لے لیں۔ جوابات کی کنجی الگ فائل ہے۔')}</div>`:''}
   ${SWM?`<div class="gap" id="swhint">${bi('Now tap any question in the paper below to change it.','اب نیچے پیپر میں جس سوال کو بدلنا ہو اس پر ٹیپ کریں۔')}</div>`:''}
   <p class="hint">${bi('Saved in My Papers on this phone.','یہ پیپر اس فون میں «میرے پیپرز» میں محفوظ ہے۔')}<br>${bi('Regenerate changes all questions.','«Regenerate» سے سارے سوالات بدل جائیں گے۔')}</p></div>
   ${EDM?editPanel(P):''}
@@ -703,7 +863,7 @@ function paperView(){
 async function drawPreview(){
   const w=$('#pvw'),inn=$('#pvin'); inn.innerHTML='<p style="color:#fff;padding:20px">Loading…</p>';
   const pg=await buildPages('paper'); inn.innerHTML=pg.join('');
-  inn.classList.toggle('swm',SWM); if(SWM)inn.querySelectorAll('.qi[data-sw],.t2pg .q[data-sw]').forEach(q=>{const b=document.createElement('button');b.type='button';b.className='swb';b.dataset.sw=q.dataset.sw;b.title='Swap this question';b.setAttribute('aria-label','Swap this question');b.textContent='⇄';q.appendChild(b)});
+  inn.classList.toggle('swm',SWM); if(SWM)inn.querySelectorAll('.qi[data-sw],.t2pg .q[data-sw],.btpg [data-sw]').forEach(q=>{const b=document.createElement('button');b.type='button';b.className='swb';b.dataset.sw=q.dataset.sw;b.title='Swap this question';b.setAttribute('aria-label','Swap this question');b.textContent='⇄';q.appendChild(b)});
   fitPreview();
 }
 /* ---------------- PDF / share / print ---------------- */
@@ -780,7 +940,7 @@ async function act(a,P){
       const txt=`${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]}\nAl Hassan Science Academy Dillewali (AHSA)\nhttps://shakeelh23-sys.github.io/ahsa/paper/`;
       if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:f.name,text:txt})}catch(e){}}
       else{download(b,f.name);toast('PDF saved. Attach it in WhatsApp · پی ڈی ایف محفوظ ہو گئی، واٹس ایپ میں بھیجیں');setTimeout(()=>{location.href='https://wa.me/?text='+encodeURIComponent(txt)},1200)}}
-    else if(a==='print'){const pg=await buildPages('paper');const k=await buildPages('key');$('#printArea').innerHTML=(P.half&&P.tpl!=='t2'?pg.flatMap(x=>[x,x]):pg).join('')+k.join('');setTimeout(()=>print(),300)}
+    else if(a==='print'){const pg=await buildPages('paper');$('#printArea').innerHTML=(P.half&&P.tpl!=='t2'&&P.tpl!=='bt'?pg.flatMap(x=>[x,x]):pg).join('');setTimeout(()=>print(),300)}
     else if(a==='png'){const b=await t2Png();download(b,fname(P,'pdf').replace(/\.pdf$/,' Preview.png'));toast('Image downloaded · تصویر ڈاؤن لوڈ ہو گئی')}
     else if(a==='word'){const b=await makeDocx(P);download(b,fname(P,'pdf').replace(/\.pdf$/,'.docx'));toast('Word file downloaded · ورڈ فائل ڈاؤن لوڈ ہو گئی')}
   }catch(e){busy(false);toast('Could not make PDF. Check internet and try again · انٹرنیٹ چیک کریں')}
@@ -836,7 +996,7 @@ function stepBoard(){
   <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing (33%)<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${fmtTime(sc.time).replace(' minutes',' min')}</b><span>Time<br><span class="u">وقت</span></span></div></div>
   ${u0?`<div class="gap">${bi('Short/long questions of this subject are not chapter-wise in our notes yet, so they are picked from the whole book. MCQs follow the exact chapter scheme.','اس مضمون کے مختصر/تفصیلی سوالات ابھی باب وار نہیں، اس لیے پوری کتاب سے لیے جائیں گے۔ MCQs بورڈ اسکیم کے مطابق باب وار ہوں گے۔')}</div>`:''}
   ${numP&&!numHave?`<div class="gap">${bi('Numericals for this subject are not in our notes yet, so part (b) is a long question.','اس مضمون کے عددی سوالات ابھی نوٹس میں نہیں، اس لیے جز (ب) بھی تفصیلی سوال ہوگا۔')}</div>`:''}
-  ${S.tpl==='t2'?'':`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`}
+  ${S.tpl==='t2'||S.tpl==='bt'?'':`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`}
   ${lastNSel()}
   <div class="set" style="grid-template-columns:1fr"><label for="inst">Name on paper<span class="u">پیپر پر ادارے کا نام</span></label><input class="inp" id="inst" value="${esc(S.inst)}" maxlength="70"></div>
   ${hdrFields()}
@@ -955,7 +1115,7 @@ function editPanel(P){
   <div class="ef">${f('ctitle','Paper title','عنوان',P.ctitle,60)}${f('inst','Name on paper','ادارے کا نام',P.inst,70)}${f('teacher','Teacher name','استاد کا نام',P.teacher,50)}${f('dstr','Date on paper','تاریخ',P.dstr,30)}</div>
   <div class="set"><label>Time (minutes)<span class="u">وقت (منٹ)</span></label>${estp('time',P.time)}</div>
   <div class="set"><label>Passing %<span class="u">پاسنگ فیصد</span></label>${estp('pass',P.pass)}</div>
-  <div class="seg"><button type="button" class="ch" data-half="0" aria-pressed="${!P.half}"><b>A4 full page</b><span class="u">پورا صفحہ</span></button><button type="button" class="ch" data-half="1" aria-pressed="${!!P.half}"><b>Half page</b><span class="u">آدھا صفحہ</span></button></div>
+  ${P.tpl==='t2'||P.tpl==='bt'?'':`<div class="seg"><button type="button" class="ch" data-half="0" aria-pressed="${!P.half}"><b>A4 full page</b><span class="u">پورا صفحہ</span></button><button type="button" class="ch" data-half="1" aria-pressed="${!!P.half}"><b>Half page</b><span class="u">آدھا صفحہ</span></button></div>`}
   <label class="tog"><input type="checkbox" data-eab ${P.ab?'checked':''}> ${bi('Set A and Set B','سیٹ A اور سیٹ B')}</label>`;
   if(P.bp)return h+`<p class="hint">${bi('Board pattern paper: use «Change one question» to replace a question.','بورڈ پیٹرن پیپر میں سوال بدلنے کے لیے «ایک سوال بدلیں» استعمال کریں۔')}</p></div>`;
   TT.forEach(t=>{const c=SEC(P,t);if(t==='num'&&!c.ids.length&&ADDQ!=='num'&&!hasNumP(P))return;
@@ -992,7 +1152,6 @@ async function makeDocx(P){
     const ur=P.m==='um', FONT=ur?'Jameel Noori Nastaleeq':'Times New Roman', SZ=ur?28:23;
     const AL=X.AlignmentType, IMG=new Map();
     const blk=[];(P.ab?['A','B']:['A']).forEach((s,si)=>{blocks(P,s).forEach((b,bi)=>blk.push([b,si&&!bi]))});
-    keyBlocks(P).forEach((b,bi)=>blk.push([b,!bi]));
     const box=document.createElement('div');box.innerHTML=blk.map(x=>x[0]).join('');
     for(const im of box.querySelectorAll('img')){const src=im.getAttribute('src');if(!IMG.has(src))IMG.set(src,await toPng(im.src))}
     const tr=(text,o={})=>new X.TextRun(Object.assign({text,font:FONT,size:SZ,rightToLeft:ur},o));
@@ -1071,7 +1230,7 @@ function bump(id,dir){
 }
 document.addEventListener('click',async e=>{
   const g=e.target.closest('[data-go]'); if(g){if(g.dataset.go==='gen'&&view==='gen'){step=1}go(g.dataset.go);return}
-  const qs=SWM&&e.target.closest('#pvin .qi[data-sw],#pvin .t2pg .q[data-sw]'); if(qs){swapQ(qs.dataset.sw);return}
+  const qs=SWM&&e.target.closest('#pvin .qi[data-sw],#pvin .t2pg .q[data-sw],#pvin .btpg [data-sw]'); if(qs){swapQ(qs.dataset.sw);return}
   const b=e.target.closest('button'); if(!b)return;
   if(b.id==='themeBtn'){const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('ahsa-site-theme',r.dataset.theme)}catch(x){}return}
   if(b.hasAttribute('data-gopick')){S.inst=($('#inst')||{}).value?.trim()||S.inst;save();PF.ch='';PF.q='';PF.lim=30;go('pick');return}
@@ -1084,6 +1243,8 @@ document.addEventListener('click',async e=>{
   if(b.dataset.pdel){if(b.dataset.sure){const L=LS.get('ahsa-pm-presets',[]);L.splice(+b.dataset.pdel,1);LS.set('ahsa-pm-presets',L);render()}else{b.dataset.sure=1;b.textContent='✓?';toast('Tap again to delete · دوبارہ دبائیں')}return}
   if(b.hasAttribute('data-psave')){const nm=($('#pname').value||'').trim();if(!nm){toast('Write a name first · پہلے نام لکھیں');$('#pname').focus();return}
     S.inst=($('#inst')||{}).value?.trim()||S.inst;const{pick,...snap}=S;const L=LS.get('ahsa-pm-presets',[]).filter(x=>x.name!==nm);L.unshift({name:nm,S:JSON.parse(JSON.stringify(snap))});LS.set('ahsa-pm-presets',L.slice(0,20));toast('Preset saved · ترتیب محفوظ ہو گئی');$('#pname').value='';return}
+  if(b.dataset.t2v){S.t2one=b.dataset.t2v==='1';S.ab=!S.t2one;save();const y=scrollY;await render();scrollTo(0,y);return}
+  if(b.dataset.btab){S.ab=b.dataset.btab==='1';save();const y=scrollY;await render();scrollTo(0,y);return}
   if(b.dataset.lay){S.lay=+b.dataset.lay;save();const y=scrollY;await render();scrollTo(0,y);return}
   if(b.dataset.half){if(view==='paper'&&VP){VP.half=b.dataset.half==='1';await saveEdit(true)}else{S.half=b.dataset.half==='1';save();const y=scrollY;await render();scrollTo(0,y)}return}
   if(b.hasAttribute('data-logodel')){LS.set('ahsa-pm-logo',null);try{localStorage.removeItem('ahsa-pm-logo')}catch(x){}const y=scrollY;await render();scrollTo(0,y);return}
@@ -1098,7 +1259,7 @@ document.addEventListener('click',async e=>{
   if(b.dataset.s){if(S.s!==b.dataset.s){S.s=b.dataset.s;S.m=null;S.ch=[];S.pick={mcq:[],sq:[],lq:[],num:[]}}save();render();return}
   if(b.dataset.m){if(S.m!==b.dataset.m)S.pick={mcq:[],sq:[],lq:[],num:[]};S.m=b.dataset.m;S.ch=[];save();render();return}
   if(b.dataset.step){step=+b.dataset.step;if(step===3&&!S.ch.length){S.ch=IDX[key()].u.map(u=>u[0]).slice(0,1)}save();render();scrollTo(0,0);return}
-  if(b.dataset.tpl){S.tpl=b.dataset.tpl;if(S.tpl!=='bp'){const t=TPL.find(x=>x.k===S.tpl);S.time=t.time;['mcq','sq','lq'].forEach(k=>{S[k].n=t[k][0];S[k].mk=t[k][1];S[k].mix=false});S.num.n=0;S.num.mix=false;if(S.tpl==='t2')S.ab=true}step=5;save();render();scrollTo(0,0);return}
+  if(b.dataset.tpl){S.tpl=b.dataset.tpl;if(S.tpl!=='bp'){const t=TPL.find(x=>x.k===S.tpl);S.time=t.time;['mcq','sq','lq'].forEach(k=>{S[k].n=t[k][0];S[k].mk=t[k][1];S[k].mix=false});S.num.n=0;S.num.mix=false;if(S.tpl==='t2'){S.ab=!S.t2one;t2Count()}if(S.tpl==='bt')btDefaults()}step=5;save();render();scrollTo(0,0);return}
   if(b.dataset.board){if(b.dataset.board==='fb'){toast('Federal Board scheme coming soon · فیڈرل بورڈ جلد آ رہا ہے');return}S.board=b.dataset.board;save();render();return}
   if(b.dataset.sw){swapQ(b.dataset.sw);return}
   if(b.dataset.inc||b.dataset.dec){bump(b.dataset.inc||b.dataset.dec,b.dataset.inc?1:-1);save();const y=scrollY;await render();scrollTo(0,y);return}
