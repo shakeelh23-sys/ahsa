@@ -409,10 +409,20 @@ textarea.inp{min-height:80px;font-family:inherit}
 .page.tg2 .ph,.page.tg3 .ph{padding:5px 8px;margin-bottom:4px}.page.tg2 .ph .r4 div,.page.tg3 .ph .r4 div{height:26px}
 .page.tg3 .ops{margin-top:0;margin-bottom:0;row-gap:0}.page.tg3 .ph .r2{margin:2px 0 1px}.page.tg3 .ph .r3{padding-top:3px;margin-top:2px}
 .page.half.tg2 .ph .r4 div,.page.half.tg3 .ph .r4 div{height:20px}
+/* one-page layouts: two columns and slimmer margins (same font size) */
+.page.tm{padding:16px 20px 26px}.page.half.tm{padding:8px 14px 18px}
+.page.cols2 .body{column-count:2;column-gap:18px;column-rule:1px solid #999;column-fill:balance}
+.page.cols2 .body>.ph{column-span:all}
+.page.cols2 .body>.sh,.page.cols2 .body>.pt{break-after:avoid}
+.page.cols2 .ops.c4{grid-template-columns:repeat(2,1fr)}
+.page .sh>span[dir="ltr"]{white-space:nowrap;flex:none}
+.page.cols2 .ops{margin-inline-start:26px}.page.cols2[dir="rtl"] .ops{margin:1px 26px 2px 0}
+.page.btpg .btop.rw .qa{position:relative}.page.btpg .btop.rw .col{border-color:transparent!important}.page.btpg .btop.rw .qa::after{content:"Rough work · کچا کام";position:absolute;top:2mm;left:0;right:0;text-align:center;font:9pt/1.4 "DejaVu Sans",Verdana,Arial,sans-serif;color:#777}
+.btn.onepg{margin:8px 0 4px}
 .page.blank .pf{display:none}
 .fitbar{border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin:0 0 12px;background:var(--soft)}
 .fitbar .fl{font-weight:800;font-size:15px;margin:2px 0}.fitbar .fl .u{font-weight:600;margin-inline-start:6px}
-.fitbar .fs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:4px 0 8px}.fitbar .fs.s2{grid-template-columns:1fr 1fr}
+.fitbar .fs{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:4px 0 8px}.fitbar .fs.s2{grid-template-columns:1fr 1fr}
 .fitbar .fs button{border:2px solid var(--line);background:var(--card,#fff);border-radius:10px;padding:8px 4px;font-family:inherit;font-weight:700;font-size:15px;line-height:1.2;color:var(--ink);cursor:pointer;min-height:44px;display:flex;flex-direction:column;align-items:center;gap:1px}
 .fitbar .fs button .u{font-size:13px;font-weight:600}
 .fitbar .fs button[aria-pressed="true"]{border-color:var(--gold);background:var(--gold);color:#1b1300}
@@ -589,6 +599,8 @@ async function stepSettings(){
   ${tps.map(ess).join('')}
   <div class="set"><label>Time (minutes)<span class="u">وقت (منٹ)</span></label>${stp('time',S.time)}</div>
   ${pk?`<p class="hint"><b>Picked by you: ${pk}</b> · ${bi('the rest is filled automatically.','باقی خودکار۔')}</p>`:''}
+  ${onePgBtn(fitOf({fit:S.fit||'a'})===1)}
+  <p class="hint" style="margin-top:0">${bi('Without this: the whole paper still comes on one page by itself when it fits; otherwise MCQs on one page and the rest on one page.','اس کے بغیر بھی: اگر پیپر ایک صفحے پر آ سکے تو خود بخود ایک صفحے پر آئے گا، ورنہ MCQs ایک صفحے پر اور باقی ایک صفحے پر۔')}</p>
   <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing Marks<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${S.time}</b><span>Minutes<br><span class="u">منٹ</span></span></div></div>
   </div>
   ${moWrap(
@@ -717,6 +729,7 @@ function blocks(P,set){
   if(D.mcq.length){sec('OBJECTIVE','معروضی');B.push(head('mcq','Choose the correct option.','درست جواب کا انتخاب کریں۔'));
     D.mcq.forEach((q,i)=>{const L=Math.max(...q.o.map(o=>plain(o).length));const cols=L<=16?'c4':L<=38?'c2':'c1';
       B.push(`<div class="qi"${sw('mcq',i)}><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});}
+  B.split=B.length; // blocks before this = header + MCQs (page 1), from here = short/long/numericals (page 2)
   if(D.sq.length){sec('SHORT QUESTIONS','مختصر سوالات');B.push(head('sq','Write short answers to the following questions.','درج ذیل سوالات کے مختصر جوابات تحریر کریں۔'));
     D.sq.forEach((q,i)=>B.push(`<div class="qi"${sw('sq',i)}><span class="n">${ur?'('+(i+1)+')':(roman(i+1))}</span><div class="tx">${q.q}</div></div>`));}
   if(D.lq.length){sec('LONG QUESTIONS','تفصیلی سوالات');B.push(head('lq','Answer the following questions in detail.','درج ذیل سوالات کے تفصیلی جوابات تحریر کریں۔'));
@@ -752,7 +765,7 @@ function paginate(B,rtl,half,o={}){ // fills A4 (or half-A4) pages in #stage, re
   const st=$('#stage'); st.innerHTML=''; const pages=[];
   const mk=()=>{const p=document.createElement('div');p.className='page'+(half?' half':'')+(o.cls?' '+o.cls:'');if(rtl){p.dir='rtl';p.lang='ur'}p.innerHTML='<div class="body"></div><div class="pf"><span>AHSA Auto Paper Maker · shakeelh23-sys.github.io/ahsa</span><span class="pg"></span></div>';st.appendChild(p);pages.push(p);return p};
   let p=mk(),body=p.querySelector('.body'); const cs=getComputedStyle(p), full=p.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(half?26:30), lim=o.lim||full; paginate.lim=full;
-  B.forEach((h,i)=>{const t=document.createElement('div');t.innerHTML=h;const el=t.firstElementChild;el.dataset.bi=i;if(o.gap&&el.matches('.qi,.bq'))el.style.marginBottom=o.gap+'px';body.appendChild(el);
+  B.forEach((h,i)=>{const t=document.createElement('div');t.innerHTML=h;const el=t.firstElementChild;el.dataset.bi=(o.off||0)+i;if(o.gap&&el.matches('.qi,.bq'))el.style.marginBottom=o.gap+'px';body.appendChild(el);
     if(body.getBoundingClientRect().height>lim&&body.children.length>1&&(!o.gap||[...body.children].slice(0,-1).some(x=>x.matches('.qi,.bq')))){ // spreading: a page never holds only headings
       const prev=body.children[body.children.length-2]; // keep a section heading with its first question
       p=mk();const nb=p.querySelector('.body');
@@ -765,41 +778,79 @@ function paginate(B,rtl,half,o={}){ // fills A4 (or half-A4) pages in #stage, re
   return pages;
 }
 /* ---------------- Fit paper on N pages + sides (font size never changes: only spacing, margins and page breaks) ---------------- */
-const fitOf=P=>{const f=P&&P.fit!=null?P.fit:'a';return f==='a'||!f?'a':Math.max(1,Math.min(3,+f||1))};
+const fitOf=P=>{const f=P&&P.fit!=null?P.fit:'a';if(f==='a'||!f)return 'a';if(f==='x')return 'x';const n=+f;return n===1?1:n===2?2:'x'}; // a = smart (1 page if it fits, else MCQs page + questions page), 1 = whole paper on 1 page, 2 = MCQs page + questions page, x = more pages (free)
 const sidesOf=P=>P&&+P.sides?+P.sides:((P&&(P.tpl==='bt'||P.tpl==='t2'))?2:1);
 const blankPg=(cls)=>`<div class="page ${cls||''} blank"><div class="body"></div><div class="pf"></div></div>`;
-let FITI=null; // last paper layout: {want,got,min,few}
+let FITI=null; // last paper layout: {mode:'one'|'sec'|'x', want, got, over:[all|mcq|sub], max:{mcq,sq,lq,num}, bp}
 const FITL=['','tg1','tg2','tg3'];
+// one-page layouts, most comfortable first: spacing level + columns + margins (the font size never changes)
+const PLV=[['',1],['tg1',1],['tg2',1],['tg1',2],['tg2',2],['tg3',2],['tg3 tm',2]];
+function onePage(B,rtl,half,lv,off){ // every block on ONE page at layout lv; the page element, or null when something would go outside the page
+  const st=$('#stage');st.innerHTML='';const [cls,cols]=PLV[lv];
+  const p=document.createElement('div');p.className='page'+(half?' half':'')+(cls?' '+cls:'')+(cols===2?' cols2':'');if(rtl){p.dir='rtl';p.lang='ur'}
+  p.innerHTML='<div class="body"></div><div class="pf"><span>AHSA Auto Paper Maker · shakeelh23-sys.github.io/ahsa</span><span class="pg"></span></div>';st.appendChild(p);
+  const body=p.querySelector('.body'),cs=getComputedStyle(p),lim=p.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(half?26:30);
+  body.style.height=Math.floor(lim)+'px';
+  B.forEach((h,i)=>{const t=document.createElement('div');t.innerHTML=h;const el=t.firstElementChild;el.dataset.bi=(off||0)+i;body.appendChild(el)});
+  const r=body.getBoundingClientRect();
+  const ok=[...body.children].every(c=>{const q=c.getBoundingClientRect();return q.bottom<=r.bottom+0.5&&q.left>=r.left-1&&q.right<=r.right+1});
+  return ok?p:null}
+function tryOne(B,rtl,half,mx,off){ // the most comfortable layout (up to level mx) that keeps all blocks on one page, or null
+  mx=mx==null?PLV.length-1:mx;if(!onePage(B,rtl,half,mx,off))return null;
+  for(let lv=0;lv<=mx;lv++){const p=onePage(B,rtl,half,lv,off);if(p)return p}return null}
+function partsOf(B){ // [objective part (header + MCQs), subjective part]; a paper with one kind only is one part
+  const sp=B.split==null?B.length:B.split,A=B.slice(0,sp),C=B.slice(sp);
+  if(!C.length)return [[B,'mcq',0]];if(A.length<=1)return [[B,'sub',0]];return [[A,'mcq',0],[C,'sub',sp]]}
 function fitPages(B,rtl,half,P){
-  const f=fitOf(P),sd=sidesOf(P),info={want:f,got:0,min:0,few:0};let pages;
-  if(f==='a')pages=paginate(B,rtl,half);
-  else{let lv=0;
-    for(;lv<FITL.length;lv++){pages=paginate(B,rtl,half,{cls:FITL[lv]});if(pages.length<=f)break}
-    if(lv===FITL.length){ // does not fit: show the fewest pages possible, with the most comfortable spacing that gives them
-      const min=pages.length;info.min=min;
-      for(let k=0;k<FITL.length;k++){pages=paginate(B,rtl,half,{cls:FITL[k]});if(pages.length<=min)break}}
-    else if(pages.length<f){ // spread over exactly f pages: the same answer space after every question, as large as still fits
-      const cls=FITL[lv];let lo=0,hi=Math.round(paginate.lim);
-      while(hi-lo>2){const m=(lo+hi)>>1;if(paginate(B,rtl,half,{cls,gap:m}).length<=f)lo=m;else hi=m}
-      pages=paginate(B,rtl,half,{cls,gap:lo});if(pages.length<f)info.few=pages.length}}
+  const f=fitOf(P),sd=sidesOf(P),info={mode:'x',want:f,got:0,over:[]};let pages=[];
+  if(f==='x')pages=paginate(B,rtl,half); // more pages: free flow (old way)
+  else{let one=f===1?tryOne(B,rtl,half):f==='a'?tryOne(B,rtl,half,4):null; // auto: one page only while it still looks comfortable
+    if(one){pages=[one];info.mode='one'}
+    else{if(f===1)info.over.push('all');info.mode='sec';
+      const ps=partsOf(B),done=[];
+      ps.forEach(([Bp,k,off])=>{const p=tryOne(Bp,rtl,half,null,off);if(p){done.push([p]);return}
+        if(f!==1)info.over.push(k);done.push(paginate(Bp,rtl,half,{cls:'tg3',off}))}); // too long: shown on more pages with a warning
+      pages=done.flat()}}
   info.got=pages.length;
   pages.forEach((x,i)=>{x.querySelector('.pg').textContent=`Page ${i+1} of ${pages.length}`+(sd===2&&i%2===0&&i<pages.length-1?' · Please turn over':'')});
   return {pages,info}}
-function fitMerge(a,b){return a?{want:a.want,got:Math.max(a.got,b.got),min:Math.max(a.min,b.min),few:Math.max(a.few,b.few)}:b}
+function fitMerge(a,b){if(!a)return b;return Object.assign({},a,{got:Math.max(a.got,b.got),over:[...new Set([...a.over,...b.over])],mode:a.mode===b.mode?a.mode:'sec'})}
+const keepEven=(ids,n)=>{if(n>=ids.length)return ids.slice();if(n<=0)return [];const o=[];for(let i=0;i<n;i++)o.push(ids[Math.floor((i+0.5)*ids.length/n)]);return o}; // drop questions evenly, so every chapter stays
+async function fitMax(P,types,test){ // largest counts (removing evenly, keeping the mix of question types) for which test(paper) is true
+  const c={},n={};types.forEach(t=>{c[t]=SEC(P,t).ids.length;n[t]=c[t]});
+  const mkP=()=>{const Q=Object.assign({},P,{sec:Object.assign({},P.sec)});types.forEach(t=>{if(P.sec[t])Q.sec[t]=Object.assign({},P.sec[t],{ids:keepEven(P.sec[t].ids,n[t])})});return Q};
+  for(let g=0;g<600;g++){if(types.every(t=>!n[t]))return null;if(await test(mkP()))return n;
+    let bt=null,br=-1;types.forEach(t=>{if(!n[t])return;const r=n[t]/c[t];if(r>br+1e-9){br=r;bt=t}});n[bt]--}
+  return null}
+async function fitMaxNormal(P,over){ // normal papers: what fits on one page
+  const rtl=P.m==='um',half=!!P.half,max={};
+  for(const o of over){const types=o==='mcq'?['mcq']:o==='sub'?['sq','lq','num']:TT;
+    const n=await fitMax(P,types.filter(t=>SEC(P,t).ids.length),Q=>{const B=blocks(Q,'A');const ps=partsOf(B);
+      const part=o==='all'?B:(ps.find(x=>x[1]===o)||[B])[0];return !!onePage(part,rtl,half,PLV.length-1)});
+    if(n)Object.assign(max,n)}
+  $('#stage').innerHTML='';return Object.keys(max).length?max:null}
 function fitBar(P){
-  const f=P?fitOf(P):(S.fit||'a'),sd=P?sidesOf(P):(+S.sides||((S.tpl==='bt'||S.tpl==='t2')?2:1));
+  const f=P?fitOf(P):fitOf({fit:S.fit||'a'}),sd=P?sidesOf(P):(+S.sides||((S.tpl==='bt'||S.tpl==='t2')?2:1));
   const B=(k,v,on,en,ur)=>`<button type="button" data-${k}="${v}" aria-pressed="${on}">${en}<span class="u">${ur}</span></button>`;
-  return `<div class="fitbar"><div class="fl">📄 Fit paper on<span class="u">پیپر کتنے صفحات پر آئے</span></div>
-  <div class="fs">${[['a','Auto','خودکار'],[1,'1 page','1 صفحہ'],[2,'2 pages','2 صفحات'],[3,'3 pages','3 صفحات']].map(([v,e,u])=>B('fit',v,String(f)===String(v),e,u)).join('')}</div>
+  return `<div class="fitbar"><div class="fl">📄 Pages<span class="u">پیپر کتنے صفحات پر آئے</span></div>
+  <div class="fs">${[['a','Auto (smart)','خودکار'],[1,'Whole paper on 1 page','پورا پیپر ایک صفحے پر'],[2,'MCQs page + questions page','MCQs ایک صفحہ، باقی ایک صفحہ'],['x','More pages (free)','زیادہ صفحات']].map(([v,e,u])=>B('fit',v,String(f)===String(v),e,u)).join('')}</div>
   <div class="fl">🖨️ Sides<span class="u">کاغذ کی کتنی طرف</span></div>
   <div class="fs s2">${B('sides',1,sd===1,'1 side (front only)','صرف ایک طرف')}${B('sides',2,sd===2,'2 sides (double-sided)','دونوں طرف')}</div>
-  <p class="hint" style="margin:0">${bi('Font size stays the same; only spacing and page breaks change. A question is never split between two pages.','فونٹ سائز وہی رہتا ہے، صرف فاصلہ اور صفحہ بندی بدلتی ہے۔ کوئی سوال دو صفحوں میں نہیں ٹوٹتا۔')}</p>
+  <p class="hint" style="margin:0">${bi('Auto: if everything fits, the whole paper comes on ONE page; otherwise MCQs on one page and the other questions on one page. Font size stays the same; only spacing, margins and columns change. A question is never split.','خودکار: اگر سب کچھ آ جائے تو پورا پیپر ایک صفحے پر، ورنہ MCQs ایک صفحے پر اور باقی سوالات ایک صفحے پر۔ فونٹ سائز وہی رہتا ہے، صرف فاصلہ، حاشیہ اور کالم بدلتے ہیں۔ کوئی سوال دو صفحوں میں نہیں ٹوٹتا۔')}</p>
 </div>`}
+function onePgBtn(on){return `<button type="button" class="btn ${on?'gold':'line'} full onepg" data-onepg="${on?'a':'1'}" aria-pressed="${on}">📄 ${on?'✓ ':''}Whole paper on one page<span class="u">پورا پیپر ایک صفحے پر</span></button>`}
 function fitMsg(){const e=$('#fitmsg');if(!e||!FITI||!VP)return;const I=FITI,sd=sidesOf(VP),pl=n=>n+(n>1?' pages':' page'),pu=n=>n+(n>1?' صفحات':' صفحہ'),per=VP.ab?' (each set)':'',peru=VP.ab?' (ہر سیٹ)':'';
   const pr=sd===2?bi('Print on both sides («Flip on long edge»).','دونوں طرف پرنٹ کریں («Flip on long edge»)۔'):bi('Print on one side of each sheet only.','ہر کاغذ کی صرف ایک طرف پرنٹ کریں۔');
-  if(I.min){e.className='fitmsg warn';e.innerHTML=bi(`⚠️ This paper cannot fit on ${pl(I.want)} without making the writing smaller. Minimum needed: ${pl(I.min)}${per}. Choose ${I.min<=3?I.min+' pages':'Auto'} or remove some questions.`,`⚠️ یہ پیپر فونٹ چھوٹا کیے بغیر ${pu(I.want)} پر پورا نہیں آتا۔ کم از کم ${pu(I.min)}${peru} چاہییں۔ ${I.min<=3?I.min+' صفحات':'«خودکار»'} چنیں یا کچھ سوالات کم کریں۔`);return}
-  if(I.few){e.className='fitmsg warn';e.innerHTML=bi(`This paper has too little writing for ${pl(I.want)}; it fills ${pl(I.few)}${per}.`,`اس پیپر کا مواد ${pu(I.want)} کے لیے کم ہے، یہ ${pu(I.few)}${peru} پر آیا ہے۔`)+'<br>'+pr;return}
-  e.className='fitmsg ok';e.innerHTML=bi(`✓ ${pl(I.got)}${per}`,`✓ ${pu(I.got)}${peru}`)+'<br>'+pr}
+  const where=VP.tpl==='bt'?['one A4 side','A4 کی ایک طرف']:VP.tpl==='t2'?['one student\'s slip','ایک طالب علم کی پرچی']:['one page','ایک صفحے'];
+  if(I.over&&I.over.length){const M=I.max,lst=M?TT.filter(t=>M[t]!=null&&SEC(VP,t).ids.length).map(t=>[`${M[t]} ${TYP[t][0]}`,`${M[t]} ${TYP[t][1]}`]):[];
+    const what=I.over.includes('all')?['The whole paper does not fit on '+where[0],'پورا پیپر '+where[1]+' پر پورا نہیں آتا']:I.over.includes('mcq')&&I.over.includes('sub')?['Neither the MCQs nor the other questions fit on '+where[0],'نہ MCQs اور نہ باقی سوالات '+where[1]+' پر پورے آتے ہیں']:I.over.includes('mcq')?['The MCQs do not fit on '+where[0],'MCQs '+where[1]+' پر پورے نہیں آتے']:['The short/long questions do not fit on '+where[0],'مختصر/تفصیلی سوالات '+where[1]+' پر پورے نہیں آتے'];
+    let h=bi(`⚠️ ${what[0]} without making the writing smaller.`,`⚠️ ${what[1]} (فونٹ چھوٹا کیے بغیر)۔`);
+    if(lst.length)h+='<br>'+bi(`Most that fit: ${lst.map(x=>x[0]).join(', ')}.`,`زیادہ سے زیادہ: ${lst.map(x=>x[1]).join('، ')}۔`)+`<button type="button" class="btn gold full" data-act="fitcut" style="margin-top:8px">✂️ Reduce to this number<span class="u">سوالات خود بخود اتنے کر دیں</span></button>`;
+    else if(I.bp)h+='<br>'+bi('Board pattern counts are fixed: choose «More pages».','بورڈ پیٹرن کی تعداد مقرر ہے: «زیادہ صفحات» چنیں۔');
+    h+='<br>'+bi(`For now it is shown on ${pl(I.got)}${per}.`,`ابھی یہ ${pu(I.got)}${peru} پر دکھایا گیا ہے۔`);
+    e.className='fitmsg warn';e.innerHTML=h;return}
+  const m=I.mode==='one'?bi(`✓ Whole paper on 1 ${VP.tpl==='t2'?'half page (slip)':'page'}${per}`,`✓ پورا پیپر ایک ${VP.tpl==='t2'?'پرچی':'صفحے'} پر${peru}`):I.mode==='sec'?(VP.tpl==='t2'?bi(`✓ MCQs on one slip (${pl(I.got)})${per}`,`✓ MCQs ایک پرچی پر${peru}`):VP.tpl==='bt'?bi(`✓ MCQs on the front (top), questions on the bottom part · 1 sheet${per}`,`✓ MCQs سامنے والے صفحے پر (اوپر)، باقی سوالات نیچے والے حصے میں · ایک شیٹ${peru}`):bi(`✓ MCQs complete on page 1, other questions complete on page 2${per}`,`✓ MCQs مکمل صفحہ 1 پر، باقی سوالات مکمل صفحہ 2 پر${peru}`)):bi(`✓ ${pl(I.got)}${per}`,`✓ ${pu(I.got)}${peru}`);
+  e.className='fitmsg ok';e.innerHTML=m+'<br>'+pr}
 async function ensureFont(){try{const w=[document.fonts.load('400 16px "AHSA JNN"','الحسن')];if(VP&&VP.m==='um')w.push(document.fonts.load('400 17px "AHSA JNN Paper"','سوال نمبر'));await Promise.race([Promise.all(w),new Promise(r=>setTimeout(r,15000))]);await document.fonts.ready}catch(e){}}
 /* ---------------- MCQ test, 2 students per A4 (layout of Math 10 Test 2) ---------------- */
 function t2Fields(){return `<div class="set"><label>Test number<span class="u">ٹیسٹ نمبر</span></label>${stp('tno',S.tno)}</div>
@@ -837,10 +888,13 @@ function t2Fill(cols,qs){ // put questions column by column; returns how many fi
     if(ci>=cols.length)break}
   return placed}
 async function t2Pages(kind){
-  const f=fitOf(VP),tgt=f==='a'?((VP.t2&&VP.t2.lay===1)?1:2):f;
+  const f=fitOf(VP),slip=(VP.t2&&VP.t2.lay===1)?1:2,tgt=f===1?1:f==='x'?slip:slip;
   let r,R=[]; for(let fs=0;fs<4;fs++){r=await t2Build(kind,fs);R.push(r);if(r.n<=tgt)break}
   if(r.n>tgt){const mn=Math.min(...R.map(x=>x.n));r=R.find(x=>x.n===mn)} // cannot fit: fewest pages with the largest writing
-  if(kind==='paper')FITI={want:f,got:r.n,min:f!=='a'&&r.n>f?r.n:0,few:f!=='a'&&r.n<f?r.n:0};
+  if(kind==='paper'){FITI={mode:r.n===1&&f!=='x'?'one':f==='x'?'x':'sec',want:f,got:r.n,over:[]};
+    if(f!=='x'&&r.n>tgt){FITI.over=[f===1?'all':'mcq'];const keep=VP;
+      try{FITI.max=await fitMax(keep,['mcq'],async Q=>{VP=Q;return (await t2Build(kind,3)).n<=tgt})}finally{VP=keep}
+      if(FITI.max&&FITI.max.mcq>=SEC(VP,'mcq').ids.length)FITI.max=null}}
   return r.out}
 async function t2Build(kind,fs){
   const P=VP, key=kind==='key', ur=P.m==='um', H=t2Hdr(P), [T]=totals(P), one=P.t2&&P.t2.lay===1, sets=P.ab?['A','B']:['A'];
@@ -935,12 +989,12 @@ function btPackM(cols,qs){ // MCQs column by column; false if they do not all fi
     if(ci>=cols.length)return false}
   return true}
 function btPackS(sbs,bl){sbs.forEach(c=>c.replaceChildren());let si=0;for(const b of bl){while(si<sbs.length){sbs[si].appendChild(b);if(btFits(sbs[si]))break;sbs[si].removeChild(b);si++}if(si>=sbs.length)return false}return true}
-async function btLayout(P,sets,data,nS){ // largest F (pt) and a cut line H (mm) where everything fits; null if none
+async function btLayout(P,sets,data,nS,fo){ // largest F (pt) and a cut line H (mm) where everything fits; null if none. fo: MCQs only on the front side
   const st=$('#stage');st.innerHTML='';const H=btHdr(P),[T]=totals(P),Tm=SEC(P,'mcq').ids.length*SEC(P,'mcq').mk,tm=btTimes(P);
   const W=sets.map(s=>{const D=data[s],pg=[];for(let i=0;i<nS;i++){const p=btSide(P,s,i,nS,D,H,Tm,T-Tm,tm);st.appendChild(p);pg.push(p)}
     const tmp=document.createElement('div');tmp.innerHTML=D.mcq.map((q,i)=>btMcq(q,i,false,P.m==='um')).join('');const qs=[...tmp.children];
     const tb=document.createElement('div');tb.innerHTML=btSub(P,D,false).join('');const bl=[...tb.children];
-    return {pg,qs,bl,cols:pg.flatMap(p=>[...p.querySelectorAll('.col')]),sbs:pg.map(p=>p.querySelector('.sb'))}});
+    return {pg,qs,bl,cols:(fo?pg.slice(0,1):pg).flatMap(p=>[...p.querySelectorAll('.col')]),sbs:pg.map(p=>p.querySelector('.sb'))}});
   const setV=(F,Hm)=>W.forEach(w=>w.pg.forEach(p=>{p.style.setProperty('--F',F+'pt');p.style.setProperty('--H',Hm+'mm')}));
   const okM=(F,Hm)=>{setV(F,Hm);return W.every(w=>btPackM(w.cols,w.qs))}, okS=(F,Hm)=>{setV(F,Hm);return W.every(w=>btPackS(w.sbs,w.bl))};
   const lo=105,hi=195;
@@ -958,23 +1012,28 @@ async function btPages(kind){
   const hasM=data.A.mcq.length,hasS=['sq','lq','num'].some(t=>data.A[t]&&data.A[t].length);
   if(kind==='key'||!hasM||!hasS)return null; // key: normal answer-key pages; one-part papers: normal layout
   await ensureFont();
-  const f=fitOf(P);let nS=1,L=null,min=0;const minF1=ur?13:10.5;
-  if(f==='a'){
+  const f=fitOf(P);let nS=1,L=null,fo=f!=='x';const minF1=ur?13:10.5,over=[];
+  const one=async()=>{const x=await btLayout(P,sets,data,1,true);return x&&x.F>=minF1?x:null};
+  if(f==='x'){ // more pages (free): MCQs may continue on the back
     L=await btLayout(P,sets,data,1);if(!L||L.F<minF1){nS=2;L=await btLayout(P,sets,data,2)}
     if(!L){nS=4;L=await btLayout(P,sets,data,4)}
     if(!L){nS=6;L=await btLayout(P,sets,data,6)}}
-  else{nS=f;L=await btLayout(P,sets,data,f);
-    for(let m=f+1;!L&&m<=6;m++){nS=m;min=m;L=await btLayout(P,sets,data,m)}}
+  else{ // MCQs only on the front (top part); the whole paper on one sheet: 1 side, or front + back
+    if(f!==2)L=await one();
+    if(!L){if(f===1)over.push('all');nS=2;L=await btLayout(P,sets,data,2,true)}
+    if(!L){if(f!==1)over.push('all');fo=false;for(const m of [2,4,6]){nS=m;L=await btLayout(P,sets,data,m);if(L)break}}}
   if(!L)return null;
-  let r=btBuild(P,sets,data,nS,L);
-  if(f!=='a'&&!min&&r.used<nS){const r2=btBuild(P,sets,data,r.used,L);if(r2.ok){r=r2;nS=r.used}} // never print an empty side
-  if(kind==='paper')FITI={want:f,got:nS,min,few:f!=='a'&&!min&&nS<f?nS:0};
+  let r=btBuild(P,sets,data,nS,L,fo);
+  if(f==='x'&&r.used<nS){const r2=btBuild(P,sets,data,r.used,L,fo);if(r2.ok){r=r2;nS=r.used}} // never print an empty side
+  if(kind==='paper'){FITI={mode:f==='x'?'x':nS===1?'one':'sec',want:f,got:nS,over};
+    if(over.length){const n1=over.includes('all')&&f===1;FITI.max=await fitMax(P,TT.filter(t=>SEC(P,t).ids.length),async Q=>{const d={};sets.forEach(s=>d[s]=setData(Q,s));return n1?!!(await (async()=>{const x=await btLayout(Q,sets,d,1,true);return x&&x.F>=minF1?x:null})()):!!(await btLayout(Q,sets,d,2,true))});$('#stage').innerHTML=''}}
   return r.out}
-function btBuild(P,sets,data,nS,L){ // final sides for every set at font F and cut line H
+function btBuild(P,sets,data,nS,L,fo){ // final sides for every set at font F and cut line H; fo: MCQs only on the front
   const ur=P.m==='um',st=$('#stage');st.innerHTML='';const H=btHdr(P),[T]=totals(P),Tm=SEC(P,'mcq').ids.length*SEC(P,'mcq').mk,tm=btTimes(P),out=[];let ok=true,used=1;
   sets.forEach((s,si)=>{const D=data[s],pg=[];for(let i=0;i<nS;i++){const p=btSide(P,s,i,nS,D,H,Tm,T-Tm,tm);p.style.setProperty('--F',L.F+'pt');p.style.setProperty('--H',L.H+'mm');st.appendChild(p);pg.push(p)}
     const sw=s==='A';const tmp=document.createElement('div');tmp.innerHTML=D.mcq.map((q,i)=>btMcq(q,i,sw,ur)).join('');
-    ok=btPackM(pg.flatMap(p=>[...p.querySelectorAll('.col')]),[...tmp.children])&&ok;
+    ok=btPackM((fo?pg.slice(0,1):pg).flatMap(p=>[...p.querySelectorAll('.col')]),[...tmp.children])&&ok;
+    if(fo)pg.slice(1).forEach(p=>p.querySelector('.btop').classList.add('rw')); // back of the MCQ part: rough work
     const tb=document.createElement('div');tb.innerHTML=btSub(P,D,sw).join('');const sbs=pg.map(p=>p.querySelector('.sb'));ok=btPackS(sbs,[...tb.children])&&ok;
     pg.forEach((p,i)=>{if([...p.querySelectorAll('.col,.sb')].some(c=>c.children.length))used=Math.max(used,i+1)});
     // "more on the back" notes only where something really continues
@@ -992,6 +1051,7 @@ async function buildPages(kind,set){ // kind: paper|key
   sets.forEach((s,si)=>{const r=fitPages(blocks(VP,s),VP.m==='um',!!VP.half,VP);FITI=fitMerge(FITI,r.info);all=all.concat(r.pages.map(p=>p.outerHTML));
     if(sidesOf(VP)===2&&si<sets.length-1&&r.pages.length%2)all.push(blankPg(VP.half?'half':''))}); // next set starts on the front of a new sheet
   $('#stage').innerHTML='';
+  if(kind==='paper'&&FITI&&FITI.over.length){if(VP.bp)FITI.bp=1;else FITI.max=await fitMaxNormal(VP,FITI.over)}
   return all;
 }
 function paperView(){
@@ -1000,6 +1060,7 @@ function paperView(){
   return `${FRESH?wizBar(6):''}<div class="card"><h2 class="q">✅ Paper Ready<span class="u">پیپر تیار ہے</span></h2>
   <p class="hint">${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} · ${P.m.toUpperCase()}<br>${n.mcq} MCQs · ${n.sq} Short · ${n.lq} Long${n.num?' · '+n.num+' Numericals':''} · ${T} marks · ${P.ab?'Set A + B':'1 set'}</p>
   <div id="fitmsg"></div>
+  ${onePgBtn(fitOf(P)===1)}
   <div class="acts big">
    <button class="btn line full" data-act="pvgo" type="button">👁️ See preview<span class="u">پیپر دیکھیں</span></button>
    <button class="btn gold" data-act="print" type="button">🖨️ Print<span class="u">پرنٹ</span></button>
@@ -1226,6 +1287,7 @@ function boardBlocks(P,set){
   B.push(`<div class="sh"><span>${ur?'سوال نمبر 1: درست جواب کا انتخاب کریں۔':'Q.1 Choose the correct option.'}</span><span dir="ltr">(${D.mcq.length} × 1 = ${D.mcq.length})</span></div>`);
   D.mcq.forEach((q,i)=>{const L=Math.max(...q.o.map(o=>plain(o).length));const cols=L<=16?'c4':L<=38?'c2':'c1';
     B.push(`<div class="qi"${sw('mcq|'+b_i(P,'mcq',q.id))}><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});
+  B.split=B.length;
   B.push(`<div class="pt">${ur?'حصہ دوم (انشائیہ / مختصر سوالات)':'PART – II (SUBJECTIVE · SHORT QUESTIONS)'}</div>`);
   D.sq.forEach((g,gi)=>{const a=sc.sq[gi].a;
     B.push(`<div class="sh"><span>${ur?`سوال نمبر ${gi+2}: کوئی سے ${W_UR[a]} (${a}) سوالات کے مختصر جوابات لکھیں۔`:`Q.${gi+2} Write short answers to any ${W_EN[a].toUpperCase()} (${a}) questions.`}</span><span dir="ltr">(${a} × 2 = ${a*2})</span></div>`);
@@ -1318,7 +1380,7 @@ async function makeDocx(P){
     await load(DOCX); const X=window.docx; await getPack(P.k);
     const ur=P.m==='um', FONT=ur?'Jameel Noori Nastaleeq':'Times New Roman', SZ=ur?28:23;
     const AL=X.AlignmentType, IMG=new Map();
-    const blk=[],sets=P.ab?['A','B']:['A'],fitW=fitOf(P)!=='a'&&P.tpl!=='t2'&&P.tpl!=='bt';if(fitW){VP=Object.assign({saved:true},P);await ensureFont()}
+    const blk=[],sets=P.ab?['A','B']:['A'],fitW=fitOf(P)!=='x'&&P.tpl!=='t2'&&P.tpl!=='bt';if(fitW){VP=Object.assign({saved:true},P);await ensureFont()}
     sets.forEach((s,si)=>{const B=blocks(P,s);let st=new Set(),pad=false;
       if(fitW){const r=fitPages(B,ur,!!P.half,P);st=new Set(r.pages.slice(1).map(pg=>+pg.querySelector('.body').firstElementChild.dataset.bi));pad=sidesOf(P)===2&&si<sets.length-1&&r.pages.length%2;$('#stage').innerHTML=''}
       B.forEach((b,bi)=>blk.push([b,(si&&!bi)||st.has(bi),si&&!bi&&blk.padNext]));blk.padNext=pad}); // same page breaks as the PDF
@@ -1405,7 +1467,9 @@ document.addEventListener('click',async e=>{
   if(b.dataset.wz){const i=+b.dataset.wz;if(i===6){if(FRESH&&VP){view='paper';SWM=false;EDM=false;ADDQ=null;await render();scrollTo(0,0)}return}
     if(view==='gen'&&i===step)return;if(i>1&&!canStep(i))return;view='gen';step=i;SWM=false;EDM=false;ADDQ=null;await render();scrollTo(0,0);return}
   if(b.hasAttribute('data-reuse')){if(LAST){S=freshS(LAST);S.pick={mcq:[],sq:[],lq:[],num:[]};const pu=IDX[key()];S.ch=pu?S.ch.filter(n=>pu.u.some(u=>u[0]===n)):[];REACH=5;step=1;await render();scrollTo(0,0);toast('Previous settings filled. Press Next · پچھلی ترتیب بھر دی گئی، «آگے» دبائیں')}return}
-  if(b.closest('.fitbar')&&(b.dataset.fit||b.dataset.sides)){const k=b.dataset.fit?'fit':'sides',v=k==='fit'&&b.dataset.fit==='a'?'a':+b.dataset[k];S[k]=v;save();
+  if(b.dataset.onepg){const v=b.dataset.onepg==='a'?'a':1;S.fit=v;save();if(view==='paper'&&VP){VP.fit=v;await saveEdit(true)}else{const y=scrollY;await render();scrollTo(0,y)}return}
+  if(b.dataset.act==='fitcut'&&VP&&FITI&&FITI.max){const M=FITI.max;TT.forEach(t=>{if(M[t]!=null&&VP.sec&&VP.sec[t])VP.sec[t]=Object.assign({},VP.sec[t],{ids:keepEven(VP.sec[t].ids,M[t])})});toast('Questions reduced · سوالات کم کر دیے');await saveEdit(true);return}
+  if(b.closest('.fitbar')&&(b.dataset.fit||b.dataset.sides)){const k=b.dataset.fit?'fit':'sides',d=b.dataset[k],v=k==='fit'&&(d==='a'||d==='x')?d:+d;S[k]=v;save();
     if(view==='paper'&&VP){VP[k]=v;await saveEdit(true)}else{const y=scrollY;await render();scrollTo(0,y)}return}
   if(b.id==='themeBtn'){const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('ahsa-site-theme',r.dataset.theme)}catch(x){}return}
   if(b.hasAttribute('data-gopick')){S.inst=($('#inst')||{}).value?.trim()||S.inst;save();PF.ch='';PF.q='';PF.lim=30;go('pick');return}
