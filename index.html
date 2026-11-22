@@ -901,6 +901,25 @@ button.shic{cursor:pointer;padding:0;font:inherit;transition:transform .15s,back
 .ctrack .csl{flex:0 0 100%;scroll-snap-align:start;margin:0}
 @media (min-width:640px){.ctrack .csl{flex-basis:calc(50% - 5px)}}
 @media (min-width:1000px){.ctrack .csl{flex-basis:calc(33.333% - 7px)}}
+/* MODEL-PAPERS 2026-11-22 */
+.mpbox{padding:10px 0 6px;margin-top:8px;border-bottom:1px solid var(--line)}
+.mpsearch{max-width:none!important;min-height:48px;border-width:1.5px}.mpsearch input{font-size:16px;padding:12px 0}
+.mpl{font:700 13px/1.6 var(--f-body);color:var(--mut);margin:10px 0 4px}html[lang="ur"] .mpl{font-family:var(--f-ur);font-size:14px;line-height:2}
+.mpq button{padding:9px 14px;font-size:14px;min-height:40px}.mpq button small{opacity:.7;font-weight:600;margin-inline-start:4px}
+html[lang="ur"] .mpq button{font-family:var(--f-ur);font-size:15px;padding-block:4px}
+.mpbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;min-height:34px}
+.mpclr{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:700 13.5px/1.3 var(--f-body);cursor:pointer}
+html[lang="ur"] .mpclr{font-family:var(--f-ur)}
+.mpg h3{margin:20px 0 10px;display:flex;align-items:center;gap:8px}.mpn{background:var(--gold);color:#3a2a00;border-radius:999px;padding:1px 10px;font-size:13px}
+.mpgrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.mpc{display:flex;flex-direction:column;gap:10px;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--sh1,none)}
+.mpt h4{margin:0;font:700 17px/1.5 var(--f-body)}.mpt h4 span{font-weight:400;font-size:.85em;color:var(--mut);font-family:var(--f-ur)}
+html[lang="ur"] .mpt h4{font:700 17px/2 var(--f-ur)}html[lang="ur"] .mpt h4 span{font-family:var(--f-body)}
+.mpm{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.mps{margin-top:6px;font-size:13px;color:var(--mut)}html[lang="ur"] .mps{font-family:var(--f-ur);line-height:2}
+.mpb{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mpb .btn{justify-content:center;min-height:44px;text-align:center}
+.mpe{margin-top:16px;line-height:1.9}html[lang="ur"] .mpe{font-family:var(--f-ur)}
+.mpq{flex-wrap:wrap;overflow:visible}
+@media(max-width:560px){.mpgrid{grid-template-columns:1fr}.mpq[aria-label="Class"]{display:grid;grid-template-columns:repeat(3,1fr)}.mpq button{padding:8px 8px}}
 </style>
 
 <!-- VISITOR-COUNTER (GoatCounter, no cookies). Dashboard: https://ahsadillewali.goatcounter.com -->
@@ -1291,11 +1310,60 @@ function vPass() {
     <div class="soon" style="text-align:start">Class 8 sheets follow the unofficial 2027 pattern and will be updated when the official scheme comes.</div>${g}
     <div class="cta"><a class="btn ghost" href="#papers">Pairing scheme</a><a class="btn ghost" href="#model">Model papers</a><a class="btn ghost" href="#past">Past papers</a></div></div></section>`;
 }
+let MPF = {c: 'all', s: 'all', q: ''};
+try { const v = JSON.parse(localStorage.getItem('ahsa-mpf') || 'null'); if (v) MPF = Object.assign(MPF, v, {q: ''}); } catch (e) {}
+function mpSave() { try { localStorage.setItem('ahsa-mpf', JSON.stringify({c: MPF.c, s: MPF.s})); } catch (e) {} }
+const MP_AL = {'Mathematics': 'math maths mathematics riazi riyazi ryazi', 'Physics': 'phy physics fizix fiziks', 'Chemistry': 'chem chemistry kimia kemistry', 'Biology': 'bio biology', 'English': 'eng english angrezi inglish', 'Urdu': 'urdu', 'Islamiat': 'isl islamiat islamiyat', 'Pakistan Studies': 'pak pakistan studies pst mutala mutalia', 'Computer Science': 'cs comp computer science', 'General Science': 'gs general science'};
+const MP_CL = {'9': '9th ninth nine nehum nahum matric نہم نویں میٹرک', '10': '10th tenth ten dahum matric دہم دسویں میٹرک', '11': '11th 1st first year inter fsc part1 گیارہویں فرسٹ ایئر انٹر', '12': '12th 2nd second year inter fsc part2 بارہویں سیکنڈ ایئر انٹر'};
+const mpN = s => String(s || '').toLowerCase().replace(/[ً-ٰٟ]/g, '').replace(/ي|ى/g, 'ی').replace(/ك/g, 'ک').replace(/ه|ة/g, 'ہ').replace(/[؟?!.,،۔:+()]/g, ' ');
+let MPD = null;
+function mpData() {
+  if (MPD) return MPD;
+  return (MPD = SYL.filter(x => /model-paper/.test(x.f)).map(x => { const s = x.en.split(':')[0].replace(/\s*\d+$/, ''), su = x.ur.split(':')[0].replace(/\s*\d+$/, '');
+    return Object.assign({}, x, {s, su, hay: ' ' + mpN(`${x.en} ${x.ur} ${s} ${su} ${MP_AL[s] || ''} ${MP_CL[x.k] || ''} class ${x.k} جماعت model paper ماڈل پیپر smart syllabus paper scheme pairing`)}); }));
+}
+function mpMatch(x, q) {
+  const w = mpN(q).split(/\s+/).filter(Boolean); if (!w.length) return true;
+  return w.every(z => /^\d+$/.test(z) && +z >= 8 && +z <= 12 ? x.k === z : x.hay.replace(/\s+/g, ' ').includes(' ' + z));
+}
+function mpRows() { const d = mpData(); return d.filter(x => (MPF.c === 'all' || x.k === MPF.c) && (MPF.s === 'all' || x.s === MPF.s) && mpMatch(x, MPF.q)); }
+function mpList() {
+  const box = document.getElementById('mpList'), cnt = document.getElementById('mpCnt'), clr = document.getElementById('mpClr'); if (!box) return;
+  const rows = mpRows(), busy = MPF.c !== 'all' || MPF.s !== 'all' || MPF.q.trim();
+  if (cnt) cnt.innerHTML = `<b>${rows.length}</b> ${L('ماڈل پیپر', rows.length === 1 ? 'model paper' : 'model papers')}`;
+  if (clr) clr.hidden = !busy;
+  if (MPF.c === '8') { const p = SYL.find(x => x.k === '8' && x.kind === 'pattern');
+    box.innerHTML = `<div class="empty mpe"><b>${L('جماعت ہشتم کے ماڈل پیپر ابھی جاری نہیں ہوئے۔ جاری ہوتے ہی یہاں شامل کر دیے جائیں گے۔', 'Class 8 model papers are not released yet. They will be added here as soon as they come out.')}</b>${p ? `<div style="margin-top:12px"><a class="btn sm navy" href="${p.f}" target="_blank" rel="noopener">${L('پیپر پیٹرن 2027 دیکھیں', 'See Paper Pattern 2027')}</a></div>` : ''}</div>`; return; }
+  if (!rows.length) { box.innerHTML = `<div class="empty mpe"><b>${L('کوئی ماڈل پیپر نہیں ملا۔', 'No model paper found.')}</b><div style="margin-top:6px">${L('مضمون کا نام دوسرے طریقے سے لکھیں (مثلاً ریاضی، Math) یا فلٹر صاف کریں۔', 'Try another spelling (e.g. Math, ریاضی) or clear the filters.')}</div><div style="margin-top:12px"><button type="button" class="btn sm navy" data-mpclr="1">${L('سب فلٹر صاف کریں', 'Clear all filters')}</button></div></div>`; return; }
+  const by = {}; rows.forEach(x => (by[x.k] = by[x.k] || []).push(x));
+  box.innerHTML = ['9', '10', '11', '12'].filter(k => by[k]).map(k => { const c = DATA.find(x => x.k === k);
+    return `<div class="mpg"><h3>${esc(c ? clsName(c) : 'Class ' + k)} <span class="mpn">${by[k].length}</span></h3><div class="mpgrid">${by[k].map(x => `<div class="mpc"><div class="mpt"><h4>${esc(L(x.su, x.s))} <span>${L(x.s, x.su)}</span></h4><div class="mpm"><span class="tag">${L('جماعت', 'Class')} ${x.k}</span><span class="tag">${x.ext} · ${x.mb} MB</span>${x.nw && Date.now() < Date.parse(x.nw) + 14 * 864e5 ? '<span class="tag new">New</span>' : ''}</div><div class="mps">${L('اسمارٹ سلیبس + پیپر اسکیم + ماڈل پیپر 2027', 'Smart Syllabus + Paper Scheme + Model Paper 2027')}</div></div><div class="mpb"><a class="btn sm navy" href="${x.f}" target="_blank" rel="noopener">${L('دیکھیں', 'View')}</a><a class="btn sm wa" href="${x.f}" download>${L('ڈاؤن لوڈ', 'Download')}</a></div></div>`).join('')}</div></div>`; }).join('');
+}
+function mpChips() {
+  const box = document.getElementById('mpChips'); if (!box) return;
+  const d = mpData(), cn = k => d.filter(x => k === 'all' || x.k === k).length;
+  const inC = d.filter(x => MPF.c === 'all' || x.k === MPF.c), subs = [...new Set(inC.map(x => x.s))].sort();
+  if (MPF.s !== 'all' && !subs.includes(MPF.s)) MPF.s = 'all';
+  const su = s => (inC.find(x => x.s === s) || {}).su || s;
+  box.innerHTML = `<div class="mpl">${L('1. جماعت منتخب کریں', '1. Choose class')}</div><div class="qbc mpq" role="group" aria-label="Class">${['all', '8', '9', '10', '11', '12'].map(k => `<button type="button" data-mpc="${k}" aria-pressed="${MPF.c === k}">${k === 'all' ? L('تمام', 'All') : L('جماعت', 'Class') + ' ' + k} <small>${cn(k)}</small></button>`).join('')}</div>
+    ${MPF.c === '8' ? '' : `<div class="mpl">${L('2. مضمون منتخب کریں', '2. Choose subject')}</div><div class="qbc mpq" role="group" aria-label="Subject">${[['all', L('تمام مضامین', 'All subjects')]].concat(subs.map(s => [s, L(su(s), s)])).map(([v, l]) => `<button type="button" data-mps="${esc(v)}" aria-pressed="${MPF.s === v}">${esc(l)}</button>`).join('')}</div>`}`;
+}
+function mpDraw() { mpChips(); mpList(); }
+document.addEventListener('click', e => { const b = e.target.closest('[data-mpc],[data-mps],[data-mpclr]'); if (!b) return; const d = b.dataset;
+  if (d.mpc) { MPF.c = d.mpc; MPF.s = 'all'; } if (d.mps) MPF.s = d.mps;
+  if (d.mpclr) { MPF = {c: 'all', s: 'all', q: ''}; const i = document.getElementById('mpq'); if (i) i.value = ''; }
+  mpSave(); mpDraw(); });
+document.addEventListener('input', e => { if (e.target.id !== 'mpq') return; MPF.q = e.target.value; if (MPF.q.trim() && MPF.c === '8') { MPF.c = 'all'; mpChips(); } mpList(); });
 function vModel() {
-  const g = ['8', '9', '10', '11', '12'].map(k => { const c = DATA.find(x => x.k === k), items = SYL.filter(x => x.k === k && /model-paper/.test(x.f));
-    return items.length ? `<div><h3 style="margin:18px 0 8px">${esc(clsName(c))}</h3><div class="sylg">${items.map(x => `<div class="syl"><div style="min-width:0"><h4>${esc(L(x.ur, x.en))}</h4><div class="m" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span class="tag">${x.ext} · ${x.mb} MB</span></div></div><a class="btn sm navy" href="${x.f}" target="_blank" rel="noopener">Open</a></div>`).join('')}</div></div>` : ''; }).join('');
-  return `<section><div class="wrap view"><div class="sh"><div><div class="kick">Model Papers</div><h2>Model papers 2027</h2><p>Official PECTAA 2027 model papers (inside the smart syllabus + paper scheme files).</p></div></div>
-    <div class="soon" style="text-align:start">Model papers for Class 8 will be added here when released.</div>${g}
+  setTimeout(mpDraw, 0);
+  return `<section><div class="wrap view"><div class="sh"><div><div class="kick">Model Papers · <span lang="ur" dir="rtl">ماڈل پیپرز</span></div><h2>${L('ماڈل پیپرز 2027', 'Model papers 2027')}</h2><p>${L('پیکٹا 2027 کے سرکاری ماڈل پیپر (اسمارٹ سلیبس اور پیپر اسکیم والی فائل کے اندر)۔', 'Official PECTAA 2027 model papers (inside the smart syllabus + paper scheme files).')}</p>
+    <p class="qbu2" lang="ur" dir="rtl">جماعت اور مضمون چنیں یا نیچے سرچ میں مضمون کا نام لکھیں (اردو یا انگلش)، پھر «دیکھیں» یا «ڈاؤن لوڈ» دبائیں۔</p></div></div>
+    <div class="mpbox">
+      <label class="search mpsearch">${svg('search')}<input id="mpq" type="search" placeholder="${L('تلاش کریں: ریاضی 9، فزکس، Chemistry 12…', 'Search: Math 9, Physics, Chemistry 12, ریاضی…')}" aria-label="Search model papers" autocomplete="off" enterkeyhint="search"></label>
+      <div id="mpChips"></div>
+      <div class="mpbar"><span id="mpCnt" aria-live="polite"></span><button type="button" id="mpClr" class="mpclr" data-mpclr="1" hidden>✕ ${L('فلٹر صاف کریں', 'Clear filters')}</button></div>
+    </div>
+    <div id="mpList"></div>
     <div class="cta"><a class="btn ghost" href="#papers">Pairing scheme</a><a class="btn ghost" href="#past">Past papers</a></div></div></section>`;
 }
 let PAST = null, PPF = {c: '10', s: 'all', y: 'all', b: 'all'};
