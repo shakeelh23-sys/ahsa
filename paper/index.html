@@ -365,7 +365,7 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
 .qrow{display:flex;gap:10px;align-items:flex-start;border:2px solid var(--line);border-radius:12px;padding:10px;background:var(--soft);cursor:pointer;font-size:16px;line-height:1.45}
 .qrow.on{border-color:var(--gold);background:rgba(255,193,7,.12)}
 .qrow input{width:24px;height:24px;flex:none;margin-top:2px;accent-color:#e0a800}
-.qrow .qt{flex:1;min-width:0;overflow-wrap:anywhere}
+.qrow .qt{flex:1;min-width:0;overflow-wrap:break-word}
 .qrow small{display:inline-block;color:var(--mut);font-size:12.5px;margin-inline-end:6px}
 .qrow .qo{display:block;color:var(--mut);font-size:14px;margin-top:3px}
 .qrow img{display:block;max-width:100%;height:auto;background:#fff;border-radius:6px;margin-top:4px}
@@ -425,6 +425,110 @@ textarea.inp{min-height:80px;font-family:inherit}
 .page.cols2 .ops{margin-inline-start:26px}.page.cols2[dir="rtl"] .ops{margin:1px 26px 2px 0}
 .page.btpg .btop.rw .qa{position:relative}.page.btpg .btop.rw .col{border-color:transparent!important}.page.btpg .btop.rw .qa::after{content:"Rough work · کچا کام";position:absolute;top:2mm;left:0;right:0;text-align:center;font:9pt/1.4 "DejaVu Sans",Verdana,Arial,sans-serif;color:#777}
 .btn.onepg{margin:8px 0 4px}
+/* ===== Sample-paper style (2026-11-22): double page border, shaded title box, header table, shaded bars, MCQ table, End of Paper, italic footer ===== */
+.page{--nv:#1f3a5f;--sd:#e5eff0}
+.page .pf{left:0;right:0;justify-content:center;font:italic 400 10.5px/1.2 "Times New Roman",Georgia,serif;color:#444}
+.page.half .pf{font-size:9px}
+.page.bdr{--fo:40px}
+.page.bdr.bdr.bdr{padding:calc(var(--fo) + 28px) calc(var(--fo) + 34px) calc(var(--fo) + 14px)}
+.page.bdr.tg1{--fo:32px}.page.bdr.tg2{--fo:24px}.page.bdr.tg3{--fo:18px}.page.bdr.tm{--fo:9px}
+.page.bdr.bdr.bdr.tm{padding:calc(var(--fo) + 22px) calc(var(--fo) + 24px) calc(var(--fo) + 12px)}
+.page.bdr .pf{bottom:calc(var(--fo) + 26px)}.page.bdr.tm .pf{bottom:calc(var(--fo) + 16px)}
+.page.half.bdr{--fo:11px}
+.page.half.bdr.bdr.bdr{padding:calc(var(--fo) + 17px) calc(var(--fo) + 22px) calc(var(--fo) + 2px)}
+.page.half.bdr.tg1{--fo:9px}.page.half.bdr.tg2,.page.half.bdr.tg3{--fo:7px}.page.half.bdr.tm{--fo:5px}
+.page.half.bdr.bdr.bdr.tm{padding:calc(var(--fo) + 13px) calc(var(--fo) + 16px) calc(var(--fo) + 2px)}
+.page.half.bdr .pf,.page.half.bdr.tm .pf{bottom:calc(var(--fo) + 11px)}
+.page.bdr::before,.page.bdr::after,.bdr .t2h::before,.bdr .t2h::after,.btpg.bdr .btop::before,.btpg.bdr .btop::after,.btpg.bdr .bbot::before,.btpg.bdr .bbot::after{content:"";position:absolute;pointer-events:none;box-sizing:border-box}
+.page.bdr::before{inset:calc(var(--fo) - 1.5px);border:3px solid #000}
+.page.bdr::after{inset:calc(var(--fo) + 7px);border:1px solid #000}
+.page.half.bdr::before{inset:calc(var(--fo) - 1px);border-width:2px}.page.half.bdr::after{inset:calc(var(--fo) + 4px)}
+.page.blank::before,.page.blank::after,.page.t2pg::before,.page.t2pg::after,.page.btpg::before,.page.btpg::after{display:none}
+/* title box + header table */
+.page .ph{border:0;border-radius:0;padding:0;margin-bottom:9px}
+.ph .tb{display:flex;align-items:center;gap:10px;border:1.5px solid #000;background:var(--sd);padding:6px 10px 7px}
+.ph .tb img{width:50px;height:50px;border-radius:50%;flex:none;background:#fff}
+.ph .tc{flex:1;text-align:center;min-width:0}
+.ph .tb .in{font:700 12.5px/1.35 "Times New Roman",Georgia,serif;letter-spacing:.2px}
+.ph .tb .t1{font:700 25px/1.25 "Times New Roman",Georgia,serif;color:var(--nv);letter-spacing:.2px}
+.ph .tb .t2{font-weight:700;font-size:14.5px;line-height:1.4;margin-top:2px}
+.ph .tb .t3{font-size:14.5px;line-height:1.45;margin-top:3px}
+.ph .tb .t4{font-size:11.5px;line-height:1.3;margin-top:2px;color:#222}
+.ph .tb .set{flex:none}
+.ph .ht{border:1.5px solid #000;margin-top:6px}
+.ph .hr{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:4px 10px;font-size:14.5px;white-space:nowrap}
+.ph .hr:first-child{border-bottom:1px solid #000;padding:5px 10px}
+.ph .hr+.hr+.hr{padding-bottom:6px}
+.ph .hr b{font-weight:700}
+.ph .ln{display:inline-block;width:96px;border-bottom:1px solid #000;height:.9em;vertical-align:baseline}
+.ph .ln.w2{width:210px}
+.page[dir="rtl"] .ph .tb .in,.page[dir="rtl"] .ph .tb .t1{font-family:"AHSA JNN Paper",var(--f-ur);letter-spacing:0}
+.page[dir="rtl"] .ph .tb .t1{font-size:25px;line-height:1.6}
+.page[dir="rtl"] .ph .tb .in{font-size:14px;line-height:1.6}
+.page[dir="rtl"] .ph .hr{font-size:15.5px;padding-top:2px;padding-bottom:2px}
+.page[dir="rtl"] .ph .tb .t2,.page[dir="rtl"] .ph .tb .t3{font-size:15.5px;line-height:1.6}
+.page.half .ph .tb{padding:3px 8px 4px;gap:8px}.page.half .ph .tb img{width:36px;height:36px}
+.page.half .ph .tb .t1{font-size:18px}.page.half .ph .tb .t2,.page.half .ph .tb .t3,.page.half .ph .hr{font-size:12.5px}
+.page.half .ph .tb .in{font-size:11px}.page.half .ph .hr{padding:1px 8px}.page.half .ph .ht{margin-top:4px}
+.page.tg2 .ph .tb,.page.tg3 .ph .tb{padding:3px 8px 4px}.page.tg2 .ph .hr,.page.tg3 .ph .hr{padding:2px 10px}.page.tg2 .ph .ht,.page.tg3 .ph .ht{margin-top:4px}
+.page.tg3 .ph .tb img{width:42px;height:42px}
+/* shaded bars + part titles */
+.page .body .sh{background:var(--sd);border:1.2px solid #222;padding:5px 10px;margin:8px 0 6px;font-size:15px}
+.page[dir="rtl"] .body .sh{font-size:16.5px;padding:2px 10px}
+.page .body .sh.shm{background:none;border:0;padding:0;display:block;margin-bottom:0}
+.page .body .sh .shb{display:flex;justify-content:space-between;gap:10px;background:var(--sd);border:1.2px solid #222;padding:5px 10px;margin-bottom:5px}
+.page[dir="rtl"] .body .sh .shb{padding:2px 10px}
+.page .shb>span[dir="ltr"]{white-space:nowrap;flex:none}
+.page.tg1 .body .sh{margin:6px 0 4px}.page.tg1 .body .sh:not(.shm),.page.tg1 .body .shb{padding:3px 9px}
+.page.tg2 .body .sh,.page.tg3 .body .sh{margin:4px 0 3px}.page.tg2 .body .sh:not(.shm),.page.tg3 .body .sh:not(.shm),.page.tg2 .body .shb,.page.tg3 .body .shb{padding:1px 8px}
+.page.tg2 .body .shb,.page.tg3 .body .shb{margin-bottom:3px}
+.page.half .body .sh:not(.shm),.page.half .body .shb{padding:2px 8px;font-size:13px}.page.half .body .sh{margin:4px 0}
+.page .body .pt{letter-spacing:0;font-size:15.5px;margin:10px 0 4px}
+.page .body .sh.shm.shm{font-size:inherit;margin-bottom:0}
+.page .body .sh.shm .shb{font-size:15px}.page[dir="rtl"] .body .sh.shm .shb{font-size:16.5px}.page.half .body .sh.shm .shb{font-size:13px}
+.page.half .ph .tb .in,.page.half .ph .tb .t1,.page.half .ph .tb .t2,.page.half .ph .tb .t3{line-height:1.2;margin-top:0}
+.page.half .ph .tb .t1{font-size:17px}.page.half .ph .tb img{width:32px;height:32px}.page.half .ph .hr:first-child{padding:1px 8px}
+.page.half[dir="rtl"] .ph .tb .t1,.page.half[dir="rtl"] .ph .tb .in{line-height:1.45}
+.page .eop{text-align:center;font-weight:700;margin:12px 0 0;letter-spacing:.5px}
+.page.tg2 .eop,.page.tg3 .eop,.page.half .eop{margin-top:5px}
+/* MCQ table: No. | Questions | (A) (B) (C) (D) */
+.page .body .mr{display:grid;grid-template-columns:var(--mc,6.5% 30% repeat(4,1fr));border:1px solid #000;border-top:0;padding:0;gap:0;align-items:stretch}
+.page .body .mr>*{padding:4px 6px;border-inline-start:1px solid #000;display:flex;align-items:center;justify-content:center;text-align:center;min-width:0;overflow-wrap:break-word}
+.page .body .mr>:first-child{border-inline-start:0}
+.page .body .mr .mq{justify-content:flex-start;text-align:start}
+.page .body .mr>*>span{display:block;min-width:0;max-width:100%}
+.page .body .mr .mq img{max-width:100%}
+.page .body .mr.z{background:#f7f7fd}
+.page .body .mr.mh{background:var(--sd);border-top:1px solid #000;font-weight:700}
+.page .body .mr.mh .mq{justify-content:center}
+.page .body>.mr:first-child,.page .body>:not(.mr):not(.shm)+.mr{border-top:1px solid #000}
+.page .mr .ml{display:none;font-weight:700;margin-inline-end:3px}
+.page.tg1 .body .mr>*{padding:3px 5px}.page.tg2 .body .mr>*{padding:1.5px 4px}.page.tg3 .body .mr>*{padding:0 3px}
+.page.half .body .mr>*{padding:1px 4px}
+.page[dir="rtl"] .body .mr>*{padding-top:0;padding-bottom:0}
+/* two columns: options under the question inside each row */
+.page.cols2 .body .mr{grid-template-columns:30px 1fr 1fr;grid-template-areas:"n q q" "n a b" "n c d"}
+.page.cols2 .body .mr>*{border-inline-start:0;justify-content:flex-start;text-align:start;padding:1px 4px}
+.page.cols2 .body .mr .mn{grid-area:n;border-inline-end:1px solid #000;justify-content:center;padding:0}
+.page.cols2 .body .mr .mq{grid-area:q}
+.page.cols2 .body .mr .mo:nth-child(3){grid-area:a}.page.cols2 .body .mr .mo:nth-child(4){grid-area:b}.page.cols2 .body .mr .mo:nth-child(5){grid-area:c}.page.cols2 .body .mr .mo:nth-child(6){grid-area:d}
+.page.cols2 .mr .ml{display:inline}
+.page.cols2 .body .mr.o4{grid-template-columns:30px repeat(4,1fr);grid-template-areas:"n q q q q" "n a b c d"}
+.page.cols2 .body .mr.mh{grid-template-areas:"n q q"}.page.cols2 .body .mr.mh .mo{display:none}
+.page.cols2 .body>.mr,.page.cols2 .body>.sh{break-inside:avoid}
+/* 1 student per A4 and 2 per A4: same shaded look, frame around each half */
+.btpg .hdr,.t2pg .hdr{background:var(--sd,#e5eff0);border:.3mm solid #222!important;padding:.7mm 2mm!important}
+.btpg .hdr .h1,.t2pg .hdr .h1{color:#1f3a5f}
+.btpg .bh,.t2pg .bh{background:#e5eff0!important;color:#000!important;border-bottom:.3mm solid #222}
+.btpg .ish{background:#e5eff0!important;border:.3mm solid #222;border-radius:0!important}
+.btpg .ftr,.t2pg .ftr{border:0!important;border-top:.25mm solid #555!important;font-style:italic}
+.t2pg .set,.btpg .bset{background:#1f3a5f!important}
+.bdr .t2h::before{inset:2.2mm;border:.8mm solid #000}.bdr .t2h::after{inset:3.6mm;border:.27mm solid #000}
+.t2pg.bdr .t2h{padding:7.5mm 8.5mm 7mm}
+.btpg.bdr .btop::before,.btpg.bdr .bbot::before{inset:1.8mm;border:.8mm solid #000}.btpg.bdr .btop::after,.btpg.bdr .bbot::after{inset:3.1mm;border:.27mm solid #000}
+.page.t2pg.bdr.bdr.bdr.bdr,.page.btpg.bdr.bdr.bdr.bdr{padding:0}
+.page.btpg.bdr .btop{padding:6.5mm 7.5mm 4.5mm}.page.btpg.bdr .bbot{padding:5.5mm 7.5mm 6mm}
+
 .page.blank .pf{display:none}
 .fitbar{border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin:0 0 12px;background:var(--soft)}
 .fitbar .fl{font-weight:800;font-size:15px;margin:2px 0}.fitbar .fl .u{font-weight:600;margin-inline-start:6px}
@@ -478,7 +582,7 @@ let REACH=1, FRESH=false; const MO={}; // furthest wizard step reached; paper ju
 // Every visit starts at step 1 with default settings. Old settings are NOT restored automatically;
 // the teacher can bring them back only with the small «Reuse previous settings» button on step 1.
 const LAST=LS.get('ahsa-pm-last',null);
-function freshS(base){const X=Object.assign({c:null,s:null,m:null,ch:[],tpl:'mt',time:70,pass:33,ab:false,exd:true,norep:true,inst:LS.get('ahsa-pm-inst',DEF_INST),
+function freshS(base){const X=Object.assign({c:null,s:null,m:null,ch:[],tpl:'mt',time:70,pass:33,ab:false,exd:true,norep:true,bord:true,inst:LS.get('ahsa-pm-inst',DEF_INST),
   mcq:{n:10,mk:1,mix:false,e:4,md:4,h:2},sq:{n:10,mk:2,mix:false,e:4,md:4,h:2},lq:{n:2,mk:5,mix:false,e:1,md:1,h:0},num:{n:0,mk:5,mix:false,e:0,md:0,h:0}},base?JSON.parse(JSON.stringify(base)):{});
   if(!X.num)X.num={n:0,mk:5,mix:false,e:0,md:0,h:0};
   if(!X.pick)X.pick={mcq:[],sq:[],lq:[],num:[]};
@@ -620,6 +724,7 @@ async function stepSettings(){
    +moBox('rep','🔁','Repeat and syllabus','پچھلے پیپرز والے سوال دوبارہ نہ آئیں، اور صرف اسمارٹ سلیبس کے سوال',lastNSel()+(smart?`<label class="tog"><input type="checkbox" data-opt="exd" ${S.exd?'checked':''}> ${bi('Smart Syllabus 2027 only (skip deleted questions)','اسمارٹ سلیبس 2027 (خارج سوالات نہیں)')}</label>`:''))
    +moBox('hdr','✏️','Name, title, teacher, date','پیپر کے اوپر ادارے کا نام، پیپر کا عنوان، استاد کا نام اور تاریخ',instField()+hdrText())
    +(two?'':moBox('size','📐','Paper size','پورا A4 صفحہ، یا آدھا صفحہ (ایک A4 پر دو پیپر)',sizeSel()))
+   +moBox('bord','🔲','Page border','صفحے کے گرد دوہرا بارڈر (موٹی اور باریک لائن) لگائیں یا ہٹائیں',bordSel())
    +moBox('logo','🖼️','Logo on paper','پیپر پر اکیڈمی کا لوگو یا اپنا لوگو',logoSel())
    +moBox('font','🔤','Font','فونٹ خودکار ہے: اردو پیپر جمیل نوری نستعلیق میں، فونٹ کبھی چھوٹا نہیں ہوتا',`<p class="hint">${bi('Urdu papers always use Jameel Noori Nastaleeq. One font size for the whole paper; it never shrinks. To make the paper shorter or longer, use «Pages and sides».','اردو پیپر ہمیشہ جمیل نوری نستعلیق میں بنتا ہے۔ پورے پیپر میں ایک ہی فونٹ سائز، کبھی چھوٹا نہیں ہوتا۔ صفحات کم یا زیادہ کرنے کے لیے «Pages and sides» استعمال کریں۔')}</p>`)
    +moBox('preset','💾','Save these settings','یہ ترتیب نام سے محفوظ کریں، اگلی بار ایک ٹیپ میں لگ جائے گی',presetSave()))}
@@ -631,6 +736,7 @@ function hdrFields(t2){return hdrText()+(t2?'':sizeSel())+logoSel()}
 function hdrText(){return `<div class="ef"><label for="ttl">Paper title<span class="u">پیپر کا عنوان (اختیاری)</span></label><input class="inp" id="ttl" value="${esc(S.ttl||'')}" maxlength="60" placeholder="e.g. December Test">
   <label for="tch">Teacher name<span class="u">استاد کا نام (اختیاری)</span></label><input class="inp" id="tch" value="${esc(S.tch||'')}" maxlength="50">
   <label for="dstr">Date on paper<span class="u">تاریخ (اختیاری)</span></label><input class="inp" id="dstr" value="${esc(S.dstr||'')}" maxlength="30" placeholder="e.g. 20-11-2026"></div>`}
+function bordSel(P){const on=P?P.bord!==0:S.bord!==false;return `<div class="ef"><label>Page border<span class="u">صفحے کا بارڈر</span></label><div class="seg"><button type="button" class="ch" data-bord="1" aria-pressed="${on}"><b>Border on</b><span class="u">دوہرا بارڈر</span></button><button type="button" class="ch" data-bord="0" aria-pressed="${!on}"><b>Border off</b><span class="u">بغیر بارڈر</span></button></div></div>`}
 function sizeSel(){return `<div class="ef"><label>Paper size<span class="u">پیپر کا سائز</span></label><div class="seg"><button type="button" class="ch" data-half="0" aria-pressed="${!S.half}"><b>A4 full page</b><span class="u">پورا صفحہ</span></button><button type="button" class="ch" data-half="1" aria-pressed="${!!S.half}"><b>Half page</b><span class="u">آدھا صفحہ (ایک A4 پر 2)</span></button></div></div>`}
 function logoSel(){return `<div class="ef"><label>Logo on paper<span class="u">پیپر پر لوگو</span></label><div class="row"><label class="btn line" style="flex:1">🖼️ My logo<input type="file" id="logoIn" accept="image/*" hidden></label>${LS.get('ahsa-pm-logo',null)?`<button type="button" class="btn line" data-logodel style="flex:1">↩️ AHSA logo</button>`:''}</div>${LS.get('ahsa-pm-logo',null)?`<img src="${LS.get('ahsa-pm-logo','')}" alt="" style="width:56px;height:56px;border-radius:50%;margin-top:6px;object-fit:cover">`:''}</div>`}
 function presetSave(){return `<div class="ef" style="border-top:1px solid var(--line);padding-top:10px"><label for="pname">Save these settings as a preset<span class="u">یہ ترتیب محفوظ کریں</span></label><div class="srow"><input class="inp" id="pname" maxlength="40" placeholder="e.g. Class 10 Physics Monthly"><button type="button" class="btn line" data-psave>💾 Save</button></div></div>`}
@@ -726,39 +832,59 @@ const qh=q=>q.i?`<img class="qimg" src="${q.i}" width="${Math.round(q.w*1.32)}" 
 function blocks(P,set){
   if(P.bp)return boardBlocks(P,set);
   const ur=P.m==='um', D=setData(P,set), [T,pm]=totals(P), B=[];
-  const chs=P.chs.slice().sort((a,b)=>a-b).filter(n=>n>0&&n<100);
-  B.push(phead(P,set,T,pm,chs.length?(ur?'ابواب: '+chs.join('، '):'Chapters: '+chs.join(', ')):''));
-  let qn=0, sn=0; const nSec=['mcq','sq','lq','num'].filter(t=>D[t]&&D[t].length).length;
-  const sec=(en,u)=>{if(nSec<2)return;const L='ABCD'[sn],U=['اول','دوم','سوم','چہارم'][sn];sn++;B.push(`<div class="pt">${ur?`حصہ ${U} (${u})`:`SECTION ${L} · ${en}`}</div>`)};
+  B.push(phead(P,set,T,pm,''));
+  let qn=0; const hasSub=['sq','lq','num'].some(t=>D[t]&&D[t].length), two=D.mcq.length&&hasSub, om=two?objMin(P,D.mcq.length):0;
   const sw=(t,i)=>set==='A'?` data-sw="${t}|${i}"`:'';
-  const head=(t,en,u)=>{const c=D[t].length,mk=P.sec[t].mk;qn++;const ins=P.ins&&P.ins[t]?esc(P.ins[t]):(ur?u:en);return `<div class="sh"><span>${ur?`سوال نمبر ${qn}: ${ins}`:`Q.${qn} ${ins}`}</span><span dir="ltr">(${c} × ${mk} = ${c*mk})</span></div>`};
-  if(D.mcq.length){sec('OBJECTIVE','معروضی');B.push(head('mcq','Choose the correct option.','درست جواب کا انتخاب کریں۔'));
-    D.mcq.forEach((q,i)=>{const L=Math.max(...q.o.map(o=>plain(o).length));const cols=L<=16?'c4':L<=38?'c2':'c1';
-      B.push(`<div class="qi"${sw('mcq',i)}><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});}
+  const bar=(t,en,u,pre)=>{const c=D[t].length,mk=P.sec[t].mk;qn++;const ins=P.ins&&P.ins[t]?esc(P.ins[t]):(ur?u:en);return `<span>${pre||''}${ur?`سوال نمبر ${qn}: ${ins}`:`Q.${qn} ${ins}`}</span><span dir="ltr">(${c} × ${mk} = ${c*mk})</span>`};
+  const head=(t,en,u)=>`<div class="sh">${bar(t,en,u)}</div>`;
+  if(D.mcq.length){const pre=two?(ur?`حصہ اول: معروضی${om?` (${fmtTimeUr(om)})`:''} — `:`Part-I: Objective${om?` (${fmtTime(om)})`:''} `):'';
+    const w=mcqW(D.mcq,ur);B.push(mcqHead(ur,bar('mcq','Select the correct answer.','درست جواب کا انتخاب کریں۔',pre),w));
+    D.mcq.forEach((q,i)=>B.push(mcqRow(q,i,sw('mcq',i),w)));}
   B.split=B.length; // blocks before this = header + MCQs (page 1), from here = short/long/numericals (page 2)
-  if(D.sq.length){sec('SHORT QUESTIONS','مختصر سوالات');B.push(head('sq','Write short answers to the following questions.','درج ذیل سوالات کے مختصر جوابات تحریر کریں۔'));
+  if(two){const sm=om?P.time-om:0;B.push(`<div class="pt">${ur?`حصہ دوم: انشائیہ${sm?` (${fmtTimeUr(sm)})`:''}`:`Part-II: Subjective${sm?` (${fmtTime(sm)})`:''}`}</div>`)}
+  if(D.sq.length){B.push(head('sq','Write short answers to the following questions.','درج ذیل سوالات کے مختصر جوابات تحریر کریں۔'));
     D.sq.forEach((q,i)=>B.push(`<div class="qi"${sw('sq',i)}><span class="n">${ur?'('+(i+1)+')':(roman(i+1))}</span><div class="tx">${q.q}</div></div>`));}
-  if(D.lq.length){sec('LONG QUESTIONS','تفصیلی سوالات');B.push(head('lq','Answer the following questions in detail.','درج ذیل سوالات کے تفصیلی جوابات تحریر کریں۔'));
+  if(D.lq.length){B.push(head('lq','Answer the following questions in detail.','درج ذیل سوالات کے تفصیلی جوابات تحریر کریں۔'));
     D.lq.forEach((q,i)=>B.push(`<div class="qi lqs"${sw('lq',i)}><span class="n">${ur?'('+(i+1)+')':(String.fromCharCode(97+i))+')'}</span><div class="tx">${q.q}</div></div>`));}
-  if(D.num&&D.num.length){sec('NUMERICALS','عددی سوالات');B.push(head('num','Solve the following numericals.','درج ذیل عددی سوالات حل کریں۔'));
+  if(D.num&&D.num.length){B.push(head('num','Solve the following numericals.','درج ذیل عددی سوالات حل کریں۔'));
     D.num.forEach((q,i)=>B.push(`<div class="qi lqs"${sw('num',i)}><span class="n">${ur?'('+(i+1)+')':(String.fromCharCode(97+i))+')'}</span><div class="tx">${q.q}</div></div>`));}
+  B.push(eopB(ur));
   return B;
 }
-function hdrOf(){return {ctitle:(S.ttl||'').trim(),teacher:(S.tch||'').trim(),dstr:(S.dstr||'').trim(),half:!!S.half,logo:LS.get('ahsa-pm-logo',null)?1:0,fit:S.fit||'a',sides:+S.sides||0,cline:S.cline===0?0:1}}
+function hdrOf(){return {ctitle:(S.ttl||'').trim(),teacher:(S.tch||'').trim(),dstr:(S.dstr||'').trim(),half:!!S.half,logo:LS.get('ahsa-pm-logo',null)?1:0,fit:S.fit||'a',sides:+S.sides||0,bord:S.bord===false?0:1,cline:S.cline===0?0:1}}
+function rngTxt(a,ur){const r=[];a.forEach(n=>{const l=r[r.length-1];if(l&&n===l[1]+1)l[1]=n;else r.push([n,n])});return r.map(([x,y])=>x===y?''+x:x+(y===x+1?(ur?'، ':', '):'–')+y).join(ur?'، ':', ')}
+function chsOf(P){return P.chs.slice().sort((a,b)=>a-b).filter(n=>n>0&&n<100)}
+function chLine(P,ur){const chs=chsOf(P);if(!chs.length)return '';const u=(IDX&&IDX[P.k]&&IDX[P.k].u)||[];
+  const nm=chs.map(n=>(u.find(x=>x[0]===n)||[])[1]).filter(Boolean),one=chs.length===1;
+  const names=nm.length===chs.length&&chs.length<=3&&nm.join(', ').length<=72?` (${nm.map(esc).join(ur?'، ':', ')})`:'';
+  return (ur?(one?'باب ':'ابواب '):(one?'Chapter ':'Chapters '))+rngTxt(chs,ur)+names}
+function clShort(c){return CL[c][0].replace(' (1st Year)','').replace(' (2nd Year)','')}
+function footTxt(P){const chs=chsOf(P),c=chs.length?'Ch '+rngTxt(chs):'';return [P.ctitle||P.title,SB[P.s][0]+' '+clShort(P.c),c.length<=26?c:''].filter(Boolean).join(' | ')}
+function pgTxt(i,n){return (PFT?PFT+' | ':'')+'Page '+(i+1)+(n>1?' of '+n:'')}
+function objMin(P,n){if(!n)return 0;const o=n<=12?15:n<=15?20:Math.ceil(n*1.25/5)*5;return o<P.time?o:0}
 function phead(P,set,T,pm,foot){
-  const ur=P.m==='um', inst=esc(P.inst), isDef=P.inst===DEF_INST, ttl=P.ctitle?esc(P.ctitle):(ur?P.titleUr:P.title), ds=P.dstr?esc(P.dstr):'____________';
+  const ur=P.m==='um', inst=esc(P.inst), isDef=P.inst===DEF_INST, ttl=P.ctitle?esc(P.ctitle):(ur?P.titleUr:P.title);
   const lg=P.logo&&LS.get('ahsa-pm-logo',null)?LS.get('ahsa-pm-logo',''):'../assets/logo-96.webp';
-  return `<div class="ph"><div class="r1"><img src="${lg}" alt=""><div class="nm"><b>${inst}</b>${isDef?'<span class="u">الحسن سائنس اکیڈمی دلیوالی</span>':''}</div>${P.ab?`<span class="set">SET ${set}</span>`:''}</div>
-   <div class="r2">${ur?`<span class="u">${ttl} · ${SB[P.s][1]} · ${CL[P.c][1]}</span>`:`${ttl} · ${SB[P.s][0]} · ${CL[P.c][0]}`}</div>
-   ${P.teacher?`<div class="tch">${ur?'استاد':'Teacher'}: <b>${esc(P.teacher)}</b></div>`:''}
-   <div class="r3">${ur?`<span>وقت: ${fmtTimeUr(P.time)}</span><span>کل نمبر: ${T}</span><span>پاسنگ نمبر: ${pm}</span><span>تاریخ: ${ds}</span>`:`<span>Time: ${fmtTime(P.time)}</span><span>Total Marks: ${T}</span><span>Passing Marks: ${pm}</span><span>Date: ${ds}</span>`}</div>
-   <div class="r4">${ur?'<div>طالب علم کا نام:</div><div>رول نمبر:</div><div>حاصل کردہ نمبر:</div>':'<div>Student Name:</div><div>Roll No.:</div><div>Marks Obtained:</div>'}</div>
-   <div class="chs">${foot||''}</div></div>`}
+  const t1=ur?`${SB[P.s][1]} — ${CL[P.c][1]}`:`${SB[P.s][0].toUpperCase()} — ${clShort(P.c).toUpperCase()}`, chl=chLine(P,ur);
+  const t3=[ttl,P.teacher?(ur?'استاد: ':'Teacher: ')+esc(P.teacher):''].filter(Boolean).join(' • ');
+  const ln=w=>`<i class="ln${w?' '+w:''}"></i>`, ds=P.dstr?esc(P.dstr):ln();
+  const L=ur?{ta:'وقت',pm:'پاسنگ نمبر',mm:'کل نمبر',nm:'طالب علم کا نام',rn:'رول نمبر',cs:'جماعت / سیکشن',mo:'حاصل کردہ نمبر',dt:'تاریخ'}:{ta:'Time Allowed',pm:'Passing Marks',mm:'Maximum Marks',nm:'Name',rn:'Roll No.',cs:'Class / Section',mo:'Marks Obtained',dt:'Date'};
+  const tm=ur?fmtTimeUr(P.time):fmtTime(P.time).replace(/^(\d+) hours?$/,(m,h)=>h+(h>1?' Hours':' Hour'));
+  return `<div class="ph"><div class="tb"><img src="${lg}" alt=""><div class="tc"><div class="in">${inst}${isDef?' · <span class="u">الحسن سائنس اکیڈمی دلیوالی</span>':''}</div><div class="t1">${t1}</div>${chl?`<div class="t2">${chl}</div>`:''}<div class="t3">${t3}</div>${foot?`<div class="t4">${foot}</div>`:''}</div>${P.ab?`<span class="set">SET ${set}</span>`:''}</div>
+   <div class="ht"><div class="hr"><span><b>${L.ta}:</b> ${tm}</span><span><b>${L.pm}:</b> ${pm}</span><span><b>${L.mm}: ${T}</b></span></div>
+   <div class="hr"><span><b>${L.nm}:</b> ${ln('w2')}</span><span><b>${L.rn}:</b> ${ln()}</span></div>
+   <div class="hr"><span><b>${L.cs}:</b> ${ln()}</span><span><b>${L.mo}:</b> ${ln()}</span><span><b>${L.dt}:</b> ${ds}</span></div></div></div>`}
+function mcqW(qs,ur){ // math options cannot wrap: widen the option columns to fit the longest one (estimate)
+  const L=Math.max(0,...qs.flatMap(q=>q.o.filter(o=>/<math/.test(o)).map(o=>plain(o.replace(/<annotation[\s\S]*?<\/annotation>/g,'')).length)));if(L<=7)return '';
+  const op=Math.min(18.5,Math.max(15.875,(L*(ur?10:9)+16)/646*100)),n=ur?6.5:5.5,qw=+(100-n-4*op).toFixed(2);return ` style="--mc:${n}% ${qw}% repeat(4,1fr)" data-w="${n},${qw},${op}"`}
+function mcqHead(ur,bar,w){return `<div class="sh shm"><div class="shb">${bar}</div><div class="mr mh"${w||''}><span class="mn">${ur?'نمبر':'No.'}</span><div class="mq">${ur?'سوالات':'Questions'}</div>${'ABCD'.split('').map(l=>`<div class="mo">(${l})</div>`).join('')}</div></div>`}
+function mcqRow(q,i,sw,w){const o=q.o.slice();while(o.length<4)o.push('');const L=Math.max(...o.map(x=>plain(x.replace(/<annotation[\s\S]*?<\/annotation>/g,'')).length*(/<math/.test(x)?1.7:1)));return `<div class="qi mr${i%2?' z':''}${L<=8?' o4':''}"${w||''}${sw}><span class="mn">${i+1}</span><div class="mq"><span>${q.q}</span></div>${o.map((x,j)=>`<div class="mo"><span>${x?`<b class="ml">(${'ABCD'[j]})</b>${x}`:''}</span></div>`).join('')}</div>`}
+function eopB(ur){return `<div class="eop">${ur?'*** پیپر ختم ***':'*** End of Paper ***'}</div>`}
 function roman(n){const m=[[10,'x'],[9,'ix'],[5,'v'],[4,'iv'],[1,'i']];let s='';for(const[v,r]of m)while(n>=v){s+=r;n-=v}return '('+s+')'}
 function keyBlocks(P){
   if(P.bp)return boardKey(P);
   const B=[], sets=P.ab?['A','B']:['A'];
-  B.push(`<div class="ph"><div class="r1"><img src="../assets/logo-96.webp" alt=""><div class="nm"><b>${esc(P.inst)}</b></div></div><div class="r2">Answer Key · ${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div>`);
+  B.push(`<div class="ph"><div class="tb"><img src="../assets/logo-96.webp" alt=""><div class="tc"><div class="in">${esc(P.inst)}</div><div class="t1">ANSWER KEY</div><div class="t3">${esc(P.ctitle||P.title)} • ${SB[P.s][0]} • ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div></div></div>`);
   sets.forEach(s=>{const D=setData(P,s);
     B.push(`<div class="kt">${P.ab?'Set '+s+' · ':''}MCQs Answer Key</div>`);
     if(D.mcq.length)B.push(`<div class="kg">${D.mcq.map((q,i)=>`<span>${i+1} · ${'ABCD'[q.a]}</span>`).join('')}</div>`);
@@ -769,9 +895,10 @@ function keyBlocks(P){
 }
 function paginate(B,rtl,half,o={}){ // fills A4 (or half-A4) pages in #stage, returns page elements; o.cls = spacing level, o.gap = answer space after every question (px)
   const st=$('#stage'); st.innerHTML=''; const pages=[];
-  const mk=()=>{const p=document.createElement('div');p.className='page'+(half?' half':'')+(o.cls?' '+o.cls:'');if(rtl){p.dir='rtl';p.lang='ur'}p.innerHTML='<div class="body"></div><div class="pf"><span>AHSA Auto Paper Maker · shakeelh23-sys.github.io/ahsa</span><span class="pg"></span></div>';st.appendChild(p);pages.push(p);return p};
+  const mk=()=>{const p=document.createElement('div');p.className='page'+(half?' half':'')+(o.cls?' '+o.cls:'')+bc();if(rtl){p.dir='rtl';p.lang='ur'}p.innerHTML='<div class="body"></div><div class="pf"><span class="pg"></span></div>';st.appendChild(p);pages.push(p);return p};
   let p=mk(),body=p.querySelector('.body'); const cs=getComputedStyle(p), full=p.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(half?26:30), lim=o.lim||full; paginate.lim=full;
-  B.forEach((h,i)=>{const t=document.createElement('div');t.innerHTML=h;const el=t.firstElementChild;el.dataset.bi=(o.off||0)+i;if(o.gap&&el.matches('.qi,.bq'))el.style.marginBottom=o.gap+'px';body.appendChild(el);
+  B.forEach((h,i)=>{const t=document.createElement('div');t.innerHTML=h;const el=t.firstElementChild;el.dataset.bi=(o.off||0)+i;if(o.gap&&el.matches('.qi,.bq')&&!el.matches('.mr'))el.style.marginBottom=o.gap+'px';body.appendChild(el);
+    if(el.classList.contains('eop')&&body.getBoundingClientRect().height>lim){el.remove();return}
     if(body.getBoundingClientRect().height>lim&&body.children.length>1&&(!o.gap||[...body.children].slice(0,-1).some(x=>x.matches('.qi,.bq')))){ // spreading: a page never holds only headings
       const prev=body.children[body.children.length-2]; // keep a section heading with its first question
       p=mk();const nb=p.querySelector('.body');
@@ -780,25 +907,25 @@ function paginate(B,rtl,half,o={}){ // fills A4 (or half-A4) pages in #stage, re
       mv.forEach(x=>nb.appendChild(x)); nb.appendChild(el); body=nb;}});
   // a part title or section head left alone at the bottom of a page moves to the next page
   for(let i=0;i<pages.length-1;i++){const b=pages[i].querySelector('.body'),l=b.lastElementChild;if(l&&(l.classList.contains('pt')||l.classList.contains('sh'))){const nb=pages[i+1].querySelector('.body');nb.insertBefore(l,nb.firstChild);const l2=b.lastElementChild;if(l2&&l2.classList.contains('pt')&&l.classList.contains('sh'))nb.insertBefore(l2,nb.firstChild)}}
-  pages.forEach((x,i)=>x.querySelector('.pg').textContent=`Page ${i+1} of ${pages.length}`);
+  pages.forEach((x,i)=>x.querySelector('.pg').textContent=pgTxt(i,pages.length));
   return pages;
 }
 /* ---------------- Fit paper on N pages + sides (font size never changes: only spacing, margins and page breaks) ---------------- */
 const fitOf=P=>{const f=P&&P.fit!=null?P.fit:'a';if(f==='a'||!f)return 'a';if(f==='x')return 'x';const n=+f;return n===1?1:n===2?2:'x'}; // a = smart (1 page if it fits, else MCQs page + questions page), 1 = whole paper on 1 page, 2 = MCQs page + questions page, x = more pages (free)
 const sidesOf=P=>P&&+P.sides?+P.sides:((P&&(P.tpl==='bt'||P.tpl==='t2'))?2:1);
 const blankPg=(cls)=>`<div class="page ${cls||''} blank"><div class="body"></div><div class="pf"></div></div>`;
-let FITI=null; // last paper layout: {mode:'one'|'sec'|'x', want, got, over:[all|mcq|sub], max:{mcq,sq,lq,num}, bp}
+let FITI=null, BDR=true, PFT=''; const bc=()=>BDR?' bdr':''; // page border on/off, footer text // last paper layout: {mode:'one'|'sec'|'x', want, got, over:[all|mcq|sub], max:{mcq,sq,lq,num}, bp}
 const FITL=['','tg1','tg2','tg3'];
 // one-page layouts, most comfortable first: spacing level + columns + margins (the font size never changes)
 const PLV=[['',1],['tg1',1],['tg2',1],['tg1',2],['tg2',2],['tg3',2],['tg3 tm',2]];
 function onePage(B,rtl,half,lv,off){ // every block on ONE page at layout lv; the page element, or null when something would go outside the page
   const st=$('#stage');st.innerHTML='';const [cls,cols]=PLV[lv];
-  const p=document.createElement('div');p.className='page'+(half?' half':'')+(cls?' '+cls:'')+(cols===2?' cols2':'');if(rtl){p.dir='rtl';p.lang='ur'}
-  p.innerHTML='<div class="body"></div><div class="pf"><span>AHSA Auto Paper Maker · shakeelh23-sys.github.io/ahsa</span><span class="pg"></span></div>';st.appendChild(p);
+  const p=document.createElement('div');p.className='page'+(half?' half':'')+(cls?' '+cls:'')+(cols===2?' cols2':'')+bc();if(rtl){p.dir='rtl';p.lang='ur'}
+  p.innerHTML='<div class="body"></div><div class="pf"><span class="pg"></span></div>';st.appendChild(p);
   const body=p.querySelector('.body'),cs=getComputedStyle(p),lim=p.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(half?26:30);
   body.style.height=Math.floor(lim)+'px';
   B.forEach((h,i)=>{const t=document.createElement('div');t.innerHTML=h;const el=t.firstElementChild;el.dataset.bi=(off||0)+i;body.appendChild(el)});
-  const r=body.getBoundingClientRect();
+  const r=body.getBoundingClientRect();const eo=body.querySelector('.eop');if(eo&&eo.getBoundingClientRect().bottom>r.bottom+0.5)eo.remove();
   const ok=[...body.children].every(c=>{const q=c.getBoundingClientRect();return q.bottom<=r.bottom+0.5&&q.left>=r.left-1&&q.right<=r.right+1});
   return ok?p:null}
 function tryOne(B,rtl,half,mx,off){ // the most comfortable layout (up to level mx) that keeps all blocks on one page, or null
@@ -818,7 +945,7 @@ function fitPages(B,rtl,half,P){
         if(f!==1)info.over.push(k);done.push(paginate(Bp,rtl,half,{cls:'tg3',off}))}); // too long: shown on more pages with a warning
       pages=done.flat()}}
   info.got=pages.length;
-  pages.forEach((x,i)=>{x.querySelector('.pg').textContent=`Page ${i+1} of ${pages.length}`+(sd===2&&i%2===0&&i<pages.length-1?' · Please turn over':'')});
+  pages.forEach((x,i)=>{x.querySelector('.pg').textContent=pgTxt(i,pages.length)+(sd===2&&i%2===0&&i<pages.length-1?' · Please turn over':'')});
   return {pages,info}}
 function fitMerge(a,b){if(!a)return b;return Object.assign({},a,{got:Math.max(a.got,b.got),over:[...new Set([...a.over,...b.over])],mode:a.mode===b.mode?a.mode:'sec'})}
 const keepEven=(ids,n)=>{if(n>=ids.length)return ids.slice();if(n<=0)return [];const o=[];for(let i=0;i<n;i++)o.push(ids[Math.floor((i+0.5)*ids.length/n)]);return o}; // drop questions evenly, so every chapter stays
@@ -908,7 +1035,7 @@ async function t2Pages(kind){
 async function t2Build(kind,fs){
   const P=VP, key=kind==='key', ur=P.m==='um', H=t2Hdr(P), [T]=totals(P), one=P.t2&&P.t2.lay===1, sets=P.ab?['A','B']:['A'];
   const st=$('#stage'); st.innerHTML='';
-  const mkPage=()=>{const p=document.createElement('div');p.className='page t2pg'+(one?' one':'')+(fs?' fs'+fs:'');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';st.appendChild(p);return p};
+  const mkPage=()=>{const p=document.createElement('div');p.className='page t2pg'+(one?' one':'')+(fs?' fs'+fs:'')+bc();p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';st.appendChild(p);return p};
   const data={}, QH={}; sets.forEach(s=>data[s]=setData(P,s).mcq);
   // 0) question HTML, with formulas already turned into pictures so the layout below measures what the PDF will show
   for(const s of sets){const pre=mkPage();pre.innerHTML=`<div class="t2h"><div class="qa"><div class="col" style="overflow:visible">${data[s].map((q,i)=>t2Q(q,i,key,s==='A'&&!key)).join('')}</div></div></div>`;
@@ -927,9 +1054,9 @@ async function t2Build(kind,fs){
     halves[s]=list}
   // 3) assemble A4 pages
   const out=[]; const N=Math.max(...sets.map(s=>halves[s].length));
-  if(one){sets.forEach((s,si)=>{halves[s].forEach(h=>{const p=document.createElement('div');p.className='page t2pg one'+(fs?' fs'+fs:'');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';p.appendChild(h);out.push(p.outerHTML)});
+  if(one){sets.forEach((s,si)=>{halves[s].forEach(h=>{const p=document.createElement('div');p.className='page t2pg one'+(fs?' fs'+fs:'')+bc();p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';p.appendChild(h);out.push(p.outerHTML)});
     if(sidesOf(P)===2&&si<sets.length-1&&halves[s].length%2)out.push(blankPg('t2pg one'))})}
-  else for(let i=0;i<N;i++){const p=document.createElement('div');p.className='page t2pg'+(fs?' fs'+fs:'');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';
+  else for(let i=0;i<N;i++){const p=document.createElement('div');p.className='page t2pg'+(fs?' fs'+fs:'')+bc();p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';
     (sets.length>1?sets:['A','A']).forEach((s,j)=>{let h=halves[s][i];if(h&&j&&sets.length===1)h=h.cloneNode(true);if(h)p.appendChild(h);else{const e=document.createElement('div');e.className='t2h';p.appendChild(e)}
       if(j===0){const c=document.createElement('div');c.className='cut';c.innerHTML='<span>✂</span>';p.appendChild(c)}});
     out.push(p.outerHTML)}
@@ -967,7 +1094,7 @@ function btSide(P,set,i,nS,D,H,Tm,Ts,tm){ // one A4 side; i=0 is the front
   let bot=`<div class="hdr"><span class="h1">${H.s}${sn}</span>${sl}<span class="h2">${H.me}</span></div>`;
   if(!i)bot+=`<div class="info">${ur?`نام: ____________ رول نمبر: ______ · کُل نمبر: ${btLt(Ts)} · وقت: ${fmtTimeUr(tm[1])}`:`Name: ______________ Roll No.: ______ · Marks: ${Ts} · Time: ${fmtTime(tm[1])}`}</div>`;
   bot+=`<div class="sb"></div>${two&&!last?`<div class="turn ts">${mo}</div>`:''}${last?`<div class="ftr">${H.ft}</div>`:''}`;
-  const p=document.createElement('div');p.className='page btpg'+(two?'':' s1');p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';
+  const p=document.createElement('div');p.className='page btpg'+(two?'':' s1')+bc();p.dir=ur?'rtl':'ltr';if(ur)p.lang='ur';
   p.innerHTML=`<div class="btop">${top}</div><div class="cut"><span>✂</span></div><div class="bbot">${bot}</div>`;return p}
 function btLtx(h){ // Urdu papers: wrap each Latin/number run (with its sup/sub tags) in an LTR isolate so "120–130 dB" or "m s⁻¹" keep their order
   const keep=[];h=String(h).replace(/<math[\s\S]*?<\/math>|<img[^>]*>|<(?!\/?(?:sup|sub)>)[^>]+>|\((?:i{1,3}|iv|vi{0,3}|ix|x|[a-h]|\d{1,2})\)/g,m=>{if(m[0]==='(')m=`<span dir="ltr" style="unicode-bidi:isolate">${m}</span>`;keep.push(m);return '\uE000'+String.fromCharCode(0xE100+keep.length-1)});
@@ -1054,7 +1181,7 @@ function btBuild(P,sets,data,nS,L,fo){ // final sides for every set at font F an
 // middle line between two columns: on unless the teacher switched it off (P.cline===0); off -> class nocl on every page
 async function buildPages(kind,set){const pg=await buildPages0(kind,set);return VP&&VP.cline===0?pg.map(h=>h.replace(/^<div class="page/,'<div class="page nocl')):pg}
 async function buildPages0(kind,set){ // kind: paper|key
-  await getPack(VP.k); await ensureFont();
+  await getPack(VP.k); await ensureFont(); BDR=VP.bord!==0; PFT=kind==='key'?'Answer Key':footTxt(VP);
   if(VP.tpl==='t2')return t2Pages(kind);
   if(VP.tpl==='bt'){const r=await btPages(kind);if(r)return r}
   if(kind==='key'){const k=paginate(keyBlocks(VP),false).map(p=>p.outerHTML);$('#stage').innerHTML='';return k}
@@ -1082,6 +1209,7 @@ function paperView(){
   </div>
   <p class="hint">${bi('Print gives a PDF with selectable text (choose «Save as PDF» in the print window).','«Print» سے کاپی ہونے والے ٹیکسٹ کی PDF بھی بن جاتی ہے (پرنٹ ونڈو میں «Save as PDF» چنیں)۔')}</p>
   ${moBox('pfit','📄','Pages and sides','پیپر کتنے صفحات پر آئے، اور کاغذ کی ایک طرف یا دونوں طرف چھپے',fitBar(P))}
+  ${moBox('pbord','🔲','Page border','صفحے کے گرد دوہرا بارڈر لگائیں یا ہٹائیں',bordSel(P))}
   <div class="acts"><div class="full agl">🛠️ Change the paper <span class="u">پیپر میں تبدیلی</span></div>
    <button class="btn ${EDM?'gold':'line'} full" data-act="edm" type="button">${EDM?'✓ Done editing · ایڈٹ مکمل':'✏️ Edit paper · پیپر میں تبدیلی'}</button>
    <button class="btn ${SWM?'gold':'line'}" data-act="swm" type="button">${SWM?'✓ Done · ہو گیا':'⇄ Change one question'}</button>
@@ -1239,6 +1367,7 @@ function stepBoard(){
    +moBox('rep','🔁','Do not repeat questions','پچھلے پیپرز والے سوال دوبارہ نہ آئیں',lastNSel())
    +moBox('hdr','✏️','Name, title, teacher, date','پیپر کے اوپر ادارے کا نام، پیپر کا عنوان، استاد کا نام اور تاریخ',instField()+hdrText())
    +moBox('size','📐','Paper size','پورا A4 صفحہ، یا آدھا صفحہ (ایک A4 پر دو پیپر)',sizeSel())
+   +moBox('bord','🔲','Page border','صفحے کے گرد دوہرا بارڈر (موٹی اور باریک لائن) لگائیں یا ہٹائیں',bordSel())
    +moBox('logo','🖼️','Logo on paper','پیپر پر اکیڈمی کا لوگو یا اپنا لوگو',logoSel()))}
   <div class="nav2"><button class="btn line" data-step="4" type="button">${BK}</button><button class="btn gold" id="genBtn" type="button">✨ Make Board Paper<span class="u">پیپر بنائیں</span></button></div>`;
 }
@@ -1293,28 +1422,26 @@ function boardBlocks(P,set){
   const ur=P.m==='um', sc=SCH[P.bp.sc], D=boardData(P,set), [T,pm]=totals(P), B=[], A=set==='A';
   const sw=p=>A?` data-sw="${p}"`:'';
   B.push(phead(P,set,T,pm,ur?'اسمارٹ سلیبس 2027 · پنجاب بورڈ پیئرنگ اسکیم کے مطابق':'As per Smart Syllabus 2027 · Punjab Boards pairing scheme'));
-  const nm=vsum(sc.mcq);
-  B.push(`<div class="pt">${ur?'حصہ اول (معروضی)':'PART – I (OBJECTIVE)'}</div>`);
-  B.push(`<div class="sh"><span>${ur?'سوال نمبر 1: درست جواب کا انتخاب کریں۔':'Q.1 Choose the correct option.'}</span><span dir="ltr">(${D.mcq.length} × 1 = ${D.mcq.length})</span></div>`);
-  D.mcq.forEach((q,i)=>{const L=Math.max(...q.o.map(o=>plain(o).length));const cols=L<=16?'c4':L<=38?'c2':'c1';
-    B.push(`<div class="qi"${sw('mcq|'+b_i(P,'mcq',q.id))}><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});
+  const nm=vsum(sc.mcq), om=objMin(P,D.mcq.length), sm=om?P.time-om:0;
+  B.push(mcqHead(ur,`<span>${ur?`حصہ اول: معروضی${om?` (${fmtTimeUr(om)})`:''} — سوال نمبر 1: درست جواب کا انتخاب کریں۔`:`Part-I: Objective${om?` (${fmtTime(om)})`:''} Q.1 Select the correct answer.`}</span><span dir="ltr">(1 × ${D.mcq.length} = ${D.mcq.length})</span>`,mcqW(D.mcq,ur)));
+  D.mcq.forEach((q,i)=>B.push(mcqRow(q,i,sw('mcq|'+b_i(P,'mcq',q.id)),mcqW(D.mcq,ur))));
   B.split=B.length;
-  B.push(`<div class="pt">${ur?'حصہ دوم (انشائیہ / مختصر سوالات)':'PART – II (SUBJECTIVE · SHORT QUESTIONS)'}</div>`);
+  B.push(`<div class="pt">${ur?`حصہ دوم: انشائیہ${sm?` (${fmtTimeUr(sm)})`:''}`:`Part-II: Subjective${sm?` (${fmtTime(sm)})`:''}`}</div>`);
   D.sq.forEach((g,gi)=>{const a=sc.sq[gi].a;
     B.push(`<div class="sh"><span>${ur?`سوال نمبر ${gi+2}: کوئی سے ${W_UR[a]} (${a}) سوالات کے مختصر جوابات لکھیں۔`:`Q.${gi+2} Write short answers to any ${W_EN[a].toUpperCase()} (${a}) questions.`}</span><span dir="ltr">(${a} × 2 = ${a*2})</span></div>`);
     g.forEach((q,i)=>B.push(`<div class="qi"${sw('sq|'+gi+'|'+P.bp.sq[gi].indexOf(q.id))}><span class="n">${ur?'('+(i+1)+')':roman(i+1)}</span><div class="tx">${q.q}</div></div>`))});
   const q0=sc.sq.length+2, n1=sc.lq.q.length;
-  B.push(`<div class="pt">${ur?'حصہ سوم (تفصیلی سوالات)':'PART – III (LONG QUESTIONS)'}</div>`);
   D.lq.forEach((parts,qi)=>{const oi=parts.qi, L=lgOf(sc,qi);
     if(qi===0||qi===n1){const lm=L.mk.reduce((x,y)=>x+y,0),one=L.a===1;B.push(`<div class="sh"><span>${ur?`نوٹ: کوئی سے ${W_UR[L.a]} (${L.a}) ${one?'سوال کا جواب لکھیں۔':'سوالات کے جوابات لکھیں۔'}`:`Note: Attempt any ${W_EN[L.a].toUpperCase()} (${L.a}) question${one?'':'s'}.`}</span><span dir="ltr">(${L.a} × ${lm} = ${L.a*lm})</span></div>`)}
     parts.forEach((q,pi)=>{if(!q)return;const lab=parts.length>1?(ur?['(الف)','(ب)'][pi]:['(a)','(b)'][pi]):'';
       B.push(`<div class="qi lqs"${sw('lq|'+oi+'|'+pi)}><span class="n">${pi===0?(ur?`سوال ${q0+qi}:`:`Q.${q0+qi}`):''} ${lab}</span><div class="tx">${q.q}</div><span class="pm" dir="ltr">(${L.mk[pi]})</span></div>`)})});
+  B.push(eopB(ur));
   return B;
 }
 function b_i(P,t,id){return P.bp[t].indexOf(id)}
 function boardKey(P){
   const B=[], sets=P.ab?['A','B']:['A'], sc=SCH[P.bp.sc];
-  B.push(`<div class="ph"><div class="r1"><img src="../assets/logo-96.webp" alt=""><div class="nm"><b>${esc(P.inst)}</b></div></div><div class="r2">Answer Key · ${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div>`);
+  B.push(`<div class="ph"><div class="tb"><img src="../assets/logo-96.webp" alt=""><div class="tc"><div class="in">${esc(P.inst)}</div><div class="t1">ANSWER KEY</div><div class="t3">${esc(P.ctitle||P.title)} • ${SB[P.s][0]} • ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div></div></div>`);
   sets.forEach(s=>{const D=boardData(P,s);
     B.push(`<div class="kt">${P.ab?'Set '+s+' · ':''}Q.1 MCQs Answer Key</div>`);
     B.push(`<div class="kg">${D.mcq.map((q,i)=>`<span>${i+1} · ${'ABCD'[q.a]}</span>`).join('')}</div>`);
@@ -1391,7 +1518,7 @@ async function makeDocx(P){
     await load(DOCX); const X=window.docx; await getPack(P.k);
     const ur=P.m==='um', FONT=ur?'Jameel Noori Nastaleeq':'Times New Roman', SZ=ur?28:23;
     const AL=X.AlignmentType, IMG=new Map();
-    const blk=[],sets=P.ab?['A','B']:['A'],fitW=fitOf(P)!=='x'&&P.tpl!=='t2'&&P.tpl!=='bt';if(fitW){VP=Object.assign({saved:true},P);await ensureFont()}
+    const blk=[],sets=P.ab?['A','B']:['A'],fitW=fitOf(P)!=='x'&&P.tpl!=='t2'&&P.tpl!=='bt';BDR=P.bord!==0;PFT=footTxt(P);if(fitW){VP=Object.assign({saved:true},P);await ensureFont()}
     sets.forEach((s,si)=>{const B=blocks(P,s);let st=new Set(),pad=false;
       if(fitW){const r=fitPages(B,ur,!!P.half,P);st=new Set(r.pages.slice(1).map(pg=>+pg.querySelector('.body').firstElementChild.dataset.bi));pad=sidesOf(P)===2&&si<sets.length-1&&r.pages.length%2;$('#stage').innerHTML=''}
       B.forEach((b,bi)=>blk.push([b,(si&&!bi)||st.has(bi),si&&!bi&&blk.padNext]));blk.padNext=pad}); // same page breaks as the PDF
@@ -1403,7 +1530,8 @@ async function makeDocx(P){
       if(n.nodeType!==1)return;const tg=n.tagName;
       if(tg==='BR'){out.push(new X.TextRun({break:1}));return}
       if(tg==='IMG'){const g=IMG.get(n.getAttribute('src'));if(g){let w=+n.getAttribute('width')||g.w,h=+n.getAttribute('height')||g.h;if(n.closest('.ph')){w=h=48}const k=Math.min(1,600/w);out.push(new X.ImageRun({data:g.d,transformation:{width:Math.round(w*k),height:Math.round(h*k)}}))}return}
-      if(n.classList&&(n.classList.contains('ops')||n.classList.contains('rf')))return;
+      if(n.classList&&(n.classList.contains('ops')||n.classList.contains('rf')||n.classList.contains('ml')))return;
+      if(n.classList&&n.classList.contains('ln')){out.push(tr(n.classList.contains('w2')?'______________________':'______________',o));return}
       if(tg==='math'||tg==='MATH'){out.push(...mathRuns(n,o));return}
       const no=Object.assign({},o);if(tg==='SUP')no.superScript=true;if(tg==='SUB')no.subScript=true;if(tg==='B'||tg==='STRONG')no.bold=true;if(tg==='I'||tg==='EM')no.italics=true;
       out.push(...runs(n,no))});return out};
@@ -1422,23 +1550,46 @@ async function makeDocx(P){
       if(t==='munderover'||t==='munder'||t==='mover'){const acc=t==='mover'&&k[1]&&/^[→⃗^¯‾]$/.test(k[1].textContent);return [...sub(k[0]),...(acc?[]:k.slice(1).flatMap((e,i)=>sub(e,(t==='munder'||i===0&&t==='munderover')?{subScript:true}:{superScript:true})))]}
       return [...n.childNodes].flatMap(e=>e.nodeType===1||e.nodeType===3?mathRuns(e,o):[])};
     const para=(children,o={})=>new X.Paragraph(Object.assign({children,bidirectional:ur,alignment:ur?AL.RIGHT:AL.LEFT,spacing:{after:60}},o));
-    const kids=[];
-    box.childNodes.forEach((el,ix)=>{if(el.nodeType!==1)return;const pb=blk[ix]&&blk[ix][1];const cl=el.classList;if(blk[ix]&&blk[ix][2])kids.push(para([tr('')],{pageBreakBefore:true})); // blank back side
-      if(cl.contains('ph')){const lg=el.querySelector('.r1 img');const nm=el.querySelector('.nm');
-        kids.push(para([...(lg?runs({childNodes:[lg]}):[]),tr(' '),...[...nm.children].flatMap((c,i)=>[...(i?[new X.TextRun({break:1})]:[]),...runs(c,{bold:true,size:SZ+(i?2:8)})]),...(el.querySelector('.set')?[tr('   '+el.querySelector('.set').textContent,{bold:true})]:[])],{alignment:AL.CENTER,pageBreakBefore:pb}));
-        ['.r2','.tch','.r3','.r4','.chs'].forEach(q=>{const e=el.querySelector(q);if(!e||!e.textContent.trim())return;
-          const parts=[...e.children].length&&q!=='.r2'&&q!=='.tch'?[...e.children].map(c=>c.textContent.trim()+(q==='.r4'?' ____________':'')).join('     '):e.textContent.trim();
-          kids.push(para([tr(parts,{bold:q==='.r2'})],{alignment:AL.CENTER}))});
-        kids.push(para([tr('')],{border:{bottom:{style:X.BorderStyle.SINGLE,size:8,color:'333333',space:1}}}));return}
-      if(cl.contains('sh')){kids.push(para([...el.children].map((c,i)=>tr((i?'   ':'')+c.textContent.trim(),{bold:true})),{spacing:{before:160,after:80},pageBreakBefore:pb}));return}
-      if(cl.contains('qi')){const n=el.querySelector('.n'),tx=el.querySelector('.tx');
-        kids.push(para([tr((n?n.textContent.trim():'')+' ',{bold:true}),...(tx?runs(tx):runs(el))],{keepNext:!!el.querySelector('.ops'),pageBreakBefore:pb,indent:{start:360,hanging:360}}));
+    const kids=[], W=X.WidthType.PERCENTAGE, SH={type:X.ShadingType.CLEAR,fill:'E5EFF0',color:'auto'}, BL={style:X.BorderStyle.SINGLE,size:8,color:'222222'}, NB={style:X.BorderStyle.NONE,size:0,color:'FFFFFF'};
+    const TW=11906-2*(BDR?(P.half?1000:1105):720), TS=[{type:X.TabStopType.CENTER,position:Math.round(TW/2)-120},{type:X.TabStopType.RIGHT,position:TW-240}];
+    const cellP=(ch,o={})=>new X.Paragraph(Object.assign({children:ch,bidirectional:ur,alignment:AL.CENTER,spacing:{before:20,after:20}},o));
+    const cell=(ch,w,o={})=>new X.TableCell(Object.assign({children:Array.isArray(ch)&&ch[0] instanceof X.Paragraph?ch:[cellP(ch)],width:{size:Math.round(TW*w/100),type:X.WidthType.DXA},verticalAlign:X.VerticalAlign.CENTER,margins:{top:30,bottom:30,left:80,right:80}},o));
+    const tbl=(rows,o={})=>new X.Table(Object.assign({rows,width:{size:TW,type:X.WidthType.DXA},columnWidths:[TW],layout:X.TableLayoutType.FIXED,visuallyRightToLeft:ur},o));
+    const MW=el=>{const d=el&&el.dataset.w;if(!d)return [6.5,30,15.875,15.875,15.875,15.875];const[n,q,o]=d.split(',').map(Number);return [n,q,o,o,o,o]};
+    const tabbed=(el,o={})=>{const ch=[...el.children];const r=[];ch.forEach((c,i)=>{if(i)r.push(new X.TextRun({children:[new X.Tab()]}));r.push(...runs(c,o))});return r};
+    let rows=null,rw=null; const flush=()=>{if(rows&&rows.length)kids.push(tbl(rows,{columnWidths:MW(rw).map(x=>Math.round(TW*x/100))}));rows=null};
+    const mrow=(el,head)=>{const c=[...el.children],w=MW(el);
+      return new X.TableRow({tableHeader:head,cantSplit:true,children:c.map((x,i)=>cell([cellP(runs(x,head?{bold:true}:{}),{alignment:i===1&&!head?(ur?AL.RIGHT:AL.LEFT):AL.CENTER})],w[i],head||el.classList.contains('z')?{shading:head?SH:{type:X.ShadingType.CLEAR,fill:'F7F7FD',color:'auto'}}:{}))})};
+    box.childNodes.forEach((el,ix)=>{if(el.nodeType!==1)return;const pb=blk[ix]&&blk[ix][1];const cl=el.classList;
+      if(!cl.contains('mr'))flush();
+      if(blk[ix]&&blk[ix][2])kids.push(para([tr('')],{pageBreakBefore:true})); // blank back side
+      if(cl.contains('ph')){const tb=el.querySelector('.tb'),ht=el.querySelector('.ht');if(pb)kids.push(para([],{pageBreakBefore:true,spacing:{after:0}}));
+        if(tb){const lg=tb.querySelector('img'),set=tb.querySelector('.set'),ps=[];
+          const ln=(q,o)=>{const e=tb.querySelector(q);if(e&&e.textContent.trim())ps.push(cellP(runs(e,o)))};
+          ps.push(cellP([...(lg?runs({childNodes:[lg]}):[]),tr('  '),...runs(tb.querySelector('.in'),{bold:true,size:SZ-2}),...(set?[tr('     '+set.textContent,{bold:true})]:[])]));
+          ln('.t1',{bold:true,size:SZ+14,color:'1F3A5F'});ln('.t2',{bold:true});ln('.t3',{});ln('.t4',{size:SZ-4});
+          kids.push(tbl([new X.TableRow({children:[cell(ps,100,{shading:SH,margins:{top:60,bottom:60,left:120,right:120}})]})]))}
+        if(ht){kids.push(para([tr('')],{spacing:{after:0,line:120}}));
+          const hr=[...ht.querySelectorAll('.hr')];
+          kids.push(tbl(hr.map((r,i)=>new X.TableRow({children:[cell([cellP(tabbed(r),{alignment:ur?AL.RIGHT:AL.LEFT,tabStops:r.children.length===2?[TS[1]]:TS,spacing:{before:50,after:50}})],100,{borders:{top:i?NB:BL,bottom:i===0||i===hr.length-1?BL:NB,left:BL,right:BL}})]})),{borders:{top:BL,bottom:BL,left:BL,right:BL,insideHorizontal:NB,insideVertical:NB}}))}
+        kids.push(para([tr('')],{spacing:{after:0,line:160}}));return}
+      if(cl.contains('sh')){const bar=cl.contains('shm')?el.querySelector('.shb'):el;
+        kids.push(para(tabbed(bar,{bold:true}),{tabStops:[TS[1]],shading:SH,border:{top:BL,bottom:BL,left:BL,right:BL},spacing:{before:140,after:80},pageBreakBefore:pb,keepNext:true}));
+        if(cl.contains('shm')){const h=el.querySelector('.mr');rw=h;rows=[mrow(h,true)]}return}
+      if(cl.contains('mr')){if(pb){flush();kids.push(para([],{pageBreakBefore:true,spacing:{after:0}}))}if(!rows){rows=[];rw=el}rows.push(mrow(el,false));return}
+      if(cl.contains('eop')){kids.push(para(runs(el,{bold:true}),{alignment:AL.CENTER,spacing:{before:200}}));return}
+      if(cl.contains('qi')){const n=el.querySelector('.n'),tx=el.querySelector('.tx'),pm=el.querySelector('.pm');
+        kids.push(para([tr((n?n.textContent.trim():'')+' ',{bold:true}),...(tx?runs(tx):runs(el)),...(pm?[tr('  '+pm.textContent,{bold:true})]:[])],{keepNext:!!el.querySelector('.ops'),pageBreakBefore:pb,indent:{start:360,hanging:360}}));
         const ops=el.querySelector('.ops');if(ops)kids.push(para([...ops.children].flatMap((o,j)=>{const c=o.cloneNode(true),bb=c.querySelector('b');const lb=bb?bb.textContent:'';if(bb)bb.remove();return [...(j?[tr('      ')]:[]),tr(lb+' ',{bold:true}),...runs(c)]}),{indent:{start:360}}));return}
       if(cl.contains('kg')){kids.push(para([tr([...el.children].map(c=>c.textContent).join('    '))]));return}
       if(!el.textContent.trim()&&!el.querySelector('img'))return;
-      kids.push(para(runs(el,{bold:cl.contains('pt')||cl.contains('kt')}),{pageBreakBefore:pb,spacing:{before:cl.contains('pt')||cl.contains('kt')?140:0,after:60}}))});
+      const ct=cl.contains('pt')||cl.contains('kt');
+      kids.push(para(runs(el,{bold:ct}),{pageBreakBefore:pb,alignment:ct?AL.CENTER:(ur?AL.RIGHT:AL.LEFT),spacing:{before:ct?140:0,after:60}}))});
+    flush();
+    const PB={style:X.BorderStyle.THICK_THIN_SMALL_GAP,size:24,color:'000000',space:24};
+    const foot=new X.Footer({children:[new X.Paragraph({alignment:AL.CENTER,children:[new X.TextRun({text:(PFT?PFT+' | ':'')+'Page ',italics:true,size:18,font:'Times New Roman'}),new X.TextRun({children:[X.PageNumber.CURRENT],italics:true,size:18,font:'Times New Roman'})]})]});
     const doc=new X.Document({creator:'AHSA Auto Paper Maker',title:P.ctitle||P.title,styles:{default:{document:{run:{font:FONT,size:SZ}}}},
-      sections:[{properties:{page:{size:P.half?{width:11906,height:8419,orientation:X.PageOrientation.LANDSCAPE}:{width:11906,height:16838},margin:{top:720,bottom:720,left:720,right:720}}},children:kids}]});
+      sections:[{properties:{page:{size:P.half?{width:11906,height:8419,orientation:X.PageOrientation.LANDSCAPE}:{width:11906,height:16838},margin:BDR?(P.half?{top:700,bottom:900,left:1000,right:1000,footer:420}:{top:1020,bottom:1400,left:1105,right:1105,footer:1000}):{top:720,bottom:900,left:720,right:720,footer:400},...(BDR?{borders:{pageBorders:{display:X.PageBorderDisplay.ALL_PAGES,offsetFrom:X.PageBorderOffsetFrom.PAGE,zOrder:X.PageBorderZOrder.FRONT},pageBorderTop:PB,pageBorderBottom:PB,pageBorderLeft:PB,pageBorderRight:PB}}:{})}},footers:{default:foot},children:kids}]});
     return await X.Packer.toBlob(doc);
   }finally{busy(false)}
 }
@@ -1496,6 +1647,7 @@ document.addEventListener('click',async e=>{
   if(b.dataset.t2v){S.t2one=b.dataset.t2v==='1';S.ab=!S.t2one;save();const y=scrollY;await render();scrollTo(0,y);return}
   if(b.dataset.btab){S.ab=b.dataset.btab==='1';save();const y=scrollY;await render();scrollTo(0,y);return}
   if(b.dataset.lay){S.lay=+b.dataset.lay;save();const y=scrollY;await render();scrollTo(0,y);return}
+  if(b.dataset.bord){const v=b.dataset.bord==='1';if(view==='paper'&&VP){VP.bord=v?1:0;await saveEdit(true)}else{S.bord=v;save();const y=scrollY;await render();scrollTo(0,y)}return}
   if(b.dataset.half){if(view==='paper'&&VP){VP.half=b.dataset.half==='1';await saveEdit(true)}else{S.half=b.dataset.half==='1';save();const y=scrollY;await render();scrollTo(0,y)}return}
   if(b.hasAttribute('data-logodel')){LS.set('ahsa-pm-logo',null);try{localStorage.removeItem('ahsa-pm-logo')}catch(x){}const y=scrollY;await render();scrollTo(0,y);return}
   if(b.dataset.em){const[a,t,i]=b.dataset.em.split('|');editAct(a,t,+i);return}
