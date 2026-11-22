@@ -1498,9 +1498,15 @@ function vHome() {
         `<a class="btn gold qa qs2" href="#apply" aria-label="Admissions open"><span class="qs2t qao"><b>Admissions</b><b>Open</b></span></a>`,
         `<a class="btn qs qs2" href="#papers"><span class="qs2t"><b>Smart</b><b>Syllabus</b></span></a>`,
         `<a class="btn qqb qs2" href="#qbank"><span class="qs2t"><b>Question</b><b>Bank</b></span></a>`]
-        .concat(appIn() ? [`<button type="button" class="btn qsh qs2" data-shareapp aria-label="Share App"><span class="qs2t"><b>Share</b><b>App</b></span></button>`] : [`<button type="button" class="btn qi qs2" aria-label="Install App"><span class="qs2t"><b>Install</b><b>App</b></span></button>`]);
+        .concat(appIn() ? [`<button type="button" class="btn qsh qs2" data-shareapp aria-label="Share App"><span class="qs2t"><b>Share</b><b>App</b></span></button>`] : [`<button type="button" class="btn qi qs2" aria-label="Install App"><span class="qs2t"><b>Install</b><b>App</b></span></button>`])
+        .concat([`<a class="btn qps qs2" href="#papers"><span class="qs2t"><b>Pairing</b><b>Scheme</b></span></a>`,
+        `<a class="btn qmp qs2" href="#model"><span class="qs2t"><b>Model</b><b>Papers</b></span></a>`,
+        `<a class="btn qpp qs2" href="#past"><span class="qs2t"><b>Past</b><b>Papers</b></span></a>`,
+        `<a class="btn qpf qs2" href="#passing"><span class="qs2t"><b>Passing</b><b>Formula</b></span></a>`,
+        `<a class="btn qpm qs2" href="paper/"><span class="qs2t"><b>Paper</b><b>Maker</b></span></a>`,
+        `<button type="button" class="btn qgp qs2" data-gpsoon aria-disabled="true" aria-label="Guess Papers, coming soon"><span class="qs2t"><b>Guess Papers</b><i class="qsoon">Coming Soon</i></span></button>`]);
         const cl = B.map(h => h.replace(/^<(a|button)( type="button")? class="btn /, '<$1$2 tabindex="-1" aria-hidden="true" class="btn qcl ')).join('');
-        return `<div class="cta qb${B.length > 4 ? ' q5' : ''}" id="qTrack" data-n="${B.length}">${B.join('')}${cl}</div>`; })()}
+        return `<div class="cta qb q5 q12" id="qTrack" data-n="${B.length}">${B.join('')}${cl}</div>`; })()}
     </div>
     <div class="orbit" aria-hidden="false">
       <svg class="rings" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><ellipse cx="100" cy="100" rx="96" ry="38"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(60 100 100)"/><ellipse cx="100" cy="100" rx="96" ry="38" transform="rotate(120 100 100)"/><circle class="e" cx="196" cy="100" r="4"/><circle class="e" cx="52" cy="17" r="3.5"/><circle class="e" cx="52" cy="183" r="3"/></svg>
@@ -1508,14 +1514,7 @@ function vHome() {
     </div>
   </div></section>
   ${stuCorner()}
-  <section class="mpsec"><div class="wrap">
-    <div class="mpbar"><h2 class="mph mpe">Board Papers</h2><div class="mpbtns">
-      <a class="btn navy mpb" href="#papers">Pairing <br>Scheme</a><a class="btn gold mpb" href="#model">Model <br>Papers</a><a class="btn mpb mpp" href="#past">Past <br>Papers</a><a class="btn mpb mqb" href="#qbank">Question <br>Bank</a>
-      <a class="btn mpb mpf" href="#passing">Passing Formula<span class="gps"><span lang="ur" dir="rtl">پاسنگ فارمولا</span> · Class 8–12</span></a>
-      <button type="button" class="btn mpb mgp" data-gpsoon aria-disabled="true">Guess Papers<span class="gps">Coming Soon · <span lang="ur" dir="rtl">جلد آ رہے ہیں</span></span></button>
-    </div></div>
-  </div></section>
-  <section class="apmsec"><div class="wrap"><a class="apm" href="paper/"><span class="apmi" aria-hidden="true">📝</span><span class="apmt"><b>Auto Paper Maker</b><span lang="ur" dir="rtl">آٹو پیپر میکر: ایک منٹ میں ٹیسٹ پیپر بنائیں</span><small>Class, subject, chapters → printable PDF + answer key</small></span><span class="apmg" aria-hidden="true">›</span></a></div></section>
+  <!-- TOP-ALL-BTNS 2026-11-22: Board Papers buttons + Auto Paper Maker band moved into the top button grid (#qTrack) -->
   <section class="tband"><div class="wrap"><div id="tshowWrap">${tutorShow()}</div></div></section>
   <section><div class="wrap">
     <div class="sh"><div><div class="kick">${t('notes')} · ${t('tests')}</div><h2 class="cch">${t('classCards')}</h2><p>${t('classCardsP')}</p></div></div>
@@ -2737,6 +2736,21 @@ body.pvOpen .fabT{display:none!important}
 .apmt span{font:400 16px/1.9 var(--f-ur)}
 .apmt small{font-size:14px;opacity:.85}
 .apmg{font-size:30px;font-weight:800}
+
+/* TOP-ALL-BTNS 2026-11-22: all home buttons in the top grid (6 per row on PC, 3 per row on phones) */
+html body .hero .cta.qb.q12 .btn.qps{background:linear-gradient(160deg,#1e4fa8,#0b2e6b)!important}
+html body .hero .cta.qb.q12 .btn.qmp{background:linear-gradient(160deg,#e0a800,#a87400)!important}
+html body .hero .cta.qb.q12 .btn.qpp{background:linear-gradient(160deg,#35a065,#1f6b41)!important}
+html body .hero .cta.qb.q12 .btn.qpf{background:linear-gradient(160deg,#e0453b,#9e1f18)!important}
+html body .hero .cta.qb.q12 .btn.qpm{background:linear-gradient(160deg,#0f9aa8,#0b6670)!important}
+html body .hero .cta.qb.q12 .btn.qgp{background:linear-gradient(160deg,#8a8f98,#5b6069)!important;cursor:default}
+html body .hero .cta.qb.q12 .qsoon{display:block;font:700 11px/1.2 var(--f-body);font-style:normal;opacity:.95;margin-top:2px;white-space:nowrap}
+html body .hero .cta.qb.q12 .btn.qgp .qs2t b{font-size:14px!important}
+@media (min-width:701px){html body .hero .cta.qb.q12{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:8px!important;max-width:none!important;width:100%}
+html body .hero .cta.qb.q12 .btn.qs2{min-height:60px;padding:6px 4px!important}
+html body .hero .cta.qb.q12 .btn.qs2 .qs2t b{font-size:16px!important;white-space:nowrap}
+html body .hero .cta.qb.q12 .btn.qgp .qs2t b{font-size:14px!important}}
+@media (max-width:700px){html body .hero .cta.qb.q12{margin-bottom:22px!important}}
 </style>
 <div class="shov" id="shOv" hidden>
   <div class="shsheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
