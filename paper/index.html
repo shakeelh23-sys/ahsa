@@ -29,6 +29,49 @@ button,input,select{font:inherit;color:inherit}
 main{max-width:760px;margin:0 auto;padding:14px 16px 24px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 14px;box-shadow:0 1px 2px rgba(15,27,51,.05),0 6px 18px rgba(15,27,51,.06)}
 .steps{display:flex;gap:6px;margin:0 0 12px}
+.wz{margin:0 0 12px}
+.wzt{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;align-items:baseline;font-size:16px}
+.wzt .u{font-size:16px;color:var(--mut)}
+.wzb{height:8px;border-radius:8px;background:var(--line);overflow:hidden;margin:6px 0 8px}
+.wzb i{display:block;height:100%;background:var(--gold);border-radius:8px;transition:width .25s}
+.wz ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.wz ol button{width:100%;display:flex;flex-direction:column;align-items:center;gap:1px;border:0;background:none;padding:2px 0;cursor:pointer;color:var(--ink);font:700 12px/1.15 var(--f-body)}
+.wz ol button b{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;border:2px solid var(--line);background:var(--card)}
+.wz ol button.done b{background:var(--navy);border-color:var(--navy);color:#fff}
+.wz ol button.cur b{background:var(--gold);border-color:var(--gold);color:#1a1300;box-shadow:0 0 0 4px rgba(255,193,7,.28)}
+.wz ol button:disabled{opacity:.4;cursor:default}
+.wz ol button .u{font-size:11.5px;font-weight:400;line-height:1.6;color:var(--mut)}
+@media (max-width:420px){.wz ol button>span:not(.u){display:none}}
+.nav2 .btn{flex-direction:column;gap:0;min-height:58px;font-size:19px}
+.nav2 .btn .u,.acts .btn .u{font-size:14px;font-weight:400;line-height:1.5}
+.nav2{position:sticky;bottom:calc(66px + env(safe-area-inset-bottom));z-index:20;background:var(--bg);padding:8px 0;margin-top:8px}
+.card .nav2{position:static;background:none;padding:0}
+.reuse{width:100%;margin:12px 0 0;display:flex;flex-direction:column;align-items:center;gap:0;border:1px dashed var(--line);background:transparent;color:var(--mut);border-radius:12px;padding:8px 10px;cursor:pointer;font:600 15px/1.3 var(--f-body)}
+.reuse small{display:block;font-size:13px;font-weight:400}
+.reuse .u{font-size:13.5px}
+details.more{padding:0}
+details.more>summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;flex-direction:column;gap:2px;font-size:18px}
+details.more>summary::-webkit-details-marker,details.mo>summary::-webkit-details-marker{display:none}
+details.more>summary::after{content:'▾ Open · کھولیں';font-size:13px;color:var(--navy);font-weight:700}
+details.more[open]>summary::after{content:'▴ Close · بند کریں'}
+details.more>summary .u{font-size:14.5px;color:var(--mut)}
+.mol{padding:0 12px 12px;display:flex;flex-direction:column;gap:8px}
+details.mo{border:2px solid var(--line);border-radius:12px;background:var(--card)}
+details.mo[open]{border-color:var(--gold)}
+details.mo>summary{list-style:none;cursor:pointer;display:flex;gap:10px;align-items:center;padding:10px 12px;min-height:52px}
+details.mo>summary .mi{font-size:22px}
+details.mo>summary .mt{display:flex;flex-direction:column;flex:1;min-width:0}
+details.mo>summary .mt b{font-size:16.5px}
+details.mo>summary .mt .u{font-size:14px;color:var(--mut);line-height:1.7}
+details.mo>summary::after{content:'+';font-weight:800;font-size:22px;color:var(--navy)}
+details.mo[open]>summary::after{content:'−'}
+.mb{padding:0 12px 12px}
+.mb .fitbar{margin:0}
+.set label small.av{font-weight:400;color:var(--mut);font-size:13px}
+.acts.big .btn{flex-direction:column;gap:0;font-size:18px;min-height:62px}
+.agl{font-weight:800;font-size:15px;margin-top:4px}
+.agl .u{font-weight:400;color:var(--mut)}
+#fitmsg:empty{display:none}
 .steps i{flex:1;height:6px;border-radius:6px;background:var(--line)}
 .steps i.on{background:var(--gold)}
 h2.q{margin:0 0 4px;font:800 22px/1.3 var(--f-body)}
@@ -415,13 +458,17 @@ const TT=['mcq','sq','lq','num'];
 const DIF=[['Easy','آسان'],['Medium','درمیانہ'],['Hard','مشکل']];
 const DEF_INST='Al Hassan Science Academy Dillewali';
 let IDX=null, PACK=null, view='gen', step=1, VP=null, SWM=false, EDM=false, ADDQ=null, PF={t:'mcq',ch:'',q:'',lim:30};
-let S=LS.get('ahsa-pm-last',null)||{};
-S=Object.assign({c:null,s:null,m:null,ch:[],tpl:'mt',time:70,pass:33,ab:false,exd:true,norep:true,inst:LS.get('ahsa-pm-inst',DEF_INST),
-  mcq:{n:10,mk:1,mix:false,e:4,md:4,h:2},sq:{n:10,mk:2,mix:false,e:4,md:4,h:2},lq:{n:2,mk:5,mix:false,e:1,md:1,h:0},num:{n:0,mk:5,mix:false,e:0,md:0,h:0}},S);
-if(!S.num)S.num={n:0,mk:5,mix:false,e:0,md:0,h:0};
-if(!S.pick)S.pick={mcq:[],sq:[],lq:[],num:[]};
-if(S.lastN==null)S.lastN=S.norep===false?'0':'all';
-if(!S.tno)S.tno=1;if(!S.lay)S.lay=2;
+let REACH=1, FRESH=false; const MO={}; // furthest wizard step reached; paper just made in this visit; open «More options» boxes
+// Every visit starts at step 1 with default settings. Old settings are NOT restored automatically;
+// the teacher can bring them back only with the small «Reuse previous settings» button on step 1.
+const LAST=LS.get('ahsa-pm-last',null);
+function freshS(base){const X=Object.assign({c:null,s:null,m:null,ch:[],tpl:'mt',time:70,pass:33,ab:false,exd:true,norep:true,inst:LS.get('ahsa-pm-inst',DEF_INST),
+  mcq:{n:10,mk:1,mix:false,e:4,md:4,h:2},sq:{n:10,mk:2,mix:false,e:4,md:4,h:2},lq:{n:2,mk:5,mix:false,e:1,md:1,h:0},num:{n:0,mk:5,mix:false,e:0,md:0,h:0}},base?JSON.parse(JSON.stringify(base)):{});
+  if(!X.num)X.num={n:0,mk:5,mix:false,e:0,md:0,h:0};
+  if(!X.pick)X.pick={mcq:[],sq:[],lq:[],num:[]};
+  if(X.lastN==null)X.lastN=X.norep===false?'0':'all';
+  if(!X.tno)X.tno=1;if(!X.lay)X.lay=2;return X}
+let S=freshS(null);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const bi=(en,ur)=>`<span><b>${en}</b> <span class="u">${ur}</span></span>`;
 function toast(m){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
@@ -443,15 +490,31 @@ async function render(){
   if(view==='cov'){await getIdx();app.innerHTML=covView();return}
   if(view==='pick'){await getIdx();await getPack(key());app.innerHTML=pickView();return}
   await getIdx();
-  const bar=`<div class="steps" aria-label="Step ${step} of 5">${[1,2,3,4,5].map(i=>`<i class="${i<=step?'on':''}"></i>`).join('')}</div>`;
+  if(step>1&&!canStep(step))step=1;
+  REACH=Math.max(REACH,step);
   const body=await [0,stepClass,stepSubject,stepChapters,stepTemplate,stepSettings][step]();
-  app.innerHTML=bar+(step===5?fitBar(null):'')+body;
+  app.innerHTML=wizBar(step)+body;
 }
+/* ---------------- step wizard header (numbers + progress bar) ---------------- */
+const WZ=[['Class','کلاس'],['Subject','مضمون'],['Chapters','ابواب'],['Paper type','پیپر کی قسم'],['Settings','ترتیب'],['Paper ready','پیپر تیار']];
+function canStep(i){if(i<=1)return true;if(!S.c)return false;if(i===2)return true;if(!(S.s&&S.m&&IDX&&IDX[key()]))return false;if(i===3)return true;if(!S.ch.length)return false;if(i===4)return true;if(i===5)return REACH>=4;return FRESH&&!!VP}
+function wizBar(cur){
+  return `<nav class="wz" aria-label="Steps"><div class="wzt"><b>Step ${cur} of 6 · ${WZ[cur-1][0]}</b><span class="u">مرحلہ ${cur} از 6 · ${WZ[cur-1][1]}</span></div>
+  <div class="wzb" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="${cur}"><i style="width:${Math.round(cur/6*100)}%"></i></div>
+  <ol>${WZ.map((w,j)=>{const i=j+1,ok=i===cur||canStep(i);return `<li><button type="button" data-wz="${i}" class="${i===cur?'cur':(i<cur?'done':'')}" ${ok?'':'disabled'} ${i===cur?'aria-current="step"':''} aria-label="Step ${i}: ${w[0]}"><b>${i<cur?'✓':i}</b><span>${w[0]}</span><span class="u">${w[1]}</span></button></li>`}).join('')}</ol></nav>`}
+const NX='Next ›<span class="u">آگے</span>', BK='‹ Back<span class="u">پیچھے</span>';
+/* «More options»: each box has one simple Urdu line; boxes stay open/closed while the teacher changes things */
+const moBox=(id,ic,en,ur,body)=>body?`<details class="mo" data-mo="${id}" ${MO[id]?'open':''}><summary><span class="mi">${ic}</span><span class="mt"><b>${en}</b><span class="u">${ur}</span></span></summary><div class="mb">${body}</div></details>`:'';
+const moWrap=inner=>`<details class="more card" data-mo="more" ${MO.more?'open':''}><summary><b>⚙️ More options</b><span class="u">مزید آپشنز · ضرورت ہو تو کھولیں، ورنہ سب پہلے سے ٹھیک ہے</span></summary><div class="mol">${inner}</div></details>`;
+function lastSummary(){const L=LAST;if(!L||!L.c||!CL[L.c])return '';const k=`${L.c}-${L.s}-${L.m}`;if(!L.s||!IDX[k])return '';const t=L.tpl==='bp'?'Board Pattern':(TPL.find(x=>x.k===L.tpl)||{en:''}).en;
+  return `${CL[L.c][0]} · ${SB[L.s][0]} · ${L.m.toUpperCase()}${t?' · '+t:''}`}
 function stepClass(){
   const has=c=>Object.values(IDX).some(p=>p.c===c);
   return `<div class="card"><h2 class="q">Step 1 · Select Class<span class="u">مرحلہ 1 · کلاس منتخب کریں</span></h2>
   <div class="grid">${Object.keys(CL).filter(has).map(c=>`<button type="button" class="ch" data-c="${c}" aria-pressed="${S.c===c}"><b>${CL[c][0]}</b><span class="u">${CL[c][1]}</span></button>`).join('')}</div></div>
-  <button type="button" class="btn line" data-go="cov" style="width:100%;margin:0 0 12px">📊 Questions available · کتنے سوالات دستیاب ہیں</button>
+  <div class="nav2"><button class="btn gold" data-step="2" type="button" ${S.c?'':'disabled'}>${NX}</button></div>
+  ${lastSummary()?`<button type="button" class="reuse" data-reuse><span>↩️ Reuse previous settings<small>${esc(lastSummary())}</small></span><span class="u">پچھلی ترتیب دوبارہ استعمال کریں (اختیاری)</span></button>`:''}
+  <button type="button" class="btn line" data-go="cov" style="width:100%;margin:12px 0">📊 Questions available · کتنے سوالات دستیاب ہیں</button>
   ${presetsCard()}
   <div class="note">${bi('Questions come only from AHSA notes (MCQ test apps and question banks).','سوالات صرف اکیڈمی کے نوٹس سے لیے جاتے ہیں۔')}</div>`;
 }
@@ -470,7 +533,7 @@ function stepSubject(){
   return `<div class="card"><h2 class="q">Step 2 · Select Subject<span class="u">مرحلہ 2 · مضمون منتخب کریں</span></h2>
   <p class="hint">${CL[S.c][0]} · <span class="u">${CL[S.c][1]}</span></p>
   <div class="grid">${subs.map(s=>`<button type="button" class="ch" data-s="${s}" aria-pressed="${S.s===s}"><b>${SB[s][0]}</b><span class="u">${SB[s][1]}</span><small>${P.filter(p=>p.s===s).map(p=>p.m.toUpperCase()).sort().join(' · ')}</small></button>`).join('')}</div></div>${med}${nos}
-  <div class="nav2"><button class="btn line" data-step="1" type="button">‹ Back</button><button class="btn gold" data-step="3" type="button" ${S.s&&S.m?'':'disabled'}>Next ›</button></div>`;
+  <div class="nav2"><button class="btn line" data-step="1" type="button">${BK}</button><button class="btn gold" data-step="3" type="button" ${S.s&&S.m?'':'disabled'}>${NX}</button></div>`;
 }
 async function stepChapters(){
   const p=IDX[key()]; const rtl=S.m==='um';
@@ -482,14 +545,14 @@ async function stepChapters(){
   <div class="chl">${p.u.map(u=>{const on=S.ch.includes(u[0]);const c=[u[2],u[3],u[4],u[5]||[0]].map(a=>a.reduce((x,y)=>x+y,0));
     const lab=u[0]>=100?'':(rtl?`باب ${u[0]}: `:`Ch ${u[0]}: `);
     return `<label class="chi${on?' on':''}" ${rtl?'dir="rtl"':''}><input type="checkbox" data-chn="${u[0]}" ${on?'checked':''}><span class="t"><b>${esc(lab+u[1])}</b><small dir="ltr">${c[0]} MCQs · ${c[1]} Short · ${c[2]} Long${c[3]?' · '+c[3]+' Numericals':''}</small></span></label>`}).join('')}</div></div>
-  <div class="nav2"><button class="btn line" data-step="2" type="button">‹ Back</button><button class="btn gold" data-step="4" type="button" ${S.ch.length?'':'disabled'}>Next ›</button></div>`;
+  <div class="nav2"><button class="btn line" data-step="2" type="button">${BK}</button><button class="btn gold" data-step="4" type="button" ${S.ch.length?'':'disabled'}>${NX}</button></div>`;
 }
 function stepTemplate(){
   return `<div class="card"><h2 class="q">Step 4 · Paper Type<span class="u">مرحلہ 4 · پیپر کی قسم</span></h2>
   ${boardOK()?`<button type="button" class="ch" data-tpl="bp" aria-pressed="${S.tpl==='bp'}" style="margin-bottom:10px;border-color:var(--gold)"><b>🏛️ Board Pattern Paper</b><span class="u">بورڈ پیٹرن پیپر · پنجاب بورڈ 2027</span><small>Official 2027 scheme: MCQs + short (choice) + long${hasNum()?' with numericals':''} · ${schTot(SCH[S.c+'-'+S.s])} marks</small></button>`:(SCH[S.c+'-'+S.s]?`<div class="gap">${bi('Board Pattern Paper needs short and long questions, which are not in our notes for this subject / medium yet.','اس مضمون / میڈیم کے مختصر اور تفصیلی سوالات ابھی نوٹس میں نہیں، اس لیے بورڈ پیٹرن پیپر دستیاب نہیں۔')}</div>`:'')}
   <div class="grid">${TPL.map(t=>`<button type="button" class="ch" data-tpl="${t.k}" aria-pressed="${S.tpl===t.k}"><b>${t.en}</b><span class="u">${t.ur}</span><small>${t.d}</small></button>`).join('')}</div>
-  <p class="hint">${bi('You can change every number in the next step.','اگلے مرحلے میں ہر چیز بدل سکتے ہیں۔')}</p></div>
-  <div class="nav2"><button class="btn line" data-step="3" type="button">‹ Back</button><button class="btn gold" data-step="5" type="button">Next ›</button></div>`;
+  <p class="hint">${bi('Tap a paper type. You can change the numbers in the next step.','پیپر کی قسم پر ٹیپ کریں۔ اگلے مرحلے میں تعداد بدل سکتے ہیں۔')}</p></div>
+  <div class="nav2"><button class="btn line" data-step="3" type="button">${BK}</button><button class="btn gold" data-step="5" type="button">${NX}</button></div>`;
 }
 function avail(){ // available counts per type & difficulty in selected chapters
   const A={mcq:[0,0,0],sq:[0,0,0],lq:[0,0,0],num:[0,0,0]};
@@ -511,28 +574,47 @@ async function stepSettings(){
     <label class="tog"><input type="checkbox" data-mix="${t}" ${c.mix?'checked':''}> ${bi('Choose Easy / Medium / Hard','آسان / درمیانہ / مشکل خود چنیں')}</label>
     ${c.mix?`<div class="dif">${['e','md','h'].map((k,i)=>`<div>${DIF[i][0]}<span class="u" style="font-weight:400">${DIF[i][1]}</span>${stp(t+'.'+k,c[k])}</div>`).join('')}</div>`:''}</div>`};
   const pk=TT.filter(t=>S.pick[t].length).map(t=>S.pick[t].length+' '+TYP[t][0]).join(' · ');
+  const two=S.tpl==='t2'||S.tpl==='bt', tps=S.tpl==='t2'?['mcq']:TT;
+  const ess=t=>{const a=A[t];if(!sum(a)){return t==='num'?'':`<div class="set"><label>${TYP[t][0]}<span class="u">${TYP[t][1]} · ابھی دستیاب نہیں</span></label><span class="av">–</span></div>`}
+    return `<div class="set"><label>${TYP[t][0]} <small class="av">(${sum(a)} available)</small><span class="u">${TYP[t][1]} · کتنے سوال</span></label>${stp(t+'.n',S[t].n)}</div>`};
+  const mk=t=>{const c=S[t],a=A[t];if(!sum(a))return '';
+    return `<div class="sec"><h3>${TYP[t][0]} <span class="u">${TYP[t][1]}</span></h3><div class="av">Easy ${a[0]} · Medium ${a[1]} · Hard ${a[2]}</div>
+    <div class="set"><label>Marks each<span class="u">ہر سوال کے نمبر</span></label>${stp(t+'.mk',c.mk)}</div>
+    <label class="tog"><input type="checkbox" data-mix="${t}" ${c.mix?'checked':''}> ${bi('Choose Easy / Medium / Hard','آسان / درمیانہ / مشکل خود چنیں')}</label>
+    ${c.mix?`<div class="dif">${['e','md','h'].map((k,i)=>`<div>${DIF[i][0]}<span class="u" style="font-weight:400">${DIF[i][1]}</span>${stp(t+'.'+k,c[k])}</div>`).join('')}</div>`:''}</div>`};
+  const tp=TPL.find(x=>x.k===S.tpl)||{en:'',ur:''};
+  const smart=PACK.u.some(u=>['sq','lq'].some(t=>u[t].some(q=>q.x)));
   return `<div class="card"><h2 class="q">Step 5 · Paper Settings<span class="u">مرحلہ 5 · پیپر کی ترتیب</span></h2>
-  <button type="button" class="btn navy" data-gopick style="width:100%;margin:4px 0 6px">📋 Choose questions yourself · سوالات خود چنیں</button>
-  <p class="hint">${pk?`<b>Picked: ${pk}</b><br>${bi('The rest will be filled automatically.','باقی سوالات خودکار شامل ہوں گے۔')} <button type="button" class="btn line" data-pclear style="min-height:36px;padding:4px 10px;font-size:14px">Clear picks</button>`:bi('Or let the app pick all questions at random.','یا تمام سوالات ایپ خود چنے۔')}</p>
+  <p class="hint">${CL[S.c][0]} · ${SB[S.s][0]} · ${S.m.toUpperCase()} · ${S.ch.length} chapter(s) · <b>${tp.en}</b><br>${bi('Everything is already filled. Just press «Make Paper», or change the numbers.','سب کچھ پہلے سے بھرا ہوا ہے۔ سیدھا «Make Paper» دبائیں، یا تعداد بدل لیں۔')}</p>
+  ${tps.map(ess).join('')}
   <div class="set"><label>Time (minutes)<span class="u">وقت (منٹ)</span></label>${stp('time',S.time)}</div>
-  <div class="set"><label>Passing %<span class="u">پاسنگ فیصد</span></label>${stp('pass',S.pass)}</div>
-  ${S.tpl==='t2'?t2Fields()+sec('mcq'):(S.tpl==='bt'?btFields():'')+sec('mcq')+sec('sq')+sec('lq')+sec('num')}
+  ${pk?`<p class="hint"><b>Picked by you: ${pk}</b> · ${bi('the rest is filled automatically.','باقی خودکار۔')}</p>`:''}
   <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing Marks<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${S.time}</b><span>Minutes<br><span class="u">منٹ</span></span></div></div>
-  ${S.tpl==='t2'||S.tpl==='bt'?'':`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`}
-  ${lastNSel()}
-  ${PACK.u.some(u=>['sq','lq'].some(t=>u[t].some(q=>q.x)))?`<label class="tog"><input type="checkbox" data-opt="exd" ${S.exd?'checked':''}> ${bi('Smart Syllabus 2027 only (skip deleted questions)','اسمارٹ سلیبس 2027 (خارج سوالات نہیں)')}</label>`:''}
-  <div class="set" style="grid-template-columns:1fr"><label for="inst">Name on paper<span class="u">پیپر پر ادارے کا نام</span></label><input class="inp" id="inst" value="${esc(S.inst)}" maxlength="70"></div>
-  ${hdrFields(S.tpl==='t2'||S.tpl==='bt')}
-  <p class="hint">${bi('Easy/Medium/Hard is estimated automatically from question length.','آسان/مشکل کا اندازہ سوال کی لمبائی سے خودکار لگایا جاتا ہے۔')}</p>
-  ${presetSave()}</div>
-  <div class="nav2"><button class="btn line" data-step="4" type="button">‹ Back</button><button class="btn gold" id="genBtn" type="button" ${T?'':'disabled'}>✨ Make Paper</button></div>`;
+  </div>
+  ${moWrap(
+    moBox('pick','📋','Choose questions yourself','اپنی پسند کے سوال خود ٹک کریں، باقی سوال ایپ خود ڈال دے گی',`<button type="button" class="btn navy" data-gopick style="width:100%;margin:4px 0 6px">📋 Choose questions yourself · سوالات خود چنیں</button>
+      <p class="hint">${pk?`<b>Picked: ${pk}</b><br>${bi('The rest will be filled automatically.','باقی سوالات خودکار شامل ہوں گے۔')} <button type="button" class="btn line" data-pclear style="min-height:36px;padding:4px 10px;font-size:14px">Clear picks</button>`:bi('Or let the app pick all questions at random.','یا تمام سوالات ایپ خود چنے۔')}</p>`)
+   +(two?moBox('ver','🧾',S.tpl==='t2'?'Versions, layout, test number':'Versions (one paper or Set A + B)',S.tpl==='t2'?'ایک یا دو ورژن، ایک A4 پر 2 طالب علم یا 1، اور ٹیسٹ نمبر':'سب کو ایک ہی پیپر، یا نقل روکنے کے لیے سیٹ A اور B',S.tpl==='t2'?t2Fields():btFields()):'')
+   +moBox('fit','📄','Pages and sides','پیپر کتنے صفحات پر آئے، اور کاغذ کی ایک طرف یا دونوں طرف چھپے',fitBar(null))
+   +moBox('marks','🔢','Marks and Easy / Hard','ہر سوال کے نمبر، اور آسان/درمیانے/مشکل سوالات کی تعداد',tps.map(mk).join('')+`<p class="hint">${bi('Easy/Medium/Hard is estimated automatically from question length.','آسان/مشکل کا اندازہ سوال کی لمبائی سے خودکار لگایا جاتا ہے۔')}</p>`)
+   +moBox('pass','✅','Passing %','پاس ہونے کے لیے کتنے فیصد نمبر ضروری ہیں',`<div class="set"><label>Passing %<span class="u">پاسنگ فیصد</span></label>${stp('pass',S.pass)}</div>`)
+   +(two?'':moBox('sets','🅰️','Set A and Set B','ایک ہی کلاس کے لیے دو مختلف پیپر، تاکہ نقل نہ ہو',`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`))
+   +moBox('rep','🔁','Repeat and syllabus','پچھلے پیپرز والے سوال دوبارہ نہ آئیں، اور صرف اسمارٹ سلیبس کے سوال',lastNSel()+(smart?`<label class="tog"><input type="checkbox" data-opt="exd" ${S.exd?'checked':''}> ${bi('Smart Syllabus 2027 only (skip deleted questions)','اسمارٹ سلیبس 2027 (خارج سوالات نہیں)')}</label>`:''))
+   +moBox('hdr','✏️','Name, title, teacher, date','پیپر کے اوپر ادارے کا نام، پیپر کا عنوان، استاد کا نام اور تاریخ',instField()+hdrText())
+   +(two?'':moBox('size','📐','Paper size','پورا A4 صفحہ، یا آدھا صفحہ (ایک A4 پر دو پیپر)',sizeSel()))
+   +moBox('logo','🖼️','Logo on paper','پیپر پر اکیڈمی کا لوگو یا اپنا لوگو',logoSel())
+   +moBox('font','🔤','Font','فونٹ خودکار ہے: اردو پیپر جمیل نوری نستعلیق میں، فونٹ کبھی چھوٹا نہیں ہوتا',`<p class="hint">${bi('Urdu papers always use Jameel Noori Nastaleeq. One font size for the whole paper; it never shrinks. To make the paper shorter or longer, use «Pages and sides».','اردو پیپر ہمیشہ جمیل نوری نستعلیق میں بنتا ہے۔ پورے پیپر میں ایک ہی فونٹ سائز، کبھی چھوٹا نہیں ہوتا۔ صفحات کم یا زیادہ کرنے کے لیے «Pages and sides» استعمال کریں۔')}</p>`)
+   +moBox('preset','💾','Save these settings','یہ ترتیب نام سے محفوظ کریں، اگلی بار ایک ٹیپ میں لگ جائے گی',presetSave()))}
+  <div class="nav2"><button class="btn line" data-step="4" type="button">${BK}</button><button class="btn gold" id="genBtn" type="button" ${T?'':'disabled'}>✨ Make Paper<span class="u">پیپر بنائیں</span></button></div>`;
 }
 function lastNSel(){return `<div class="set"><label for="lastN">Don't repeat questions of<span class="u">ان پیپرز کے سوالات نہ دہرائیں</span></label><select class="inp" id="lastN" style="width:auto">${[['0','Off · بند'],['1','Last 1 paper'],['3','Last 3 papers'],['5','Last 5 papers'],['10','Last 10 papers'],['all','All my papers']].map(([v,l])=>`<option value="${v}" ${S.lastN===v?'selected':''}>${l}</option>`).join('')}</select></div>`}
-function hdrFields(t2){return `<div class="ef"><label for="ttl">Paper title<span class="u">پیپر کا عنوان (اختیاری)</span></label><input class="inp" id="ttl" value="${esc(S.ttl||'')}" maxlength="60" placeholder="e.g. December Test">
+function instField(){return `<div class="set" style="grid-template-columns:1fr"><label for="inst">Name on paper<span class="u">پیپر پر ادارے کا نام</span></label><input class="inp" id="inst" value="${esc(S.inst)}" maxlength="70"></div>`}
+function hdrFields(t2){return hdrText()+(t2?'':sizeSel())+logoSel()}
+function hdrText(){return `<div class="ef"><label for="ttl">Paper title<span class="u">پیپر کا عنوان (اختیاری)</span></label><input class="inp" id="ttl" value="${esc(S.ttl||'')}" maxlength="60" placeholder="e.g. December Test">
   <label for="tch">Teacher name<span class="u">استاد کا نام (اختیاری)</span></label><input class="inp" id="tch" value="${esc(S.tch||'')}" maxlength="50">
-  <label for="dstr">Date on paper<span class="u">تاریخ (اختیاری)</span></label><input class="inp" id="dstr" value="${esc(S.dstr||'')}" maxlength="30" placeholder="e.g. 20-11-2026"></div>
-  ${t2?'':`<div class="ef"><label>Paper size<span class="u">پیپر کا سائز</span></label><div class="seg"><button type="button" class="ch" data-half="0" aria-pressed="${!S.half}"><b>A4 full page</b><span class="u">پورا صفحہ</span></button><button type="button" class="ch" data-half="1" aria-pressed="${!!S.half}"><b>Half page</b><span class="u">آدھا صفحہ (ایک A4 پر 2)</span></button></div></div>`}
-  <div class="ef"><label>Logo on paper<span class="u">پیپر پر لوگو</span></label><div class="row"><label class="btn line" style="flex:1">🖼️ My logo<input type="file" id="logoIn" accept="image/*" hidden></label>${LS.get('ahsa-pm-logo',null)?`<button type="button" class="btn line" data-logodel style="flex:1">↩️ AHSA logo</button>`:''}</div>${LS.get('ahsa-pm-logo',null)?`<img src="${LS.get('ahsa-pm-logo','')}" alt="" style="width:56px;height:56px;border-radius:50%;margin-top:6px;object-fit:cover">`:''}</div>`}
+  <label for="dstr">Date on paper<span class="u">تاریخ (اختیاری)</span></label><input class="inp" id="dstr" value="${esc(S.dstr||'')}" maxlength="30" placeholder="e.g. 20-11-2026"></div>`}
+function sizeSel(){return `<div class="ef"><label>Paper size<span class="u">پیپر کا سائز</span></label><div class="seg"><button type="button" class="ch" data-half="0" aria-pressed="${!S.half}"><b>A4 full page</b><span class="u">پورا صفحہ</span></button><button type="button" class="ch" data-half="1" aria-pressed="${!!S.half}"><b>Half page</b><span class="u">آدھا صفحہ (ایک A4 پر 2)</span></button></div></div>`}
+function logoSel(){return `<div class="ef"><label>Logo on paper<span class="u">پیپر پر لوگو</span></label><div class="row"><label class="btn line" style="flex:1">🖼️ My logo<input type="file" id="logoIn" accept="image/*" hidden></label>${LS.get('ahsa-pm-logo',null)?`<button type="button" class="btn line" data-logodel style="flex:1">↩️ AHSA logo</button>`:''}</div>${LS.get('ahsa-pm-logo',null)?`<img src="${LS.get('ahsa-pm-logo','')}" alt="" style="width:56px;height:56px;border-radius:50%;margin-top:6px;object-fit:cover">`:''}</div>`}
 function presetSave(){return `<div class="ef" style="border-top:1px solid var(--line);padding-top:10px"><label for="pname">Save these settings as a preset<span class="u">یہ ترتیب محفوظ کریں</span></label><div class="srow"><input class="inp" id="pname" maxlength="40" placeholder="e.g. Class 10 Physics Monthly"><button type="button" class="btn line" data-psave>💾 Save</button></div></div>`}
 const logoSrc=()=>LS.get('ahsa-pm-logo',null)||'../assets/logo-96.webp';
 function usedSet(k,t){const N=S.lastN;if(N==='0')return new Set();if(N==='all'||N==null)return new Set((LS.get('ahsa-pm-used',{})[k]||{})[t]||[]);
@@ -598,7 +680,7 @@ function generate(){
   const tp=TPL.find(t=>t.k===S.tpl);
   const P=Object.assign({id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:S.tpl,title:tp.en,titleUr:tp.ur,inst:S.inst||DEF_INST,time:S.time,pass:S.pass,ab:S.ab,seed,chs:S.ch.slice(),sec,date:new Date().toISOString().slice(0,10)},hdrOf(),S.tpl==='t2'?{ab:!S.t2one,half:false,t2:{tno:S.tno||1,lay:S.lay===1?1:2,one:!!S.t2one}}:S.tpl==='bt'?{half:false}:{});
   storeP(P);
-  VP=Object.assign({saved:true},P);
+  VP=Object.assign({saved:true},P);FRESH=true;REACH=Math.max(REACH,5);
   if(short.length)toast('Not enough questions for: '+short.join(', ')+' · جتنے سوال ملے، شامل کر دیے');
   SWM=false;EDM=false;ADDQ=null;view='paper';render();scrollTo(0,0);
 }
@@ -712,7 +794,7 @@ function fitBar(P){
   <div class="fl">🖨️ Sides<span class="u">کاغذ کی کتنی طرف</span></div>
   <div class="fs s2">${B('sides',1,sd===1,'1 side (front only)','صرف ایک طرف')}${B('sides',2,sd===2,'2 sides (double-sided)','دونوں طرف')}</div>
   <p class="hint" style="margin:0">${bi('Font size stays the same; only spacing and page breaks change. A question is never split between two pages.','فونٹ سائز وہی رہتا ہے، صرف فاصلہ اور صفحہ بندی بدلتی ہے۔ کوئی سوال دو صفحوں میں نہیں ٹوٹتا۔')}</p>
-  ${P?'<div id="fitmsg"></div>':''}</div>`}
+</div>`}
 function fitMsg(){const e=$('#fitmsg');if(!e||!FITI||!VP)return;const I=FITI,sd=sidesOf(VP),pl=n=>n+(n>1?' pages':' page'),pu=n=>n+(n>1?' صفحات':' صفحہ'),per=VP.ab?' (each set)':'',peru=VP.ab?' (ہر سیٹ)':'';
   const pr=sd===2?bi('Print on both sides («Flip on long edge»).','دونوں طرف پرنٹ کریں («Flip on long edge»)۔'):bi('Print on one side of each sheet only.','ہر کاغذ کی صرف ایک طرف پرنٹ کریں۔');
   if(I.min){e.className='fitmsg warn';e.innerHTML=bi(`⚠️ This paper cannot fit on ${pl(I.want)} without making the writing smaller. Minimum needed: ${pl(I.min)}${per}. Choose ${I.min<=3?I.min+' pages':'Auto'} or remove some questions.`,`⚠️ یہ پیپر فونٹ چھوٹا کیے بغیر ${pu(I.want)} پر پورا نہیں آتا۔ کم از کم ${pu(I.min)}${peru} چاہییں۔ ${I.min<=3?I.min+' صفحات':'«خودکار»'} چنیں یا کچھ سوالات کم کریں۔`);return}
@@ -915,24 +997,30 @@ async function buildPages(kind,set){ // kind: paper|key
 function paperView(){
   const P=VP,[T,pm]=totals(P);
   const n=cnt(P);
-  return `<div class="card">${fitBar(P)}<h2 class="q">✅ Paper Ready<span class="u">پیپر تیار ہے</span></h2>
+  return `${FRESH?wizBar(6):''}<div class="card"><h2 class="q">✅ Paper Ready<span class="u">پیپر تیار ہے</span></h2>
   <p class="hint">${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} · ${P.m.toUpperCase()}<br>${n.mcq} MCQs · ${n.sq} Short · ${n.lq} Long${n.num?' · '+n.num+' Numericals':''} · ${T} marks · ${P.ab?'Set A + B':'1 set'}</p>
-  <div class="acts">
-   <button class="btn gold" data-act="pdf" type="button">⬇️ Paper PDF</button>
-   <button class="btn navy" data-act="key" type="button">🔑 Answer Key PDF</button>
+  <div id="fitmsg"></div>
+  <div class="acts big">
+   <button class="btn line full" data-act="pvgo" type="button">👁️ See preview<span class="u">پیپر دیکھیں</span></button>
+   <button class="btn gold" data-act="print" type="button">🖨️ Print<span class="u">پرنٹ</span></button>
+   <button class="btn gold" data-act="pdf" type="button">⬇️ PDF<span class="u">پیپر PDF</span></button>
+   <button class="btn navy" data-act="word" type="button">📝 Word<span class="u">ورڈ فائل</span></button>
+   <button class="btn navy" data-act="key" type="button">🔑 Answer Key<span class="u">جوابات کی کنجی (الگ فائل)</span></button>
    <button class="btn wa full" data-act="share" type="button">📤 Share on WhatsApp</button>
-   <button class="btn line full" data-act="print" type="button">🖨️ Print / Save as PDF (selectable text)<span class="u">پرنٹ / کاپی ہونے والے ٹیکسٹ کی PDF</span></button>
+  </div>
+  <p class="hint">${bi('Print gives a PDF with selectable text (choose «Save as PDF» in the print window).','«Print» سے کاپی ہونے والے ٹیکسٹ کی PDF بھی بن جاتی ہے (پرنٹ ونڈو میں «Save as PDF» چنیں)۔')}</p>
+  ${moBox('pfit','📄','Pages and sides','پیپر کتنے صفحات پر آئے، اور کاغذ کی ایک طرف یا دونوں طرف چھپے',fitBar(P))}
+  <div class="acts"><div class="full agl">🛠️ Change the paper <span class="u">پیپر میں تبدیلی</span></div>
+   <button class="btn ${EDM?'gold':'line'} full" data-act="edm" type="button">${EDM?'✓ Done editing · ایڈٹ مکمل':'✏️ Edit paper · پیپر میں تبدیلی'}</button>
+   <button class="btn ${SWM?'gold':'line'}" data-act="swm" type="button">${SWM?'✓ Done · ہو گیا':'⇄ Change one question'}</button>
+   <button class="btn line" data-act="regen" type="button">🔁 New questions</button>
    ${P.tpl==='t2'||P.tpl==='bt'?`<button class="btn line full" data-act="png" type="button">🖼️ Preview image (PNG)</button>`:''}
-   <button class="btn ${EDM?'gold':'navy'} full" data-act="edm" type="button">${EDM?'✓ Done editing · ایڈٹ مکمل':'✏️ Edit paper · پیپر میں تبدیلی'}</button>
-   <button class="btn line" data-act="word" type="button">📝 Word file</button>
-   <button class="btn line" data-act="regen" type="button">🔁 Regenerate</button>
-   <button class="btn ${SWM?'gold':'line'} full" data-act="swm" type="button">${SWM?'✓ Done · ہو گیا':'⇄ Change one question · ایک سوال بدلیں'}</button>
-   <button class="btn line full" data-act="again" type="button">⚙️ Change Settings / New Paper</button>
   </div>
   ${P.tpl==='t2'&&!(P.t2&&P.t2.lay===1)?`<div class="gap">${sidesOf(P)===2?bi('Printing: choose both sides and «Flip on long edge». Then cut each sheet on the dashed line: 2 students per sheet.','پرنٹ: دونوں طرف (Both sides) اور «Flip on long edge» چنیں، پھر ڈیش لائن سے کاٹ لیں۔ ایک شیٹ سے 2 طالب علم۔'):bi('Printing: one side only. Then cut each sheet on the dashed line: 2 students per sheet.','پرنٹ: صرف ایک طرف، پھر ڈیش لائن سے کاٹ لیں۔ ایک شیٹ سے 2 طالب علم۔')}</div>`:''}
   ${P.tpl==='bt'?`<div class="gap">${sidesOf(P)===1?bi('One student per A4 layout, printed on one side of each sheet. After the objective time, cut on the dashed line and collect the top (MCQs) part. Answer key is a separate file (Answer Key PDF).','ہر کاغذ کی صرف ایک طرف پرنٹ۔ معروضی وقت کے بعد ڈیش لائن سے کاٹ کر اوپر والا (MCQs) حصہ لے لیں۔ جوابات کی کنجی الگ فائل ہے۔'):bi('One A4 per student: print both sides («Flip on long edge»). After the objective time, cut on the dashed line and collect the top (MCQs) part. Answer key is a separate file (Answer Key PDF).','ہر طالب علم کے لیے ایک A4: دونوں طرف پرنٹ کریں («Flip on long edge»)۔ معروضی وقت کے بعد ڈیش لائن سے کاٹ کر اوپر والا (MCQs) حصہ لے لیں۔ جوابات کی کنجی الگ فائل ہے۔')}</div>`:''}
   ${SWM?`<div class="gap" id="swhint">${bi('Now tap any question in the paper below to change it.','اب نیچے پیپر میں جس سوال کو بدلنا ہو اس پر ٹیپ کریں۔')}</div>`:''}
-  <p class="hint">${bi('Saved in My Papers on this phone.','یہ پیپر اس فون میں «میرے پیپرز» میں محفوظ ہے۔')}<br>${bi('Regenerate changes all questions.','«Regenerate» سے سارے سوالات بدل جائیں گے۔')}</p></div>
+  <p class="hint">${bi('Saved in My Papers on this phone.','یہ پیپر اس فون میں «میرے پیپرز» میں محفوظ ہے۔')}<br>${bi('«New questions» changes all questions.','«New questions» سے سارے سوالات بدل جائیں گے۔')}</p>
+  <div class="nav2"><button class="btn line" data-act="again" type="button">‹ Settings<span class="u">ترتیب پر واپس</span></button><button class="btn navy" data-act="newp" type="button">📝 New paper<span class="u">نیا پیپر (مرحلہ 1)</span></button></div></div>
   ${EDM?editPanel(P):''}
   <div class="pvw" id="pvw"><div class="pvin" id="pvin"></div></div>`;
 }
@@ -1009,7 +1097,7 @@ async function makePDF(kind){
 }
 function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000)}
 async function act(a,P){
-  VP=Object.assign({saved:true},P);
+  VP=Object.assign({saved:true},P);FRESH=true;REACH=Math.max(REACH,5);
   try{
     if(a==='pdf'||a==='key'){const b=await makePDF(a);download(b,fname(P,a));toast('PDF downloaded · پی ڈی ایف ڈاؤن لوڈ ہو گئی')}
     else if(a==='share'){const b=await makePDF('pdf');const f=new File([b],fname(P,'pdf'),{type:'application/pdf'});
@@ -1072,12 +1160,15 @@ function stepBoard(){
   <div class="tot"><div><b>${T}</b><span>Total Marks<br><span class="u">کل نمبر</span></span></div><div><b>${pm}</b><span>Passing (33%)<br><span class="u">پاسنگ نمبر</span></span></div><div><b>${fmtTime(sc.time).replace(' minutes',' min')}</b><span>Time<br><span class="u">وقت</span></span></div></div>
   ${u0?`<div class="gap">${bi('Short/long questions of this subject are not chapter-wise in our notes yet, so they are picked from the whole book. MCQs follow the exact chapter scheme.','اس مضمون کے مختصر/تفصیلی سوالات ابھی باب وار نہیں، اس لیے پوری کتاب سے لیے جائیں گے۔ MCQs بورڈ اسکیم کے مطابق باب وار ہوں گے۔')}</div>`:''}
   ${numP&&!numHave?`<div class="gap">${bi('Numericals for this subject are not in our notes yet, so part (b) is a long question.','اس مضمون کے عددی سوالات ابھی نوٹس میں نہیں، اس لیے جز (ب) بھی تفصیلی سوال ہوگا۔')}</div>`:''}
-  ${S.tpl==='t2'||S.tpl==='bt'?'':`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`}
-  ${lastNSel()}
-  <div class="set" style="grid-template-columns:1fr"><label for="inst">Name on paper<span class="u">پیپر پر ادارے کا نام</span></label><input class="inp" id="inst" value="${esc(S.inst)}" maxlength="70"></div>
-  ${hdrFields()}
   <p class="hint">${bi('Questions are picked at random from AHSA notes, with a mix of easy, medium and hard.','سوالات اکیڈمی کے نوٹس سے خودکار طریقے سے چنے جاتے ہیں، آسان، درمیانے اور مشکل ملا کر۔')}</p></div>
-  <div class="nav2"><button class="btn line" data-step="4" type="button">‹ Back</button><button class="btn gold" id="genBtn" type="button">✨ Make Board Paper</button></div>`;
+  ${moWrap(
+    moBox('fit','📄','Pages and sides','پیپر کتنے صفحات پر آئے، اور کاغذ کی ایک طرف یا دونوں طرف چھپے',fitBar(null))
+   +moBox('sets','🅰️','Set A and Set B','ایک ہی کلاس کے لیے دو مختلف پیپر، تاکہ نقل نہ ہو',`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`)
+   +moBox('rep','🔁','Do not repeat questions','پچھلے پیپرز والے سوال دوبارہ نہ آئیں',lastNSel())
+   +moBox('hdr','✏️','Name, title, teacher, date','پیپر کے اوپر ادارے کا نام، پیپر کا عنوان، استاد کا نام اور تاریخ',instField()+hdrText())
+   +moBox('size','📐','Paper size','پورا A4 صفحہ، یا آدھا صفحہ (ایک A4 پر دو پیپر)',sizeSel())
+   +moBox('logo','🖼️','Logo on paper','پیپر پر اکیڈمی کا لوگو یا اپنا لوگو',logoSel()))}
+  <div class="nav2"><button class="btn line" data-step="4" type="button">${BK}</button><button class="btn gold" id="genBtn" type="button">✨ Make Board Paper<span class="u">پیپر بنائیں</span></button></div>`;
 }
 // pick one question id of type t from chapters chs; avoids ids in ex; prefers unused and difficulty d
 function pickQ(t,chs,ex,U,d,r,fallback){
@@ -1311,6 +1402,9 @@ document.addEventListener('click',async e=>{
   const g=e.target.closest('[data-go]'); if(g){if(g.dataset.go==='gen'&&view==='gen'){step=1}go(g.dataset.go);return}
   const qs=SWM&&e.target.closest('#pvin .qi[data-sw],#pvin .t2pg .q[data-sw],#pvin .btpg [data-sw]'); if(qs){swapQ(qs.dataset.sw);return}
   const b=e.target.closest('button'); if(!b)return;
+  if(b.dataset.wz){const i=+b.dataset.wz;if(i===6){if(FRESH&&VP){view='paper';SWM=false;EDM=false;ADDQ=null;await render();scrollTo(0,0)}return}
+    if(view==='gen'&&i===step)return;if(i>1&&!canStep(i))return;view='gen';step=i;SWM=false;EDM=false;ADDQ=null;await render();scrollTo(0,0);return}
+  if(b.hasAttribute('data-reuse')){if(LAST){S=freshS(LAST);S.pick={mcq:[],sq:[],lq:[],num:[]};const pu=IDX[key()];S.ch=pu?S.ch.filter(n=>pu.u.some(u=>u[0]===n)):[];REACH=5;step=1;await render();scrollTo(0,0);toast('Previous settings filled. Press Next · پچھلی ترتیب بھر دی گئی، «آگے» دبائیں')}return}
   if(b.closest('.fitbar')&&(b.dataset.fit||b.dataset.sides)){const k=b.dataset.fit?'fit':'sides',v=k==='fit'&&b.dataset.fit==='a'?'a':+b.dataset[k];S[k]=v;save();
     if(view==='paper'&&VP){VP[k]=v;await saveEdit(true)}else{const y=scrollY;await render();scrollTo(0,y)}return}
   if(b.id==='themeBtn'){const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('ahsa-site-theme',r.dataset.theme)}catch(x){}return}
@@ -1320,7 +1414,7 @@ document.addEventListener('click',async e=>{
   if(b.hasAttribute('data-pmore')){PF.lim+=30;const y=scrollY;await render();scrollTo(0,y);return}
   if(b.hasAttribute('data-pclear')){S.pick={mcq:[],sq:[],lq:[],num:[]};save();const y=scrollY;await render();scrollTo(0,y);toast('Picks cleared · انتخاب ختم');return}
   if(b.hasAttribute('data-pdone')){TT.forEach(t=>{if(S[t].n<S.pick[t].length)S[t].n=S.pick[t].length});save();step=5;go('gen');return}
-  if(b.dataset.pload){const L=LS.get('ahsa-pm-presets',[]),x=L[+b.dataset.pload];if(x){Object.assign(S,JSON.parse(JSON.stringify(x.S)));S.pick={mcq:[],sq:[],lq:[],num:[]};save();step=5;render();scrollTo(0,0);toast('Preset loaded · ترتیب لوڈ ہو گئی')}return}
+  if(b.dataset.pload){const L=LS.get('ahsa-pm-presets',[]),x=L[+b.dataset.pload];if(x){Object.assign(S,JSON.parse(JSON.stringify(x.S)));S.pick={mcq:[],sq:[],lq:[],num:[]};save();REACH=5;step=5;render();scrollTo(0,0);toast('Preset loaded · ترتیب لوڈ ہو گئی')}return}
   if(b.dataset.pdel){if(b.dataset.sure){const L=LS.get('ahsa-pm-presets',[]);L.splice(+b.dataset.pdel,1);LS.set('ahsa-pm-presets',L);render()}else{b.dataset.sure=1;b.textContent='✓?';toast('Tap again to delete · دوبارہ دبائیں')}return}
   if(b.hasAttribute('data-psave')){const nm=($('#pname').value||'').trim();if(!nm){toast('Write a name first · پہلے نام لکھیں');$('#pname').focus();return}
     S.inst=($('#inst')||{}).value?.trim()||S.inst;const{pick,...snap}=S;const L=LS.get('ahsa-pm-presets',[]).filter(x=>x.name!==nm);L.unshift({name:nm,S:JSON.parse(JSON.stringify(snap))});LS.set('ahsa-pm-presets',L.slice(0,20));toast('Preset saved · ترتیب محفوظ ہو گئی');$('#pname').value='';return}
@@ -1335,18 +1429,20 @@ document.addEventListener('click',async e=>{
     await saveEdit(true);return}
   if(b.dataset.addq!=null){ADDQ=b.dataset.addq||null;const y=scrollY;await render();scrollTo(0,y);if(ADDQ)$('#aq_q').focus();return}
   if(b.dataset.addsave){if(addCustom(b.dataset.addsave)){ADDQ=null;await saveEdit(true);toast('Question added · سوال شامل ہو گیا')}return}
-  if(b.dataset.dup){const P=LS.get('ahsa-papers',[]).find(x=>x.id==b.dataset.dup);if(P){const C=JSON.parse(JSON.stringify(P));C.id=Date.now();C.date=new Date().toISOString().slice(0,10);C.ctitle=(P.ctitle||(P.m==='um'?P.titleUr:P.title))+' (copy)';storeP(C);VP=Object.assign({saved:true},C);EDM=true;view='paper';render();scrollTo(0,0);toast('Copy made. Edit it now · کاپی بن گئی، اب تبدیلی کریں')}return}
+  if(b.dataset.dup){const P=LS.get('ahsa-papers',[]).find(x=>x.id==b.dataset.dup);if(P){const C=JSON.parse(JSON.stringify(P));C.id=Date.now();C.date=new Date().toISOString().slice(0,10);C.ctitle=(P.ctitle||(P.m==='um'?P.titleUr:P.title))+' (copy)';storeP(C);VP=Object.assign({saved:true},C);FRESH=false;EDM=true;view='paper';render();scrollTo(0,0);toast('Copy made. Edit it now · کاپی بن گئی، اب تبدیلی کریں')}return}
   if(b.dataset.c){if(S.c!==b.dataset.c){S.c=b.dataset.c;S.s=null;S.m=null;S.ch=[];S.pick={mcq:[],sq:[],lq:[],num:[]}}step=2;save();render();scrollTo(0,0);return}
   if(b.dataset.s){if(S.s!==b.dataset.s){S.s=b.dataset.s;S.m=null;S.ch=[];S.pick={mcq:[],sq:[],lq:[],num:[]}}save();render();return}
-  if(b.dataset.m){if(S.m!==b.dataset.m)S.pick={mcq:[],sq:[],lq:[],num:[]};S.m=b.dataset.m;S.ch=[];save();render();return}
+  if(b.dataset.m){if(S.m!==b.dataset.m){S.pick={mcq:[],sq:[],lq:[],num:[]};S.ch=[]}S.m=b.dataset.m;save();render();return}
   if(b.dataset.step){step=+b.dataset.step;if(step===3&&!S.ch.length){S.ch=IDX[key()].u.map(u=>u[0]).slice(0,1)}save();render();scrollTo(0,0);return}
-  if(b.dataset.tpl){S.tpl=b.dataset.tpl;if(S.tpl!=='bp'){const t=TPL.find(x=>x.k===S.tpl);S.time=t.time;['mcq','sq','lq'].forEach(k=>{S[k].n=t[k][0];S[k].mk=t[k][1];S[k].mix=false});S.num.n=0;S.num.mix=false;if(S.tpl==='t2'){S.ab=!S.t2one;t2Count()}if(S.tpl==='bt')btDefaults()}step=5;save();render();scrollTo(0,0);return}
+  if(b.dataset.tpl){if(S.tpl===b.dataset.tpl&&REACH>=5){step=5;render();scrollTo(0,0);return}S.tpl=b.dataset.tpl;if(S.tpl!=='bp'){const t=TPL.find(x=>x.k===S.tpl);S.time=t.time;['mcq','sq','lq'].forEach(k=>{S[k].n=t[k][0];S[k].mk=t[k][1];S[k].mix=false});S.num.n=0;S.num.mix=false;if(S.tpl==='t2'){S.ab=!S.t2one;t2Count()}if(S.tpl==='bt')btDefaults()}step=5;save();render();scrollTo(0,0);return}
   if(b.dataset.board){if(b.dataset.board==='fb'){toast('Federal Board scheme coming soon · فیڈرل بورڈ جلد آ رہا ہے');return}S.board=b.dataset.board;save();render();return}
   if(b.dataset.sw){swapQ(b.dataset.sw);return}
   if(b.dataset.inc||b.dataset.dec){bump(b.dataset.inc||b.dataset.dec,b.dataset.inc?1:-1);save();const y=scrollY;await render();scrollTo(0,y);return}
-  if(b.id==='genBtn'){S.inst=($('#inst').value||'').trim()||DEF_INST;LS.set('ahsa-pm-inst',S.inst);save();busy(true,'⏳');try{await getPack(key());S.tpl==='bp'?genBoard():generate()}finally{busy(false)}return}
-  if(b.dataset.act){if(b.dataset.act==='again'){if(VP){S.c=VP.c;S.s=VP.s;S.m=VP.m;if(VP.bp)S.tpl='bp';save()}step=5;view='gen';render();scrollTo(0,0);return}if(b.dataset.act==='regen'){regen();return}if(b.dataset.act==='edm'){EDM=!EDM;SWM=false;ADDQ=null;await render();if(EDM)$('#edp').scrollIntoView({behavior:'smooth'});return}if(b.dataset.act==='swm'){SWM=!SWM;EDM=false;const y=scrollY;await render();scrollTo(0,y);if(SWM)toast('Tap a question in the paper · پیپر میں سوال پر ٹیپ کریں');return}act(b.dataset.act,VP);return}
-  if(b.dataset.pv){const P=LS.get('ahsa-papers',[]).find(x=>x.id==b.dataset.pv);if(P){VP=Object.assign({saved:true},P);view='paper';render();scrollTo(0,0)}return}
+  if(b.id==='genBtn'){S.inst=(($('#inst')||{}).value||S.inst||'').trim()||DEF_INST;LS.set('ahsa-pm-inst',S.inst);save();busy(true,'⏳');try{await getPack(key());S.tpl==='bp'?genBoard():generate()}finally{busy(false)}return}
+  if(b.dataset.act==='pvgo'){const w=$('#pvw');if(w)w.scrollIntoView({behavior:'smooth'});return}
+  if(b.dataset.act==='newp'){if(VP){S.c=VP.c;S.s=VP.s;S.m=VP.m}step=1;view='gen';SWM=false;EDM=false;ADDQ=null;render();scrollTo(0,0);return}
+  if(b.dataset.act){if(b.dataset.act==='again'){if(VP){S.c=VP.c;S.s=VP.s;S.m=VP.m;if(VP.chs&&VP.chs.length)S.ch=VP.chs.slice();if(VP.bp)S.tpl='bp';save()}REACH=Math.max(REACH,5);step=5;view='gen';render();scrollTo(0,0);return}if(b.dataset.act==='regen'){regen();return}if(b.dataset.act==='edm'){EDM=!EDM;SWM=false;ADDQ=null;await render();if(EDM)$('#edp').scrollIntoView({behavior:'smooth'});return}if(b.dataset.act==='swm'){SWM=!SWM;EDM=false;const y=scrollY;await render();scrollTo(0,y);if(SWM)toast('Tap a question in the paper · پیپر میں سوال پر ٹیپ کریں');return}act(b.dataset.act,VP);return}
+  if(b.dataset.pv){const P=LS.get('ahsa-papers',[]).find(x=>x.id==b.dataset.pv);if(P){VP=Object.assign({saved:true},P);FRESH=false;view='paper';render();scrollTo(0,0)}return}
   if(b.dataset.pa){const[a,id]=b.dataset.pa.split('|');const P=LS.get('ahsa-papers',[]).find(x=>x.id==id);if(P)act(a,P);return}
   if(b.dataset.info){const P=LS.get('ahsa-papers',[]).find(x=>x.id==b.dataset.info);if(P)info(P);return}
 });
@@ -1367,10 +1463,11 @@ document.addEventListener('change',e=>{const t=e.target;
   if(t.hasAttribute('data-eab')&&VP){VP.ab=t.checked;saveEdit(true);return}
   if(t.id==='logoIn'&&t.files[0]){const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),z=128;c.width=c.height=z;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,z,z);const k=Math.min(z/im.width,z/im.height),w=im.width*k,h=im.height*k;x.drawImage(im,(z-w)/2,(z-h)/2,w,h);LS.set('ahsa-pm-logo',c.toDataURL('image/png'));const y=scrollY;render().then(()=>scrollTo(0,y));toast('Logo saved · لوگو محفوظ ہو گیا')};im.src=fr.result};fr.readAsDataURL(t.files[0]);return}
 });
+document.addEventListener('toggle',e=>{const d=e.target;if(d&&d.dataset&&d.dataset.mo)MO[d.dataset.mo]=d.open},true);
 function fitPreview(){const w=$('#pvw'),inn=$('#pvin');if(!w||!inn)return;inn.style.width='794px';const sc=Math.min(1,(w.clientWidth-20)/794);inn.style.transform=`scale(${sc})`;w.style.height=(inn.scrollHeight*sc+20)+'px'}
 addEventListener('resize',()=>{if(view==='paper')fitPreview()});
 if(location.hash==='#my')view='my';if(location.hash==='#cov')view='cov';
-if(S.c&&S.s&&S.m)step=S.ch.length?5:3;else if(S.c)step=2;
+step=1; // every visit starts at step 1 (no auto-restore)
 render().catch(()=>{$('#app').innerHTML='<div class="card warn">Could not load. Check internet and refresh. · انٹرنیٹ چیک کر کے دوبارہ کھولیں۔</div>'});
 </script>
 </body>
