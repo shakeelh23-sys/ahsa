@@ -100,6 +100,13 @@ h2.q .u{display:block;font-size:20px;font-weight:400;color:var(--mut)}
 .chi .t{flex:1;min-width:0}
 .chi .t b{display:block;font-size:17px;line-height:1.35}
 .chi .t small{color:var(--mut);font-size:14px}
+.chi.off{opacity:.55;cursor:not-allowed;border-style:dashed}
+.chi .t small.sx{display:block;color:#b42318;font-size:12.5px;line-height:1.35;margin-top:2px}
+.sylbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border:2px dashed var(--line);border-radius:12px;padding:8px 10px;margin:4px 0 10px}
+.sylbar.on{border-color:#e0a800;border-style:solid;background:rgba(224,168,0,.09)}
+.sylbar .btn{min-height:36px;padding:4px 10px;font-size:14px}
+.sylbar small{color:var(--mut);font-size:13px}
+.sylb{white-space:nowrap}.sylb.f{color:var(--mut)}
 .chi.on{border-color:var(--gold)}
 .chi[dir="rtl"] .t b{font:400 18px/1.9 var(--f-ur)}
 .all{display:flex;gap:12px;align-items:center;font-weight:700;margin-bottom:10px;padding:10px 12px;border-radius:14px;background:rgba(255,193,7,.14)}
@@ -582,12 +589,12 @@ let REACH=1, FRESH=false; const MO={}; // furthest wizard step reached; paper ju
 // Every visit starts at step 1 with default settings. Old settings are NOT restored automatically;
 // the teacher can bring them back only with the small «Reuse previous settings» button on step 1.
 const LAST=LS.get('ahsa-pm-last',null);
-function freshS(base){const X=Object.assign({c:null,s:null,m:null,ch:[],tpl:'mt',time:70,pass:33,ab:false,exd:true,norep:true,bord:true,inst:LS.get('ahsa-pm-inst',DEF_INST),
+function freshS(base){const X=Object.assign({c:null,s:null,m:null,ch:[],tpl:'mt',syl:'full',time:70,pass:33,ab:false,exd:true,norep:true,bord:true,inst:LS.get('ahsa-pm-inst',DEF_INST),
   mcq:{n:10,mk:1,mix:false,e:4,md:4,h:2},sq:{n:10,mk:2,mix:false,e:4,md:4,h:2},lq:{n:2,mk:5,mix:false,e:1,md:1,h:0},num:{n:0,mk:5,mix:false,e:0,md:0,h:0}},base?JSON.parse(JSON.stringify(base)):{});
   if(!X.num)X.num={n:0,mk:5,mix:false,e:0,md:0,h:0};
   if(!X.pick)X.pick={mcq:[],sq:[],lq:[],num:[]};
   if(X.lastN==null)X.lastN=X.norep===false?'0':'all';
-  if(!X.tno)X.tno=1;if(!X.lay)X.lay=2;return X}
+  if(!X.tno)X.tno=1;if(!X.lay)X.lay=2;if(X.syl!=='smart')X.syl='full';return X}
 let S=freshS(null);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const bi=(en,ur)=>`<span><b>${en}</b> <span class="u">${ur}</span></span>`;
@@ -596,6 +603,29 @@ function busy(on,msg){let b=$('#busy');if(!on){b&&b.remove();return}if(!b){b=doc
 async function getIdx(){if(!IDX){const r=await fetch('d/index.json');IDX=await r.json()}return IDX}
 async function getPack(k){if(PACK&&PACK.k===k)return PACK;const r=await fetch('d/'+k+'.json');PACK=await r.json();return PACK}
 const key=()=>`${S.c}-${S.s}-${S.m}`;
+/* ---------------- Full syllabus / Smart Syllabus 2027 ----------------
+   d/syl.json (built by notes/_build/papermaker/syl_build.py from the official PECTAA 2027 notifications):
+   subj[c-s] = {src, xu: deleted chapters, t: deleted topics per chapter, note}; x[pack][chapter][type] = question positions in deleted topics. */
+let SYL=null, SYLP=false; // SYLP: smart filter used by the board-pattern picker
+async function getSyl(){if(!SYL){try{const r=await fetch('d/syl.json?v=1');SYL=await r.json()}catch(e){SYL={subj:{},x:{},none:{}}}}return SYL}
+function sylInfo(c,s){return SYL&&SYL.subj[(c||S.c)+'-'+(s||S.s)]||null}
+function sylWhy(c,s){const N=(SYL&&SYL.none)||{};c=c||S.c;s=s||S.s;return N[c+'-'+s]||N[s]||N[c]||'No Smart Syllabus 2027 for this subject yet'}
+const smartOn=()=>S.syl==='smart'&&!!sylInfo();
+function sylUnitOff(n,on){if(!on)return false;const I=sylInfo();return !!(I&&I.xu.includes(n))}
+function okQ(n,t,i,q,on){if(!on||!PACK)return true;if(q&&q.x)return false;const[c,s]=PACK.k.split('-'),I=SYL&&SYL.subj[c+'-'+s];if(!I)return true;
+  if(I.xu.includes(n))return false;const X=SYL.x[PACK.k],L=X&&X[n]&&X[n][t];return !(L&&L.includes(i))}
+const okId=(id,t,on)=>{if(id.startsWith('c:'))return true;const[n,i]=id.split(':').map(Number);return okQ(n,t,i,getQ(id,t),on)};
+function sylFit(){ // after switching to Smart: drop deleted chapters and picks outside the syllabus
+  if(!smartOn())return;const I=sylInfo();S.ch=S.ch.filter(n=>!I.xu.includes(n));
+  if(!S.ch.length&&IDX&&IDX[key()])S.ch=IDX[key()].u.map(u=>u[0]).filter(n=>!I.xu.includes(n));
+  if(PACK&&PACK.k===key())TT.forEach(t=>{S.pick[t]=(S.pick[t]||[]).filter(id=>okId(id,t,true))})}
+const bpFoot=(P,ur)=>P.syl==='full'?(ur?'پورا سلیبس · پنجاب بورڈ پیئرنگ اسکیم 2027 کے مطابق':'Full syllabus · Punjab Boards pairing scheme 2027'):(ur?'اسمارٹ سلیبس 2027 · پنجاب بورڈ پیئرنگ اسکیم کے مطابق':'As per Smart Syllabus 2027 · Punjab Boards pairing scheme');
+const sylTag=(P,ur)=>P&&P.syl==='smart'?(ur?'اسمارٹ سلیبس 2027':'Smart Syllabus 2027'):'';
+function sylSel(){ // «More options» box + chapters step: Full syllabus or Smart Syllabus 2027
+  const I=sylInfo(), sm=S.syl==='smart'&&!!I;
+  const b=(v,on,en,ur,sm2,dis)=>`<button type="button" class="ch" data-syl="${v}" aria-pressed="${on}" ${dis?'disabled style="opacity:.55"':''}><b>${en}</b><span class="u">${ur}</span>${sm2?`<small>${sm2}</small>`:''}</button>`;
+  return `<div class="ef"><label>Syllabus<span class="u">پیپر کس سلیبس سے بنے</span></label><div class="seg">${b('full',!sm,'Full syllabus','پورا سلیبس (پوری کتاب)','All chapters and questions')}${b('smart',sm,'Smart Syllabus 2027','اسمارٹ سلیبس 2027 کے مطابق',I?'Only chapters and topics in the official PECTAA 2027 smart syllabus':esc(sylWhy()),!I)}</div>
+  ${I?`<p class="hint">${sm?bi('Deleted chapters and questions from deleted topics are left out. Source: '+esc(I.src)+'.','حذف شدہ ابواب اور حذف شدہ ٹاپکس کے سوالات پیپر میں نہیں آئیں گے۔'):bi('Smart Syllabus 2027 is available for this subject.','اس مضمون کا اسمارٹ سلیبس 2027 دستیاب ہے۔')}</p>`:`<p class="hint">${bi(esc(sylWhy())+'. The paper is made from the full syllabus.','اس مضمون کا اسمارٹ سلیبس دستیاب نہیں، اس لیے پیپر پورے سلیبس سے بنے گا۔')}</p>`}</div>`}
 function save(){LS.set('ahsa-pm-last',S)}
 // seeded random
 function rng(seed){let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -609,7 +639,7 @@ async function render(){
   if(view==='paper'){app.innerHTML=paperView();await drawPreview();return}
   if(view==='cov'){await getIdx();app.innerHTML=covView();return}
   if(view==='pick'){await getIdx();await getPack(key());app.innerHTML=pickView();return}
-  await getIdx();
+  await getIdx();await getSyl();
   if(step>1&&!canStep(step))step=1;
   REACH=Math.max(REACH,step);
   const body=await [0,stepClass,stepSubject,stepChapters,stepTemplate,stepSettings][step]();
@@ -656,17 +686,23 @@ function stepSubject(){
   <div class="nav2"><button class="btn line" data-step="1" type="button">${BK}</button><button class="btn gold" data-step="3" type="button" ${S.s&&S.m?'':'disabled'}>${NX}</button></div>`;
 }
 async function stepChapters(){
-  const p=IDX[key()]; const rtl=S.m==='um';
-  const ns=p.u.map(u=>u[0]); S.ch=S.ch.filter(n=>ns.includes(n));
+  const p=IDX[key()]; const rtl=S.m==='um', I=sylInfo(), on=smartOn();
+  if(on)await getPack(key());
+  const ns=p.u.map(u=>u[0]).filter(n=>!sylUnitOff(n,on)); S.ch=S.ch.filter(n=>ns.includes(n));
   const allOn=S.ch.length===ns.length;
+  const cnt=u=>{if(!on)return [u[2],u[3],u[4],u[5]||[0]].map(a=>a.reduce((x,y)=>x+y,0));const pu=PACK.u.find(x=>x.n===u[0]);return ['mcq','sq','lq','num'].map(t=>pu?(pu[t]||[]).filter((q,i)=>okQ(pu.n,t,i,q,true)).length:0)};
+  const tops=n=>I&&on&&I.t[n]?I.t[n].join(' • '):'';
+  const sylBar=`<div class="sylbar${on?' on':''}"><span>${on?bi('📚 Smart Syllabus 2027','اسمارٹ سلیبس 2027 کے مطابق'):bi('📚 Full syllabus','پورا سلیبس')}</span>${I?`<button type="button" class="btn line" data-syl="${on?'full':'smart'}">${on?'Use full syllabus · پورا سلیبس':'Use Smart Syllabus 2027 · اسمارٹ سلیبس'}</button>`:`<small>${esc(sylWhy())}</small>`}</div>
+  ${on?`<p class="hint">${bi('Deleted chapters are greyed out. Questions from deleted topics are left out of the counts below.','حذف شدہ ابواب ہلکے رنگ میں ہیں اور منتخب نہیں ہو سکتے۔ حذف شدہ ٹاپکس کے سوالات نیچے کی تعداد میں شامل نہیں۔')}${I.note?'<br><small>'+esc(I.note)+'</small>':''}</p>`:''}`;
   return `<div class="card"><h2 class="q">Step 3 · Select Chapters<span class="u">مرحلہ 3 · ابواب منتخب کریں</span></h2>
-  <p class="hint">${SB[S.s][0]} · ${CL[S.c][0]} · ${S.m.toUpperCase()}</p>
+  <p class="hint">${SB[S.s][0]} · ${CL[S.c][0]} · ${S.m.toUpperCase()}</p>${sylBar}
   <label class="all"><input type="checkbox" id="chAll" ${allOn?'checked':''}> <span>${bi('Select All','تمام ابواب')}</span></label>
-  <div class="chl">${p.u.map(u=>{const on=S.ch.includes(u[0]);const c=[u[2],u[3],u[4],u[5]||[0]].map(a=>a.reduce((x,y)=>x+y,0));
-    const lab=u[0]>=100?'':(rtl?`باب ${u[0]}: `:`Ch ${u[0]}: `);
-    return `<label class="chi${on?' on':''}" ${rtl?'dir="rtl"':''}><input type="checkbox" data-chn="${u[0]}" ${on?'checked':''}><span class="t"><b>${esc(lab+u[1])}</b><small dir="ltr">${c[0]} MCQs · ${c[1]} Short · ${c[2]} Long${c[3]?' · '+c[3]+' Numericals':''}</small></span></label>`}).join('')}</div></div>
+  <div class="chl">${p.u.map(u=>{const off=sylUnitOff(u[0],on),ok=!off&&S.ch.includes(u[0]);const c=cnt(u);
+    const lab=u[0]>=100?'':(rtl?`باب ${u[0]}: `:`Ch ${u[0]}: `), tp=tops(u[0]);
+    return `<label class="chi${ok?' on':''}${off?' off':''}" ${rtl?'dir="rtl"':''}><input type="checkbox" data-chn="${u[0]}" ${ok?'checked':''} ${off?'disabled':''}><span class="t"><b>${esc(lab+u[1])}</b>${off?`<small class="sx" dir="ltr">✂ Deleted in Smart Syllabus 2027 · <span class="u">اسمارٹ سلیبس میں حذف</span></small>`:`<small dir="ltr">${c[0]} MCQs · ${c[1]} Short · ${c[2]} Long${c[3]?' · '+c[3]+' Numericals':''}</small>${tp?`<small class="sx" dir="ltr">✂ Deleted topics: ${esc(tp)}</small>`:''}`}</span></label>`}).join('')}</div></div>
   <div class="nav2"><button class="btn line" data-step="2" type="button">${BK}</button><button class="btn gold" data-step="4" type="button" ${S.ch.length?'':'disabled'}>${NX}</button></div>`;
 }
+function sylBadge(){return smartOn()?` · <b class="sylb">📚 Smart Syllabus 2027</b>`:(sylInfo()?` · <span class="sylb f">📚 Full syllabus</span>`:'')}
 function stepTemplate(){
   return `<div class="card"><h2 class="q">Step 4 · Paper Type<span class="u">مرحلہ 4 · پیپر کی قسم</span></h2>
   ${boardOK()?`<button type="button" class="ch" data-tpl="bp" aria-pressed="${S.tpl==='bp'}" style="margin-bottom:10px;border-color:var(--gold)"><b>🏛️ Board Pattern Paper</b><span class="u">بورڈ پیٹرن پیپر · پنجاب بورڈ 2027</span><small>Official 2027 scheme: MCQs + short (choice) + long${hasNum()?' with numericals':''} · ${schTot(SCH[S.c+'-'+S.s])} marks</small></button>`:(SCH[S.c+'-'+S.s]?`<div class="gap">${bi('Board Pattern Paper needs short and long questions, which are not in our notes for this subject / medium yet.','اس مضمون / میڈیم کے مختصر اور تفصیلی سوالات ابھی نوٹس میں نہیں، اس لیے بورڈ پیٹرن پیپر دستیاب نہیں۔')}</div>`:'')}
@@ -677,7 +713,7 @@ function stepTemplate(){
 function avail(){ // available counts per type & difficulty in selected chapters
   const A={mcq:[0,0,0],sq:[0,0,0],lq:[0,0,0],num:[0,0,0]};
   if(!PACK)return A;
-  PACK.u.forEach(u=>{if(!S.ch.includes(u.n))return;TT.forEach(t=>(u[t]||[]).forEach(q=>{if(S.exd&&q.x)return;A[t][q.d]++}))});
+  const on=smartOn();PACK.u.forEach(u=>{if(!S.ch.includes(u.n))return;TT.forEach(t=>(u[t]||[]).forEach((q,i)=>{if(!okQ(u.n,t,i,q,on))return;A[t][q.d]++}))});
   return A;
 }
 const stp=(id,v)=>`<div class="stp"><button type="button" data-dec="${id}" aria-label="minus">−</button><output>${v}</output><button type="button" data-inc="${id}" aria-label="plus">+</button></div>`;
@@ -703,9 +739,8 @@ async function stepSettings(){
     <label class="tog"><input type="checkbox" data-mix="${t}" ${c.mix?'checked':''}> ${bi('Choose Easy / Medium / Hard','آسان / درمیانہ / مشکل خود چنیں')}</label>
     ${c.mix?`<div class="dif">${['e','md','h'].map((k,i)=>`<div>${DIF[i][0]}<span class="u" style="font-weight:400">${DIF[i][1]}</span>${stp(t+'.'+k,c[k])}</div>`).join('')}</div>`:''}</div>`};
   const tp=TPL.find(x=>x.k===S.tpl)||{en:'',ur:''};
-  const smart=PACK.u.some(u=>['sq','lq'].some(t=>u[t].some(q=>q.x)));
   return `<div class="card"><h2 class="q">Step 5 · Paper Settings<span class="u">مرحلہ 5 · پیپر کی ترتیب</span></h2>
-  <p class="hint">${CL[S.c][0]} · ${SB[S.s][0]} · ${S.m.toUpperCase()} · ${S.ch.length} chapter(s) · <b>${tp.en}</b><br>${bi('Everything is already filled. Just press «Make Paper», or change the numbers.','سب کچھ پہلے سے بھرا ہوا ہے۔ سیدھا «Make Paper» دبائیں، یا تعداد بدل لیں۔')}</p>
+  <p class="hint">${CL[S.c][0]} · ${SB[S.s][0]} · ${S.m.toUpperCase()} · ${S.ch.length} chapter(s) · <b>${tp.en}</b>${sylBadge()}<br>${bi('Everything is already filled. Just press «Make Paper», or change the numbers.','سب کچھ پہلے سے بھرا ہوا ہے۔ سیدھا «Make Paper» دبائیں، یا تعداد بدل لیں۔')}</p>
   ${tps.map(ess).join('')}
   <div class="set"><label>Time (minutes)<span class="u">وقت (منٹ)</span></label>${stp('time',S.time)}</div>
   ${pk?`<p class="hint"><b>Picked by you: ${pk}</b> · ${bi('the rest is filled automatically.','باقی خودکار۔')}</p>`:''}
@@ -721,7 +756,8 @@ async function stepSettings(){
    +moBox('marks','🔢','Marks and Easy / Hard','ہر سوال کے نمبر، اور آسان/درمیانے/مشکل سوالات کی تعداد',tps.map(mk).join('')+`<p class="hint">${bi('Easy/Medium/Hard is estimated automatically from question length.','آسان/مشکل کا اندازہ سوال کی لمبائی سے خودکار لگایا جاتا ہے۔')}</p>`)
    +moBox('pass','✅','Passing %','پاس ہونے کے لیے کتنے فیصد نمبر ضروری ہیں',`<div class="set"><label>Passing %<span class="u">پاسنگ فیصد</span></label>${stp('pass',S.pass)}</div>`)
    +(two?'':moBox('sets','🅰️','Set A and Set B','ایک ہی کلاس کے لیے دو مختلف پیپر، تاکہ نقل نہ ہو',`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`))
-   +moBox('rep','🔁','Repeat and syllabus','پچھلے پیپرز والے سوال دوبارہ نہ آئیں، اور صرف اسمارٹ سلیبس کے سوال',lastNSel()+(smart?`<label class="tog"><input type="checkbox" data-opt="exd" ${S.exd?'checked':''}> ${bi('Smart Syllabus 2027 only (skip deleted questions)','اسمارٹ سلیبس 2027 (خارج سوالات نہیں)')}</label>`:''))
+   +moBox('syl','📚','Syllabus: Full or Smart Syllabus 2027','پیپر پورے سلیبس سے بنے یا اسمارٹ سلیبس 2027 کے مطابق',sylSel())
+   +moBox('rep','🔁','Do not repeat questions','پچھلے پیپرز والے سوال دوبارہ نہ آئیں',lastNSel())
    +moBox('hdr','✏️','Name, title, teacher, date','پیپر کے اوپر ادارے کا نام، پیپر کا عنوان، استاد کا نام اور تاریخ',instField()+hdrText())
    +(two?'':moBox('size','📐','Paper size','پورا A4 صفحہ، یا آدھا صفحہ (ایک A4 پر دو پیپر)',sizeSel()))
    +moBox('bord','🔲','Paper style: with / without borders','بارڈر والا نیا ڈیزائن یا بغیر بارڈر پرانا ڈیزائن چنیں',bordSel())
@@ -764,7 +800,7 @@ function covView(){
 function pickView(){
   const rtl=S.m==='um', units=PACK.u.filter(u=>S.ch.includes(u.n));
   const tabs=TT.filter(t=>units.some(u=>(u[t]||[]).length)); if(!tabs.includes(PF.t))PF.t=tabs[0]||'mcq';
-  let list=[]; units.forEach(u=>{if(PF.ch!==''&&u.n!==+PF.ch)return;(u[PF.t]||[]).forEach((q,i)=>{if(S.exd&&q.x)return;list.push([u.n+':'+i,q,u.n])})});
+  let list=[]; units.forEach(u=>{if(PF.ch!==''&&u.n!==+PF.ch)return;(u[PF.t]||[]).forEach((q,i)=>{if(!okQ(u.n,PF.t,i,q,smartOn()))return;list.push([u.n+':'+i,q,u.n])})});
   const term=PF.q.trim().toLowerCase(); if(term)list=list.filter(([id,q])=>!q.i&&plain(q.q+' '+(q.o||[]).join(' ')).toLowerCase().includes(term));
   const sel=new Set(S.pick[PF.t]), tot=TT.reduce((x,t)=>x+S.pick[t].length,0);
   return `<div class="card"><h2 class="q">📋 Choose Questions<span class="u">سوالات خود چنیں</span></h2>
@@ -781,13 +817,13 @@ function pickView(){
 function generate(){
   const k=key(), used=LS.get('ahsa-pm-used',{}), U=used[k]||{};
   const seed=(Date.now()^Math.floor(Math.random()*1e9))>>>0, r=rng(seed);
-  const sec={}, short=[], seen=new Set();
+  const sec={}, short=[], seen=new Set(), son=smartOn();
   const txtK=(id,t)=>{const q=getQ(id,t);return q?(q.i?'i:'+q.i:plain(q.q).replace(/\s+/g,' ').trim().toLowerCase()):id};
   TT.forEach(t=>{
-    const c=S[t]; const pk=[...new Set(S.pick[t]||[])].filter(id=>S.ch.includes(+id.split(':')[0])&&getQ(id,t)); if(pk.length>c.n)c.n=pk.length;
+    const c=S[t]; const pk=[...new Set(S.pick[t]||[])].filter(id=>S.ch.includes(+id.split(':')[0])&&getQ(id,t)&&okId(id,t,son)); if(pk.length>c.n)c.n=pk.length;
     if(!c.n){sec[t]={mk:c.mk,ids:[]};return}
     const pool=[[],[],[]], pks=new Set(pk);
-    PACK.u.forEach(u=>{if(!S.ch.includes(u.n))return;(u[t]||[]).forEach((q,i)=>{if(S.exd&&q.x)return;const id=u.n+':'+i;if(!pks.has(id))pool[q.d].push(id)})});
+    PACK.u.forEach(u=>{if(!S.ch.includes(u.n))return;(u[t]||[]).forEach((q,i)=>{if(!okQ(u.n,t,i,q,son))return;const id=u.n+':'+i;if(!pks.has(id))pool[q.d].push(id)})});
     const ut=usedSet(k,t);
     const order=a=>{const s=shuf(a,r);return s.filter(x=>!ut.has(x)).concat(s.filter(x=>ut.has(x)))};
     const P=pool.map(order); let want=c.mix&&!pk.length?[c.e,c.md,c.h]:null, got=pk.slice();
@@ -802,7 +838,7 @@ function generate(){
   });
   used[k]=U; LS.set('ahsa-pm-used',used);
   const tp=TPL.find(t=>t.k===S.tpl);
-  const P=Object.assign({id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:S.tpl,title:tp.en,titleUr:tp.ur,inst:S.inst||DEF_INST,time:S.time,pass:S.pass,ab:S.ab,seed,chs:S.ch.slice(),sec,date:new Date().toISOString().slice(0,10)},hdrOf(),S.tpl==='t2'?{ab:!S.t2one,half:false,t2:{tno:S.tno||1,lay:S.lay===1?1:2,one:!!S.t2one}}:S.tpl==='bt'?{half:false}:{});
+  const P=Object.assign({id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:S.tpl,syl:son?'smart':'full',title:tp.en,titleUr:tp.ur,inst:S.inst||DEF_INST,time:S.time,pass:S.pass,ab:S.ab,seed,chs:S.ch.slice(),sec,date:new Date().toISOString().slice(0,10)},hdrOf(),S.tpl==='t2'?{ab:!S.t2one,half:false,t2:{tno:S.tno||1,lay:S.lay===1?1:2,one:!!S.t2one}}:S.tpl==='bt'?{half:false}:{});
   storeP(P);
   VP=Object.assign({saved:true},P);FRESH=true;REACH=Math.max(REACH,5);
   if(short.length)toast('Not enough questions for: '+short.join(', ')+' · جتنے سوال ملے، شامل کر دیے');
@@ -833,7 +869,7 @@ function blocks(P,set){
   if(P.bord===0)return blocksOld(P,set); // «Without borders (old)» paper style: the earlier look, unchanged
   if(P.bp)return boardBlocks(P,set);
   const ur=P.m==='um', D=setData(P,set), [T,pm]=totals(P), B=[];
-  B.push(phead(P,set,T,pm,''));
+  B.push(phead(P,set,T,pm,sylTag(P,ur)));
   let qn=0; const hasSub=['sq','lq','num'].some(t=>D[t]&&D[t].length), two=D.mcq.length&&hasSub, om=two?objMin(P,D.mcq.length):0;
   const sw=(t,i)=>set==='A'?` data-sw="${t}|${i}"`:'';
   const bar=(t,en,u,pre)=>{const c=D[t].length,mk=P.sec[t].mk;qn++;const ins=P.ins&&P.ins[t]?esc(P.ins[t]):(ur?u:en);return `<span>${pre||''}${ur?`سوال نمبر ${qn}: ${ins}`:`Q.${qn} ${ins}`}</span><span dir="ltr">(${c} × ${mk} = ${c*mk})</span>`};
@@ -867,7 +903,7 @@ function blocksOld(P,set){
   if(P.bp)return boardBlocksOld(P,set);
   const ur=P.m==='um', D=setData(P,set), [T,pm]=totals(P), B=[];
   const chs=P.chs.slice().sort((a,b)=>a-b).filter(n=>n>0&&n<100);
-  B.push(pheadOld(P,set,T,pm,chs.length?(ur?'ابواب: '+chs.join('، '):'Chapters: '+chs.join(', ')):''));
+  B.push(pheadOld(P,set,T,pm,[chs.length?(ur?'ابواب: '+chs.join('، '):'Chapters: '+chs.join(', ')):'',sylTag(P,ur)].filter(Boolean).join(' · ')));
   let qn=0, sn=0; const nSec=['mcq','sq','lq','num'].filter(t=>D[t]&&D[t].length).length;
   const sec=(en,u)=>{if(nSec<2)return;const L='ABCD'[sn],U=['اول','دوم','سوم','چہارم'][sn];sn++;B.push(`<div class="pt">${ur?`حصہ ${U} (${u})`:`SECTION ${L} · ${en}`}</div>`)};
   const sw=(t,i)=>set==='A'?` data-sw="${t}|${i}"`:'';
@@ -896,7 +932,7 @@ function pheadOld(P,set,T,pm,foot){
 function boardBlocksOld(P,set){
   const ur=P.m==='um', sc=SCH[P.bp.sc], D=boardData(P,set), [T,pm]=totals(P), B=[], A=set==='A';
   const sw=p=>A?` data-sw="${p}"`:'';
-  B.push(pheadOld(P,set,T,pm,ur?'اسمارٹ سلیبس 2027 · پنجاب بورڈ پیئرنگ اسکیم کے مطابق':'As per Smart Syllabus 2027 · Punjab Boards pairing scheme'));
+  B.push(pheadOld(P,set,T,pm,bpFoot(P,ur)));
   const nm=vsum(sc.mcq);
   B.push(`<div class="pt">${ur?'حصہ اول (معروضی)':'PART – I (OBJECTIVE)'}</div>`);
   B.push(`<div class="sh"><span>${ur?'سوال نمبر 1: درست جواب کا انتخاب کریں۔':'Q.1 Choose the correct option.'}</span><span dir="ltr">(${D.mcq.length} × 1 = ${D.mcq.length})</span></div>`);
@@ -1051,7 +1087,7 @@ function t2Fields(){return `<div class="set"><label>Test number<span class="u">�
 function t2Units(chs){const a=chs.filter(n=>n>0&&n<100).sort((x,y)=>x-y);if(!a.length)return '';const pre=a.length>1?'UNITS ':'UNIT ';
   if(a.length>2&&a[a.length-1]-a[0]===a.length-1)return pre+a[0]+'–'+a[a.length-1];return pre+a.join(', ')}
 function t2Hdr(P){const cn=CL[P.c][0].replace('Class ','').toUpperCase(), sub=SB[P.s][0].toUpperCase(), tn=(P.t2&&P.t2.tno)||1;
-  return {h1:`${sub} ${cn} · TEST ${tn} · OBJECTIVE${t2Units(P.chs)?' · '+t2Units(P.chs):''}`, hb:`${sub} ${cn} · TEST ${tn} · ${sidesOf(P)===2?'BACK SIDE':'PAGE 2'}`,
+  return {h1:`${sub} ${cn} · TEST ${tn} · OBJECTIVE${t2Units(P.chs)?' · '+t2Units(P.chs):''}${P.syl==='smart'?' · SMART SYLLABUS 2027':''}`, hb:`${sub} ${cn} · TEST ${tn} · ${sidesOf(P)===2?'BACK SIDE':'PAGE 2'}`,
    me:P.teacher?`<b>${esc(P.teacher.toUpperCase())}</b>${P.inst&&P.inst!==DEF_INST?' · '+esc(P.inst.toUpperCase()):''}`:(P.inst===DEF_INST?'<b>SHAKEEL HASSAN</b> · SST SCIENCE · GHS MC MIANWALI':`<b>${esc(P.inst.toUpperCase())}</b>`),
    ft:P.inst===DEF_INST?'<span class="gm">Find us on Google Maps:</span> <b>AL HASSAN SCIENCE ACADEMY</b> &nbsp;DILLEWALI · WhatsApp 0314-6011672':`<b>${esc(P.inst.toUpperCase())}</b>`}}
 function t2Front(P,set,D,key,H,T){const ur=P.m==='um', n=D.length, L='abcd';
@@ -1133,7 +1169,7 @@ function btFields(){return `<div class="ef"><label>Versions<span class="u">ور�
   <p class="hint">${bi('One A4 per student: MCQs on the top half, subjective on the bottom half, cut on the dashed line after the objective time. One font size for the whole paper. Answer key is a separate file.','ہر طالب علم کے لیے ایک A4: اوپر MCQs، نیچے انشائیہ، معروضی وقت کے بعد ڈیش لائن سے کاٹ لیں۔ پورے پیپر میں ایک ہی فونٹ سائز۔ جوابات کی کنجی الگ فائل میں۔')}</p>`}
 function btTimes(P){const n=SEC(P,'mcq').ids.length;const o=n<=12?15:n<=15?20:Math.ceil(n*1.25/5)*5;return [o,Math.max(5,P.time-o)]}
 function btHdr(P){const cn=CL[P.c][0].replace('Class ','').replace(' (1st Year)','').replace(' (2nd Year)','').toUpperCase(),sub=SB[P.s][0].toUpperCase(),tt=esc((P.ctitle||'TEST').toUpperCase()),u=t2Units(P.chs),H=t2Hdr(P);
-  return {o:`<b>${sub} ${cn} · ${tt} · OBJECTIVE</b>${u?' · '+u:''}`,s:`<b>${sub} ${cn} · ${tt} · SUBJECTIVE</b>`,me:H.me,ft:H.ft}}
+  return {o:`<b>${sub} ${cn} · ${tt} · OBJECTIVE</b>${u?' · '+u:''}${P.syl==='smart'?' · SMART SYLLABUS 2027':''}`,s:`<b>${sub} ${cn} · ${tt} · SUBJECTIVE</b>`,me:H.me,ft:H.ft}}
 function btLt(x){return `<span dir="ltr" style="unicode-bidi:isolate">${x}</span>`}
 function btSide(P,set,i,nS,D,H,Tm,Ts,tm){ // one A4 side; i=0 is the front
   const ur=P.m==='um',L='abcd',n=D.mcq.length,ds=P.dstr?esc(P.dstr):'',sl=P.ab?`<span class="bset">SET ${set}</span>`:'',two=nS>1,last=i===nS-1,dx=sidesOf(P)===2,sn=i?(dx&&i%2?' · BACK':' · PAGE '+(i+1)):'',mo=dx&&i%2===0?(ur?'باقی سوالات پچھلی طرف ہیں ←':'More questions on the back →'):(ur?'باقی سوالات اگلے صفحے پر ہیں ←':'More questions on the next page →');
@@ -1250,7 +1286,7 @@ function paperView(){
   const P=VP,[T,pm]=totals(P);
   const n=cnt(P);
   return `${FRESH?wizBar(6):''}<div class="card"><h2 class="q">✅ Paper Ready<span class="u">پیپر تیار ہے</span></h2>
-  <p class="hint">${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} · ${P.m.toUpperCase()}<br>${n.mcq} MCQs · ${n.sq} Short · ${n.lq} Long${n.num?' · '+n.num+' Numericals':''} · ${T} marks · ${P.ab?'Set A + B':'1 set'}</p>
+  <p class="hint">${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} · ${P.m.toUpperCase()}<br>${n.mcq} MCQs · ${n.sq} Short · ${n.lq} Long${n.num?' · '+n.num+' Numericals':''} · ${T} marks · ${P.ab?'Set A + B':'1 set'}${P.syl==='smart'?' · <b>📚 Smart Syllabus 2027</b>':P.syl==='full'?' · Full syllabus':''}</p>
   <div id="fitmsg"></div>
   ${onePgBtn(fitOf(P)===1)}
   <div class="acts big">
@@ -1403,7 +1439,7 @@ function stepBoard(){
   const chOf=c=>Object.keys(c).join(', ');
   const numP=L.num!==undefined, numHave=PACK.u.some(u=>u.num&&u.num.length);
   return `<div class="card"><h2 class="q">Step 5 · Board Pattern Paper<span class="u">مرحلہ 5 · بورڈ پیٹرن پیپر</span></h2>
-  <p class="hint">${SB[S.s][0]} · ${CL[S.c][0]} · ${S.m.toUpperCase()}</p>
+  <p class="hint">${SB[S.s][0]} · ${CL[S.c][0]} · ${S.m.toUpperCase()}${sylBadge()}</p>
   <div class="grid"><button type="button" class="ch" data-board="pb" aria-pressed="${S.board==='pb'}"><b>Punjab Boards (BISE)</b><span class="u">پنجاب بورڈ</span><small>PECTAA pairing scheme 2027</small></button>
   <button type="button" class="ch" data-board="fb" aria-pressed="false" style="opacity:.6"><b>Federal Board (FBISE)</b><span class="u">فیڈرل بورڈ</span><small>Coming soon · جلد</small></button></div>
   <ul class="bsum">
@@ -1416,7 +1452,8 @@ function stepBoard(){
   ${numP&&!numHave?`<div class="gap">${bi('Numericals for this subject are not in our notes yet, so part (b) is a long question.','اس مضمون کے عددی سوالات ابھی نوٹس میں نہیں، اس لیے جز (ب) بھی تفصیلی سوال ہوگا۔')}</div>`:''}
   <p class="hint">${bi('Questions are picked at random from AHSA notes, with a mix of easy, medium and hard.','سوالات اکیڈمی کے نوٹس سے خودکار طریقے سے چنے جاتے ہیں، آسان، درمیانے اور مشکل ملا کر۔')}</p></div>
   ${moWrap(
-    moBox('fit','📄','Pages and sides','پیپر کتنے صفحات پر آئے، اور کاغذ کی ایک طرف یا دونوں طرف چھپے',fitBar(null))
+    moBox('syl','📚','Syllabus: Full or Smart Syllabus 2027','پیپر پورے سلیبس سے بنے یا اسمارٹ سلیبس 2027 کے مطابق',sylSel())
+   +moBox('fit','📄','Pages and sides','پیپر کتنے صفحات پر آئے، اور کاغذ کی ایک طرف یا دونوں طرف چھپے',fitBar(null))
    +moBox('sets','🅰️','Set A and Set B','ایک ہی کلاس کے لیے دو مختلف پیپر، تاکہ نقل نہ ہو',`<label class="tog"><input type="checkbox" data-opt="ab" ${S.ab?'checked':''}> ${bi('Make Set A and Set B','سیٹ A اور سیٹ B بنائیں')}</label>`)
    +moBox('rep','🔁','Do not repeat questions','پچھلے پیپرز والے سوال دوبارہ نہ آئیں',lastNSel())
    +moBox('hdr','✏️','Name, title, teacher, date','پیپر کے اوپر ادارے کا نام، پیپر کا عنوان، استاد کا نام اور تاریخ',instField()+hdrText())
@@ -1428,7 +1465,7 @@ function stepBoard(){
 // pick one question id of type t from chapters chs; avoids ids in ex; prefers unused and difficulty d
 function pickQ(t,chs,ex,U,d,r,fallback){
   const cand=[];const use=new Set(U||[]);
-  const add=f=>PACK.u.forEach(u=>{if(!f(u))return;(u[t]||[]).forEach((q,i)=>{const id=u.n+':'+i;if(q.x||ex.has(t+'|'+id))return;cand.push([id,q.d])})});
+  const add=f=>PACK.u.forEach(u=>{if(!f(u))return;(u[t]||[]).forEach((q,i)=>{const id=u.n+':'+i;if(!okQ(u.n,t,i,q,SYLP)||ex.has(t+'|'+id))return;cand.push([id,q.d])})});
   add(u=>chs.includes(u.n));
   if(!cand.length&&fallback!==false){add(u=>u.n===0);if(!cand.length&&fallback==='any')add(()=>true)}
   if(!cand.length)return null;
@@ -1454,10 +1491,10 @@ function markUsed(k,b){const used=LS.get('ahsa-pm-used',{}),U=used[k]||{};
   used[k]=U;LS.set('ahsa-pm-used',used)}
 function genBoard(old){
   const k=old?old.k:key(), sk=old?old.bp.sc:S.c+'-'+S.s, sc=SCH[sk], U={}; TT.forEach(t=>U[t]=[...usedSet(k,t)]);
-  const seed=(Date.now()^Math.floor(Math.random()*1e9))>>>0, r=rng(seed);
+  const seed=(Date.now()^Math.floor(Math.random()*1e9))>>>0, r=rng(seed), son=old?old.syl==='smart'||(old.syl==null):smartOn(); SYLP=son;
   const b=boardPick(sc,r,U); b.sc=sk; b.board='pb';
   markUsed(k,b);
-  const P=old?Object.assign({},old,{seed,bp:b,date:new Date().toISOString().slice(0,10)}):Object.assign({id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:'bp',title:'Board Pattern Paper (Punjab 2027)',titleUr:'بورڈ پیٹرن پیپر (پنجاب بورڈ 2027)',inst:S.inst||DEF_INST,time:sc.time,pass:33,ab:S.ab,seed,chs:[],bp:b,sec:{},date:new Date().toISOString().slice(0,10)},hdrOf());
+  const P=old?Object.assign({},old,{seed,bp:b,date:new Date().toISOString().slice(0,10)}):Object.assign({id:Date.now(),k,c:S.c,s:S.s,m:S.m,tpl:'bp',syl:son?'smart':'full',title:'Board Pattern Paper (Punjab 2027)',titleUr:'بورڈ پیٹرن پیپر (پنجاب بورڈ 2027)',inst:S.inst||DEF_INST,time:sc.time,pass:33,ab:S.ab,seed,chs:[],bp:b,sec:{},date:new Date().toISOString().slice(0,10)},hdrOf());
   storeP(P); VP=Object.assign({saved:true},P);
   if(b.mcq.length<vsum(sc.mcq)||b.sq.flat().length<sc.sq.reduce((x,g)=>x+vsum(g.c),0))toast('Some questions were not available · کچھ سوالات دستیاب نہیں تھے');
   SWM=false;EDM=false;ADDQ=null;view='paper';render();scrollTo(0,0);
@@ -1475,7 +1512,7 @@ function boardData(P,set){
 function boardBlocks(P,set){
   const ur=P.m==='um', sc=SCH[P.bp.sc], D=boardData(P,set), [T,pm]=totals(P), B=[], A=set==='A';
   const sw=p=>A?` data-sw="${p}"`:'';
-  B.push(phead(P,set,T,pm,ur?'اسمارٹ سلیبس 2027 · پنجاب بورڈ پیئرنگ اسکیم کے مطابق':'As per Smart Syllabus 2027 · Punjab Boards pairing scheme'));
+  B.push(phead(P,set,T,pm,bpFoot(P,ur)));
   const nm=vsum(sc.mcq), om=objMin(P,D.mcq.length), sm=om?P.time-om:0;
   B.push(mcqHead(ur,`<span>${ur?`حصہ اول: معروضی${om?` (${fmtTimeUr(om)})`:''} — سوال نمبر 1: درست جواب کا انتخاب کریں۔`:`Part-I: Objective${om?` (${fmtTime(om)})`:''} Q.1 Select the correct answer.`}</span><span dir="ltr">(1 × ${D.mcq.length} = ${D.mcq.length})</span>`,mcqW(D.mcq,ur)));
   D.mcq.forEach((q,i)=>B.push(mcqRow(q,i,sw('mcq|'+b_i(P,'mcq',q.id)),mcqW(D.mcq,ur))));
@@ -1505,7 +1542,7 @@ function boardKey(P){
 }
 /* ---------------- swap / regenerate ---------------- */
 async function swapQ(path,quiet){
-  const P=VP; await getPack(P.k); const r=rng((Date.now()^Math.floor(Math.random()*1e9))>>>0); const U=LS.get('ahsa-pm-used',{})[P.k]||{};
+  const P=VP; await getPack(P.k); await getSyl(); SYLP=P.syl==='smart'||(!!P.bp&&P.syl==null); const r=rng((Date.now()^Math.floor(Math.random()*1e9))>>>0); const U=LS.get('ahsa-pm-used',{})[P.k]||{};
   const ex=new Set(); let nid=null;
   if(P.bp){const b=P.bp,sc=SCH[b.sc];b.mcq.forEach(i=>ex.add('mcq|'+i));b.sq.flat().forEach(i=>ex.add('sq|'+i));b.lq.flat().forEach(x=>ex.add(x));
     const a=path.split('|');
@@ -1659,7 +1696,7 @@ function myPapers(){
   const all=LS.get('ahsa-papers',[]);
   if(!all.length)return `<div class="card"><h2 class="q">My Papers<span class="u">میرے پیپرز</span></h2><div class="empty">${bi('No papers yet.','ابھی کوئی پیپر نہیں۔')}<br><br><button class="btn gold" data-go="gen" type="button">📝 Make a Paper</button></div></div>`;
   return `<div class="card"><h2 class="q">My Papers<span class="u">میرے پیپرز</span></h2><p class="hint">${bi('Saved on this phone only.','صرف اسی فون میں محفوظ ہیں۔')}</p><div class="mp">${all.map(P=>{const[T]=totals(P);
-    return `<div class="mpi"><b>${P.title} · ${SB[P.s][0]}</b><div class="meta">${CL[P.c][0]} · ${P.m.toUpperCase()} · ${T} marks · ${P.date}${P.ab?' · Set A+B':''}</div>
+    return `<div class="mpi"><b>${P.title} · ${SB[P.s][0]}</b><div class="meta">${CL[P.c][0]} · ${P.m.toUpperCase()} · ${T} marks · ${P.date}${P.ab?' · Set A+B':''}${P.syl==='smart'?' · Smart Syllabus 2027':''}</div>
     <div class="row"><button class="btn navy" data-pv="${P.id}" type="button">👁 View</button><button class="btn gold" data-pa="pdf|${P.id}" type="button">⬇️ PDF</button><button class="btn wa" data-pa="share|${P.id}" type="button">📤 Share</button><button class="btn line" data-dup="${P.id}" type="button">📄 Copy</button><button class="btn line" data-info="${P.id}" type="button">ℹ️ Info</button></div></div>`}).join('')}</div></div>`;
 }
 function info(P){
@@ -1708,6 +1745,7 @@ document.addEventListener('click',async e=>{
   if(b.dataset.t2v){S.t2one=b.dataset.t2v==='1';S.ab=!S.t2one;save();const y=scrollY;await render();scrollTo(0,y);return}
   if(b.dataset.btab){S.ab=b.dataset.btab==='1';save();const y=scrollY;await render();scrollTo(0,y);return}
   if(b.dataset.lay){S.lay=+b.dataset.lay;save();const y=scrollY;await render();scrollTo(0,y);return}
+  if(b.dataset.syl){S.syl=b.dataset.syl==='smart'&&sylInfo()?'smart':'full';if(S.s&&S.m)await getPack(key());sylFit();save();const y=scrollY;await render();scrollTo(0,y);toast(S.syl==='smart'?'Smart Syllabus 2027 · اسمارٹ سلیبس 2027':'Full syllabus · پورا سلیبس');return}
   if(b.dataset.bord){const v=b.dataset.bord==='1';if(view==='paper'&&VP){VP.bord=v?1:0;await saveEdit(true)}else{S.bord=v;save();const y=scrollY;await render();scrollTo(0,y)}return}
   if(b.dataset.half){if(view==='paper'&&VP){VP.half=b.dataset.half==='1';await saveEdit(true)}else{S.half=b.dataset.half==='1';save();const y=scrollY;await render();scrollTo(0,y)}return}
   if(b.hasAttribute('data-logodel')){LS.set('ahsa-pm-logo',null);try{localStorage.removeItem('ahsa-pm-logo')}catch(x){}const y=scrollY;await render();scrollTo(0,y);return}
@@ -1721,7 +1759,7 @@ document.addEventListener('click',async e=>{
   if(b.dataset.c){if(S.c!==b.dataset.c){S.c=b.dataset.c;S.s=null;S.m=null;S.ch=[];S.pick={mcq:[],sq:[],lq:[],num:[]}}step=2;save();render();scrollTo(0,0);return}
   if(b.dataset.s){if(S.s!==b.dataset.s){S.s=b.dataset.s;S.m=null;S.ch=[];S.pick={mcq:[],sq:[],lq:[],num:[]}}save();render();return}
   if(b.dataset.m){if(S.m!==b.dataset.m){S.pick={mcq:[],sq:[],lq:[],num:[]};S.ch=[]}S.m=b.dataset.m;save();render();return}
-  if(b.dataset.step){step=+b.dataset.step;if(step===3&&!S.ch.length){S.ch=IDX[key()].u.map(u=>u[0]).slice(0,1)}save();render();scrollTo(0,0);return}
+  if(b.dataset.step){step=+b.dataset.step;if(step===3&&!S.ch.length){const on=smartOn();S.ch=IDX[key()].u.map(u=>u[0]).filter(n=>!sylUnitOff(n,on)).slice(0,1)}save();render();scrollTo(0,0);return}
   if(b.dataset.tpl){if(S.tpl===b.dataset.tpl&&REACH>=5){step=5;render();scrollTo(0,0);return}S.tpl=b.dataset.tpl;if(S.tpl!=='bp'){const t=TPL.find(x=>x.k===S.tpl);S.time=t.time;['mcq','sq','lq'].forEach(k=>{S[k].n=t[k][0];S[k].mk=t[k][1];S[k].mix=false});S.num.n=0;S.num.mix=false;if(S.tpl==='t2'){S.ab=!S.t2one;t2Count()}if(S.tpl==='bt')btDefaults()}step=5;save();render();scrollTo(0,0);return}
   if(b.dataset.board){if(b.dataset.board==='fb'){toast('Federal Board scheme coming soon · فیڈرل بورڈ جلد آ رہا ہے');return}S.board=b.dataset.board;save();render();return}
   if(b.dataset.sw){swapQ(b.dataset.sw);return}
@@ -1729,13 +1767,13 @@ document.addEventListener('click',async e=>{
   if(b.id==='genBtn'){S.inst=(($('#inst')||{}).value||S.inst||'').trim()||DEF_INST;LS.set('ahsa-pm-inst',S.inst);save();busy(true,'⏳');try{await getPack(key());S.tpl==='bp'?genBoard():generate()}finally{busy(false)}return}
   if(b.dataset.act==='pvgo'){const w=$('#pvw');if(w)w.scrollIntoView({behavior:'smooth'});return}
   if(b.dataset.act==='newp'){if(VP){S.c=VP.c;S.s=VP.s;S.m=VP.m}step=1;view='gen';SWM=false;EDM=false;ADDQ=null;render();scrollTo(0,0);return}
-  if(b.dataset.act){if(b.dataset.act==='again'){if(VP){S.c=VP.c;S.s=VP.s;S.m=VP.m;if(VP.chs&&VP.chs.length)S.ch=VP.chs.slice();if(VP.bp)S.tpl='bp';save()}REACH=Math.max(REACH,5);step=5;view='gen';render();scrollTo(0,0);return}if(b.dataset.act==='regen'){regen();return}if(b.dataset.act==='edm'){EDM=!EDM;SWM=false;ADDQ=null;await render();if(EDM)$('#edp').scrollIntoView({behavior:'smooth'});return}if(b.dataset.act==='swm'){SWM=!SWM;EDM=false;const y=scrollY;await render();scrollTo(0,y);if(SWM)toast('Tap a question in the paper · پیپر میں سوال پر ٹیپ کریں');return}act(b.dataset.act,VP);return}
+  if(b.dataset.act){if(b.dataset.act==='again'){if(VP){S.c=VP.c;S.s=VP.s;S.m=VP.m;if(VP.syl)S.syl=VP.syl;if(VP.chs&&VP.chs.length)S.ch=VP.chs.slice();if(VP.bp)S.tpl='bp';save()}REACH=Math.max(REACH,5);step=5;view='gen';render();scrollTo(0,0);return}if(b.dataset.act==='regen'){regen();return}if(b.dataset.act==='edm'){EDM=!EDM;SWM=false;ADDQ=null;await render();if(EDM)$('#edp').scrollIntoView({behavior:'smooth'});return}if(b.dataset.act==='swm'){SWM=!SWM;EDM=false;const y=scrollY;await render();scrollTo(0,y);if(SWM)toast('Tap a question in the paper · پیپر میں سوال پر ٹیپ کریں');return}act(b.dataset.act,VP);return}
   if(b.dataset.pv){const P=LS.get('ahsa-papers',[]).find(x=>x.id==b.dataset.pv);if(P){VP=Object.assign({saved:true},P);FRESH=false;view='paper';render();scrollTo(0,0)}return}
   if(b.dataset.pa){const[a,id]=b.dataset.pa.split('|');const P=LS.get('ahsa-papers',[]).find(x=>x.id==id);if(P)act(a,P);return}
   if(b.dataset.info){const P=LS.get('ahsa-papers',[]).find(x=>x.id==b.dataset.info);if(P)info(P);return}
 });
 document.addEventListener('change',e=>{const t=e.target;
-  if(t.id==='chAll'){S.ch=t.checked?IDX[key()].u.map(u=>u[0]):[];save();render();return}
+  if(t.id==='chAll'){const on=smartOn();S.ch=t.checked?IDX[key()].u.map(u=>u[0]).filter(n=>!sylUnitOff(n,on)):[];save();render();return}
   if(t.dataset.chn){const n=+t.dataset.chn;S.ch=t.checked?[...new Set([...S.ch,n])]:S.ch.filter(x=>x!==n);save();const y=scrollY;render().then(()=>scrollTo(0,y));return}
   if(t.dataset.mix){const c=S[t.dataset.mix];c.mix=t.checked;if(c.mix){const A=avail()[t.dataset.mix];let n=c.n;c.e=Math.min(A[0],Math.round(n*.4));c.h=Math.min(A[2],Math.round(n*.2));c.md=Math.min(A[1],n-c.e-c.h);c.n=c.e+c.md+c.h}save();const y=scrollY;render().then(()=>scrollTo(0,y));return}
   if(t.dataset.opt){S[t.dataset.opt]=t.checked;save();const y=scrollY;render().then(()=>scrollTo(0,y));return}
