@@ -426,108 +426,108 @@ textarea.inp{min-height:80px;font-family:inherit}
 .page.btpg .btop.rw .qa{position:relative}.page.btpg .btop.rw .col{border-color:transparent!important}.page.btpg .btop.rw .qa::after{content:"Rough work · کچا کام";position:absolute;top:2mm;left:0;right:0;text-align:center;font:9pt/1.4 "DejaVu Sans",Verdana,Arial,sans-serif;color:#777}
 .btn.onepg{margin:8px 0 4px}
 /* ===== Sample-paper style (2026-11-22): double page border, shaded title box, header table, shaded bars, MCQ table, End of Paper, italic footer ===== */
-.page{--nv:#1f3a5f;--sd:#e5eff0}
-.page .pf{left:0;right:0;justify-content:center;font:italic 400 10.5px/1.2 "Times New Roman",Georgia,serif;color:#444}
-.page.half .pf{font-size:9px}
-.page.bdr{--fo:40px}
-.page.bdr.bdr.bdr{padding:calc(var(--fo) + 28px) calc(var(--fo) + 34px) calc(var(--fo) + 14px)}
-.page.bdr.tg1{--fo:32px}.page.bdr.tg2{--fo:24px}.page.bdr.tg3{--fo:18px}.page.bdr.tm{--fo:9px}
-.page.bdr.bdr.bdr.tm{padding:calc(var(--fo) + 22px) calc(var(--fo) + 24px) calc(var(--fo) + 12px)}
-.page.bdr .pf{bottom:calc(var(--fo) + 26px)}.page.bdr.tm .pf{bottom:calc(var(--fo) + 16px)}
-.page.half.bdr{--fo:11px}
-.page.half.bdr.bdr.bdr{padding:calc(var(--fo) + 17px) calc(var(--fo) + 22px) calc(var(--fo) + 2px)}
-.page.half.bdr.tg1{--fo:9px}.page.half.bdr.tg2,.page.half.bdr.tg3{--fo:7px}.page.half.bdr.tm{--fo:5px}
-.page.half.bdr.bdr.bdr.tm{padding:calc(var(--fo) + 13px) calc(var(--fo) + 16px) calc(var(--fo) + 2px)}
-.page.half.bdr .pf,.page.half.bdr.tm .pf{bottom:calc(var(--fo) + 11px)}
-.page.bdr::before,.page.bdr::after,.bdr .t2h::before,.bdr .t2h::after,.btpg.bdr .btop::before,.btpg.bdr .btop::after,.btpg.bdr .bbot::before,.btpg.bdr .bbot::after{content:"";position:absolute;pointer-events:none;box-sizing:border-box}
-.page.bdr::before{inset:calc(var(--fo) - 1.5px);border:3px solid #000}
-.page.bdr::after{inset:calc(var(--fo) + 7px);border:1px solid #000}
-.page.half.bdr::before{inset:calc(var(--fo) - 1px);border-width:2px}.page.half.bdr::after{inset:calc(var(--fo) + 4px)}
-.page.blank::before,.page.blank::after,.page.t2pg::before,.page.t2pg::after,.page.btpg::before,.page.btpg::after{display:none}
+.page.sn{--nv:#1f3a5f;--sd:#e5eff0}
+.page.sn .pf{left:0;right:0;justify-content:center;font:italic 400 10.5px/1.2 "Times New Roman",Georgia,serif;color:#444}
+.page.sn.half .pf{font-size:9px}
+.page.sn.bdr{--fo:40px}
+.page.sn.bdr.bdr.bdr{padding:calc(var(--fo) + 28px) calc(var(--fo) + 34px) calc(var(--fo) + 14px)}
+.page.sn.bdr.tg1{--fo:32px}.page.sn.bdr.tg2{--fo:24px}.page.sn.bdr.tg3{--fo:18px}.page.sn.bdr.tm{--fo:9px}
+.page.sn.bdr.bdr.bdr.tm{padding:calc(var(--fo) + 22px) calc(var(--fo) + 24px) calc(var(--fo) + 12px)}
+.page.sn.bdr .pf{bottom:calc(var(--fo) + 26px)}.page.sn.bdr.tm .pf{bottom:calc(var(--fo) + 16px)}
+.page.sn.half.bdr{--fo:11px}
+.page.sn.half.bdr.bdr.bdr{padding:calc(var(--fo) + 17px) calc(var(--fo) + 22px) calc(var(--fo) + 2px)}
+.page.sn.half.bdr.tg1{--fo:9px}.page.sn.half.bdr.tg2,.page.sn.half.bdr.tg3{--fo:7px}.page.sn.half.bdr.tm{--fo:5px}
+.page.sn.half.bdr.bdr.bdr.tm{padding:calc(var(--fo) + 13px) calc(var(--fo) + 16px) calc(var(--fo) + 2px)}
+.page.sn.half.bdr .pf,.page.sn.half.bdr.tm .pf{bottom:calc(var(--fo) + 11px)}
+.page.sn.bdr::before,.page.sn.bdr::after,.bdr.sn .t2h::before,.bdr.sn .t2h::after,.btpg.sn.bdr .btop::before,.btpg.sn.bdr .btop::after,.btpg.sn.bdr .bbot::before,.btpg.sn.bdr .bbot::after{content:"";position:absolute;pointer-events:none;box-sizing:border-box}
+.page.sn.bdr::before{inset:calc(var(--fo) - 1.5px);border:3px solid #000}
+.page.sn.bdr::after{inset:calc(var(--fo) + 7px);border:1px solid #000}
+.page.sn.half.bdr::before{inset:calc(var(--fo) - 1px);border-width:2px}.page.sn.half.bdr::after{inset:calc(var(--fo) + 4px)}
+.page.sn.blank::before,.page.sn.blank::after,.page.sn.t2pg::before,.page.sn.t2pg::after,.page.sn.btpg::before,.page.sn.btpg::after{display:none}
 /* title box + header table */
-.page .ph{border:0;border-radius:0;padding:0;margin-bottom:9px}
-.ph .tb{display:flex;align-items:center;gap:10px;border:1.5px solid #000;background:var(--sd);padding:6px 10px 7px}
-.ph .tb img{width:50px;height:50px;border-radius:50%;flex:none;background:#fff}
-.ph .tc{flex:1;text-align:center;min-width:0}
-.ph .tb .in{font:700 12.5px/1.35 "Times New Roman",Georgia,serif;letter-spacing:.2px}
-.ph .tb .t1{font:700 25px/1.25 "Times New Roman",Georgia,serif;color:var(--nv);letter-spacing:.2px}
-.ph .tb .t2{font-weight:700;font-size:14.5px;line-height:1.4;margin-top:2px}
-.ph .tb .t3{font-size:14.5px;line-height:1.45;margin-top:3px}
-.ph .tb .t4{font-size:11.5px;line-height:1.3;margin-top:2px;color:#222}
-.ph .tb .set{flex:none}
-.ph .ht{border:1.5px solid #000;margin-top:6px}
-.ph .hr{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:4px 10px;font-size:14.5px;white-space:nowrap}
-.ph .hr:first-child{border-bottom:1px solid #000;padding:5px 10px}
-.ph .hr+.hr+.hr{padding-bottom:6px}
-.ph .hr b{font-weight:700}
-.ph .ln{display:inline-block;width:96px;border-bottom:1px solid #000;height:.9em;vertical-align:baseline}
-.ph .ln.w2{width:210px}
-.page[dir="rtl"] .ph .tb .in,.page[dir="rtl"] .ph .tb .t1{font-family:"AHSA JNN Paper",var(--f-ur);letter-spacing:0}
-.page[dir="rtl"] .ph .tb .t1{font-size:25px;line-height:1.6}
-.page[dir="rtl"] .ph .tb .in{font-size:14px;line-height:1.6}
-.page[dir="rtl"] .ph .hr{font-size:15.5px;padding-top:2px;padding-bottom:2px}
-.page[dir="rtl"] .ph .tb .t2,.page[dir="rtl"] .ph .tb .t3{font-size:15.5px;line-height:1.6}
-.page.half .ph .tb{padding:3px 8px 4px;gap:8px}.page.half .ph .tb img{width:36px;height:36px}
-.page.half .ph .tb .t1{font-size:18px}.page.half .ph .tb .t2,.page.half .ph .tb .t3,.page.half .ph .hr{font-size:12.5px}
-.page.half .ph .tb .in{font-size:11px}.page.half .ph .hr{padding:1px 8px}.page.half .ph .ht{margin-top:4px}
-.page.tg2 .ph .tb,.page.tg3 .ph .tb{padding:3px 8px 4px}.page.tg2 .ph .hr,.page.tg3 .ph .hr{padding:2px 10px}.page.tg2 .ph .ht,.page.tg3 .ph .ht{margin-top:4px}
-.page.tg3 .ph .tb img{width:42px;height:42px}
+.page.sn .ph{border:0;border-radius:0;padding:0;margin-bottom:9px}
+.sn .ph .tb{display:flex;align-items:center;gap:10px;border:1.5px solid #000;background:var(--sd);padding:6px 10px 7px}
+.sn .ph .tb img{width:50px;height:50px;border-radius:50%;flex:none;background:#fff}
+.sn .ph .tc{flex:1;text-align:center;min-width:0}
+.sn .ph .tb .in{font:700 12.5px/1.35 "Times New Roman",Georgia,serif;letter-spacing:.2px}
+.sn .ph .tb .t1{font:700 25px/1.25 "Times New Roman",Georgia,serif;color:var(--nv);letter-spacing:.2px}
+.sn .ph .tb .t2{font-weight:700;font-size:14.5px;line-height:1.4;margin-top:2px}
+.sn .ph .tb .t3{font-size:14.5px;line-height:1.45;margin-top:3px}
+.sn .ph .tb .t4{font-size:11.5px;line-height:1.3;margin-top:2px;color:#222}
+.sn .ph .tb .set{flex:none}
+.sn .ph .ht{border:1.5px solid #000;margin-top:6px}
+.sn .ph .hr{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:4px 10px;font-size:14.5px;white-space:nowrap}
+.sn .ph .hr:first-child{border-bottom:1px solid #000;padding:5px 10px}
+.sn .ph .hr+.hr+.hr{padding-bottom:6px}
+.sn .ph .hr b{font-weight:700}
+.sn .ph .ln{display:inline-block;width:96px;border-bottom:1px solid #000;height:.9em;vertical-align:baseline}
+.sn .ph .ln.w2{width:210px}
+.page.sn[dir="rtl"] .ph .tb .in,.page.sn[dir="rtl"] .ph .tb .t1{font-family:"AHSA JNN Paper",var(--f-ur);letter-spacing:0}
+.page.sn[dir="rtl"] .ph .tb .t1{font-size:25px;line-height:1.6}
+.page.sn[dir="rtl"] .ph .tb .in{font-size:14px;line-height:1.6}
+.page.sn[dir="rtl"] .ph .hr{font-size:15.5px;padding-top:2px;padding-bottom:2px}
+.page.sn[dir="rtl"] .ph .tb .t2,.page.sn[dir="rtl"] .ph .tb .t3{font-size:15.5px;line-height:1.6}
+.page.sn.half .ph .tb{padding:3px 8px 4px;gap:8px}.page.sn.half .ph .tb img{width:36px;height:36px}
+.page.sn.half .ph .tb .t1{font-size:18px}.page.sn.half .ph .tb .t2,.page.sn.half .ph .tb .t3,.page.sn.half .ph .hr{font-size:12.5px}
+.page.sn.half .ph .tb .in{font-size:11px}.page.sn.half .ph .hr{padding:1px 8px}.page.sn.half .ph .ht{margin-top:4px}
+.page.sn.tg2 .ph .tb,.page.sn.tg3 .ph .tb{padding:3px 8px 4px}.page.sn.tg2 .ph .hr,.page.sn.tg3 .ph .hr{padding:2px 10px}.page.sn.tg2 .ph .ht,.page.sn.tg3 .ph .ht{margin-top:4px}
+.page.sn.tg3 .ph .tb img{width:42px;height:42px}
 /* shaded bars + part titles */
-.page .body .sh{background:var(--sd);border:1.2px solid #222;padding:5px 10px;margin:8px 0 6px;font-size:15px}
-.page[dir="rtl"] .body .sh{font-size:16.5px;padding:2px 10px}
-.page .body .sh.shm{background:none;border:0;padding:0;display:block;margin-bottom:0}
-.page .body .sh .shb{display:flex;justify-content:space-between;gap:10px;background:var(--sd);border:1.2px solid #222;padding:5px 10px;margin-bottom:5px}
-.page[dir="rtl"] .body .sh .shb{padding:2px 10px}
-.page .shb>span[dir="ltr"]{white-space:nowrap;flex:none}
-.page.tg1 .body .sh{margin:6px 0 4px}.page.tg1 .body .sh:not(.shm),.page.tg1 .body .shb{padding:3px 9px}
-.page.tg2 .body .sh,.page.tg3 .body .sh{margin:4px 0 3px}.page.tg2 .body .sh:not(.shm),.page.tg3 .body .sh:not(.shm),.page.tg2 .body .shb,.page.tg3 .body .shb{padding:1px 8px}
-.page.tg2 .body .shb,.page.tg3 .body .shb{margin-bottom:3px}
-.page.half .body .sh:not(.shm),.page.half .body .shb{padding:2px 8px;font-size:13px}.page.half .body .sh{margin:4px 0}
-.page .body .pt{letter-spacing:0;font-size:15.5px;margin:10px 0 4px}
-.page .body .sh.shm.shm{font-size:inherit;margin-bottom:0}
-.page .body .sh.shm .shb{font-size:15px}.page[dir="rtl"] .body .sh.shm .shb{font-size:16.5px}.page.half .body .sh.shm .shb{font-size:13px}
-.page.half .ph .tb .in,.page.half .ph .tb .t1,.page.half .ph .tb .t2,.page.half .ph .tb .t3{line-height:1.2;margin-top:0}
-.page.half .ph .tb .t1{font-size:17px}.page.half .ph .tb img{width:32px;height:32px}.page.half .ph .hr:first-child{padding:1px 8px}
-.page.half[dir="rtl"] .ph .tb .t1,.page.half[dir="rtl"] .ph .tb .in{line-height:1.45}
-.page .eop{text-align:center;font-weight:700;margin:12px 0 0;letter-spacing:.5px}
-.page.tg2 .eop,.page.tg3 .eop,.page.half .eop{margin-top:5px}
+.page.sn .body .sh{background:var(--sd);border:1.2px solid #222;padding:5px 10px;margin:8px 0 6px;font-size:15px}
+.page.sn[dir="rtl"] .body .sh{font-size:16.5px;padding:2px 10px}
+.page.sn .body .sh.shm{background:none;border:0;padding:0;display:block;margin-bottom:0}
+.page.sn .body .sh .shb{display:flex;justify-content:space-between;gap:10px;background:var(--sd);border:1.2px solid #222;padding:5px 10px;margin-bottom:5px}
+.page.sn[dir="rtl"] .body .sh .shb{padding:2px 10px}
+.page.sn .shb>span[dir="ltr"]{white-space:nowrap;flex:none}
+.page.sn.tg1 .body .sh{margin:6px 0 4px}.page.sn.tg1 .body .sh:not(.shm),.page.sn.tg1 .body .shb{padding:3px 9px}
+.page.sn.tg2 .body .sh,.page.sn.tg3 .body .sh{margin:4px 0 3px}.page.sn.tg2 .body .sh:not(.shm),.page.sn.tg3 .body .sh:not(.shm),.page.sn.tg2 .body .shb,.page.sn.tg3 .body .shb{padding:1px 8px}
+.page.sn.tg2 .body .shb,.page.sn.tg3 .body .shb{margin-bottom:3px}
+.page.sn.half .body .sh:not(.shm),.page.sn.half .body .shb{padding:2px 8px;font-size:13px}.page.sn.half .body .sh{margin:4px 0}
+.page.sn .body .pt{letter-spacing:0;font-size:15.5px;margin:10px 0 4px}
+.page.sn .body .sh.shm.shm{font-size:inherit;margin-bottom:0}
+.page.sn .body .sh.shm .shb{font-size:15px}.page.sn[dir="rtl"] .body .sh.shm .shb{font-size:16.5px}.page.sn.half .body .sh.shm .shb{font-size:13px}
+.page.sn.half .ph .tb .in,.page.sn.half .ph .tb .t1,.page.sn.half .ph .tb .t2,.page.sn.half .ph .tb .t3{line-height:1.2;margin-top:0}
+.page.sn.half .ph .tb .t1{font-size:17px}.page.sn.half .ph .tb img{width:32px;height:32px}.page.sn.half .ph .hr:first-child{padding:1px 8px}
+.page.sn.half[dir="rtl"] .ph .tb .t1,.page.sn.half[dir="rtl"] .ph .tb .in{line-height:1.45}
+.page.sn .eop{text-align:center;font-weight:700;margin:12px 0 0;letter-spacing:.5px}
+.page.sn.tg2 .eop,.page.sn.tg3 .eop,.page.sn.half .eop{margin-top:5px}
 /* MCQ table: No. | Questions | (A) (B) (C) (D) */
-.page .body .mr{display:grid;grid-template-columns:var(--mc,6.5% 30% repeat(4,1fr));border:1px solid #000;border-top:0;padding:0;gap:0;align-items:stretch}
-.page .body .mr>*{padding:4px 6px;border-inline-start:1px solid #000;display:flex;align-items:center;justify-content:center;text-align:center;min-width:0;overflow-wrap:break-word}
-.page .body .mr>:first-child{border-inline-start:0}
-.page .body .mr .mq{justify-content:flex-start;text-align:start}
-.page .body .mr>*>span{display:block;min-width:0;max-width:100%}
-.page .body .mr .mq img{max-width:100%}
-.page .body .mr.z{background:#f7f7fd}
-.page .body .mr.mh{background:var(--sd);border-top:1px solid #000;font-weight:700}
-.page .body .mr.mh .mq{justify-content:center}
-.page .body>.mr:first-child,.page .body>:not(.mr):not(.shm)+.mr{border-top:1px solid #000}
-.page .mr .ml{display:none;font-weight:700;margin-inline-end:3px}
-.page.tg1 .body .mr>*{padding:3px 5px}.page.tg2 .body .mr>*{padding:1.5px 4px}.page.tg3 .body .mr>*{padding:0 3px}
-.page.half .body .mr>*{padding:1px 4px}
-.page[dir="rtl"] .body .mr>*{padding-top:0;padding-bottom:0}
+.page.sn .body .mr{display:grid;grid-template-columns:var(--mc,6.5% 30% repeat(4,1fr));border:1px solid #000;border-top:0;padding:0;gap:0;align-items:stretch}
+.page.sn .body .mr>*{padding:4px 6px;border-inline-start:1px solid #000;display:flex;align-items:center;justify-content:center;text-align:center;min-width:0;overflow-wrap:break-word}
+.page.sn .body .mr>:first-child{border-inline-start:0}
+.page.sn .body .mr .mq{justify-content:flex-start;text-align:start}
+.page.sn .body .mr>*>span{display:block;min-width:0;max-width:100%}
+.page.sn .body .mr .mq img{max-width:100%}
+.page.sn .body .mr.z{background:#f7f7fd}
+.page.sn .body .mr.mh{background:var(--sd);border-top:1px solid #000;font-weight:700}
+.page.sn .body .mr.mh .mq{justify-content:center}
+.page.sn .body>.mr:first-child,.page.sn .body>:not(.mr):not(.shm)+.mr{border-top:1px solid #000}
+.page.sn .mr .ml{display:none;font-weight:700;margin-inline-end:3px}
+.page.sn.tg1 .body .mr>*{padding:3px 5px}.page.sn.tg2 .body .mr>*{padding:1.5px 4px}.page.sn.tg3 .body .mr>*{padding:0 3px}
+.page.sn.half .body .mr>*{padding:1px 4px}
+.page.sn[dir="rtl"] .body .mr>*{padding-top:0;padding-bottom:0}
 /* two columns: options under the question inside each row */
-.page.cols2 .body .mr{grid-template-columns:30px 1fr 1fr;grid-template-areas:"n q q" "n a b" "n c d"}
-.page.cols2 .body .mr>*{border-inline-start:0;justify-content:flex-start;text-align:start;padding:1px 4px}
-.page.cols2 .body .mr .mn{grid-area:n;border-inline-end:1px solid #000;justify-content:center;padding:0}
-.page.cols2 .body .mr .mq{grid-area:q}
-.page.cols2 .body .mr .mo:nth-child(3){grid-area:a}.page.cols2 .body .mr .mo:nth-child(4){grid-area:b}.page.cols2 .body .mr .mo:nth-child(5){grid-area:c}.page.cols2 .body .mr .mo:nth-child(6){grid-area:d}
-.page.cols2 .mr .ml{display:inline}
-.page.cols2 .body .mr.o4{grid-template-columns:30px repeat(4,1fr);grid-template-areas:"n q q q q" "n a b c d"}
-.page.cols2 .body .mr.mh{grid-template-areas:"n q q"}.page.cols2 .body .mr.mh .mo{display:none}
-.page.cols2 .body>.mr,.page.cols2 .body>.sh{break-inside:avoid}
+.page.sn.cols2 .body .mr{grid-template-columns:30px 1fr 1fr;grid-template-areas:"n q q" "n a b" "n c d"}
+.page.sn.cols2 .body .mr>*{border-inline-start:0;justify-content:flex-start;text-align:start;padding:1px 4px}
+.page.sn.cols2 .body .mr .mn{grid-area:n;border-inline-end:1px solid #000;justify-content:center;padding:0}
+.page.sn.cols2 .body .mr .mq{grid-area:q}
+.page.sn.cols2 .body .mr .mo:nth-child(3){grid-area:a}.page.sn.cols2 .body .mr .mo:nth-child(4){grid-area:b}.page.sn.cols2 .body .mr .mo:nth-child(5){grid-area:c}.page.sn.cols2 .body .mr .mo:nth-child(6){grid-area:d}
+.page.sn.cols2 .mr .ml{display:inline}
+.page.sn.cols2 .body .mr.o4{grid-template-columns:30px repeat(4,1fr);grid-template-areas:"n q q q q" "n a b c d"}
+.page.sn.cols2 .body .mr.mh{grid-template-areas:"n q q"}.page.sn.cols2 .body .mr.mh .mo{display:none}
+.page.sn.cols2 .body>.mr,.page.sn.cols2 .body>.sh{break-inside:avoid}
 /* 1 student per A4 and 2 per A4: same shaded look, frame around each half */
-.btpg .hdr,.t2pg .hdr{background:var(--sd,#e5eff0);border:.3mm solid #222!important;padding:.7mm 2mm!important}
-.btpg .hdr .h1,.t2pg .hdr .h1{color:#1f3a5f}
-.btpg .bh,.t2pg .bh{background:#e5eff0!important;color:#000!important;border-bottom:.3mm solid #222}
-.btpg .ish{background:#e5eff0!important;border:.3mm solid #222;border-radius:0!important}
-.btpg .ftr,.t2pg .ftr{border:0!important;border-top:.25mm solid #555!important;font-style:italic}
-.t2pg .set,.btpg .bset{background:#1f3a5f!important}
-.bdr .t2h::before{inset:2.2mm;border:.8mm solid #000}.bdr .t2h::after{inset:3.6mm;border:.27mm solid #000}
-.t2pg.bdr .t2h{padding:7.5mm 8.5mm 7mm}
-.btpg.bdr .btop::before,.btpg.bdr .bbot::before{inset:1.8mm;border:.8mm solid #000}.btpg.bdr .btop::after,.btpg.bdr .bbot::after{inset:3.1mm;border:.27mm solid #000}
-.page.t2pg.bdr.bdr.bdr.bdr,.page.btpg.bdr.bdr.bdr.bdr{padding:0}
-.page.btpg.bdr .btop{padding:6.5mm 7.5mm 4.5mm}.page.btpg.bdr .bbot{padding:5.5mm 7.5mm 6mm}
+.btpg.sn .hdr,.t2pg.sn .hdr{background:var(--sd,#e5eff0);border:.3mm solid #222!important;padding:.7mm 2mm!important}
+.btpg.sn .hdr .h1,.t2pg.sn .hdr .h1{color:#1f3a5f}
+.btpg.sn .bh,.t2pg.sn .bh{background:#e5eff0!important;color:#000!important;border-bottom:.3mm solid #222}
+.btpg.sn .ish{background:#e5eff0!important;border:.3mm solid #222;border-radius:0!important}
+.btpg.sn .ftr,.t2pg.sn .ftr{border:0!important;border-top:.25mm solid #555!important;font-style:italic}
+.t2pg.sn .set,.btpg.sn .bset{background:#1f3a5f!important}
+.bdr.sn .t2h::before{inset:2.2mm;border:.8mm solid #000}.bdr.sn .t2h::after{inset:3.6mm;border:.27mm solid #000}
+.t2pg.sn.bdr .t2h{padding:7.5mm 8.5mm 7mm}
+.btpg.sn.bdr .btop::before,.btpg.sn.bdr .bbot::before{inset:1.8mm;border:.8mm solid #000}.btpg.sn.bdr .btop::after,.btpg.sn.bdr .bbot::after{inset:3.1mm;border:.27mm solid #000}
+.page.sn.t2pg.bdr.bdr.bdr.bdr,.page.sn.btpg.bdr.bdr.bdr.bdr{padding:0}
+.page.sn.btpg.bdr .btop{padding:6.5mm 7.5mm 4.5mm}.page.sn.btpg.bdr .bbot{padding:5.5mm 7.5mm 6mm}
 
 .page.blank .pf{display:none}
 .fitbar{border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin:0 0 12px;background:var(--soft)}
@@ -724,7 +724,7 @@ async function stepSettings(){
    +moBox('rep','🔁','Repeat and syllabus','پچھلے پیپرز والے سوال دوبارہ نہ آئیں، اور صرف اسمارٹ سلیبس کے سوال',lastNSel()+(smart?`<label class="tog"><input type="checkbox" data-opt="exd" ${S.exd?'checked':''}> ${bi('Smart Syllabus 2027 only (skip deleted questions)','اسمارٹ سلیبس 2027 (خارج سوالات نہیں)')}</label>`:''))
    +moBox('hdr','✏️','Name, title, teacher, date','پیپر کے اوپر ادارے کا نام، پیپر کا عنوان، استاد کا نام اور تاریخ',instField()+hdrText())
    +(two?'':moBox('size','📐','Paper size','پورا A4 صفحہ، یا آدھا صفحہ (ایک A4 پر دو پیپر)',sizeSel()))
-   +moBox('bord','🔲','Page border','صفحے کے گرد دوہرا بارڈر (موٹی اور باریک لائن) لگائیں یا ہٹائیں',bordSel())
+   +moBox('bord','🔲','Paper style: with / without borders','بارڈر والا نیا ڈیزائن یا بغیر بارڈر پرانا ڈیزائن چنیں',bordSel())
    +moBox('logo','🖼️','Logo on paper','پیپر پر اکیڈمی کا لوگو یا اپنا لوگو',logoSel())
    +moBox('font','🔤','Font','فونٹ خودکار ہے: اردو پیپر جمیل نوری نستعلیق میں، فونٹ کبھی چھوٹا نہیں ہوتا',`<p class="hint">${bi('Urdu papers always use Jameel Noori Nastaleeq. One font size for the whole paper; it never shrinks. To make the paper shorter or longer, use «Pages and sides».','اردو پیپر ہمیشہ جمیل نوری نستعلیق میں بنتا ہے۔ پورے پیپر میں ایک ہی فونٹ سائز، کبھی چھوٹا نہیں ہوتا۔ صفحات کم یا زیادہ کرنے کے لیے «Pages and sides» استعمال کریں۔')}</p>`)
    +moBox('preset','💾','Save these settings','یہ ترتیب نام سے محفوظ کریں، اگلی بار ایک ٹیپ میں لگ جائے گی',presetSave()))}
@@ -736,7 +736,7 @@ function hdrFields(t2){return hdrText()+(t2?'':sizeSel())+logoSel()}
 function hdrText(){return `<div class="ef"><label for="ttl">Paper title<span class="u">پیپر کا عنوان (اختیاری)</span></label><input class="inp" id="ttl" value="${esc(S.ttl||'')}" maxlength="60" placeholder="e.g. December Test">
   <label for="tch">Teacher name<span class="u">استاد کا نام (اختیاری)</span></label><input class="inp" id="tch" value="${esc(S.tch||'')}" maxlength="50">
   <label for="dstr">Date on paper<span class="u">تاریخ (اختیاری)</span></label><input class="inp" id="dstr" value="${esc(S.dstr||'')}" maxlength="30" placeholder="e.g. 20-11-2026"></div>`}
-function bordSel(P){const on=P?P.bord!==0:S.bord!==false;return `<div class="ef"><label>Page border<span class="u">صفحے کا بارڈر</span></label><div class="seg"><button type="button" class="ch" data-bord="1" aria-pressed="${on}"><b>Border on</b><span class="u">دوہرا بارڈر</span></button><button type="button" class="ch" data-bord="0" aria-pressed="${!on}"><b>Border off</b><span class="u">بغیر بارڈر</span></button></div></div>`}
+function bordSel(P){const on=P?P.bord!==0:S.bord!==false;return `<div class="ef"><label>Paper style<span class="u">پیپر کا ڈیزائن</span></label><div class="seg"><button type="button" class="ch" data-bord="1" aria-pressed="${on}"><b>With borders (new)</b><span class="u">بارڈر والا نیا ڈیزائن</span></button><button type="button" class="ch" data-bord="0" aria-pressed="${!on}"><b>Without borders (old)</b><span class="u">بغیر بارڈر، پرانا ڈیزائن</span></button></div></div>`}
 function sizeSel(){return `<div class="ef"><label>Paper size<span class="u">پیپر کا سائز</span></label><div class="seg"><button type="button" class="ch" data-half="0" aria-pressed="${!S.half}"><b>A4 full page</b><span class="u">پورا صفحہ</span></button><button type="button" class="ch" data-half="1" aria-pressed="${!!S.half}"><b>Half page</b><span class="u">آدھا صفحہ (ایک A4 پر 2)</span></button></div></div>`}
 function logoSel(){return `<div class="ef"><label>Logo on paper<span class="u">پیپر پر لوگو</span></label><div class="row"><label class="btn line" style="flex:1">🖼️ My logo<input type="file" id="logoIn" accept="image/*" hidden></label>${LS.get('ahsa-pm-logo',null)?`<button type="button" class="btn line" data-logodel style="flex:1">↩️ AHSA logo</button>`:''}</div>${LS.get('ahsa-pm-logo',null)?`<img src="${LS.get('ahsa-pm-logo','')}" alt="" style="width:56px;height:56px;border-radius:50%;margin-top:6px;object-fit:cover">`:''}</div>`}
 function presetSave(){return `<div class="ef" style="border-top:1px solid var(--line);padding-top:10px"><label for="pname">Save these settings as a preset<span class="u">یہ ترتیب محفوظ کریں</span></label><div class="srow"><input class="inp" id="pname" maxlength="40" placeholder="e.g. Class 10 Physics Monthly"><button type="button" class="btn line" data-psave>💾 Save</button></div></div>`}
@@ -830,6 +830,7 @@ function setData(P,set){ // returns sections with question objects (Set B = shuf
 const plain=s=>s.replace(/<[^>]+>/g,'');
 const qh=q=>q.i?`<img class="qimg" src="${q.i}" width="${Math.round(q.w*1.32)}" height="${Math.round(q.h*1.32)}" alt="">`:q.q;
 function blocks(P,set){
+  if(P.bord===0)return blocksOld(P,set); // «Without borders (old)» paper style: the earlier look, unchanged
   if(P.bp)return boardBlocks(P,set);
   const ur=P.m==='um', D=setData(P,set), [T,pm]=totals(P), B=[];
   B.push(phead(P,set,T,pm,''));
@@ -860,8 +861,60 @@ function chLine(P,ur){const chs=chsOf(P);if(!chs.length)return '';const u=(IDX&&
   return (ur?(one?'باب ':'ابواب '):(one?'Chapter ':'Chapters '))+rngTxt(chs,ur)+names}
 function clShort(c){return CL[c][0].replace(' (1st Year)','').replace(' (2nd Year)','')}
 function footTxt(P){const chs=chsOf(P),c=chs.length?'Ch '+rngTxt(chs):'';return [P.ctitle||P.title,SB[P.s][0]+' '+clShort(P.c),c.length<=26?c:''].filter(Boolean).join(' | ')}
-function pgTxt(i,n){return (PFT?PFT+' | ':'')+'Page '+(i+1)+(n>1?' of '+n:'')}
+function pgTxt(i,n){return BDR?(PFT?PFT+' | ':'')+'Page '+(i+1)+(n>1?' of '+n:''):`Page ${i+1} of ${n}`}
 function objMin(P,n){if(!n)return 0;const o=n<=12?15:n<=15?20:Math.ceil(n*1.25/5)*5;return o<P.time?o:0}
+function blocksOld(P,set){
+  if(P.bp)return boardBlocksOld(P,set);
+  const ur=P.m==='um', D=setData(P,set), [T,pm]=totals(P), B=[];
+  const chs=P.chs.slice().sort((a,b)=>a-b).filter(n=>n>0&&n<100);
+  B.push(pheadOld(P,set,T,pm,chs.length?(ur?'ابواب: '+chs.join('، '):'Chapters: '+chs.join(', ')):''));
+  let qn=0, sn=0; const nSec=['mcq','sq','lq','num'].filter(t=>D[t]&&D[t].length).length;
+  const sec=(en,u)=>{if(nSec<2)return;const L='ABCD'[sn],U=['اول','دوم','سوم','چہارم'][sn];sn++;B.push(`<div class="pt">${ur?`حصہ ${U} (${u})`:`SECTION ${L} · ${en}`}</div>`)};
+  const sw=(t,i)=>set==='A'?` data-sw="${t}|${i}"`:'';
+  const head=(t,en,u)=>{const c=D[t].length,mk=P.sec[t].mk;qn++;const ins=P.ins&&P.ins[t]?esc(P.ins[t]):(ur?u:en);return `<div class="sh"><span>${ur?`سوال نمبر ${qn}: ${ins}`:`Q.${qn} ${ins}`}</span><span dir="ltr">(${c} × ${mk} = ${c*mk})</span></div>`};
+  if(D.mcq.length){sec('OBJECTIVE','معروضی');B.push(head('mcq','Choose the correct option.','درست جواب کا انتخاب کریں۔'));
+    D.mcq.forEach((q,i)=>{const L=Math.max(...q.o.map(o=>plain(o).length));const cols=L<=16?'c4':L<=38?'c2':'c1';
+      B.push(`<div class="qi"${sw('mcq',i)}><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});}
+  B.split=B.length; // blocks before this = header + MCQs (page 1), from here = short/long/numericals (page 2)
+  if(D.sq.length){sec('SHORT QUESTIONS','مختصر سوالات');B.push(head('sq','Write short answers to the following questions.','درج ذیل سوالات کے مختصر جوابات تحریر کریں۔'));
+    D.sq.forEach((q,i)=>B.push(`<div class="qi"${sw('sq',i)}><span class="n">${ur?'('+(i+1)+')':(roman(i+1))}</span><div class="tx">${q.q}</div></div>`));}
+  if(D.lq.length){sec('LONG QUESTIONS','تفصیلی سوالات');B.push(head('lq','Answer the following questions in detail.','درج ذیل سوالات کے تفصیلی جوابات تحریر کریں۔'));
+    D.lq.forEach((q,i)=>B.push(`<div class="qi lqs"${sw('lq',i)}><span class="n">${ur?'('+(i+1)+')':(String.fromCharCode(97+i))+')'}</span><div class="tx">${q.q}</div></div>`));}
+  if(D.num&&D.num.length){sec('NUMERICALS','عددی سوالات');B.push(head('num','Solve the following numericals.','درج ذیل عددی سوالات حل کریں۔'));
+    D.num.forEach((q,i)=>B.push(`<div class="qi lqs"${sw('num',i)}><span class="n">${ur?'('+(i+1)+')':(String.fromCharCode(97+i))+')'}</span><div class="tx">${q.q}</div></div>`));}
+  return B;
+}
+function pheadOld(P,set,T,pm,foot){
+  const ur=P.m==='um', inst=esc(P.inst), isDef=P.inst===DEF_INST, ttl=P.ctitle?esc(P.ctitle):(ur?P.titleUr:P.title), ds=P.dstr?esc(P.dstr):'____________';
+  const lg=P.logo&&LS.get('ahsa-pm-logo',null)?LS.get('ahsa-pm-logo',''):'../assets/logo-96.webp';
+  return `<div class="ph"><div class="r1"><img src="${lg}" alt=""><div class="nm"><b>${inst}</b>${isDef?'<span class="u">الحسن سائنس اکیڈمی دلیوالی</span>':''}</div>${P.ab?`<span class="set">SET ${set}</span>`:''}</div>
+   <div class="r2">${ur?`<span class="u">${ttl} · ${SB[P.s][1]} · ${CL[P.c][1]}</span>`:`${ttl} · ${SB[P.s][0]} · ${CL[P.c][0]}`}</div>
+   ${P.teacher?`<div class="tch">${ur?'استاد':'Teacher'}: <b>${esc(P.teacher)}</b></div>`:''}
+   <div class="r3">${ur?`<span>وقت: ${fmtTimeUr(P.time)}</span><span>کل نمبر: ${T}</span><span>پاسنگ نمبر: ${pm}</span><span>تاریخ: ${ds}</span>`:`<span>Time: ${fmtTime(P.time)}</span><span>Total Marks: ${T}</span><span>Passing Marks: ${pm}</span><span>Date: ${ds}</span>`}</div>
+   <div class="r4">${ur?'<div>طالب علم کا نام:</div><div>رول نمبر:</div><div>حاصل کردہ نمبر:</div>':'<div>Student Name:</div><div>Roll No.:</div><div>Marks Obtained:</div>'}</div>
+   <div class="chs">${foot||''}</div></div>`}
+function boardBlocksOld(P,set){
+  const ur=P.m==='um', sc=SCH[P.bp.sc], D=boardData(P,set), [T,pm]=totals(P), B=[], A=set==='A';
+  const sw=p=>A?` data-sw="${p}"`:'';
+  B.push(pheadOld(P,set,T,pm,ur?'اسمارٹ سلیبس 2027 · پنجاب بورڈ پیئرنگ اسکیم کے مطابق':'As per Smart Syllabus 2027 · Punjab Boards pairing scheme'));
+  const nm=vsum(sc.mcq);
+  B.push(`<div class="pt">${ur?'حصہ اول (معروضی)':'PART – I (OBJECTIVE)'}</div>`);
+  B.push(`<div class="sh"><span>${ur?'سوال نمبر 1: درست جواب کا انتخاب کریں۔':'Q.1 Choose the correct option.'}</span><span dir="ltr">(${D.mcq.length} × 1 = ${D.mcq.length})</span></div>`);
+  D.mcq.forEach((q,i)=>{const L=Math.max(...q.o.map(o=>plain(o).length));const cols=L<=16?'c4':L<=38?'c2':'c1';
+    B.push(`<div class="qi"${sw('mcq|'+b_i(P,'mcq',q.id))}><span class="n">${i+1}.</span><div class="tx">${q.q}<div class="ops ${cols}">${q.o.map((o,j)=>`<span><b>(${'ABCD'[j]})</b>${o}</span>`).join('')}</div></div></div>`)});
+  B.split=B.length;
+  B.push(`<div class="pt">${ur?'حصہ دوم (انشائیہ / مختصر سوالات)':'PART – II (SUBJECTIVE · SHORT QUESTIONS)'}</div>`);
+  D.sq.forEach((g,gi)=>{const a=sc.sq[gi].a;
+    B.push(`<div class="sh"><span>${ur?`سوال نمبر ${gi+2}: کوئی سے ${W_UR[a]} (${a}) سوالات کے مختصر جوابات لکھیں۔`:`Q.${gi+2} Write short answers to any ${W_EN[a].toUpperCase()} (${a}) questions.`}</span><span dir="ltr">(${a} × 2 = ${a*2})</span></div>`);
+    g.forEach((q,i)=>B.push(`<div class="qi"${sw('sq|'+gi+'|'+P.bp.sq[gi].indexOf(q.id))}><span class="n">${ur?'('+(i+1)+')':roman(i+1)}</span><div class="tx">${q.q}</div></div>`))});
+  const q0=sc.sq.length+2, n1=sc.lq.q.length;
+  B.push(`<div class="pt">${ur?'حصہ سوم (تفصیلی سوالات)':'PART – III (LONG QUESTIONS)'}</div>`);
+  D.lq.forEach((parts,qi)=>{const oi=parts.qi, L=lgOf(sc,qi);
+    if(qi===0||qi===n1){const lm=L.mk.reduce((x,y)=>x+y,0),one=L.a===1;B.push(`<div class="sh"><span>${ur?`نوٹ: کوئی سے ${W_UR[L.a]} (${L.a}) ${one?'سوال کا جواب لکھیں۔':'سوالات کے جوابات لکھیں۔'}`:`Note: Attempt any ${W_EN[L.a].toUpperCase()} (${L.a}) question${one?'':'s'}.`}</span><span dir="ltr">(${L.a} × ${lm} = ${L.a*lm})</span></div>`)}
+    parts.forEach((q,pi)=>{if(!q)return;const lab=parts.length>1?(ur?['(الف)','(ب)'][pi]:['(a)','(b)'][pi]):'';
+      B.push(`<div class="qi lqs"${sw('lq|'+oi+'|'+pi)}><span class="n">${pi===0?(ur?`سوال ${q0+qi}:`:`Q.${q0+qi}`):''} ${lab}</span><div class="tx">${q.q}</div><span class="pm" dir="ltr">(${L.mk[pi]})</span></div>`)})});
+  return B;
+}
 function phead(P,set,T,pm,foot){
   const ur=P.m==='um', inst=esc(P.inst), isDef=P.inst===DEF_INST, ttl=P.ctitle?esc(P.ctitle):(ur?P.titleUr:P.title);
   const lg=P.logo&&LS.get('ahsa-pm-logo',null)?LS.get('ahsa-pm-logo',''):'../assets/logo-96.webp';
@@ -880,11 +933,12 @@ function mcqW(qs,ur){ // math options cannot wrap: widen the option columns to f
 function mcqHead(ur,bar,w){return `<div class="sh shm"><div class="shb">${bar}</div><div class="mr mh"${w||''}><span class="mn">${ur?'نمبر':'No.'}</span><div class="mq">${ur?'سوالات':'Questions'}</div>${'ABCD'.split('').map(l=>`<div class="mo">(${l})</div>`).join('')}</div></div>`}
 function mcqRow(q,i,sw,w){const o=q.o.slice();while(o.length<4)o.push('');const L=Math.max(...o.map(x=>plain(x.replace(/<annotation[\s\S]*?<\/annotation>/g,'')).length*(/<math/.test(x)?1.7:1)));return `<div class="qi mr${i%2?' z':''}${L<=8?' o4':''}"${w||''}${sw}><span class="mn">${i+1}</span><div class="mq"><span>${q.q}</span></div>${o.map((x,j)=>`<div class="mo"><span>${x?`<b class="ml">(${'ABCD'[j]})</b>${x}`:''}</span></div>`).join('')}</div>`}
 function eopB(ur){return `<div class="eop">${ur?'*** پیپر ختم ***':'*** End of Paper ***'}</div>`}
+function keyHead(P){return P.bord===0?`<div class="ph"><div class="r1"><img src="../assets/logo-96.webp" alt=""><div class="nm"><b>${esc(P.inst)}</b></div></div><div class="r2">Answer Key · ${P.title} · ${SB[P.s][0]} · ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div>`:`<div class="ph"><div class="tb"><img src="../assets/logo-96.webp" alt=""><div class="tc"><div class="in">${esc(P.inst)}</div><div class="t1">ANSWER KEY</div><div class="t3">${esc(P.ctitle||P.title)} • ${SB[P.s][0]} • ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div></div></div>`}
 function roman(n){const m=[[10,'x'],[9,'ix'],[5,'v'],[4,'iv'],[1,'i']];let s='';for(const[v,r]of m)while(n>=v){s+=r;n-=v}return '('+s+')'}
 function keyBlocks(P){
   if(P.bp)return boardKey(P);
   const B=[], sets=P.ab?['A','B']:['A'];
-  B.push(`<div class="ph"><div class="tb"><img src="../assets/logo-96.webp" alt=""><div class="tc"><div class="in">${esc(P.inst)}</div><div class="t1">ANSWER KEY</div><div class="t3">${esc(P.ctitle||P.title)} • ${SB[P.s][0]} • ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div></div></div>`);
+  B.push(keyHead(P));
   sets.forEach(s=>{const D=setData(P,s);
     B.push(`<div class="kt">${P.ab?'Set '+s+' · ':''}MCQs Answer Key</div>`);
     if(D.mcq.length)B.push(`<div class="kg">${D.mcq.map((q,i)=>`<span>${i+1} · ${'ABCD'[q.a]}</span>`).join('')}</div>`);
@@ -895,7 +949,7 @@ function keyBlocks(P){
 }
 function paginate(B,rtl,half,o={}){ // fills A4 (or half-A4) pages in #stage, returns page elements; o.cls = spacing level, o.gap = answer space after every question (px)
   const st=$('#stage'); st.innerHTML=''; const pages=[];
-  const mk=()=>{const p=document.createElement('div');p.className='page'+(half?' half':'')+(o.cls?' '+o.cls:'')+bc();if(rtl){p.dir='rtl';p.lang='ur'}p.innerHTML='<div class="body"></div><div class="pf"><span class="pg"></span></div>';st.appendChild(p);pages.push(p);return p};
+  const mk=()=>{const p=document.createElement('div');p.className='page'+(half?' half':'')+(o.cls?' '+o.cls:'')+bc();if(rtl){p.dir='rtl';p.lang='ur'}p.innerHTML='<div class="body"></div>'+pfH();st.appendChild(p);pages.push(p);return p};
   let p=mk(),body=p.querySelector('.body'); const cs=getComputedStyle(p), full=p.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(half?26:30), lim=o.lim||full; paginate.lim=full;
   B.forEach((h,i)=>{const t=document.createElement('div');t.innerHTML=h;const el=t.firstElementChild;el.dataset.bi=(o.off||0)+i;if(o.gap&&el.matches('.qi,.bq')&&!el.matches('.mr'))el.style.marginBottom=o.gap+'px';body.appendChild(el);
     if(el.classList.contains('eop')&&body.getBoundingClientRect().height>lim){el.remove();return}
@@ -914,14 +968,14 @@ function paginate(B,rtl,half,o={}){ // fills A4 (or half-A4) pages in #stage, re
 const fitOf=P=>{const f=P&&P.fit!=null?P.fit:'a';if(f==='a'||!f)return 'a';if(f==='x')return 'x';const n=+f;return n===1?1:n===2?2:'x'}; // a = smart (1 page if it fits, else MCQs page + questions page), 1 = whole paper on 1 page, 2 = MCQs page + questions page, x = more pages (free)
 const sidesOf=P=>P&&+P.sides?+P.sides:((P&&(P.tpl==='bt'||P.tpl==='t2'))?2:1);
 const blankPg=(cls)=>`<div class="page ${cls||''} blank"><div class="body"></div><div class="pf"></div></div>`;
-let FITI=null, BDR=true, PFT=''; const bc=()=>BDR?' bdr':''; // page border on/off, footer text // last paper layout: {mode:'one'|'sec'|'x', want, got, over:[all|mcq|sub], max:{mcq,sq,lq,num}, bp}
+let FITI=null, BDR=true, PFT=''; const bc=()=>BDR?' bdr sn':'', pfH=()=>BDR?'<div class="pf"><span class="pg"></span></div>':'<div class="pf"><span>AHSA Auto Paper Maker · shakeelh23-sys.github.io/ahsa</span><span class="pg"></span></div>'; // page border on/off, footer text // last paper layout: {mode:'one'|'sec'|'x', want, got, over:[all|mcq|sub], max:{mcq,sq,lq,num}, bp}
 const FITL=['','tg1','tg2','tg3'];
 // one-page layouts, most comfortable first: spacing level + columns + margins (the font size never changes)
 const PLV=[['',1],['tg1',1],['tg2',1],['tg1',2],['tg2',2],['tg3',2],['tg3 tm',2]];
 function onePage(B,rtl,half,lv,off){ // every block on ONE page at layout lv; the page element, or null when something would go outside the page
   const st=$('#stage');st.innerHTML='';const [cls,cols]=PLV[lv];
   const p=document.createElement('div');p.className='page'+(half?' half':'')+(cls?' '+cls:'')+(cols===2?' cols2':'')+bc();if(rtl){p.dir='rtl';p.lang='ur'}
-  p.innerHTML='<div class="body"></div><div class="pf"><span class="pg"></span></div>';st.appendChild(p);
+  p.innerHTML='<div class="body"></div>'+pfH();st.appendChild(p);
   const body=p.querySelector('.body'),cs=getComputedStyle(p),lim=p.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(half?26:30);
   body.style.height=Math.floor(lim)+'px';
   B.forEach((h,i)=>{const t=document.createElement('div');t.innerHTML=h;const el=t.firstElementChild;el.dataset.bi=(off||0)+i;body.appendChild(el)});
@@ -1209,7 +1263,7 @@ function paperView(){
   </div>
   <p class="hint">${bi('Print gives a PDF with selectable text (choose «Save as PDF» in the print window).','«Print» سے کاپی ہونے والے ٹیکسٹ کی PDF بھی بن جاتی ہے (پرنٹ ونڈو میں «Save as PDF» چنیں)۔')}</p>
   ${moBox('pfit','📄','Pages and sides','پیپر کتنے صفحات پر آئے، اور کاغذ کی ایک طرف یا دونوں طرف چھپے',fitBar(P))}
-  ${moBox('pbord','🔲','Page border','صفحے کے گرد دوہرا بارڈر لگائیں یا ہٹائیں',bordSel(P))}
+  ${moBox('pbord','🔲','Paper style: with / without borders','بارڈر والا نیا ڈیزائن یا بغیر بارڈر پرانا ڈیزائن چنیں',bordSel(P))}
   <div class="acts"><div class="full agl">🛠️ Change the paper <span class="u">پیپر میں تبدیلی</span></div>
    <button class="btn ${EDM?'gold':'line'} full" data-act="edm" type="button">${EDM?'✓ Done editing · ایڈٹ مکمل':'✏️ Edit paper · پیپر میں تبدیلی'}</button>
    <button class="btn ${SWM?'gold':'line'}" data-act="swm" type="button">${SWM?'✓ Done · ہو گیا':'⇄ Change one question'}</button>
@@ -1367,7 +1421,7 @@ function stepBoard(){
    +moBox('rep','🔁','Do not repeat questions','پچھلے پیپرز والے سوال دوبارہ نہ آئیں',lastNSel())
    +moBox('hdr','✏️','Name, title, teacher, date','پیپر کے اوپر ادارے کا نام، پیپر کا عنوان، استاد کا نام اور تاریخ',instField()+hdrText())
    +moBox('size','📐','Paper size','پورا A4 صفحہ، یا آدھا صفحہ (ایک A4 پر دو پیپر)',sizeSel())
-   +moBox('bord','🔲','Page border','صفحے کے گرد دوہرا بارڈر (موٹی اور باریک لائن) لگائیں یا ہٹائیں',bordSel())
+   +moBox('bord','🔲','Paper style: with / without borders','بارڈر والا نیا ڈیزائن یا بغیر بارڈر پرانا ڈیزائن چنیں',bordSel())
    +moBox('logo','🖼️','Logo on paper','پیپر پر اکیڈمی کا لوگو یا اپنا لوگو',logoSel()))}
   <div class="nav2"><button class="btn line" data-step="4" type="button">${BK}</button><button class="btn gold" id="genBtn" type="button">✨ Make Board Paper<span class="u">پیپر بنائیں</span></button></div>`;
 }
@@ -1441,7 +1495,7 @@ function boardBlocks(P,set){
 function b_i(P,t,id){return P.bp[t].indexOf(id)}
 function boardKey(P){
   const B=[], sets=P.ab?['A','B']:['A'], sc=SCH[P.bp.sc];
-  B.push(`<div class="ph"><div class="tb"><img src="../assets/logo-96.webp" alt=""><div class="tc"><div class="in">${esc(P.inst)}</div><div class="t1">ANSWER KEY</div><div class="t3">${esc(P.ctitle||P.title)} • ${SB[P.s][0]} • ${CL[P.c][0]} (${P.m.toUpperCase()})</div></div></div></div>`);
+  B.push(keyHead(P));
   sets.forEach(s=>{const D=boardData(P,s);
     B.push(`<div class="kt">${P.ab?'Set '+s+' · ':''}Q.1 MCQs Answer Key</div>`);
     B.push(`<div class="kg">${D.mcq.map((q,i)=>`<span>${i+1} · ${'ABCD'[q.a]}</span>`).join('')}</div>`);
@@ -1563,6 +1617,12 @@ async function makeDocx(P){
     box.childNodes.forEach((el,ix)=>{if(el.nodeType!==1)return;const pb=blk[ix]&&blk[ix][1];const cl=el.classList;
       if(!cl.contains('mr'))flush();
       if(blk[ix]&&blk[ix][2])kids.push(para([tr('')],{pageBreakBefore:true})); // blank back side
+      if(cl.contains('ph')&&!el.querySelector('.tb')){const lg=el.querySelector('.r1 img');const nm=el.querySelector('.nm');
+        kids.push(para([...(lg?runs({childNodes:[lg]}):[]),tr(' '),...[...nm.children].flatMap((c,i)=>[...(i?[new X.TextRun({break:1})]:[]),...runs(c,{bold:true,size:SZ+(i?2:8)})]),...(el.querySelector('.set')?[tr('   '+el.querySelector('.set').textContent,{bold:true})]:[])],{alignment:AL.CENTER,pageBreakBefore:pb}));
+        ['.r2','.tch','.r3','.r4','.chs'].forEach(q=>{const e=el.querySelector(q);if(!e||!e.textContent.trim())return;
+          const parts=[...e.children].length&&q!=='.r2'&&q!=='.tch'?[...e.children].map(c=>c.textContent.trim()+(q==='.r4'?' ____________':'')).join('     '):e.textContent.trim();
+          kids.push(para([tr(parts,{bold:q==='.r2'})],{alignment:AL.CENTER}))});
+        kids.push(para([tr('')],{border:{bottom:{style:X.BorderStyle.SINGLE,size:8,color:'333333',space:1}}}));return}
       if(cl.contains('ph')){const tb=el.querySelector('.tb'),ht=el.querySelector('.ht');if(pb)kids.push(para([],{pageBreakBefore:true,spacing:{after:0}}));
         if(tb){const lg=tb.querySelector('img'),set=tb.querySelector('.set'),ps=[];
           const ln=(q,o)=>{const e=tb.querySelector(q);if(e&&e.textContent.trim())ps.push(cellP(runs(e,o)))};
@@ -1573,6 +1633,7 @@ async function makeDocx(P){
           const hr=[...ht.querySelectorAll('.hr')];
           kids.push(tbl(hr.map((r,i)=>new X.TableRow({children:[cell([cellP(tabbed(r),{alignment:ur?AL.RIGHT:AL.LEFT,tabStops:r.children.length===2?[TS[1]]:TS,spacing:{before:50,after:50}})],100,{borders:{top:i?NB:BL,bottom:i===0||i===hr.length-1?BL:NB,left:BL,right:BL}})]})),{borders:{top:BL,bottom:BL,left:BL,right:BL,insideHorizontal:NB,insideVertical:NB}}))}
         kids.push(para([tr('')],{spacing:{after:0,line:160}}));return}
+      if(cl.contains('sh')&&!BDR){kids.push(para([...el.children].map((c,i)=>tr((i?'   ':'')+c.textContent.trim(),{bold:true})),{spacing:{before:160,after:80},pageBreakBefore:pb}));return}
       if(cl.contains('sh')){const bar=cl.contains('shm')?el.querySelector('.shb'):el;
         kids.push(para(tabbed(bar,{bold:true}),{tabStops:[TS[1]],shading:SH,border:{top:BL,bottom:BL,left:BL,right:BL},spacing:{before:140,after:80},pageBreakBefore:pb,keepNext:true}));
         if(cl.contains('shm')){const h=el.querySelector('.mr');rw=h;rows=[mrow(h,true)]}return}
@@ -1583,13 +1644,13 @@ async function makeDocx(P){
         const ops=el.querySelector('.ops');if(ops)kids.push(para([...ops.children].flatMap((o,j)=>{const c=o.cloneNode(true),bb=c.querySelector('b');const lb=bb?bb.textContent:'';if(bb)bb.remove();return [...(j?[tr('      ')]:[]),tr(lb+' ',{bold:true}),...runs(c)]}),{indent:{start:360}}));return}
       if(cl.contains('kg')){kids.push(para([tr([...el.children].map(c=>c.textContent).join('    '))]));return}
       if(!el.textContent.trim()&&!el.querySelector('img'))return;
-      const ct=cl.contains('pt')||cl.contains('kt');
-      kids.push(para(runs(el,{bold:ct}),{pageBreakBefore:pb,alignment:ct?AL.CENTER:(ur?AL.RIGHT:AL.LEFT),spacing:{before:ct?140:0,after:60}}))});
+      const ct=BDR&&(cl.contains('pt')||cl.contains('kt'));
+      kids.push(para(runs(el,{bold:cl.contains('pt')||cl.contains('kt')}),{pageBreakBefore:pb,alignment:ct?AL.CENTER:(ur?AL.RIGHT:AL.LEFT),spacing:{before:cl.contains('pt')||cl.contains('kt')?140:0,after:60}}))});
     flush();
     const PB={style:X.BorderStyle.THICK_THIN_SMALL_GAP,size:24,color:'000000',space:24};
     const foot=new X.Footer({children:[new X.Paragraph({alignment:AL.CENTER,children:[new X.TextRun({text:(PFT?PFT+' | ':'')+'Page ',italics:true,size:18,font:'Times New Roman'}),new X.TextRun({children:[X.PageNumber.CURRENT],italics:true,size:18,font:'Times New Roman'})]})]});
     const doc=new X.Document({creator:'AHSA Auto Paper Maker',title:P.ctitle||P.title,styles:{default:{document:{run:{font:FONT,size:SZ}}}},
-      sections:[{properties:{page:{size:P.half?{width:11906,height:8419,orientation:X.PageOrientation.LANDSCAPE}:{width:11906,height:16838},margin:BDR?(P.half?{top:700,bottom:900,left:1000,right:1000,footer:420}:{top:1020,bottom:1400,left:1105,right:1105,footer:1000}):{top:720,bottom:900,left:720,right:720,footer:400},...(BDR?{borders:{pageBorders:{display:X.PageBorderDisplay.ALL_PAGES,offsetFrom:X.PageBorderOffsetFrom.PAGE,zOrder:X.PageBorderZOrder.FRONT},pageBorderTop:PB,pageBorderBottom:PB,pageBorderLeft:PB,pageBorderRight:PB}}:{})}},footers:{default:foot},children:kids}]});
+      sections:[{properties:{page:{size:P.half?{width:11906,height:8419,orientation:X.PageOrientation.LANDSCAPE}:{width:11906,height:16838},margin:BDR?(P.half?{top:700,bottom:900,left:1000,right:1000,footer:420}:{top:1020,bottom:1400,left:1105,right:1105,footer:1000}):{top:720,bottom:900,left:720,right:720,footer:400},...(BDR?{borders:{pageBorders:{display:X.PageBorderDisplay.ALL_PAGES,offsetFrom:X.PageBorderOffsetFrom.PAGE,zOrder:X.PageBorderZOrder.FRONT},pageBorderTop:PB,pageBorderBottom:PB,pageBorderLeft:PB,pageBorderRight:PB}}:{})}},...(BDR?{footers:{default:foot}}:{}),children:kids}]});
     return await X.Packer.toBlob(doc);
   }finally{busy(false)}
 }
